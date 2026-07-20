@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02 法規盤點對照表｜個資法法令遵循工具箱</title>
+<style>
+:root{
+  --ink:#16233A;--ink-2:#3A4A64;--muted:#6B7789;
+  --rule:#D3DAE3;--rule-soft:#E6EAF0;--field:#EDF1F6;--paper:#FFFFFF;
+  --seal:#A8322D;--seal-soft:#F5E9E8;--amber:#8A5A12;--amber-soft:#FBF2E0;
+  --serif:"Noto Serif TC","Songti TC","Source Han Serif TC","PMingLiU",serif;
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",sans-serif;
+  --mono:ui-monospace,"SF Mono","Roboto Mono","Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--field);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px 80px}
+header.top{border-bottom:1px solid var(--rule);background:var(--paper)}
+header.top .inner{max-width:1240px;margin:0 auto;padding:22px 20px 18px}
+.eyebrow{font-size:12px;letter-spacing:.22em;color:var(--muted);margin:0 0 6px}
+.eyebrow a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
+h1{font-family:var(--serif);font-size:26px;font-weight:600;margin:0 0 8px;letter-spacing:.02em}
+.sub{margin:0;color:var(--ink-2);font-size:13.5px}
+.usage{max-width:1240px;margin:0 auto;padding:16px 20px 0}
+.usage p{background:var(--paper);border:1px solid var(--rule);border-left:3px solid var(--ink);padding:14px 18px;margin:0;font-size:13px;line-height:1.9;color:var(--ink-2)}
+.usage p b{color:var(--ink)}
+.cols{display:grid;grid-template-columns:280px 1fr;gap:26px;align-items:start;margin-top:26px}
+@media(max-width:940px){.cols{grid-template-columns:1fr}}
+.side{background:var(--paper);border:1px solid var(--rule);padding:18px 18px 22px;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
+@media(max-width:940px){.side{position:static;max-height:none}}
+.side h2{font-family:var(--serif);font-size:15px;font-weight:600;margin:0 0 10px}
+.side h3{font-size:12px;letter-spacing:.1em;color:var(--muted);margin:0 0 8px;font-weight:400}
+input[type=search]{width:100%;font-family:var(--sans);font-size:14px;padding:9px 10px;border:1px solid var(--rule);background:#fff;color:var(--ink);border-radius:0;-webkit-appearance:none}
+input[type=search]:focus,button:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.count{font-size:12px;color:var(--muted);margin:8px 0 18px;font-family:var(--mono)}
+.count b{color:var(--seal)}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:18px}
+.chip{font-family:var(--sans);font-size:12px;padding:4px 9px;border:1px solid var(--rule);background:#fff;color:var(--ink-2);cursor:pointer}
+.chip:hover{border-color:var(--ink-2)}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.side .reset{font-size:12.5px;padding:7px 12px;border:1px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;font-family:var(--sans)}
+.standing{margin-top:20px;border-top:1px solid var(--rule-soft);padding-top:14px}
+.standing p{font-size:12px;color:var(--muted);line-height:1.85;margin:0 0 8px}
+.standing p:last-child{margin:0}
+.standing b{color:var(--seal)}
+main{min-width:0}
+.org{background:var(--paper);border:1px solid var(--rule);margin-bottom:14px;scroll-margin-top:16px}
+.org:target{border-color:var(--amber);box-shadow:inset 3px 0 0 var(--amber)}
+.org>.hd{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:15px 24px 13px;border-bottom:1px solid var(--rule)}
+.org.none>.hd{border-bottom:0}
+.org .nm{font-family:var(--serif);font-size:16.5px;font-weight:600}
+.org .nm .no{font-family:var(--mono);font-size:12px;color:var(--seal);margin-right:11px;letter-spacing:.06em}
+.org .rt{display:flex;gap:8px;align-items:baseline;white-space:nowrap}
+.org .qty{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.org .lk{font-family:var(--mono);font-size:11px;color:var(--muted);background:none;border:1px solid var(--rule);padding:2px 7px;cursor:pointer}
+.org .lk:hover{border-color:var(--ink-2);color:var(--ink)}
+ol.laws{margin:0;padding:6px 24px 16px;list-style:none;counter-reset:l}
+ol.laws li{counter-increment:l;position:relative;padding:8px 0 8px 34px;border-bottom:1px solid var(--rule-soft);font-size:14px;line-height:1.75}
+ol.laws li:last-child{border-bottom:0}
+ol.laws li::before{content:counter(l,decimal-leading-zero);position:absolute;left:0;top:9px;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+ol.laws li a{text-decoration:none;border-bottom:1px solid var(--rule)}
+ol.laws li a:hover{border-bottom-color:var(--ink);color:var(--seal)}
+ol.laws li a::after{content:" ↗";font-family:var(--mono);font-size:11px;color:var(--muted);border:0}
+.org .empty{padding:0 24px 15px;font-size:13px;color:var(--muted)}
+mark{background:#FCEFA8;color:inherit;padding:0 1px}
+.nores{background:var(--paper);border:1px solid var(--rule);padding:50px 26px;text-align:center;color:var(--muted);font-size:14px}
+.foot{margin-top:26px;background:#FAFBFC;border:1px solid var(--rule);padding:20px 26px 24px}
+.foot p{margin:0 0 8px;font-size:12px;color:var(--muted);line-height:1.85}
+.foot p:last-child{margin-bottom:0}
+.foot b{color:var(--ink-2)}
+@media print{
+  body{background:#fff;font-size:10.5pt}
+  header.top,.side,.lk,.noprint{display:none!important}
+  .cols{display:block}
+  .wrap{max-width:none;padding:0}
+  .org{break-inside:avoid;border:0;border-bottom:1px solid #ccc;margin:0}
+  ol.laws li a::after{content:""}
+  a{text-decoration:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner">
+    <p class="eyebrow"><a href="index.html">個人資料保護法法令遵循工具箱</a>　／　文件 02　·　v1.1</p>
+    <h1>法規盤點對照表</h1>
+    <p class="sub">三十個主管機關轄下之個人資料保護法規命令清冊，含全國法規資料庫連結</p>
+  </div>
+</header>
+
+<div class="usage">
+  <p><b>使用說明</b>　本表僅收錄個資法及其授權訂定之法規命令，不含各業別之勞動、醫療、金融等專業法規。
+  找到貴機構適用之辦法後，取得全文並搭配
+  <a href="table-03.html">03 生命週期主表</a>（日常法令遵循）或
+  <a href="incident.html">個資事故應對底稿產生器</a>（事故應變）進行逐條差異比對，
+  差異標記為 ○同基底 ／ ＋加嚴 ／ △豁免 ／ ★新增義務 ／ —不適用。
+  當事人權利行使無業別差異，不需要使用本表。</p>
+</div>
+
+<div class="wrap">
+<div class="cols">
+
+  <aside class="side noprint">
+    <h2>搜尋與篩選</h2>
+    <input type="search" id="q" placeholder="輸入機關或法規名稱" aria-label="搜尋">
+    <p class="count" id="count"></p>
+
+    <h3>顯示範圍</h3>
+    <div class="chips">
+      <button class="chip on" id="f-all">全部機關</button>
+      <button class="chip" id="f-has">僅已訂定辦法者</button>
+    </div>
+
+    <button class="reset" id="reset">清除全部條件</button>
+
+    <div class="standing">
+      <h3>盤點原則</h3>
+      <p><b>已廢止者不列入。</b>法規名稱含「電腦處理」者，均屬已廢止之舊法，任何盤點表均不得列入。</p>
+      <p><b>草案不列入。</b>尚在預告或審議中之草案不列入本表，必要時僅於備註說明。</p>
+      <p><b>連結以現行版本為準。</b>本表連結指向全國法規資料庫，內容以查詢當時之現行有效版本為準。</p>
+    </div>
+  </aside>
+
+  <main id="out"></main>
+</div>
+
+<div class="foot">
+  <p><b>依據版本</b>　個人資料保護法：現行有效條文（114.11.11 修正條文施行日期由行政院定之，尚未施行）。各法規命令以全國法規資料庫查詢當時之現行有效版本為準。</p>
+  <p><b>收錄範圍</b>　本表僅收錄個資法及其授權訂定之法規命令。各業別之勞動、醫療、金融、電信等專業法規，縱含個人資料相關規定，亦不在收錄範圍。</p>
+  <p><b>未訂定辦法之機關</b>　序號 22 至 30 之機關尚未訂定個人資料檔案安全維護辦法。所轄非公務機關仍應依個資法第 27 條第 1 項採行適當安全措施；如經該機關依同條第 2 項個別指定，則以指定文件所載義務為準。</p>
+  <p><b>免責聲明</b>　本表為法令遵循參考資料，不構成法律意見。具體個案請諮詢法律專業人士。</p>
+  <p>個人資料保護法法令遵循工具箱（Global CBPR 對照版）／文件 02　作者：蔡易融　授權：CC BY-NC-SA 4.0　·　工具箱版本 v1.1</p>
+</div>
+</div>
+
+<script>
+/* ============================================================
+   ★★★ 要修改法規清單，只需要改下面這一段 ★★★
+   每一筆：{ 序:序號, 機關:"名稱", key:"網址錨點", 法規:[["名稱","連結"], ...] }
+   尚未訂定辦法者，法規寫 []
+   ============================================================ */
+
+const 清冊 = [
+{序:1, 機關:"行政院", key:"ey", 法規:[
+  ["行政院及所屬各機關落實個人資料保護聯繫作業要點","https://ws.pdpc.gov.tw/FS01/FilePath/3/relfile/24/42/99f11f16-c129-4335-a87e-4af52269a02b.pdf"]]},
+{序:2, 機關:"個人資料保護委員會籌備處", key:"pdpc", 法規:[
+  ["個人資料保護法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=I0050021"],
+  ["個人資料保護法施行細則","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=I0050022"],
+  ["個人資料保護法之特定目的及個人資料之類別","https://law.pdpc.gov.tw/LawContent.aspx?id=FL010631"]]},
+{序:3, 機關:"經濟部", key:"moea", 法規:[
+  ["電業與公用天然氣事業及加油站業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0130066"],
+  ["製造業及技術服務業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0030130"],
+  ["零售業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0080062"],
+  ["自來水事業個人資料檔案安全維護計畫標準辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0110089"],
+  ["著作權集體管理團體個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0070050"]]},
+{序:4, 機關:"財政部", key:"mof", 法規:[
+  ["報關業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=G0350077"],
+  ["保稅倉庫及物流中心個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=G0350076"],
+  ["記帳士與記帳及報稅代理人個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=G0340165"],
+  ["菸酒事業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=G0330036"],
+  ["公益彩券發行機構個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=G0320033"]]},
+{序:5, 機關:"交通部", key:"motc", 法規:[
+  ["汽車運輸業與計程車客運服務業個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0110047"],
+  ["民用航空事業個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0090080"],
+  ["船舶運送業個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0070073"],
+  ["觀光產業類非公務機關個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0110048"],
+  ["停車場經營業個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0040071"],
+  ["交通部指定氣象產業類非公務機關個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0100010"],
+  ["郵政業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0050023"]]},
+{序:6, 機關:"數位發展部", key:"moda", 法規:[
+  ["數位經濟相關產業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0010162"],
+  ["電信事業個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0060107"]]},
+{序:7, 機關:"文化部", key:"moc", 法規:[
+  ["電影事業個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=P0040017"]]},
+{序:8, 機關:"農業部", key:"moa", 法規:[
+  ["農藥販賣業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=M0140049"],
+  ["農業金融業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=M0070067"]]},
+{序:9, 機關:"衛生福利部", key:"mohw", 法規:[
+  ["醫院個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0020218"],
+  ["精神復健機構個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0020215"],
+  ["護理機構個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0020214"],
+  ["私立長期照顧服務機構個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0070060"],
+  ["社會福利機構個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0050210"],
+  ["社會福利財團法人個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0050215"],
+  ["西藥批發零售業個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0030108"],
+  ["中藥批發零售業個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0030139"],
+  ["化粧品批發零售業個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0030138"],
+  ["醫療器材批發零售業個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0030137"],
+  ["非輻射電子醫療器材設備製造業個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0030136"],
+  ["食品業個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0040143"]]},
+{序:10, 機關:"內政部", key:"moi", 法規:[
+  ["內政部指定交友服務業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0030036"],
+  ["內政部指定營建類非公務機關個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0070299"],
+  ["內政部指定政黨及全國性民政財團法人個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0020087"],
+  ["內政部指定祭祀團體個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0020086"],
+  ["內政部指定宗教團體個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0020088"],
+  ["內政部指定地政類非公務機關個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0060136"],
+  ["內政部指定合作及人民團體類非公務機關個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0020085"],
+  ["內政部指定殯葬服務業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0020076"],
+  ["內政部指定移民業務機構個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0080198"],
+  ["內政部指定警政類非公務機關個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0080210"]]},
+{序:11, 機關:"勞動部", key:"mol", 法規:[
+  ["私立職業訓練機構個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0080048"],
+  ["人力供應業個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0020023"],
+  ["人力仲介業個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0090045"]]},
+{序:12, 機關:"教育部", key:"moe", 法規:[
+  ["短期補習班個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0080088"],
+  ["私立兒童課後照顧服務中心個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0080099"],
+  ["私立高級中等以下學校及幼兒園個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070072"],
+  ["私立專科以上學校及私立學術研究機構個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0030056"],
+  ["海外臺灣學校及大陸地區臺商學校個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0110008"]]},
+{序:13, 機關:"金融監督管理委員會", key:"fsc", 法規:[
+  ["金融監督管理委員會指定非公務機關個人資料檔案安全維護辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=G0380233"]]},
+{序:14, 機關:"大陸委員會", key:"mac", 法規:[
+  ["大陸委員會指定非公務機關個人資料檔案安全維護辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=Q0010012"]]},
+{序:15, 機關:"僑務委員會", key:"ocac", 法規:[
+  ["僑務委員會指定特定非公務機關個人資料檔案安全維護辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=E0040029"]]},
+{序:16, 機關:"核能安全委員會", key:"nusc", 法規:[
+  ["游離輻射設備製造業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0160083"]]},
+{序:17, 機關:"行政院公共工程委員會", key:"pcc", 法規:[
+  ["工程技術顧問業個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0070242"]]},
+{序:18, 機關:"中央銀行", key:"cbc", 法規:[
+  ["票據交換所個人資料檔案安全維護計畫標準辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=G0430010"]]},
+{序:19, 機關:"公平交易委員會", key:"ftc", 法規:[
+  ["多層次傳銷業訂定個人資料檔案安全維護計畫及業務終止後個人資料處理方法作業辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0150015"]]},
+{序:20, 機關:"國家通訊傳播委員會", key:"ncc", 法規:[
+  ["國家通訊傳播委員會指定非公務機關個人資料檔案安全維護辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0060104"]]},
+{序:21, 機關:"運動部", key:"moS", 法規:[
+  ["運動彩券業個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0120077"]]},
+{序:22, 機關:"法務部", key:"moj", 法規:[]},
+{序:23, 機關:"外交部", key:"mofa", 法規:[]},
+{序:24, 機關:"國防部", key:"mnd", 法規:[]},
+{序:25, 機關:"環境部", key:"moenv", 法規:[]},
+{序:26, 機關:"國軍退除役官兵輔導委員會", key:"vac", 法規:[]},
+{序:27, 機關:"國家科學及技術委員會", key:"nstc", 法規:[]},
+{序:28, 機關:"客家委員會", key:"hac", 法規:[]},
+{序:29, 機關:"原住民族委員會", key:"cip", 法規:[]},
+{序:30, 機關:"司法院", key:"judicial", 法規:[]}
+];
+
+/* ============================================================
+   以下為程式邏輯，一般情況不需要修改
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let 關鍵字 = "", 僅有辦法 = false;
+
+function 標記(t){
+  if (!關鍵字) return esc(t);
+  const k = 關鍵字.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  return esc(t).replace(new RegExp(k,"gi"), m=>`<mark>${m}</mark>`);
+}
+
+function 渲染(){
+  let html = "", 機關數 = 0, 法規數 = 0;
+  const 總法規 = 清冊.reduce((a,o)=>a+o.法規.length,0);
+
+  清冊.forEach(o => {
+    if (僅有辦法 && !o.法規.length) return;
+    const 機關命中 = !關鍵字 || o.機關.toLowerCase().includes(關鍵字.toLowerCase());
+    const 法規命中 = o.法規.filter(([n]) => !關鍵字 || n.toLowerCase().includes(關鍵字.toLowerCase()));
+    if (關鍵字 && !機關命中 && !法規命中.length) return;
+
+    const 顯示 = 機關命中 ? o.法規 : 法規命中;
+    機關數++; 法規數 += 顯示.length;
+
+    html += `<section class="org${顯示.length ? "" : " none"}" id="${o.key}">
+      <div class="hd">
+        <span class="nm"><span class="no">${String(o.序).padStart(2,"0")}</span>${標記(o.機關)}</span>
+        <span class="rt">
+          <span class="qty">${o.法規.length ? o.法規.length + " 部" : "未訂定"}</span>
+          <button class="lk noprint" data-key="${o.key}">複製連結</button>
+        </span>
+      </div>`;
+    if (顯示.length){
+      html += `<ol class="laws">` + 顯示.map(([n,u]) =>
+        `<li><a href="${u}" target="_blank" rel="noopener">${標記(n)}</a></li>`).join("") + `</ol>`;
+    } else if (!o.法規.length){
+      html += `<p class="empty">尚未訂定個人資料檔案安全維護辦法。所轄非公務機關仍應依個資法第 27 條第 1 項採行適當安全措施。</p>`;
+    }
+    html += `</section>`;
+  });
+
+  $("#out").innerHTML = 機關數 ? html
+    : `<div class="nores">沒有符合條件的機關或法規。請調整關鍵字或清除篩選條件。</div>`;
+  $("#count").innerHTML = `符合 <b>${機關數}</b> 個機關、<b>${法規數}</b> 部法規<br>全表共 30 個機關、${總法規} 部法規`;
+
+  document.querySelectorAll(".lk").forEach(b => b.addEventListener("click", async ()=>{
+    const url = location.href.split("#")[0] + "#" + b.dataset.key;
+    const 原 = b.textContent;
+    try{ await navigator.clipboard.writeText(url); b.textContent = "已複製"; }
+    catch(e){ b.textContent = "複製失敗"; }
+    setTimeout(()=>b.textContent = 原, 1500);
+  }));
+}
+
+$("#q").addEventListener("input", e => { 關鍵字 = e.target.value.trim(); 渲染(); });
+$("#f-all").addEventListener("click", ()=>{
+  僅有辦法 = false;
+  $("#f-all").classList.add("on"); $("#f-has").classList.remove("on"); 渲染();
+});
+$("#f-has").addEventListener("click", ()=>{
+  僅有辦法 = true;
+  $("#f-has").classList.add("on"); $("#f-all").classList.remove("on"); 渲染();
+});
+$("#reset").addEventListener("click", ()=>{
+  關鍵字 = ""; $("#q").value = ""; 僅有辦法 = false;
+  $("#f-all").classList.add("on"); $("#f-has").classList.remove("on"); 渲染();
+});
+
+渲染();
+if (location.hash){
+  const el = document.querySelector(location.hash);
+  if (el) el.scrollIntoView();
+}
+</script>
+</body>
+</html>
