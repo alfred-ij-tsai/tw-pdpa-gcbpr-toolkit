@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05 個資安維案件（個資事故）對照表｜個資法法令遵循工具箱</title>
+<style>
+:root{
+  --ink:#16233A;--ink-2:#3A4A64;--muted:#6B7789;
+  --rule:#D3DAE3;--rule-soft:#E6EAF0;--field:#EDF1F6;--paper:#FFFFFF;
+  --seal:#A8322D;--seal-soft:#F5E9E8;--amber:#8A5A12;--amber-soft:#FBF2E0;
+  --serif:"Noto Serif TC","Songti TC","Source Han Serif TC","PMingLiU",serif;
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",sans-serif;
+  --mono:ui-monospace,"SF Mono","Roboto Mono","Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--field);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px 80px}
+header.top{border-bottom:1px solid var(--rule);background:var(--paper)}
+header.top .inner{max-width:1240px;margin:0 auto;padding:22px 20px 18px}
+.eyebrow{font-size:12px;letter-spacing:.22em;color:var(--muted);margin:0 0 6px}
+.eyebrow a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
+h1{font-family:var(--serif);font-size:26px;font-weight:600;margin:0 0 8px;letter-spacing:.02em}
+.sub{margin:0;color:var(--ink-2);font-size:13.5px}
+.usage{max-width:1240px;margin:0 auto;padding:16px 20px 0}
+.usage p{background:var(--paper);border:1px solid var(--rule);border-left:3px solid var(--ink);padding:14px 18px;margin:0;font-size:13px;line-height:1.9;color:var(--ink-2)}
+.usage p b{color:var(--ink)}
+.cols{display:grid;grid-template-columns:280px 1fr;gap:26px;align-items:start;margin-top:26px}
+@media(max-width:940px){.cols{grid-template-columns:1fr}}
+.side{background:var(--paper);border:1px solid var(--rule);padding:18px 18px 22px;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
+@media(max-width:940px){.side{position:static;max-height:none}}
+.side h2{font-family:var(--serif);font-size:15px;font-weight:600;margin:0 0 10px}
+input[type=search]{width:100%;font-family:var(--sans);font-size:14px;padding:9px 10px;border:1px solid var(--rule);background:#fff;color:var(--ink);border-radius:0;-webkit-appearance:none}
+input[type=search]:focus,select:focus,button:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.count{font-size:12px;color:var(--muted);margin:8px 0 18px;font-family:var(--mono)}
+.count b{color:var(--seal)}
+nav.stages{border-top:1px solid var(--rule-soft);margin-bottom:16px}
+nav.stages a{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid var(--rule-soft);font-size:13.5px;text-decoration:none;color:var(--ink)}
+nav.stages a:hover{color:var(--seal)}
+nav.stages a .n{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+nav.stages a.dim{color:var(--rule);pointer-events:none}
+.side h3{font-size:12px;letter-spacing:.1em;color:var(--muted);margin:0 0 8px;font-weight:400}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:18px}
+.chip{font-family:var(--sans);font-size:12px;padding:4px 9px;border:1px solid var(--rule);background:#fff;color:var(--ink-2);cursor:pointer;border-radius:0}
+.chip:hover{border-color:var(--ink-2)}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.side .reset{font-size:12.5px;padding:7px 12px;border:1px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;font-family:var(--sans)}
+main{min-width:0}
+.stage{background:var(--paper);border:1px solid var(--rule);margin-bottom:22px}
+.stage>h2{font-family:var(--serif);font-size:18px;font-weight:600;margin:0;padding:18px 26px 15px;border-bottom:2px solid var(--ink);scroll-margin-top:16px}
+.stage>h2 .n{font-family:var(--mono);font-size:12px;color:var(--seal);margin-right:10px;letter-spacing:.08em}
+.rec{padding:20px 26px;border-bottom:1px solid var(--rule-soft);scroll-margin-top:16px}
+.rec:last-child{border-bottom:0}
+.rec:target{background:var(--amber-soft)}
+.rec .top{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin-bottom:8px}
+.rec .src{font-family:var(--serif);font-weight:600;font-size:15.5px}
+.rec .lk{font-family:var(--mono);font-size:11px;color:var(--muted);background:none;border:1px solid var(--rule);padding:2px 7px;cursor:pointer;white-space:nowrap}
+.rec .lk:hover{border-color:var(--ink-2);color:var(--ink)}
+.rec .law{font-size:13.5px;line-height:1.9;color:var(--ink-2);border-left:2px solid var(--rule);padding-left:13px;margin:0 0 9px}
+.rec .rule{font-size:13px;line-height:1.85;color:var(--muted);padding-left:15px;margin:0 0 8px}
+.rec .yp{font-size:13px;line-height:1.85;color:var(--ink-2);background:#F5F7FA;padding:9px 12px;margin:0 0 9px;border-left:2px solid var(--amber)}
+.rec .yp .k{font-weight:600;color:var(--amber);margin-right:6px}
+.rec .evi{font-size:13.5px;margin:0}
+.rec .evi .k{color:var(--muted);font-size:13px}
+.rec .note{font-size:12.5px;line-height:1.8;background:var(--amber-soft);border-left:3px solid var(--amber);padding:9px 12px;margin:9px 0 0;color:var(--ink-2)}
+.rec .note b{color:var(--amber)}
+details.nt{margin-top:9px}
+details.nt summary{cursor:pointer;font-size:12.5px;color:var(--amber);list-style:none;display:inline-block;border-bottom:1px dotted var(--amber)}
+details.nt summary::-webkit-details-marker{display:none}
+details.nt summary::before{content:"＋ ";font-family:var(--mono)}
+details.nt[open] summary::before{content:"− "}
+details.nt .body{font-size:12.5px;line-height:1.85;color:var(--ink-2);margin-top:8px;padding:9px 12px;background:var(--amber-soft);border-left:3px solid var(--amber)}
+details.gc{margin-top:9px}
+details.gc summary{cursor:pointer;font-size:12.5px;color:var(--muted);list-style:none;display:inline-block;border-bottom:1px dotted var(--rule)}
+details.gc summary::-webkit-details-marker{display:none}
+details.gc summary::before{content:"＋ ";font-family:var(--mono)}
+details.gc[open] summary::before{content:"− "}
+details.gc .body{font-size:12.5px;line-height:1.85;color:var(--ink-2);margin-top:8px;padding-left:13px;border-left:1px solid var(--rule)}
+details.gc .pr{font-weight:600;color:var(--ink);display:block;margin-top:7px}
+details.gc .pr:first-child{margin-top:0}
+mark{background:#FCEFA8;color:inherit;padding:0 1px}
+.none{background:var(--paper);border:1px solid var(--rule);padding:50px 26px;text-align:center;color:var(--muted);font-size:14px}
+.foot{margin-top:26px;background:#FAFBFC;border:1px solid var(--rule);padding:20px 26px 24px}
+.foot p{margin:0 0 8px;font-size:12px;color:var(--muted);line-height:1.85}
+.foot p:last-child{margin-bottom:0}
+.foot b{color:var(--ink-2)}
+/* ── 段落捲動軸 ── */
+.rail{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:60;
+  display:none;flex-direction:column;align-items:flex-end}
+.rail.on{display:flex}
+.rail::before{content:"";position:absolute;right:5px;top:12px;bottom:12px;width:1px;background:var(--rule)}
+.rail a{position:relative;display:block;padding:7px 0;text-decoration:none}
+.rail a i{display:block;width:9px;height:9px;border:1px solid var(--muted);
+  background:var(--paper);border-radius:50%;position:relative;z-index:1}
+.rail a:hover i{border-color:var(--ink)}
+.rail a.on i{width:11px;height:11px;background:var(--seal);border-color:var(--seal);margin-right:-1px}
+.rail a::after{content:attr(data-t);position:absolute;right:20px;top:50%;
+  transform:translateY(-50%);white-space:nowrap;font-size:12px;line-height:1.6;
+  color:var(--muted);background:rgba(255,255,255,.95);border:1px solid var(--rule);
+  padding:2px 9px;opacity:0;pointer-events:none;transition:opacity .12s}
+.rail a:hover::after{opacity:1}
+.rail a.on::after{opacity:1;color:var(--ink);border-color:var(--ink)}
+@media(max-width:1320px){.rail{display:none!important}}
+@media print{.rail{display:none!important}}
+@media print{
+  body{background:#fff;font-size:10.5pt}
+  header.top,.side,.lk,.noprint{display:none!important}
+  .cols{display:block}
+  .wrap{max-width:none;padding:0}
+  .stage{border:0;margin-bottom:0}
+  .rec{break-inside:avoid;padding:10px 0}
+  details.gc,details.nt{display:none}
+  a{text-decoration:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner">
+    <p class="eyebrow"><a href="index.html">個人資料保護法法令遵循工具箱</a>　／　文件 05　·　v1.2</p>
+    <h1>個資安維案件（個資事故）對照表</h1>
+    <p class="sub">依行政院要點所定六階段處理流程，逐項對應個資法及施行細則之義務，並對照 Global CBPR 計畫要求</p>
+  </div>
+</header>
+
+<div class="usage">
+  <p><b>使用說明</b>　本表以行政院及所屬各機關落實個人資料保護聯繫作業要點（114.01.07 修正）所定個資安維案件處理流程為主軸，核心為要點附件一「監督通報紀錄表」各欄位之義務對應。<b>條文引用以非公務機關適用部分為限</b>：凡條文主體併列公務機關與非公務機關者（如第 12 條），本表僅節錄非公務機關適用之部分。
+    需要依個案產出可列印的查核底稿、時序總覽與交付 AI 的提示詞，請使用 <a href="incident.html">個資事故應對底稿產生器</a>。
+    貴機構適用之產業別安全維護辦法見 <a href="table-02.html">02 法規盤點對照表</a>；生命週期各階段之一般義務見 <a href="table-03.html">03 生命週期主表</a>。</p>
+</div>
+
+<div class="wrap">
+<div class="cols">
+
+  <aside class="side noprint">
+    <h2>搜尋與篩選</h2>
+    <input type="search" id="q" placeholder="輸入條號、關鍵字或題號" aria-label="搜尋">
+    <p class="count" id="count"></p>
+
+    <h3>生命週期階段</h3>
+    <nav class="stages" id="nav"></nav>
+
+    <h3>GCBPR 隱私原則</h3>
+    <div class="chips" id="chips"></div>
+
+    <button class="reset" id="reset">清除全部條件</button>
+  </aside>
+
+  <main id="out"></main>
+</div>
+
+<div class="foot">
+  <p><b>依據版本</b>　個人資料保護法：現行有效條文（114.11.11 修正條文施行日期由行政院定之，尚未施行）。個人資料保護法施行細則：105 年 3 月 2 日修正發布。</p>
+  <p><b>對照依據</b>　Global CBPR System Program Requirements Enforcement Map for Chinese Taipei（Annex B）。</p>
+  <p><b>通報時限之歸屬</b>　要點所定 24 小時（重大矚目案件）及 72 小時（一般案件），係<b>中央目的事業主管機關</b>向個人資料保護委員會籌備處通報之義務，起算點為該機關接獲通報、副知或自行知悉之時。非公務機關向主管機關通報之時限，規定於其所適用之個人資料檔案安全維護辦法。兩者不可混用。</p>
+  <p><b>重大矚目案件之定義</b>　要點第 2 點第 2 項：經行政院、立法院或監察院關注之個資安維案件；或經媒體顯著披露之個資安維案件（平面媒體全國性版面報導或電子媒體專題討論）。</p>
+  <p><b>雙軌通報</b>　個資事故若同時構成資通安全事件，個資法與資通安全管理法之通報程序須分別進行，通報對象、時限與格式均不相同，任一程序遺漏皆獨立構成違失。</p>
+  <p><b>適用範圍</b>　本表以非公務機關為前提。公務機關之安全維護義務依個資法第 18 條，不在本表涵蓋範圍。</p>
+  <p><b>免責聲明</b>　本表為法令遵循參考資料，不構成法律意見。所引法規應以全國法規資料庫（law.moj.gov.tw）現行有效版本為準。具體個案請諮詢法律專業人士。</p>
+  <p>個人資料保護法法令遵循工具箱（Global CBPR 對照版）／文件 05　作者：蔡易融　授權：CC BY-NC-SA 4.0　·　工具箱版本 v1.2</p>
+</div>
+</div>
+
+<script>
+/* ============================================================
+   ★★★ 要修改條文內容，只需要改下面這一段 ★★★
+   每一筆的欄位：
+     id    ：網址錨點，改動會使舊連結失效，非必要不要改
+     法源  ：條號與括號內的重點提示
+     條文  ：法條全文
+     細則  ：施行細則對應條文，可放多筆，沒有就寫 []
+     佐證  ：應備之佐證文件
+     gcbpr ：第一格為隱私原則名稱，其後為題號與題目全文
+     註    ：編輯附註，會以琥珀色方框顯示，不需要就整行刪掉
+   ============================================================ */
+
+const 原則 = ["告知","蒐集限制","個人資料利用","選擇","個人資料完整性","安全維護","近用及更正","問責"];
+
+const 階段 = [
+  {
+    "代號": "壹",
+    "名": "個資安維案件之發現與確認",
+    "key": "discover",
+    "項目": [
+      {
+        "id": "discover-01",
+        "法源": "個資法第 27 條第 1 項（安全維護義務）",
+        "條文": "非公務機關保有個人資料檔案者，應採行適當之安全措施，防止個人資料被竊取、竄改、毀損、滅失或洩漏。",
+        "細則": [
+          "施行細則第 12 條第 2 項第 4 款：四、事故之預防、通報及應變機制。"
+        ],
+        "佐證": "資安事故偵測、預防及回應措施文件",
+        "gcbpr": [
+          [
+            "安全維護 Security Safeguards",
+            "Q32：是否施行偵測、預防及應變措施，以預防攻擊、入侵或其他安全機制失效之情況？",
+            "Q33：是否制定流程以測試 Q32 所採取安全措施之有效性？"
+          ]
+        ],
+        "要點": "要點第 5 點第 1 項第 3 款：安全維護辦法應規定非公務機關發生個資安維案件時，應通報之對象、時點、應通報事項、後續行政調查等事項。"
+      },
+      {
+        "id": "discover-02",
+        "法源": "施行細則第 12 條第 2 項第 10 款（軌跡資料及證據保存）",
+        "條文": "（個資法第 27 條第 1 項所稱適當安全措施之具體項目）十、使用紀錄、軌跡資料及證據保存。",
+        "細則": [],
+        "佐證": "系統日誌、軌跡資料、稽核計畫及稽核結果紀錄",
+        "gcbpr": [
+          [
+            "安全維護 Security Safeguards",
+            "Q27：為避免資料遺失或防止他人未經授權不當存取、利用、修改、揭露或其他濫用個人資料之行為所產生之風險，請說明在物理面、技術面、行政管理面已採取哪些安全維護措施？",
+            "Q30b：採用資訊管理系統（含資料處理、儲存、傳輸和銷毀措施）？",
+            "Q34：是否進行第三方驗證或其他風險評鑑？"
+          ]
+        ],
+        "要點": "要點附件二流程圖：案件確認後，中央目的事業主管機關應派員進入檢查，得命相關人員提供相關證明資料。"
+      },
+      {
+        "id": "discover-03",
+        "法源": "施行細則第 12 條第 2 項第 3 款（風險評估及管理機制）",
+        "條文": "（個資法第 27 條第 1 項所稱適當安全措施之具體項目）三、個人資料之風險評估及管理機制。",
+        "細則": [],
+        "佐證": "風險評估紀錄、個人資料資產清冊",
+        "gcbpr": [
+          [
+            "安全維護 Security Safeguards",
+            "Q28：說明 Q27 所採取之安全維護措施，如何與濫用行為之發生機率及可能造成的損害、個人資料之敏感度與內容成正比。",
+            "Q34：是否進行第三方驗證或其他風險評鑑？"
+          ]
+        ],
+        "要點": "要點第 4 點第 4 項：中央目的事業主管機關應評估所管非公務機關發生個資安維案件之衝擊層面廣泛程度，將高風險者優先列入年度行政檢查對象。"
+      }
+    ]
+  },
+  {
+    "代號": "貳",
+    "名": "通報義務",
+    "key": "notify",
+    "項目": [
+      {
+        "id": "notify-01",
+        "法源": "個資法第 12 條（事故查明及通知當事人義務）",
+        "條文": "非公務機關違反本法規定，致個人資料被竊取、洩漏、竄改或其他侵害者，應查明後以適當方式通知當事人。",
+        "細則": [
+          "施行細則第 22 條：本法第十二條所稱適當方式通知，指即時以言詞、書面、電話、簡訊、電子郵件、傳真、電子文件或其他足以使當事人知悉或可得知悉之方式為之。但需費過鉅者，得斟酌技術之可行性及當事人隱私之保護，以網際網路、新聞媒體或其他適當公開方式為之。依本法第十二條規定通知當事人，其內容應包括個人資料被侵害之事實及已採取之因應措施。"
+        ],
+        "佐證": "當事人通知內容、發送紀錄及送達統計",
+        "gcbpr": [
+          [
+            "安全維護 Security Safeguards",
+            "Q32：是否施行偵測、預防及應變措施，以預防攻擊、入侵或其他安全機制失效之情況？",
+            "Q35b：（要求資料處理者、代理人、承包商或其他服務提供者）發現個資事故時，立即通知申請組織？"
+          ]
+        ],
+        "要點": "要點附件一監督通報紀錄表：「擬採取之因應措施」欄，及「依個資法第 12 條及施行細則第 22 條，擬採通知當事人之時間及方式」欄。"
+      },
+      {
+        "id": "notify-02",
+        "法源": "個資法第 22 條第 1 項（主管機關檢查權限）",
+        "條文": "中央目的事業主管機關或直轄市、縣（市）政府為執行資料檔案安全維護、業務終止資料處理方法、國際傳輸限制或其他例行性業務檢查而認有必要或有違反本法規定之虞時，得派員攜帶執行職務證明文件，進入檢查，並得命相關人員為必要之說明、配合措施或提供相關證明資料。",
+        "細則": [
+          "施行細則第 12 條第 2 項第 9 款：九、資料安全稽核機制。"
+        ],
+        "佐證": "向主管機關通報之紀錄及回執",
+        "gcbpr": [
+          [
+            "安全維護 Security Safeguards",
+            "Q32：是否施行偵測、預防及應變措施，以預防攻擊、入侵或其他安全機制失效之情況？",
+            "Q33：是否制定流程以測試 Q32 所採取安全措施之有效性？"
+          ]
+        ],
+        "要點": "要點第 7 點第 1 項【一般案件】：中央目的事業主管機關接獲通報或副知，或自行知悉個資安維案件後，確認管轄，應於接獲通報、副知或知悉時起 72 小時內，填列監督通報紀錄表，通報個資會籌備處。\n要點第 8 點第 1 項【重大矚目案件】：應於接獲通報、副知或知悉時起 24 小時內，通報個資會籌備處及數位發展部。"
+      },
+      {
+        "id": "notify-03",
+        "法源": "監督通報紀錄表：案件基本資料欄位",
+        "條文": "（要點附件一所定應填列事項，非公務機關應提供主管機關填表所需資訊）",
+        "細則": [
+          "施行細則第 12 條第 2 項第 5 款：五、個人資料蒐集、處理及利用之內部管理程序。"
+        ],
+        "佐證": "個人資料處理活動紀錄、事故時序表",
+        "gcbpr": [
+          [
+            "問責 Accountability",
+            "Q39：申請組織採取何種措施確保符合全球 CBPR 隱私原則？（組織內部準則或政策、契約、遵循產業相關法律或規則、行為自律守則或規範、其他）",
+            "Q40：是否於組織內指定專責人員負責執行全球 CBPR 隱私原則？"
+          ]
+        ],
+        "要點": "要點附件一「非公務機關名稱」、「通報機關」欄：明確記載案件主體及通報機關資訊，確認管轄後方得填列。\n「案件發生時間」欄：填寫「不明」者，應接續註明查知非公務機關知悉個資安維案件之時間（附件一註 3）。\n「發生原因及案件摘要」欄：資訊尚未明確者，得先填寫「不明」，並於後續處置作業之通報更新補充（附件一註 1）。"
+      },
+      {
+        "id": "notify-04",
+        "法源": "監督通報紀錄表：損害狀況欄位",
+        "條文": "（要點附件一所定應填列事項）",
+        "細則": [],
+        "佐證": "個人資料資產清冊、受影響資料範圍統計",
+        "gcbpr": [
+          [
+            "蒐集限制 Collection Limitation",
+            "Q5：如何取得個人資料：5a) 從資料當事人直接蒐集？5b) 從代表您的第三方蒐集？5c) 其他方式？",
+            "Q6：個人資料之直接蒐集或從代表您的第三方蒐集是否僅限於特定目的或與目的相關之其他目的範圍內？"
+          ]
+        ],
+        "要點": "要點附件一「損害狀況」欄：個資侵害之總筆數（大約）／一般個資筆數與特種個資筆數（分別填列）／是否造成當事人財產損害（是、否及金額）／其他損害情形。"
+      },
+      {
+        "id": "notify-05",
+        "法源": "監督通報紀錄表：案件發生種類欄位",
+        "條文": "個資法第 12 條所定侵害態樣。",
+        "細則": [
+          "（施行細則對侵害態樣無另行細分規定）"
+        ],
+        "佐證": "事故調查紀錄",
+        "gcbpr": [
+          [
+            "安全維護 Security Safeguards",
+            "Q32：是否施行偵測、預防及應變措施，以預防攻擊、入侵或其他安全機制失效之情況？"
+          ]
+        ],
+        "要點": "要點附件一「案件發生種類」欄（勾選）：竊取／洩漏／竄改／毀損／滅失／其他侵害事故。"
+      }
+    ]
+  },
+  {
+    "代號": "參",
+    "名": "行政調查之配合",
+    "key": "investigate",
+    "項目": [
+      {
+        "id": "investigate-01",
+        "法源": "個資法第 22 條第 1 項、第 4 項（進入檢查及不得規避之義務）",
+        "條文": "中央目的事業主管機關或直轄市、縣（市）政府為執行資料檔案安全維護、業務終止資料處理方法、國際傳輸限制或其他例行性業務檢查而認有必要或有違反本法規定之虞時，得派員攜帶執行職務證明文件，進入檢查，並得命相關人員為必要之說明、配合措施或提供相關證明資料。（第 1 項）對於前二項之進入、檢查或處分，非公務機關及其相關人員不得規避、妨礙或拒絕。（第 4 項）",
+        "細則": [
+          "施行細則第 12 條第 2 項第 9 款：九、資料安全稽核機制。",
+          "施行細則第 12 條第 2 項第 10 款：十、使用紀錄、軌跡資料及證據保存。"
+        ],
+        "佐證": "稽核計畫及稽核結果紀錄、不符合事項及矯正措施紀錄",
+        "gcbpr": [
+          [
+            "安全維護 Security Safeguards",
+            "Q27：請說明在物理面、技術面、行政管理面已採取哪些安全維護措施？",
+            "Q33：是否制定流程以測試 Q32 所採取安全措施之有效性？",
+            "Q34：是否進行第三方驗證或其他風險評鑑？"
+          ]
+        ],
+        "要點": "要點第 7 點第 2 項【一般案件】：應於接獲通報、副知或知悉時起 3 個月內調查完成並結案；必要時，得經資通安全長或其授權人員同意後延期 3 個月，並即時通報個資會籌備處。\n要點第 8 點第 2 項【重大矚目案件】：應於接獲通報、副知或知悉時起 3 日內進行行政調查；10 日內完成調查報告，送個資會籌備處及數位發展部。必要時個資會籌備處得報請政務委員原則於 2 週內召開會議。"
+      },
+      {
+        "id": "investigate-02",
+        "法源": "個資法第 22 條第 1 項（年度行政檢查）",
+        "條文": "中央目的事業主管機關或直轄市、縣（市）政府為執行資料檔案安全維護……或其他例行性業務檢查而認有必要……得派員攜帶執行職務證明文件，進入檢查……",
+        "細則": [
+          "施行細則第 12 條第 2 項第 9 款：九、資料安全稽核機制。"
+        ],
+        "佐證": "稽核計畫及稽核結果紀錄",
+        "gcbpr": [
+          [
+            "安全維護 Security Safeguards",
+            "Q33：是否制定流程以測試 Q32 所採取安全措施之有效性？",
+            "Q34：是否進行第三方驗證或其他風險評鑑？"
+          ]
+        ],
+        "要點": "要點第 4 點：中央目的事業主管機關每年應擬定行政檢查計畫並立即執行，應於每年一月底前送個資會籌備處彙整，再提聯繫會議報告。"
+      }
+    ]
+  },
+  {
+    "代號": "肆",
+    "名": "裁罰與改正處分",
+    "key": "penalty",
+    "項目": [
+      {
+        "id": "penalty-01",
+        "法源": "個資法第 47 條、第 48 條第 2 項及第 3 項、第 50 條（罰鍰與限期改正）",
+        "條文": "非公務機關違反蒐集、處理、利用義務或安全維護義務者，依違規情節處罰鍰，並令限期改正；屆期未改正者，按次處罰。情節重大者，得處較高額度之罰鍰，並得令停止蒐集、處理或利用或命令解散。（各條實際額度及構成要件請以現行條文為準）",
+        "細則": [
+          "（施行細則對裁罰程序無另行規定）"
+        ],
+        "佐證": "不符合事項及矯正措施紀錄、陳述意見書",
+        "gcbpr": [
+          [
+            "問責 Accountability",
+            "Q39：申請組織採取何種措施確保符合全球 CBPR 隱私原則？",
+            "Q41：是否設置申訴處理程序以處理申訴案件，包含接受、調查、結果回覆？",
+            "Q43：若 Q42 回答為「是」，該回覆是否包含救濟程序之說明？"
+          ]
+        ],
+        "要點": "要點第 9 點：經查明違反個資法之規定者，應視具體調查結果，依個資法第 47 條至第 50 條規定辦理。\n要點附件一「主管機關就個資安維案件判斷是否違反個資法」欄（是／否）。\n要點附件二流程圖：判斷違法後分為行政裁罰、限期改正、裁罰並限期改正等三條路徑（5.1／5.2.1／5.2.2）。"
+      },
+      {
+        "id": "penalty-02",
+        "法源": "個資法第 25 條第 1 項（罰鍰以外之行政處分）",
+        "條文": "非公務機關有違反本法規定之情事者，中央目的事業主管機關或直轄市、縣（市）政府除依本法規定裁處罰鍰外，並得為下列處分：一、禁止蒐集、處理或利用個人資料。二、命令刪除經處理之個人資料檔案。三、沒入或命銷燬違法蒐集之個人資料。四、公布非公務機關之違法情形，及其姓名或名稱與負責人。",
+        "細則": [
+          "（施行細則對第 25 條行政處分無另行規定）"
+        ],
+        "佐證": "資料保留及安全銷毀政策、處分執行紀錄",
+        "gcbpr": [
+          [
+            "安全維護 Security Safeguards",
+            "Q31：是否施行個人資料銷毀安全政策？",
+            "Q32：是否施行偵測、預防及應變措施，以預防攻擊、入侵或其他安全機制失效之情況？"
+          ]
+        ],
+        "要點": "要點第 9 點第 3 項各款：（一）禁止蒐集、處理或利用個人資料（二）命令刪除個人資料檔案（三）沒入或命銷燬違法蒐集之個人資料（四）公布違法情形及姓名或名稱與負責人。\n要點附件一「主管機關就個資安維案件之後續處置」欄。"
+      },
+      {
+        "id": "penalty-03",
+        "法源": "個資法第 22 條第 1 項、第 48 條第 2 項及第 3 項（複查與按次處罰）",
+        "條文": "……令限期改正；屆期未改正者，按次處罰。（對已受限期改正之非公務機關辦理行政調查複查。）",
+        "細則": [
+          "施行細則第 12 條第 2 項第 11 款：十一、個人資料安全維護之整體持續改善。"
+        ],
+        "佐證": "不符合事項及矯正措施紀錄、改正完成報告",
+        "gcbpr": [
+          [
+            "問責 Accountability",
+            "Q41：是否設置申訴處理程序以處理申訴案件，包含接受、調查、結果回覆？",
+            "Q42：是否設置回覆程序以確保於合理時間內回覆資料當事人申訴結果？"
+          ]
+        ],
+        "要點": "要點附件一「主管機關是否有進行行政調查（含複查）」欄（是／否）。\n要點附件二流程圖：辦理行政調查複查，判斷是否通過複查。通過則結案；未通過則再行裁罰或行政處分。"
+      }
+    ]
+  },
+  {
+    "代號": "伍",
+    "名": "後續改善與解除列管",
+    "key": "improve",
+    "項目": [
+      {
+        "id": "improve-01",
+        "法源": "個資法第 22 條第 1 項（持續監管）",
+        "條文": "中央目的事業主管機關或直轄市、縣（市）政府為執行資料檔案安全維護、業務終止資料處理方法、國際傳輸限制或其他例行性業務檢查而認有必要或有違反本法規定之虞時，得派員攜帶執行職務證明文件，進入檢查，並得命相關人員為必要之說明、配合措施或提供相關證明資料。",
+        "細則": [
+          "施行細則第 12 條第 2 項第 11 款：十一、個人資料安全維護之整體持續改善。"
+        ],
+        "佐證": "稽核計畫及稽核結果紀錄、季報所需資料",
+        "gcbpr": [
+          [
+            "問責 Accountability",
+            "Q39：申請組織採取何種措施確保符合全球 CBPR 隱私原則？",
+            "Q40：是否於組織內指定專責人員負責執行全球 CBPR 隱私原則？",
+            "Q42：是否設置回覆程序以確保於合理時間內回覆資料當事人申訴結果？"
+          ]
+        ],
+        "要點": "要點第 7 點第 2 項：一般案件之後續行政措施及處置情形，應按季通報個資會籌備處。\n要點第 8 點第 4 項：重大矚目案件之後續行政措施及處置情形，應即時通報個資會籌備處及數位發展部。"
+      },
+      {
+        "id": "improve-02",
+        "法源": "個資法第 27 條第 1 項（持續改善）",
+        "條文": "非公務機關保有個人資料檔案者，應採行適當之安全措施，防止個人資料被竊取、竄改、毀損、滅失或洩漏。（含事後持續改善措施）",
+        "細則": [
+          "施行細則第 12 條第 2 項第 11 款：十一、個人資料安全維護之整體持續改善。"
+        ],
+        "佐證": "不符合事項及矯正措施紀錄、解除列管申請文件",
+        "gcbpr": [
+          [
+            "問責 Accountability",
+            "Q41：是否設置申訴處理程序以處理申訴案件，包含接受、調查、結果回覆？",
+            "Q43：若 Q42 回答為「是」，該回覆是否包含救濟程序之說明？"
+          ]
+        ],
+        "要點": "要點附件一「建議解除列管時間」欄：□ 解除列管（時間：　年　月　日）／□ 不解除列管。非公務機關應建立矯正措施追蹤紀錄，完成改正後方可申請解除列管。"
+      }
+    ]
+  },
+  {
+    "代號": "陸",
+    "名": "跨部會協調與管轄爭議",
+    "key": "coordinate",
+    "項目": [
+      {
+        "id": "coordinate-01",
+        "法源": "個資法第 22 條至第 26 條（主管機關職權範圍）",
+        "條文": "（中央目的事業主管機關依個資法第 22 條至第 26 條規定，對非公務機關為適當之監督管理措施。）",
+        "細則": [
+          "（施行細則對跨機關協調無另行規定）"
+        ],
+        "佐證": "適用法律／法規要求文件、與各機關往來紀錄",
+        "gcbpr": [
+          [
+            "問責 Accountability",
+            "Q39：申請組織採取何種措施確保符合全球 CBPR 隱私原則？",
+            "Q45：是否制定相關處理程序以因應法院或其他政府機關要求揭露個人資料之傳票或法院命令？",
+            "Q50：在無法以盡職調查或合理方式確保他方遵循全球 CBPR 體系之情形下，是否向其他自然人或組織揭露所持有之個人資料？"
+          ]
+        ],
+        "要點": "要點第 2 點：行政院召開「行政機關落實個人資料保護執行聯繫會議」，統籌個資安維案件之監督通報；就重大矚目案件管轄權爭議確認管轄機關，並協調跨部會行政調查。\n要點第 11 點：個資會籌備處對管轄權爭議應儘速認定管轄機關，得召開跨部會協調會議。"
+      }
+    ]
+  }
+];
+
+/* ============================================================
+   以下為程式邏輯，一般情況不需要修改
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let 關鍵字 = "", 選中原則 = new Set();
+
+$("#chips").innerHTML = 原則.map(p=>`<button class="chip" data-p="${p}">${p}</button>`).join("");
+
+function 全文(r){
+  return [r.法源, r.條文, r.佐證, r.註||"", r.要點||"", ...r.細則,
+          ...r.gcbpr.flat()].join(" ");
+}
+function 標記(t){
+  if (!關鍵字) return esc(t);
+  const k = 關鍵字.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  return esc(t).replace(new RegExp(k,"gi"), m=>`<mark>${m}</mark>`);
+}
+function 命中(r){
+  if (關鍵字 && !全文(r).toLowerCase().includes(關鍵字.toLowerCase())) return false;
+  if (選中原則.size){
+    const ps = r.gcbpr.map(g=>g[0]);
+    if (![...選中原則].some(p => ps.some(x => x.startsWith(p)))) return false;
+  }
+  return true;
+}
+
+function 渲染(){
+  let 總數 = 0, html = "", nav = "";
+  階段.forEach(st => {
+    const 命中項 = st.項目.filter(命中);
+    總數 += 命中項.length;
+    nav += `<a href="#${st.key}" class="${命中項.length?'':'dim'}">
+      <span>${st.代號}、${st.名}</span><span class="n">${命中項.length}</span></a>`;
+    if (!命中項.length) return;
+    html += `<section class="stage"><h2 id="${st.key}"><span class="n">${st.代號}</span>${st.名}</h2>`;
+    命中項.forEach(r => {
+      html += `<article class="rec" id="${r.id}">
+        <div class="top">
+          <span class="src">${標記(r.法源)}</span>
+          <button class="lk noprint" data-id="${r.id}">複製連結</button>
+        </div>
+        <p class="law">${標記(r.條文)}</p>`;
+      r.細則.forEach(x => html += `<p class="rule">◆ ${標記(x)}</p>`);
+      if (r.要點) html += `<p class="yp"><span class="k">行政院要點</span>${標記(r.要點).replace(/\n/g,"<br>")}</p>`;
+      html += `<p class="evi"><span class="k">應備佐證：</span>${標記(r.佐證)}</p>`;
+      if (r.gcbpr.length){
+        html += `<details class="gc"><summary>Global CBPR 計畫要求對照</summary><div class="body">` +
+          r.gcbpr.map(g=>`<span class="pr">【${標記(g[0])}】</span>` + g.slice(1).map(標記).join("<br>")).join("") +
+          `</div></details>`;
+      }
+      if (r.註) html += `<details class="nt"><summary>編輯附註（更正說明）</summary><div class="body">${標記(r.註)}</div></details>`;
+      html += `</article>`;
+    });
+    html += `</section>`;
+  });
+
+  $("#nav").innerHTML = nav;
+  $("#out").innerHTML = 總數 ? html
+    : `<div class="none">沒有符合條件的項目。請調整關鍵字或清除篩選條件。</div>`;
+  $("#count").innerHTML = `符合 <b>${總數}</b> 項　／　全表共 ${階段.reduce((a,s)=>a+s.項目.length,0)} 項`;
+
+  軸(".stage > h2");
+
+  document.querySelectorAll(".lk").forEach(b => b.addEventListener("click", async ()=>{
+    const url = location.href.split("#")[0] + "#" + b.dataset.id;
+    const 原 = b.textContent;
+    try{ await navigator.clipboard.writeText(url); b.textContent = "已複製"; }
+    catch(e){ b.textContent = "複製失敗"; }
+    setTimeout(()=>b.textContent = 原, 1500);
+  }));
+}
+
+$("#q").addEventListener("input", e => { 關鍵字 = e.target.value.trim(); 渲染(); });
+$("#chips").addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  const p = b.dataset.p;
+  選中原則.has(p) ? 選中原則.delete(p) : 選中原則.add(p);
+  b.classList.toggle("on");
+  渲染();
+});
+$("#reset").addEventListener("click", ()=>{
+  關鍵字 = ""; $("#q").value = "";
+  選中原則.clear();
+  document.querySelectorAll(".chip.on").forEach(c=>c.classList.remove("on"));
+  渲染();
+});
+
+/* ── 段落捲動軸：顯示目前所在段落，可點擊跳轉 ── */
+const 軸 = (()=>{
+  const el = document.createElement("nav");
+  el.className = "rail"; el.setAttribute("aria-label","段落導覽");
+  document.body.appendChild(el);
+  let 目標 = [], 連結 = [];
+
+  function 標題文字(h){
+    const c = h.cloneNode(true);
+    c.querySelectorAll(".tag").forEach(x=>x.remove());
+    const n = c.querySelector(".n");
+    if (n){ const t = n.textContent.trim(); n.remove();
+            return t + "、" + c.textContent.trim(); }
+    return c.textContent.trim();
+  }
+  function 更新(){
+    if (!目標.length) return;
+    let i = 0;
+    目標.forEach((t,k)=>{ if (t.getBoundingClientRect().top <= 130) i = k; });
+    連結.forEach((a,k)=>a.classList.toggle("on", k===i));
+  }
+  window.addEventListener("scroll", 更新, {passive:true});
+  window.addEventListener("resize", 更新, {passive:true});
+
+  return function 建立(選擇器, 標題選擇器){
+    目標 = [...document.querySelectorAll(選擇器)];
+    if (目標.length < 2){ el.classList.remove("on"); el.innerHTML = ""; return; }
+    目標.forEach((t,i)=>{ if (!t.id) t.id = "rail-" + i; });
+    el.innerHTML = 目標.map(t=>{
+      const h = 標題選擇器 ? t.querySelector(標題選擇器) : t;
+      return `<a href="#${t.id}" data-t="${標題文字(h||t).replace(/"/g,"&quot;")}"><i></i></a>`;
+    }).join("");
+    連結 = [...el.querySelectorAll("a")];
+    el.classList.add("on");
+    更新();
+  };
+})();
+
+渲染();
+軸(".stage > h2");
+if (location.hash){
+  const el = document.querySelector(location.hash);
+  if (el) el.scrollIntoView();
+}
+</script>
+</body>
+</html>
