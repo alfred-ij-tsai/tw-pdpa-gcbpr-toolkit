@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03 個資生命週期法令遵循主表｜個資法法令遵循工具箱</title>
+<style>
+:root{
+  --ink:#16233A;--ink-2:#3A4A64;--muted:#6B7789;
+  --rule:#D3DAE3;--rule-soft:#E6EAF0;--field:#EDF1F6;--paper:#FFFFFF;
+  --seal:#A8322D;--seal-soft:#F5E9E8;--amber:#8A5A12;--amber-soft:#FBF2E0;
+  --serif:"Noto Serif TC","Songti TC","Source Han Serif TC","PMingLiU",serif;
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",sans-serif;
+  --mono:ui-monospace,"SF Mono","Roboto Mono","Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--field);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px 80px}
+header.top{border-bottom:1px solid var(--rule);background:var(--paper)}
+header.top .inner{max-width:1240px;margin:0 auto;padding:22px 20px 18px}
+.eyebrow{font-size:12px;letter-spacing:.22em;color:var(--muted);margin:0 0 6px}
+.eyebrow a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
+h1{font-family:var(--serif);font-size:26px;font-weight:600;margin:0 0 8px;letter-spacing:.02em}
+.sub{margin:0;color:var(--ink-2);font-size:13.5px}
+.usage{max-width:1240px;margin:0 auto;padding:16px 20px 0}
+.usage p{background:var(--paper);border:1px solid var(--rule);border-left:3px solid var(--ink);padding:14px 18px;margin:0;font-size:13px;line-height:1.9;color:var(--ink-2)}
+.usage p b{color:var(--ink)}
+.cols{display:grid;grid-template-columns:280px 1fr;gap:26px;align-items:start;margin-top:26px}
+@media(max-width:940px){.cols{grid-template-columns:1fr}}
+.side{background:var(--paper);border:1px solid var(--rule);padding:18px 18px 22px;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
+@media(max-width:940px){.side{position:static;max-height:none}}
+.side h2{font-family:var(--serif);font-size:15px;font-weight:600;margin:0 0 10px}
+input[type=search]{width:100%;font-family:var(--sans);font-size:14px;padding:9px 10px;border:1px solid var(--rule);background:#fff;color:var(--ink);border-radius:0;-webkit-appearance:none}
+input[type=search]:focus,select:focus,button:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.count{font-size:12px;color:var(--muted);margin:8px 0 18px;font-family:var(--mono)}
+.count b{color:var(--seal)}
+nav.stages{border-top:1px solid var(--rule-soft);margin-bottom:16px}
+nav.stages a{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid var(--rule-soft);font-size:13.5px;text-decoration:none;color:var(--ink)}
+nav.stages a:hover{color:var(--seal)}
+nav.stages a .n{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+nav.stages a.dim{color:var(--rule);pointer-events:none}
+.side h3{font-size:12px;letter-spacing:.1em;color:var(--muted);margin:0 0 8px;font-weight:400}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:18px}
+.chip{font-family:var(--sans);font-size:12px;padding:4px 9px;border:1px solid var(--rule);background:#fff;color:var(--ink-2);cursor:pointer;border-radius:0}
+.chip:hover{border-color:var(--ink-2)}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.side .reset{font-size:12.5px;padding:7px 12px;border:1px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;font-family:var(--sans)}
+main{min-width:0}
+.stage{background:var(--paper);border:1px solid var(--rule);margin-bottom:22px}
+.stage>h2{font-family:var(--serif);font-size:18px;font-weight:600;margin:0;padding:18px 26px 15px;border-bottom:2px solid var(--ink);scroll-margin-top:16px}
+.stage>h2 .n{font-family:var(--mono);font-size:12px;color:var(--seal);margin-right:10px;letter-spacing:.08em}
+.rec{padding:20px 26px;border-bottom:1px solid var(--rule-soft);scroll-margin-top:16px}
+.rec:last-child{border-bottom:0}
+.rec:target{background:var(--amber-soft)}
+.rec .top{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin-bottom:8px}
+.rec .src{font-family:var(--serif);font-weight:600;font-size:15.5px}
+.rec .lk{font-family:var(--mono);font-size:11px;color:var(--muted);background:none;border:1px solid var(--rule);padding:2px 7px;cursor:pointer;white-space:nowrap}
+.rec .lk:hover{border-color:var(--ink-2);color:var(--ink)}
+.rec .law{font-size:13.5px;line-height:1.9;color:var(--ink-2);border-left:2px solid var(--rule);padding-left:13px;margin:0 0 9px}
+.rec .rule{font-size:13px;line-height:1.85;color:var(--muted);padding-left:15px;margin:0 0 8px}
+.rec .yp{font-size:13px;line-height:1.85;color:var(--ink-2);background:#F5F7FA;padding:9px 12px;margin:0 0 9px;border-left:2px solid var(--amber)}
+.rec .yp .k{font-weight:600;color:var(--amber);margin-right:6px}
+.rec .evi{font-size:13.5px;margin:0}
+.rec .evi .k{color:var(--muted);font-size:13px}
+.rec .note{font-size:12.5px;line-height:1.8;background:var(--amber-soft);border-left:3px solid var(--amber);padding:9px 12px;margin:9px 0 0;color:var(--ink-2)}
+.rec .note b{color:var(--amber)}
+details.nt{margin-top:9px}
+details.nt summary{cursor:pointer;font-size:12.5px;color:var(--amber);list-style:none;display:inline-block;border-bottom:1px dotted var(--amber)}
+details.nt summary::-webkit-details-marker{display:none}
+details.nt summary::before{content:"＋ ";font-family:var(--mono)}
+details.nt[open] summary::before{content:"− "}
+details.nt .body{font-size:12.5px;line-height:1.85;color:var(--ink-2);margin-top:8px;padding:9px 12px;background:var(--amber-soft);border-left:3px solid var(--amber)}
+details.gc{margin-top:9px}
+details.gc summary{cursor:pointer;font-size:12.5px;color:var(--muted);list-style:none;display:inline-block;border-bottom:1px dotted var(--rule)}
+details.gc summary::-webkit-details-marker{display:none}
+details.gc summary::before{content:"＋ ";font-family:var(--mono)}
+details.gc[open] summary::before{content:"− "}
+details.gc .body{font-size:12.5px;line-height:1.85;color:var(--ink-2);margin-top:8px;padding-left:13px;border-left:1px solid var(--rule)}
+details.gc .pr{font-weight:600;color:var(--ink);display:block;margin-top:7px}
+details.gc .pr:first-child{margin-top:0}
+mark{background:#FCEFA8;color:inherit;padding:0 1px}
+.none{background:var(--paper);border:1px solid var(--rule);padding:50px 26px;text-align:center;color:var(--muted);font-size:14px}
+.foot{margin-top:26px;background:#FAFBFC;border:1px solid var(--rule);padding:20px 26px 24px}
+.foot p{margin:0 0 8px;font-size:12px;color:var(--muted);line-height:1.85}
+.foot p:last-child{margin-bottom:0}
+.foot b{color:var(--ink-2)}
+/* ── 段落捲動軸 ── */
+.rail{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:60;
+  display:none;flex-direction:column;align-items:flex-end}
+.rail.on{display:flex}
+.rail::before{content:"";position:absolute;right:5px;top:12px;bottom:12px;width:1px;background:var(--rule)}
+.rail a{position:relative;display:block;padding:7px 0;text-decoration:none}
+.rail a i{display:block;width:9px;height:9px;border:1px solid var(--muted);
+  background:var(--paper);border-radius:50%;position:relative;z-index:1}
+.rail a:hover i{border-color:var(--ink)}
+.rail a.on i{width:11px;height:11px;background:var(--seal);border-color:var(--seal);margin-right:-1px}
+.rail a::after{content:attr(data-t);position:absolute;right:20px;top:50%;
+  transform:translateY(-50%);white-space:nowrap;font-size:12px;line-height:1.6;
+  color:var(--muted);background:rgba(255,255,255,.95);border:1px solid var(--rule);
+  padding:2px 9px;opacity:0;pointer-events:none;transition:opacity .12s}
+.rail a:hover::after{opacity:1}
+.rail a.on::after{opacity:1;color:var(--ink);border-color:var(--ink)}
+@media(max-width:1320px){.rail{display:none!important}}
+
+/* ── 路徑 A：業別比對與勾選匯出 ── */
+.pa select{width:100%;font:inherit;font-size:13px;padding:7px 8px;border:1px solid var(--rule);background:#fff;color:var(--ink);margin:0 0 8px}
+.pa .pa-count{font-size:12.5px;color:var(--ink-2);margin:2px 0 8px}
+.pa .pa-count b{color:var(--ink)}
+.pa button{display:block;width:100%;text-align:center;font:inherit;font-size:13px;padding:7px 10px;margin:0 0 7px;cursor:pointer;border:1px solid var(--ink);background:var(--ink);color:#fff}
+.pa button.ghost{background:#fff;color:var(--ink)}
+.pa button.mini{border-color:var(--rule);background:#fff;color:var(--ink-2);font-size:12.5px;padding:5px 8px}
+.pa button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pa .pa-hint{font-size:12px;color:var(--muted);line-height:1.7;margin:0 0 8px}
+.rec .ck{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--ink-2);cursor:pointer;user-select:none;white-space:nowrap}
+.rec .ck input{accent-color:var(--ink);width:14px;height:14px;cursor:pointer}
+.rec.picked{box-shadow:inset 3px 0 0 var(--ink)}
+#exportbox{margin:0 0 26px;border:1px solid var(--ink);background:#FBFCFD}
+#exportbox .xh{padding:14px 20px;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+#exportbox .xh h2{font-size:16px;margin:0}
+#exportbox .xh .xc{font-size:12.5px;color:var(--muted)}
+#exportbox .xnote{font-size:12.5px;color:var(--ink-2);line-height:1.8;margin:12px 20px 0}
+#exportbox pre{margin:12px 20px;padding:14px 16px;background:#fff;border:1px solid var(--rule);font-family:var(--mono,ui-monospace,monospace);font-size:12px;line-height:1.8;white-space:pre-wrap;word-break:break-all;max-height:420px;overflow:auto}
+#exportbox .xbar{display:flex;gap:8px;flex-wrap:wrap;padding:12px 20px;border-top:1px solid var(--rule);background:#F3F5F8}
+#exportbox .xbar button{font:inherit;font-size:13px;padding:7px 14px;cursor:pointer;border:1px solid var(--ink);background:var(--ink);color:#fff}
+#exportbox .xbar button.ghost{background:#fff;color:var(--ink)}
+
+@media print{.rail{display:none!important}}
+@media print{
+  body{background:#fff;font-size:10.5pt}
+  header.top,.side,.lk,.noprint{display:none!important}
+  #exportbox .xbar{display:none!important}
+  #exportbox pre{max-height:none;overflow:visible}
+  .cols{display:block}
+  .wrap{max-width:none;padding:0}
+  .stage{border:0;margin-bottom:0}
+  .rec{break-inside:avoid;padding:10px 0}
+  details.gc,details.nt{display:none}
+  a{text-decoration:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner">
+    <p class="eyebrow"><a href="index.html">個人資料保護法法令遵循工具箱</a>　／　文件 03　·　v1.2</p>
+    <h1>個資生命週期法令遵循主表</h1>
+    <p class="sub">蒐集 → 處理 → 利用 → 儲存 → 傳輸 → 跨境傳輸 → 銷毀，逐階段之法條義務、施行細則對應條文、應備佐證，並對照 Global CBPR 計畫要求</p>
+  </div>
+</header>
+
+<div class="usage">
+  <p><b>使用說明</b>　本表以個資生命週期各階段為主軸。GCBPR 計畫要求欄取自中英文對照版 Enforcement Map（Annex B），預設收合，點開即展開該項全部題號與中文題目全文。個人資料事故相關義務另見
+  <a href="table-05.html">05 個資事故對照表</a>；當事人權利行使另見 <a href="table-04.html">04 DSAR 對照表</a>。
+  產業別辦法之差異比對（路徑 A）可直接在本頁操作：於左側選擇主管機關與適用辦法，勾選各列義務後匯出 AI 提示詞，連同辦法全文交給 AI 助理逐條比對，差異標記為 ○同基底 ／ ＋加嚴 ／ △豁免 ／ ★新增義務 ／ —不適用；亦可搭配 <a href="table-02.html">02 法規盤點對照表</a> 及 01 AI Prompt 辦理。施行細則欄中所稱「本法」均指個資法。<b>條文引用以非公務機關適用部分為限</b>：凡條文主體併列公務機關與非公務機關者（如第 8 條、第 9 條、第 12 條），本表僅節錄非公務機關適用之部分，完整條文請查全國法規資料庫。</p>
+</div>
+
+<div class="wrap">
+<div id="exportbox" hidden></div>
+<div class="cols">
+
+  <aside class="side noprint">
+    <h2>搜尋與篩選</h2>
+    <input type="search" id="q" placeholder="輸入條號、關鍵字或題號" aria-label="搜尋">
+    <p class="count" id="count"></p>
+
+    <h3>生命週期階段</h3>
+    <nav class="stages" id="nav"></nav>
+
+    <h3>GCBPR 隱私原則</h3>
+    <div class="chips" id="chips"></div>
+
+    <button class="reset" id="reset">清除全部條件</button>
+
+    <h3>路徑 A：業別比對與匯出</h3>
+    <div class="pa">
+      <p class="pa-hint">選擇主管機關與適用辦法，勾選右側需要比對的義務項目，匯出可交給 AI 助理的比對提示詞。</p>
+      <select id="pa_auth" aria-label="中央目的事業主管機關"></select>
+      <select id="pa_law" aria-label="適用之安全維護辦法"></select>
+      <p class="pa-count">已勾選 <b id="pa_n">0</b> 項</p>
+      <button class="mini" id="pa_all">勾選目前顯示的全部項目</button>
+      <button class="mini" id="pa_clear">清除全部勾選</button>
+      <button class="mini" id="pa_only">僅顯示已勾選項目</button>
+      <button id="pa_go">匯出勾選成果與 AI 提示詞</button>
+    </div>
+  </aside>
+
+  <main id="out"></main>
+</div>
+
+<div class="foot">
+  <p><b>依據版本</b>　個人資料保護法：現行有效條文（114.11.11 修正條文施行日期由行政院定之，尚未施行）。個人資料保護法施行細則：105 年 3 月 2 日修正發布。</p>
+  <p><b>對照依據</b>　Global CBPR System Program Requirements Enforcement Map for Chinese Taipei（Annex B）。</p>
+  <p><b>適用範圍</b>　本表以非公務機關為前提。公務機關之安全維護義務依個資法第 18 條，不在本表涵蓋範圍。條文引用以非公務機關適用部分為限。</p>
+  <p><b>免責聲明</b>　本表為法令遵循參考資料，不構成法律意見。所引法規應以全國法規資料庫（law.moj.gov.tw）現行有效版本為準。具體個案請諮詢法律專業人士。</p>
+  <p>個人資料保護法法令遵循工具箱（Global CBPR 對照版）／文件 03　作者：蔡易融　授權：CC BY-NC-SA 4.0　·　工具箱版本 v1.2</p>
+</div>
+</div>
+
+<script>
+/* ============================================================
+   ★★★ 要修改條文內容，只需要改下面這一段 ★★★
+   每一筆的欄位：
+     id    ：網址錨點，改動會使舊連結失效，非必要不要改
+     法源  ：條號與括號內的重點提示
+     條文  ：法條全文
+     細則  ：施行細則對應條文，可放多筆，沒有就寫 []
+     佐證  ：應備之佐證文件
+     gcbpr ：第一格為隱私原則名稱，其後為題號與題目全文
+     註    ：編輯附註，會以琥珀色方框顯示，不需要就整行刪掉
+   ============================================================ */
+
+const 原則 = ["告知","蒐集限制","個人資料利用","選擇","個人資料完整性","安全維護","近用及更正","問責"];
+
+const 階段 = [
+{ 代號:"壹", 名:"蒐集階段", key:"collect", 項目:[
+  {
+    id:"c-05",
+    法源:"個資法第 5 條（比例原則）",
+    註:"原引文為 104 年修正前條文，已依現行條文更正；比例原則之適用範圍涵蓋蒐集、處理及利用三者。",
+    條文:"個人資料之蒐集、處理或利用，應尊重當事人之權益，依誠實及信用方法為之，不得逾越特定目的之必要範圍，並應與蒐集之目的具有正當合理之關聯。",
+    細則:[],
+    佐證:"蒐集目的識別及限制文件",
+    gcbpr:[["蒐集限制 Collection Limitation",
+      "Q6：個人資料之直接蒐集或從代表您的第三方蒐集是否僅限於特定目的或與目的相關之其他目的範圍內？"]]
+  },
+  {
+    id:"c-07-1",
+    法源:"個資法第 7 條第 1 項（同意之方式）",
+    條文:"第十五條第二款及第十九條第一項第五款所稱同意，指當事人經蒐集者告知本法所定應告知事項後，所為允許之意思表示。",
+    細則:[],
+    佐證:"同意取得及撤回機制文件",
+    gcbpr:[["選擇 Choice",
+      "Q14：是否提供資料當事人可就其個人資料之蒐集進行自主選擇的機制？",
+      "Q17：Q14、Q15、Q16 提及有關資料當事人能夠限制蒐集、利用、揭露其個人資料之當事人自主選擇機制，是否清楚明顯？",
+      "Q18：Q14、Q15、Q16 提及有關資料當事人能夠限制蒐集、利用、揭露其個人資料之當事人自主選擇機制，是否淺顯易懂？",
+      "Q19：Q14、Q15、Q16 提及有關資料當事人能夠限制蒐集、利用、揭露其個人資料之當事人自主選擇機制，是否可近用且可負擔？"]]
+  },
+  {
+    id:"c-07-3-4",
+    法源:"個資法第 7 條第 3 項、第 4 項（推定同意與舉證責任）",
+    條文:"公務機關或非公務機關明確告知當事人第八條第一項各款應告知事項時，當事人如未表示拒絕，並已提供其個人資料者，推定當事人已依第十五條第二款、第十九條第一項第五款之規定表示同意。（第 3 項）蒐集者就本法所稱經當事人同意之事實，應負舉證責任。（第 4 項）",
+    細則:[],
+    佐證:"同意取得及撤回機制文件、告知完成與資料提供之時序紀錄",
+    gcbpr:[["選擇 Choice",
+      "Q14：是否提供資料當事人可就其個人資料之蒐集進行自主選擇的機制？",
+      "Q20：是否以有效、迅速執行之方式提供當事人自主選擇機制？"],
+      ["問責 Accountability",
+      "Q39：申請組織採取何種措施確保符合全球 CBPR 隱私原則？（組織內部準則或政策、契約、遵循產業相關法律或規則、行為自律守則或規範、其他）"]],
+    註:"v1.2 新增。推定同意以完成第 8 條第 1 項告知為前提；同意事實之舉證責任在蒐集者，告知紀錄與提供資料之時序證據應一併保存。"
+  },
+  {
+    id:"c-08-1",
+    法源:"個資法第 8 條第 1 項（告知義務）",
+    條文:"非公務機關向當事人蒐集個人資料時，應明確告知當事人：一、非公務機關名稱。二、蒐集之目的。三、個人資料之類別。四、個人資料利用之期間、地區、對象及方式。五、當事人依第三條規定得行使之權利及方式。六、當事人得自由選擇提供個人資料時，不提供將對其權益之影響。",
+    細則:["施行細則第 16 條：依本法第八條、第九條及第五十四條所定告知之方式，得以言詞、書面、電話、簡訊、電子郵件、傳真、電子文件或其他足以使當事人知悉或可得知悉之方式為之。"],
+    佐證:"隱私聲明／告知事項文件",
+    gcbpr:[["告知 Notice",
+      "Q1：是否提供隱私聲明，且內容清楚易懂、易於取得？",
+      "Q1a：是否於隱私聲明中說明蒐集個人資料的方法？",
+      "Q1b：是否於隱私聲明中說明蒐集個人資料之目的？",
+      "Q1c：是否於隱私聲明中告知個人資料提供予第三方及其目的？",
+      "Q1d：是否於隱私聲明中公開申請組織之名稱、地址，以及內部個人資料保護窗口之聯絡資訊？",
+      "Q1e：是否於隱私聲明中說明個人資料利用及揭露之情形？",
+      "Q1f：是否於隱私聲明中說明資料當事人如何近用及更正個人資料？",
+      "Q2：是否於直接或代表您的第三方蒐集個人資料時，完成告知義務？",
+      "Q3：是否於直接或代表您的第三方蒐集個人資料時，告知蒐集個人資料之目的？",
+      "Q4：是否於蒐集個人資料時，告知個人資料可能提供予第三方？"]]
+  },
+  {
+    id:"c-09",
+    法源:"個資法第 9 條（間接蒐集之告知義務）",
+    條文:"公務機關或非公務機關依第十五條或第十九條規定蒐集非由當事人提供之個人資料，應於處理或利用前，向當事人告知個人資料來源及前條第一項第一款至第五款所列事項。（第 1 項）有下列情形之一者，得免為前項之告知：一、有前條第二項所列各款情形之一。二、當事人自行公開或其他已合法公開之個人資料。三、不能向當事人或其法定代理人為告知。四、基於公共利益為統計或學術研究之目的而有必要，且該資料須經提供者處理後或蒐集者依其揭露方式，無從識別特定當事人者為限。五、大眾傳播業者基於新聞報導之公益目的而蒐集個人資料。（第 2 項）第一項之告知，得於首次對當事人為利用時併同為之。（第 3 項）",
+    細則:["施行細則第 16 條：依本法第八條、第九條及第五十四條所定告知之方式，得以言詞、書面、電話、簡訊、電子郵件、傳真、電子文件或其他足以使當事人知悉或可得知悉之方式為之。"],
+    佐證:"隱私聲明／告知事項文件（間接蒐集）、資料來源紀錄",
+    gcbpr:[["告知 Notice",
+      "Q2：是否於直接或代表您的第三方蒐集個人資料時，完成告知義務？",
+      "Q3：是否於直接或代表您的第三方蒐集個人資料時，告知蒐集個人資料之目的？",
+      "Q4：是否於蒐集個人資料時，告知個人資料可能提供予第三方？"]],
+    註:"v1.2 新增。非由當事人提供之個人資料（自第三方取得、自公開來源蒐集），告知義務依本條而非第 8 條，且須額外告知資料來源；告知時點最遲為處理或利用前，得於首次利用時併同為之。"
+  },
+  {
+    id:"c-19-1",
+    法源:"個資法第 19 條第 1 項（非公務機關蒐集或處理之特定目的及合法事由）",
+    條文:"非公務機關對個人資料之蒐集或處理，除第六條第一項所規定資料外，應有特定目的，並符合下列情形之一：一、法律明文規定。二、與當事人有契約或類似契約之關係，且已採取適當之安全措施。三、當事人自行公開或其他已合法公開之個人資料。四、學術研究機構基於公共利益為統計或學術研究而有必要，且資料經過提供者處理後或經蒐集者依其揭露方式無從識別特定之當事人。五、經當事人同意。六、為增進公共利益所必要。七、個人資料取自於一般可得之來源。但當事人對該資料之禁止處理或利用，顯有更值得保護之重大利益者，不在此限。八、對當事人權益無侵害。",
+    細則:["施行細則第 12 條第 1 項：本法第六條第一項但書第二款及第五款所稱適當安全維護措施、第十八條所稱安全維護事項、第十九條第一項第二款及第二十七條第一項所稱適當之安全措施，指公務機關或非公務機關為防止個人資料被竊取、竄改、毀損、滅失或洩漏，採取技術上及組織上之措施。"],
+    佐證:"蒐集合法依據文件",
+    gcbpr:[["蒐集限制 Collection Limitation",
+      "Q7：個人資料之直接蒐集或代表您的第三方蒐集是否合法、正當，且符合國內個人資料保護法規相關要求？"]]
+  },
+  {
+    id:"c-19-2",
+    法源:"個資法第 19 條第 2 項（一般可得來源之禁止後義務）",
+    條文:"蒐集或處理者知悉或經當事人通知依前項第七款但書規定禁止對該資料之處理或利用時，應主動或依當事人之請求，刪除、停止處理或利用該個人資料。",
+    細則:[],
+    佐證:"資料刪除政策／程序、當事人禁止通知之受理紀錄",
+    gcbpr:[["選擇 Choice",
+      "Q14：是否提供資料當事人可就其個人資料之蒐集進行自主選擇的機制？",
+      "Q20：是否以有效、迅速執行之方式提供當事人自主選擇機制？"]],
+    註:"v1.2 新增。依第 19 條第 1 項第 7 款自一般可得來源蒐集之個人資料，一經知悉當事人有更值得保護之重大利益而禁止處理或利用，即應刪除或停止，本項不設但書。"
+  },
+  {
+    id:"c-06-1",
+    法源:"個資法第 6 條第 1 項（特種個人資料之蒐集限制）",
+    條文:"有關病歷、醫療、基因、性生活、健康檢查及犯罪前科之個人資料，不得蒐集、處理或利用。但有下列情形之一者，不在此限：一、法律明文規定。二、公務機關執行法定職務或非公務機關履行法定義務必要範圍內，且事前或事後有適當安全維護措施。三、當事人自行公開或其他已合法公開之個人資料。四、公務機關或學術研究機構基於醫療、衛生或犯罪預防之目的，為統計或學術研究而有必要，且資料經過提供者處理後或經蒐集者依其揭露方式無從識別特定之當事人。五、為協助公務機關執行法定職務或非公務機關履行法定義務必要範圍內，且事前或事後有適當安全維護措施。六、經當事人書面同意。但逾越特定目的之必要範圍或其他法律另有限制不得僅依當事人書面同意蒐集、處理或利用，或其同意違反其意願者，不在此限。",
+    細則:["施行細則第 14 條：本法第六條第一項但書第六款、第七條第一項、第二項、第十一條第二項及第三項但書所定當事人書面同意之方式，依電子簽章法之規定，得以電子文件為之。"],
+    佐證:"特種資料蒐集審查紀錄",
+    gcbpr:[["蒐集限制 Collection Limitation",
+      "Q5：如何取得個人資料：5a) 從資料當事人直接蒐集？5b) 從代表您的第三方蒐集？5c) 其他方式？",
+      "Q6：個人資料之直接蒐集或從代表您的第三方蒐集是否僅限於特定目的或與目的相關之其他目的範圍內？",
+      "Q7：個人資料之直接蒐集或代表您的第三方蒐集是否合法、正當，且符合國內個人資料保護法規相關要求？"]]
+  },
+  {
+    id:"c-27-1-a",
+    法源:"個資法第 27 條第 1 項（安全維護義務：人員與資源）",
+    條文:"非公務機關保有個人資料檔案者，應採行適當之安全措施，防止個人資料被竊取、竄改、毀損、滅失或洩漏。",
+    細則:["施行細則第 12 條第 2 項第 1 款：一、配置管理之人員及相當資源。"],
+    佐證:"資訊安全政策文件",
+    gcbpr:[["安全維護 Security Safeguards","Q26：是否已施行資訊安全政策？"]]
+  },
+  {
+    id:"c-27-1-b",
+    法源:"個資法第 27 條第 1 項（安全維護義務：界定個資範圍）",
+    條文:"非公務機關保有個人資料檔案者，應採行適當之安全措施，防止個人資料被竊取、竄改、毀損、滅失或洩漏。",
+    細則:["施行細則第 12 條第 2 項第 2 款：二、界定個人資料之範圍。"],
+    佐證:"個人資料盤點清冊",
+    gcbpr:[["蒐集限制 Collection Limitation",
+      "Q5：如何取得個人資料：5a) 從資料當事人直接蒐集？5b) 從代表您的第三方蒐集？5c) 其他方式？",
+      "Q6：個人資料之直接蒐集或從代表您的第三方蒐集是否僅限於特定目的或與目的相關之其他目的範圍內？"]]
+  }
+]},
+
+{ 代號:"貳", 名:"處理階段", key:"process", 項目:[
+  {
+    id:"p-05",
+    法源:"個資法第 5 條（比例原則）",
+    條文:"個人資料之蒐集、處理或利用，應尊重當事人之權益，依誠實及信用方法為之，不得逾越特定目的之必要範圍，並應與蒐集之目的具有正當合理之關聯。",
+    細則:[],
+    佐證:"個人資料處理活動紀錄",
+    gcbpr:[["個人資料利用 Uses of Personal Information",
+      "Q8：是否依據隱私聲明或蒐集時所告知之蒐集特定目的或與目的相關之其他目的範圍內，利用直接蒐集或代表您的第三方蒐集之個人資料？"]]
+  },
+  {
+    id:"p-19-1",
+    法源:"個資法第 19 條第 1 項（處理之合法基礎）",
+    條文:"非公務機關對個人資料之蒐集或處理，除第六條第一項所規定資料外，應有特定目的，並符合下列情形之一：一、法律明文規定。二、與當事人有契約或類似契約之關係，且已採取適當之安全措施。三、當事人自行公開或其他已合法公開之個人資料。四、學術研究機構基於公共利益為統計或學術研究而有必要，且資料經過提供者處理後或經蒐集者依其揭露方式無從識別特定之當事人。五、經當事人同意。六、為增進公共利益所必要。七、個人資料取自於一般可得之來源。但當事人對該資料之禁止處理或利用，顯有更值得保護之重大利益者，不在此限。八、對當事人權益無侵害。",
+    細則:["施行細則第 12 條第 1 項：本法第六條第一項但書第二款及第五款所稱適當安全維護措施、第十八條所稱安全維護事項、第十九條第一項第二款及第二十七條第一項所稱適當之安全措施，指公務機關或非公務機關為防止個人資料被竊取、竄改、毀損、滅失或洩漏，採取技術上及組織上之措施。"],
+    佐證:"蒐集合法依據文件、個人資料處理活動紀錄",
+    註:"第 19 條第 1 項同時規範「蒐集」與「處理」，故於蒐集階段與處理階段各列一次。原表於本階段引用第 20 條第 1 項，惟該條規範者為「利用」，已更正。",
+    gcbpr:[["蒐集限制 Collection Limitation",
+      "Q6：個人資料之直接蒐集或從代表您的第三方蒐集是否僅限於特定目的或與目的相關之其他目的範圍內？",
+      "Q7：個人資料之直接蒐集或代表您的第三方蒐集是否合法、正當，且符合國內個人資料保護法規相關要求？"]]
+  },
+  {
+    id:"p-27-1",
+    法源:"個資法第 27 條第 1 項（安全維護義務：內部管理程序）",
+    條文:"非公務機關保有個人資料檔案者，應採行適當之安全措施，防止個人資料被竊取、竄改、毀損、滅失或洩漏。",
+    細則:[
+      "施行細則第 12 條第 1 項：指公務機關或非公務機關為防止個人資料被竊取、竄改、毀損、滅失或洩漏，採取技術上及組織上之措施。",
+      "施行細則第 12 條第 2 項第 5 款：五、個人資料蒐集、處理及利用之內部管理程序。"
+    ],
+    佐證:"安全防護措施實施紀錄",
+    gcbpr:[["安全維護 Security Safeguards",
+      "Q26：是否已施行資訊安全政策？",
+      "Q27：為避免資料遺失或防止他人未經授權不當存取、利用、修改、揭露或其他濫用個人資料之行為所產生之風險，請說明在物理面、技術面、行政管理面已採取哪些安全維護措施？",
+      "Q28：說明 Q27 所採取之安全維護措施，如何與濫用行為之發生機率及可能造成的損害、個人資料之敏感度與內容成正比。"]]
+  },
+  {
+    id:"p-04",
+    法源:"個資法第 4 條（委託關係）",
+    條文:"受公務機關或非公務機關委託蒐集、處理或利用個人資料者，於本法適用範圍內，視同委託機關。",
+    細則:["施行細則第 8 條：委託他人蒐集、處理或利用個人資料時，委託機關應對受託者為適當之監督。前項監督至少應包含下列事項：一、預定蒐集、處理或利用個人資料之範圍、類別、特定目的及其期間。二、受託者就第十二條第二項採取之措施。三、有複委託者，其約定之受託者。四、受託者或其受僱人違反本法、其他個人資料保護法律或其法規命令時，應向委託機關通知之事項及採行之補救措施。五、委託機關如對受託者有保留指示者，其保留指示之事項。六、委託關係終止或解除時，應返還之個人資料載體及銷毀之個人資料。委託機關應定期確認受託者執行之狀況，並將確認結果記錄之。",],
+    佐證:"委外處理者契約及監督紀錄",
+    gcbpr:[["安全維護 Security Safeguards",
+      "Q35：為避免資料遺失或防止他人未經授權不當存取、利用、修改、揭露個人資料或其他濫用個人資料之行為所產生之風險，是否要求資料處理者、代理人、承包商或其他服務提供者：35a) 採取與資料敏感度及所提供服務成正比之資料安全計畫？35b) 發現個資事故時，立即通知申請組織？35c) 立即處理解決造成個資事故之缺失？"]]
+  }
+]},
+
+{ 代號:"參", 名:"利用階段", key:"use", 項目:[
+  {
+    id:"u-20-1",
+    法源:"個資法第 20 條第 1 項（利用之合法基礎及目的外利用事由）",
+    條文:"非公務機關對個人資料之利用，除第六條第一項所規定資料外，應於蒐集之特定目的必要範圍內為之。但有下列情形之一者，得為特定目的外之利用：一、法律明文規定。二、為增進公共利益所必要。三、為免除當事人之生命、身體、自由或財產上之危險。四、為防止他人權益之重大危害。五、公務機關或學術研究機構基於公共利益為統計或學術研究而有必要，且資料經過提供者處理後或經蒐集者依其揭露方式無從識別特定之當事人。六、經當事人同意。七、有利於當事人權益。",
+    細則:[],
+    佐證:"蒐集合法依據文件、隱私聲明／告知事項文件",
+    註:"原表將本項置於處理階段，已移列至利用階段。「蒐集或處理」之合法基礎另依第 19 條第 1 項。",
+    gcbpr:[["個人資料利用 Uses of Personal Information",
+      "Q8：是否依據隱私聲明或蒐集時所告知之蒐集特定目的或與目的相關之其他目的範圍內，利用直接蒐集或代表您的第三方蒐集之個人資料？",
+      "Q9：若 Q8 回答為「否」，於蒐集之特定目的範圍外利用所蒐集之個人資料，是否符合下列情形？9a) 取得資料當事人明確同意？9b) 基於法律明文規定？"]]
+  },
+  {
+    id:"u-07-1",
+    法源:"個資法第 7 條第 1 項（特定目的內利用之同意）",
+    條文:"第十五條第二款及第十九條第一項第五款所稱同意，指當事人經蒐集者告知本法所定應告知事項後，所為允許之意思表示。",
+    細則:[],
+    佐證:"個人資料處理活動紀錄",
+    gcbpr:[["個人資料利用 Uses of Personal Information",
+      "Q10：是否將直接或代表您的第三方蒐集之個人資料揭露予其他個人資料控管者？",
+      "Q11：是否將個人資料傳輸予個人資料處理者？",
+      "Q12：若 Q10 或 Q11 回答為「是」，上述個人資料揭露、傳輸行為是否於蒐集特定目的或與目的相關之其他目的範圍內為之？",
+      "Q13：若 Q12 回答為「否」或者在其他適當情況下，上述個人資料揭露、傳輸行為是否符合下列情形？13a) 取得資料當事人明確同意？13b) 因資料當事人要求提供服務或產品所需？13c) 基於法律明文規定？"]]
+  },
+  {
+    id:"u-07-2",
+    法源:"個資法第 7 條第 2 項（目的外利用之單獨同意）",
+    條文:"第十六條第七款、第二十條第一項第六款所稱同意，指當事人經蒐集者明確告知特定目的外之其他利用目的、範圍及同意與否對其權益之影響後，單獨所為之意思表示。",
+    細則:["施行細則第 15 條：本法第七條第二項所定單獨所為之意思表示，如係與其他意思表示於同一書面為之者，蒐集者應於適當位置使當事人得以知悉其內容並確認同意。"],
+    佐證:"目的外利用告知文件",
+    gcbpr:[["選擇 Choice",
+      "Q15：是否提供資料當事人可就其個人資料之利用進行自主選擇的機制？",
+      "Q16：是否提供資料當事人可就其個人資料之揭露進行自主選擇的機制？",
+      "Q20：是否以有效、迅速執行之方式提供當事人自主選擇機制？"]]
+  },
+  {
+    id:"u-20-2",
+    法源:"個資法第 20 條第 2 項（行銷之拒絕權）",
+    條文:"非公務機關依前項規定利用個人資料行銷者，當事人表示拒絕接受行銷時，應即停止利用其個人資料行銷。",
+    細則:[],
+    佐證:"行銷拒絕機制文件、拒絕行銷紀錄及停止行銷執行紀錄",
+    註:"原表引文與現行條文不符，已更正。本項規範者為行銷之拒絕權，非目的外利用之告知義務。相關聯者為同條第 3 項：非公務機關於首次行銷時，應提供當事人表示拒絕接受行銷之方式，並支付所需費用。",
+    gcbpr:[["選擇 Choice",
+      "Q15：是否提供資料當事人可就其個人資料之利用進行自主選擇的機制？",
+      "Q17：Q14、Q15、Q16 提及有關資料當事人能夠限制蒐集、利用、揭露其個人資料之當事人自主選擇機制，是否清楚明顯？",
+      "Q19：Q14、Q15、Q16 提及有關資料當事人能夠限制蒐集、利用、揭露其個人資料之當事人自主選擇機制，是否可近用且可負擔？",
+      "Q20：是否以有效、迅速執行之方式提供當事人自主選擇機制？"]]
+  },
+  {
+    id:"u-03",
+    法源:"個資法第 3 條（當事人權利）",
+    條文:"當事人就其個人資料依本法規定行使之下列權利，不得預先拋棄或以特約限制之：一、查詢或請求閱覽。二、請求製給複製本。三、請求補充或更正。四、請求停止蒐集、處理或利用。五、請求刪除。",
+    細則:["施行細則第 19 條：當事人依本法第十一條第一項規定向公務機關或非公務機關請求更正或補充其個人資料時，應為適當之釋明。"],
+    佐證:"個人存取更正程序文件",
+    註:"五項權利之逐項回應義務、期限與拒絕事由，詳見 04 DSAR 對照表。",
+    gcbpr:[["近用及更正 Access and Correction",
+      "Q36：當資料當事人提出請求時，是否向資料當事人確認所持有其個人資料？",
+      "Q37：當資料當事人提出請求時，是否向資料當事人就其個人資料提供近用？37a) 是否採取措施驗證資料當事人身分？37b) 是否依據資料當事人請求，於合理期間內提供近用？37c) 是否以普遍可理解且清楚的方式傳達資料？37d) 是否以資料當事人互動的普遍形式提供資料？37e) 是否收費？",
+      "Q38：是否允許資料當事人質疑其個人資料的正確性，並請求更正、補充、刪除其個人資料？38a) 近用及更正機制是否清楚明顯？38b) 是否已請求進行更正、補充，或於必要時刪除？38c) 是否於合理時間內更正或刪除？38d) 是否於更正後提供資料當事人複製本或確認更正？38e) 若駁回，是否通知資料當事人並附上理由及聯繫資訊？"]]
+  }
+]},
+
+{ 代號:"肆", 名:"儲存階段", key:"store", 項目:[
+  {
+    id:"s-27-1-1",
+    法源:"個資法第 27 條第 1 項（安全維護義務：人員與資源）",
+    條文:"非公務機關保有個人資料檔案者，應採行適當之安全措施，防止個人資料被竊取、竄改、毀損、滅失或洩漏。",
+    細則:["施行細則第 12 條第 2 項第 1 款：一、配置管理之人員及相當資源。"],
+    佐證:"資訊安全政策文件",
+    gcbpr:[["安全維護 Security Safeguards","Q26：是否已施行資訊安全政策？"]]
+  },
+  {
+    id:"s-27-1-2",
+    法源:"個資法第 27 條第 1 項（安全維護義務：界定個資範圍）",
+    條文:"非公務機關保有個人資料檔案者，應採行適當之安全措施，防止個人資料被竊取、竄改、毀損、滅失或洩漏。",
+    細則:["施行細則第 12 條第 2 項第 2 款：二、界定個人資料之範圍。"],
+    佐證:"個人資料資產清冊",
+    gcbpr:[["蒐集限制 Collection Limitation",
+      "Q5：如何取得個人資料：5a) 從資料當事人直接蒐集？5b) 從代表您的第三方蒐集？5c) 其他方式？"]]
+  },
+  {
+    id:"s-27-1-3",
+    法源:"個資法第 27 條第 1 項（安全維護義務：風險評估）",
+    條文:"非公務機關保有個人資料檔案者，應採行適當之安全措施，防止個人資料被竊取、竄改、毀損、滅失或洩漏。",
+    細則:["施行細則第 12 條第 2 項第 3 款：三、個人資料之風險評估及管理機制。"],
+    佐證:"風險評估紀錄",
+    gcbpr:[["安全維護 Security Safeguards",
+      "Q28：說明 Q27 所採取之安全維護措施，如何與濫用行為之發生機率及可能造成的損害、個人資料之敏感度與內容成正比。",
+      "Q34：是否進行第三方驗證或其他風險評鑑？"]]
+  },
+  {
+    id:"s-27-1-4",
+    法源:"個資法第 27 條第 1 項（安全維護義務：事故預防通報應變）",
+    條文:"非公務機關保有個人資料檔案者，應採行適當之安全措施，防止個人資料被竊取、竄改、毀損、滅失或洩漏。",
+    細則:["施行細則第 12 條第 2 項第 4 款：四、事故之預防、通報及應變機制。"],
+    佐證:"資安事故偵測、預防及回應措施文件",
+    註:"事故發生後之通報、調查與裁罰流程，詳見 05 個資事故對照表。",
+    gcbpr:[["安全維護 Security Safeguards",
+      "Q32：是否施行偵測、預防及應變措施，以預防攻擊、入侵或其他安全機制失效之情況？",
+      "Q33：是否制定流程以測試 Q32 所採取安全措施之有效性？"]]
+  },
+  {
+    id:"s-27-1-5",
+    法源:"個資法第 27 條第 1 項（安全維護義務：內部管理程序）",
+    條文:"非公務機關保有個人資料檔案者，應採行適當之安全措施，防止個人資料被竊取、竄改、毀損、滅失或洩漏。",
+    細則:["施行細則第 12 條第 2 項第 5 款：五、個人資料蒐集、處理及利用之內部管理程序。"],
+    佐證:"個人資料處理活動紀錄",
+    gcbpr:[["問責 Accountability",
+      "Q39：申請組織採取何種措施確保符合全球 CBPR 隱私原則？（組織內部準則或政策、契約、遵循產業相關法律或規則、行為自律守則或規範、其他）"]]
+  },
+  {
+    id:"s-27-1-6",
+    法源:"個資法第 27 條第 1 項（安全維護義務：資料安全及人員管理）",
+    條文:"非公務機關保有個人資料檔案者，應採行適當之安全措施，防止個人資料被竊取、竄改、毀損、滅失或洩漏。",
+    細則:["施行細則第 12 條第 2 項第 6 款：六、資料安全管理及人員管理。"],
+    佐證:"實體、技術及行政安全防護措施文件",
+    gcbpr:[["安全維護 Security Safeguards",
+      "Q27：為避免資料遺失或防止他人未經授權不當存取、利用、修改、揭露或其他濫用個人資料之行為所產生之風險，請說明在物理面、技術面、行政管理面已採取哪些安全維護措施？",
+      "Q30：是否採取與濫用行為之發生機率及可能造成的損害、個人資料之敏感度與內容成正比之安全保護措施：30a) 實施教育訓練、員工管理或採取其他措施？30b) 採用資訊管理系統（含網路與軟體設計，以及資料處理、儲存、傳輸和銷毀措施）？30c) 對於攻擊、入侵或其他安全機制失效之偵測、預防及應變措施？30d) 物理上之安全保護措施？"]]
+  },
+  {
+    id:"s-27-1-7",
+    法源:"個資法第 27 條第 1 項（安全維護義務：認知宣導及教育訓練）",
+    條文:"非公務機關保有個人資料檔案者，應採行適當之安全措施，防止個人資料被竊取、竄改、毀損、滅失或洩漏。",
+    細則:["施行細則第 12 條第 2 項第 7 款：七、認知宣導及教育訓練。"],
+    佐證:"員工隱私教育訓練紀錄",
+    gcbpr:[["安全維護 Security Safeguards",
+      "Q29：請說明如何使員工認知維護個人資料安全的重要性（例如：定期訓練或監督）？"]]
+  },
+  {
+    id:"s-27-1-8",
+    法源:"個資法第 27 條第 1 項（安全維護義務：設備安全管理）",
+    條文:"非公務機關保有個人資料檔案者，應採行適當之安全措施，防止個人資料被竊取、竄改、毀損、滅失或洩漏。",
+    細則:["施行細則第 12 條第 2 項第 8 款：八、設備安全管理。"],
+    佐證:"實體安全防護措施文件",
+    gcbpr:[["安全維護 Security Safeguards",
+      "Q30：是否採取與濫用行為之發生機率及可能造成的損害、個人資料之敏感度與內容成正比之安全保護措施：30b) 採用資訊管理系統（含資料處理、儲存、傳輸和銷毀措施）？30d) 物理上之安全保護措施？"]]
+  },
+  {
+    id:"s-27-1-9",
+    法源:"個資法第 27 條第 1 項（安全維護義務：資料安全稽核機制）",
+    條文:"非公務機關保有個人資料檔案者，應採行適當之安全措施，防止個人資料被竊取、竄改、毀損、滅失或洩漏。",
+    細則:["施行細則第 12 條第 2 項第 9 款：九、資料安全稽核機制。"],
+    佐證:"稽核計畫及稽核結果紀錄",
+    gcbpr:[["安全維護 Security Safeguards",
+      "Q32：是否施行偵測、預防及應變措施，以預防攻擊、入侵或其他安全機制失效之情況？",
+      "Q33：是否制定流程以測試 Q32 所採取安全措施之有效性？",
+      "Q34：是否進行第三方驗證或其他風險評鑑？"]]
+  },
+  {
+    id:"s-11-2",
+    法源:"個資法第 11 條第 2 項（正確性有爭議時之停止處理或利用）",
+    條文:"個人資料正確性有爭議者，應主動或依當事人之請求停止處理或利用。但因執行職務或業務所必須，或經當事人書面同意，並經註明其爭議者，不在此限。",
+    細則:["施行細則第 19 條：當事人依本法第十一條第一項規定向公務機關或非公務機關請求更正或補充其個人資料時，應為適當之釋明。"],
+    佐證:"個人資料處理活動紀錄",
+    註:"原表列為第 11 條第 3 項，已依現行條文更正為第 2 項。",
+    gcbpr:[["個人資料完整性 Integrity of Personal Information",
+      "Q21：是否採取措施以查證所持有之個人資料，於利用目的之必要範圍內，保持最新、正確及完整？",
+      "Q22：是否設置機制，於利用目的之必要範圍內，更正或更新個人資料？"]]
+  },
+  {
+    id:"s-11-3",
+    法源:"個資法第 11 條第 3 項（特定目的消失或期限屆滿之保存限制）",
+    條文:"個人資料蒐集之特定目的消失或期限屆滿時，應主動或依當事人之請求，刪除、停止處理或利用該個人資料。但因執行職務或業務所必須或經當事人書面同意者，不在此限。",
+    細則:[
+      "施行細則第 20 條：本法第十一條第三項所稱特定目的消失，指下列各款情形之一：一、公務機關經裁撤或改組而無承受業務機關。二、非公務機關歇業、解散而無承受機關，或所營事業營業項目變更而與原蒐集目的不符。三、特定目的已達成而無繼續處理或利用之必要。四、其他事由足認該特定目的已無法達成或不存在。",
+      "施行細則第 21 條：有下列各款情形之一者，屬於本法第十一條第三項但書所定因執行職務或業務所必須：一、有法令規定或契約約定之保存期限。二、有理由足認刪除將侵害當事人值得保護之利益。三、其他不能刪除之正當事由。"
+    ],
+    佐證:"資料保留及安全銷毀政策",
+    註:"原表列為第 11 條第 4 項，已依現行條文更正為第 3 項。",
+    gcbpr:[["安全維護 Security Safeguards","Q31：是否施行個人資料銷毀安全政策？"]]
+  }
+]},
+
+{ 代號:"伍", 名:"傳輸（國內）階段", key:"transfer", 項目:[
+  {
+    id:"t-27-1",
+    法源:"個資法第 27 條第 1 項（傳輸之安全維護義務）",
+    條文:"非公務機關保有個人資料檔案者，應採行適當之安全措施，防止個人資料被竊取、竄改、毀損、滅失或洩漏。",
+    細則:["施行細則第 12 條第 1 項：指公務機關或非公務機關為防止個人資料被竊取、竄改、毀損、滅失或洩漏，採取技術上及組織上之措施。"],
+    佐證:"資訊傳輸安全規則及協議文件",
+    gcbpr:[["安全維護 Security Safeguards",
+      "Q35：為避免資料遺失或防止他人未經授權不當存取、利用、修改、揭露個人資料或其他濫用個人資料之行為所產生之風險，是否要求資料處理者、代理人、承包商或其他服務提供者：35a) 採取與資料敏感度及所提供服務成正比之資料安全計畫？35b) 發現個資事故時，立即通知申請組織？35c) 立即處理解決造成個資事故之缺失？"]]
+  },
+  {
+    id:"t-04",
+    法源:"個資法第 4 條（委託關係：傳輸面向）",
+    條文:"受公務機關或非公務機關委託蒐集、處理或利用個人資料者，於本法適用範圍內，視同委託機關。",
+    細則:["施行細則第 8 條：委託他人蒐集、處理或利用個人資料時，委託機關應對受託者為適當之監督。委託機關應定期確認受託者執行之狀況，並將確認結果記錄之。"],
+    佐證:"委外處理者問責機制文件",
+    gcbpr:[["問責 Accountability",
+      "Q46：對於受託處理個人資料之處理者、代理人、承包商或其他服務提供者，是否建立機制以確保履行對資料當事人的義務？（組織內部準則或政策、契約、遵循產業相關法律或規則、行為自律守則或規範、其他）",
+      "Q47：Q46 所列機制是否要求受託處理個人資料之處理者、代理人、承包商或其他服務提供者：遵循申請組織符合全球 CBPR 且已於隱私聲明中表述的隱私政策及規定？實施與申請組織大致相同的隱私政策及規定？遵循申請組織指示處理個人資料？非經申請組織同意，限制複委託行為？發生個資事故時，通報申請組織？",
+      "Q48：是否要求受託處理個人資料之處理者、代理人、承包商或其他服務提供者，提供隱私保護自我評估？",
+      "Q49：是否定期抽查或監督受託處理個人資料之處理者、代理人、承包商或其他服務提供者，以確保遵守指示或契約？"]]
+  }
+]},
+
+{ 代號:"陸", 名:"跨境傳輸階段", key:"cross", 項目:[
+  {
+    id:"x-21",
+    法源:"個資法第 21 條（國際傳輸之限制）",
+    條文:"非公務機關為國際傳輸個人資料，而有下列情形之一者，中央目的事業主管機關得限制之：一、涉及國家重大利益。二、國際條約或協定有特別規定。三、接受國對於個人資料之保護未有完善之法規，致有損害當事人權益之虞。四、以迂迴方法向第三國（地區）傳輸個人資料規避本法。",
+    細則:[],
+    佐證:"跨境傳輸評估及保護措施文件",
+    gcbpr:[["問責 Accountability",
+      "Q50：在無法以盡職調查或合理方式確保他方遵循全球 CBPR 體系之情形下，是否向其他自然人或組織揭露所持有之個人資料？（若是，須說明原因及以其他方式確保保護之方法，例如取得個人同意；若因法律強制規定揭露，則免除上述義務）"]]
+  },
+  {
+    id:"x-27-1",
+    法源:"個資法第 27 條第 1 項（跨境傳輸之安全維護義務）",
+    條文:"非公務機關保有個人資料檔案者，應採行適當之安全措施，防止個人資料被竊取、竄改、毀損、滅失或洩漏。",
+    細則:["施行細則第 12 條第 1 項：指公務機關或非公務機關為防止個人資料被竊取、竄改、毀損、滅失或洩漏，採取技術上及組織上之措施。"],
+    佐證:"資訊傳輸安全規則及協議文件",
+    gcbpr:[["個人資料利用 Uses of Personal Information",
+      "Q10：是否將直接或代表您的第三方蒐集之個人資料揭露予其他個人資料控管者？",
+      "Q12：若 Q10 或 Q11 回答為「是」，上述個人資料揭露、傳輸行為是否於蒐集特定目的或與目的相關之其他目的範圍內為之？"]]
+  }
+]},
+
+{ 代號:"柒", 名:"銷毀階段", key:"destroy", 項目:[
+  {
+    id:"d-11-3-4",
+    法源:"個資法第 11 條第 3 項、第 4 項（刪除義務）",
+    條文:"個人資料蒐集之特定目的消失或期限屆滿時，應主動或依當事人之請求，刪除、停止處理或利用該個人資料。但因執行職務或業務所必須或經當事人書面同意者，不在此限。違反本法規定蒐集、處理或利用個人資料者，應主動或依當事人之請求，刪除、停止蒐集、處理或利用該個人資料。",
+    細則:[
+      "施行細則第 20 條：本法第十一條第三項所稱特定目的消失，指下列各款情形之一：一、公務機關經裁撤或改組而無承受業務機關。二、非公務機關歇業、解散而無承受機關，或所營事業營業項目變更而與原蒐集目的不符。三、特定目的已達成而無繼續處理或利用之必要。四、其他事由足認該特定目的已無法達成或不存在。",
+      "施行細則第 21 條：有下列各款情形之一者，屬於本法第十一條第三項但書所定因執行職務或業務所必須：一、有法令規定或契約約定之保存期限。二、有理由足認刪除將侵害當事人值得保護之利益。三、其他不能刪除之正當事由。"
+    ],
+    佐證:"資料保留及安全銷毀政策",
+    註:"第 4 項之刪除義務不設但書，不得援引第 3 項但書拒絕。",
+    gcbpr:[["安全維護 Security Safeguards","Q31：是否施行個人資料銷毀安全政策？"]]
+  },
+  {
+    id:"d-12",
+    法源:"個資法第 12 條（事故通知當事人義務）",
+    條文:"非公務機關違反本法規定，致個人資料被竊取、洩漏、竄改或其他侵害者，應查明後以適當方式通知當事人。",
+    細則:["施行細則第 22 條：本法第十二條所稱適當方式通知，指即時以言詞、書面、電話、簡訊、電子郵件、傳真、電子文件或其他足以使當事人知悉或可得知悉之方式為之。但需費過鉅者，得斟酌技術之可行性及當事人隱私之保護，以網際網路、新聞媒體或其他適當公開方式為之。依本法第十二條規定通知當事人，其內容應包括個人資料被侵害之事實及已採取之因應措施。"],
+    佐證:"資安事故偵測、預防及回應措施文件（含隱私侵害事故通知）",
+    gcbpr:[["安全維護 Security Safeguards",
+      "Q32：是否施行偵測、預防及應變措施，以預防攻擊、入侵或其他安全機制失效之情況？",
+      "Q35b：（要求資料處理者、代理人、承包商或其他服務提供者）發現個資事故時，立即通知申請組織？"]]
+  },
+  {
+    id:"d-27-1",
+    法源:"個資法第 27 條第 1 項（安全維護義務：持續改善與問責）",
+    條文:"非公務機關保有個人資料檔案者，應採行適當之安全措施，防止個人資料被竊取、竄改、毀損、滅失或洩漏。",
+    細則:["施行細則第 12 條第 2 項第 11 款：十一、個人資料安全維護之整體持續改善。"],
+    佐證:"申訴受理及回應程序文件",
+    gcbpr:[["問責 Accountability",
+      "Q41：是否設置申訴處理程序以處理申訴案件，包含接受、調查、結果回覆？",
+      "Q42：是否設置回覆程序以確保於合理時間內回覆資料當事人申訴結果？",
+      "Q43：若 Q42 回答為「是」，該回覆是否包含救濟程序之說明？"]]
+  }
+]}
+];
+
+/* ── 路徑 A：主管機關與安全維護辦法清單（與 05 產生器同步） ── */
+const 主管機關 = [
+  {名:"（尚未確定）", 辦法:[]},
+  {名:"經濟部", 辦法:[
+    ["電業與公用天然氣事業及加油站業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0130066"],
+    ["製造業及技術服務業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0030130"],
+    ["零售業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0080062"],
+    ["自來水事業個人資料檔案安全維護計畫標準辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0110089"],
+    ["著作權集體管理團體個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0070050"]]},
+  {名:"財政部", 辦法:[
+    ["報關業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=G0350077"],
+    ["保稅倉庫及物流中心個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=G0350076"],
+    ["記帳士與記帳及報稅代理人個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=G0340165"],
+    ["菸酒事業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=G0330036"],
+    ["公益彩券發行機構個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=G0320033"]]},
+  {名:"交通部", 辦法:[
+    ["汽車運輸業與計程車客運服務業個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0110047"],
+    ["民用航空事業個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0090080"],
+    ["船舶運送業個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0070073"],
+    ["觀光產業類非公務機關個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0110048"],
+    ["停車場經營業個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0040071"],
+    ["交通部指定氣象產業類非公務機關個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0100010"],
+    ["郵政業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0050023"]]},
+  {名:"數位發展部", 辦法:[
+    ["數位經濟相關產業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0010162"],
+    ["電信事業個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0060107"]]},
+  {名:"文化部", 辦法:[
+    ["電影事業個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=P0040017"]]},
+  {名:"農業部", 辦法:[
+    ["農藥販賣業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=M0140049"],
+    ["農業金融業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=M0070067"]]},
+  {名:"衛生福利部", 辦法:[
+    ["醫院個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0020218"],
+    ["精神復健機構個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0020215"],
+    ["護理機構個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0020214"],
+    ["私立長期照顧服務機構個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0070060"],
+    ["社會福利機構個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0050210"],
+    ["社會福利財團法人個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0050215"],
+    ["西藥批發零售業個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0030108"],
+    ["中藥批發零售業個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0030139"],
+    ["化粧品批發零售業個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0030138"],
+    ["醫療器材批發零售業個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0030137"],
+    ["非輻射電子醫療器材設備製造業個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0030136"],
+    ["食品業個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0040143"]]},
+  {名:"內政部", 辦法:[
+    ["內政部指定交友服務業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0030036"],
+    ["內政部指定營建類非公務機關個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0070299"],
+    ["內政部指定政黨及全國性民政財團法人個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0020087"],
+    ["內政部指定祭祀團體個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0020086"],
+    ["內政部指定宗教團體個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0020088"],
+    ["內政部指定地政類非公務機關個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0060136"],
+    ["內政部指定合作及人民團體類非公務機關個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0020085"],
+    ["內政部指定殯葬服務業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0020076"],
+    ["內政部指定移民業務機構個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0080198"],
+    ["內政部指定警政類非公務機關個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0080210"]]},
+  {名:"勞動部", 辦法:[
+    ["私立職業訓練機構個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0080048"],
+    ["人力供應業個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0020023"],
+    ["人力仲介業個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0090045"]]},
+  {名:"教育部", 辦法:[
+    ["短期補習班個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0080088"],
+    ["私立兒童課後照顧服務中心個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0080099"],
+    ["私立高級中等以下學校及幼兒園個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070072"],
+    ["私立專科以上學校及私立學術研究機構個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0030056"],
+    ["海外臺灣學校及大陸地區臺商學校個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0110008"]]},
+  {名:"金融監督管理委員會", 辦法:[
+    ["金融監督管理委員會指定非公務機關個人資料檔案安全維護辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=G0380233"]]},
+  {名:"大陸委員會", 辦法:[
+    ["大陸委員會指定非公務機關個人資料檔案安全維護辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=Q0010012"]]},
+  {名:"僑務委員會", 辦法:[
+    ["僑務委員會指定特定非公務機關個人資料檔案安全維護辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=E0040029"]]},
+  {名:"核能安全委員會", 辦法:[
+    ["游離輻射設備製造業個人資料檔案安全維護管理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0160083"]]},
+  {名:"行政院公共工程委員會", 辦法:[
+    ["工程技術顧問業個人資料檔案安全維護計畫及處理辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0070242"]]},
+  {名:"中央銀行", 辦法:[
+    ["票據交換所個人資料檔案安全維護計畫標準辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=G0430010"]]},
+  {名:"公平交易委員會", 辦法:[
+    ["多層次傳銷業訂定個人資料檔案安全維護計畫及業務終止後個人資料處理方法作業辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=J0150015"]]},
+  {名:"國家通訊傳播委員會", 辦法:[
+    ["國家通訊傳播委員會指定非公務機關個人資料檔案安全維護辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0060104"]]},
+  {名:"運動部", 辦法:[
+    ["運動彩券業個人資料檔案安全維護計畫實施辦法","https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0120077"]]},
+  {名:"其他（法務部、外交部、國防部、環境部、退輔會、國科會、客委會、原民會、司法院等）", 辦法:[]}
+];
+
+/* ============================================================
+   以下為程式邏輯，一般情況不需要修改
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let 關鍵字 = "", 選中原則 = new Set();
+const 勾選 = new Set();
+let 僅勾選 = false;
+
+$("#chips").innerHTML = 原則.map(p=>`<button class="chip" data-p="${p}">${p}</button>`).join("");
+
+function 全文(r){
+  return [r.法源, r.條文, r.佐證, r.註||"", r.要點||"", ...r.細則,
+          ...r.gcbpr.flat()].join(" ");
+}
+function 標記(t){
+  if (!關鍵字) return esc(t);
+  const k = 關鍵字.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  return esc(t).replace(new RegExp(k,"gi"), m=>`<mark>${m}</mark>`);
+}
+function 命中(r){
+  if (僅勾選 && !勾選.has(r.id)) return false;
+  if (關鍵字 && !全文(r).toLowerCase().includes(關鍵字.toLowerCase())) return false;
+  if (選中原則.size){
+    const ps = r.gcbpr.map(g=>g[0]);
+    if (![...選中原則].some(p => ps.some(x => x.startsWith(p)))) return false;
+  }
+  return true;
+}
+
+function 渲染(){
+  let 總數 = 0, html = "", nav = "";
+  階段.forEach(st => {
+    const 命中項 = st.項目.filter(命中);
+    總數 += 命中項.length;
+    nav += `<a href="#${st.key}" class="${命中項.length?'':'dim'}">
+      <span>${st.代號}、${st.名}</span><span class="n">${命中項.length}</span></a>`;
+    if (!命中項.length) return;
+    html += `<section class="stage"><h2 id="${st.key}"><span class="n">${st.代號}</span>${st.名}</h2>`;
+    命中項.forEach(r => {
+      html += `<article class="rec${勾選.has(r.id)?' picked':''}" id="${r.id}">
+        <div class="top">
+          <span class="src">${標記(r.法源)}</span>
+          <span style="display:inline-flex;gap:10px;align-items:center">
+            <label class="ck noprint"><input type="checkbox" data-ck="${r.id}"${勾選.has(r.id)?' checked':''}>勾選</label>
+            <button class="lk noprint" data-id="${r.id}">複製連結</button>
+          </span>
+        </div>
+        <p class="law">${標記(r.條文)}</p>`;
+      r.細則.forEach(x => html += `<p class="rule">◆ ${標記(x)}</p>`);
+      if (r.要點) html += `<p class="yp"><span class="k">行政院要點</span>${標記(r.要點).replace(/\n/g,"<br>")}</p>`;
+      html += `<p class="evi"><span class="k">應備佐證：</span>${標記(r.佐證)}</p>`;
+      if (r.gcbpr.length){
+        html += `<details class="gc"><summary>Global CBPR 計畫要求對照</summary><div class="body">` +
+          r.gcbpr.map(g=>`<span class="pr">【${標記(g[0])}】</span>` + g.slice(1).map(標記).join("<br>")).join("") +
+          `</div></details>`;
+      }
+      if (r.註) html += `<details class="nt"><summary>編輯附註（更正說明）</summary><div class="body">${標記(r.註)}</div></details>`;
+      html += `</article>`;
+    });
+    html += `</section>`;
+  });
+
+  $("#nav").innerHTML = nav;
+  $("#out").innerHTML = 總數 ? html
+    : `<div class="none">沒有符合條件的項目。請調整關鍵字或清除篩選條件。</div>`;
+  $("#count").innerHTML = `符合 <b>${總數}</b> 項　／　全表共 ${階段.reduce((a,s)=>a+s.項目.length,0)} 項`;
+
+  軸(".stage > h2");
+
+  document.querySelectorAll(".lk").forEach(b => b.addEventListener("click", async ()=>{
+    const url = location.href.split("#")[0] + "#" + b.dataset.id;
+    const 原 = b.textContent;
+    try{ await navigator.clipboard.writeText(url); b.textContent = "已複製"; }
+    catch(e){ b.textContent = "複製失敗"; }
+    setTimeout(()=>b.textContent = 原, 1500);
+  }));
+}
+
+
+/* ── 路徑 A：勾選、業別選擇與匯出 ── */
+$("#pa_auth").innerHTML = 主管機關.map((a,i)=>`<option value="${i}">${a.名}</option>`).join("");
+function pa_填辦法(){
+  const a = 主管機關[Number($("#pa_auth").value)];
+  const sel = $("#pa_law");
+  if (!a.辦法.length){
+    sel.innerHTML = `<option value="-1">該主管機關無對應辦法，或尚未指定</option>`;
+    sel.disabled = true;
+  } else {
+    sel.disabled = false;
+    sel.innerHTML = `<option value="-1">（尚未確認適用哪一部）</option>` +
+      a.辦法.map(([n],i)=>`<option value="${i}">${n}</option>`).join("");
+  }
+}
+pa_填辦法();
+$("#pa_auth").addEventListener("change", pa_填辦法);
+
+function pa_計數(){ $("#pa_n").textContent = 勾選.size; }
+
+$("#out").addEventListener("change", e => {
+  const c = e.target.closest("input[data-ck]"); if (!c) return;
+  const id = c.dataset.ck;
+  c.checked ? 勾選.add(id) : 勾選.delete(id);
+  const art = document.getElementById(id);
+  if (art) art.classList.toggle("picked", c.checked);
+  pa_計數();
+});
+
+$("#pa_all").addEventListener("click", ()=>{
+  階段.forEach(st => st.項目.filter(命中).forEach(r => 勾選.add(r.id)));
+  pa_計數(); 渲染();
+});
+$("#pa_clear").addEventListener("click", ()=>{
+  勾選.clear(); 僅勾選 = false;
+  $("#pa_only").classList.remove("on");
+  $("#pa_only").textContent = "僅顯示已勾選項目";
+  pa_計數(); 渲染();
+});
+$("#pa_only").addEventListener("click", ()=>{
+  僅勾選 = !僅勾選;
+  $("#pa_only").classList.toggle("on", 僅勾選);
+  $("#pa_only").textContent = 僅勾選 ? "顯示全部項目" : "僅顯示已勾選項目";
+  渲染();
+});
+
+function pa_選定(){
+  const a = 主管機關[Number($("#pa_auth").value)];
+  const li = Number($("#pa_law").value);
+  const law = (!$("#pa_law").disabled && li >= 0) ? a.辦法[li] : null;
+  return {a, law};
+}
+
+function pa_清單(含全文){
+  const out = [];
+  let n = 0;
+  階段.forEach(st => {
+    const rs = st.項目.filter(r => 勾選.has(r.id));
+    if (!rs.length) return;
+    out.push(`【${st.代號}、${st.名}】`);
+    rs.forEach(r => {
+      n++;
+      out.push(`${n}. ${r.法源}`);
+      if (含全文){
+        out.push(`　條文：${r.條文}`);
+        r.細則.forEach(x => out.push(`　${x}`));
+        out.push(`　應備佐證：${r.佐證}`);
+      }
+    });
+  });
+  return {文字: out.join("\n"), 數: n};
+}
+
+function pa_提示詞(){
+  const {a, law} = pa_選定();
+  const 未定 = a.名 === "（尚未確定）";
+  const 有辦法 = !!law;
+  const 機關句 = 未定 ? "尚未確定（請先協助我依業務性質判斷）" : a.名;
+  const 辦法句 = 有辦法 ? `《${law[0]}》（全國法規資料庫：${law[1]}）`
+    : (a.辦法.length ? "尚未確認適用哪一部（請先依我的業務性質，自上述主管機關轄下辦法中協助判斷）"
+                     : "無專屬個資檔案安全維護辦法");
+  const {數} = pa_清單(false);
+  let t = "";
+  t += "你是一位法務法令遵循 AI 助理，專精台灣個人資料保護法（個資法）及相關法規。\n";
+  t += "以下資訊取自「個人資料保護法法令遵循工具箱」文件 03（個資生命週期法令遵循主表，v1.2，非公務機關適用），為我機構已勾選之法令遵循義務清單。請嚴格依照以下流程操作，每次只問一個問題，等待回覆後再繼續。\n\n";
+  t += "【機構資訊】\n";
+  t += `中央目的事業主管機關：${機關句}\n`;
+  t += `適用之個資檔案安全維護辦法：${辦法句}\n\n`;
+  t += "【任務】\n";
+  if (有辦法 || a.辦法.length){
+    t += "1. 請向我索取上開辦法之全文（我會自全國法規資料庫複製貼上；如你可連網，得逕行抓取）。\n";
+    t += "2. 取得全文後，逐條比對下方勾選之各項義務，於每項填註差異標記：○同基底／＋加嚴／△豁免／★新增義務／—不適用。「＋加嚴」與「★新增義務」以「§條次＋簡述」格式註明（例：§5：安全維護計畫每年 1 月底前向主管機關提出）。\n";
+    t += "3. 比對完成後，彙整全部「＋加嚴」及「★新增義務」項目，列為【業別加嚴摘要】。\n";
+    t += "4. 最後產出【文件優先準備清單】：第一優先為橫跨多個生命週期階段且有業別加嚴要求之文件；第二優先為各階段尚未備妥之核心文件。每份文件標註對應法條、如有加嚴以【加嚴】標示，並給建議最晚準備時程。\n";
+  } else {
+    t += "1. 我的產業別無專屬主管機關個資辦法，請以下方勾選之義務清單作為完整法令遵循依據，無需疊加差異欄。\n";
+    t += "2. 請逐項詢問我各義務之文件備置現況（每次只問一個），據以產出【文件優先準備清單】：第一優先為橫跨多個生命週期階段之文件；第二優先為各階段尚未備妥之核心文件。每份文件標註對應法條與建議最晚準備時程。\n";
+  }
+  t += "\n【注意事項】\n";
+  t += "・個資法 114.11.11 修正條文之施行日期由行政院定之，尚未施行；請以現行有效條文為準，並提醒我持續關注個資會公告。\n";
+  t += "・個資會成立後過渡期間，部分非公務機關仍由原目的事業主管機關監管。\n\n";
+  t += `【已勾選之義務清單】（共 ${數} 項；若下方未附各項全文，請於比對前向我索取）\n`;
+  t += pa_清單(false).文字;
+  return t;
+}
+
+$("#pa_go").addEventListener("click", ()=>{
+  const box = $("#exportbox");
+  if (!勾選.size){
+    box.hidden = false;
+    box.innerHTML = `<div class="xh"><h2>匯出勾選成果</h2></div>
+      <p class="xnote" style="margin-bottom:16px">尚未勾選任何項目。請先在下方各列勾選需要比對的義務，或使用「勾選目前顯示的全部項目」。</p>`;
+    box.scrollIntoView({behavior:"smooth", block:"start"});
+    return;
+  }
+  const 提示詞 = pa_提示詞();
+  const {a, law} = pa_選定();
+  const 全文 = pa_清單(true).文字;
+  box.hidden = false;
+  box.innerHTML = `
+    <div class="xh">
+      <h2>路徑 A　勾選成果與 AI 提示詞</h2>
+      <span class="xc">已勾選 ${勾選.size} 項　·　${esc(a.名)}${law ? "　·　" + esc(law[0]) : ""}</span>
+    </div>
+    <p class="xnote">複製下列提示詞貼給 AI 助理；建議連同適用辦法全文（自全國法規資料庫複製）一併提供，即可產出含差異標記之業別比對結果與文件優先準備清單。「複製提示詞＋勾選項目全文」會將各項條文、施行細則與應備佐證一併帶入，適合無法連網或不便另行提供本表的情形。</p>
+    <pre id="pa_pre">${esc(提示詞)}</pre>
+    <div class="xbar noprint">
+      <button type="button" id="pa_c1">複製提示詞</button>
+      <button type="button" class="ghost" id="pa_c2">複製提示詞＋勾選項目全文</button>
+      <button type="button" class="ghost" id="pa_c3">關閉</button>
+    </div>`;
+  const 拷 = async (txt, b)=>{
+    const o = b.textContent;
+    try{ await navigator.clipboard.writeText(txt); b.textContent = "已複製"; }
+    catch(e){ b.textContent = "複製失敗，請手動選取"; }
+    setTimeout(()=>b.textContent = o, 1600);
+  };
+  $("#pa_c1").addEventListener("click", ()=>拷(提示詞, $("#pa_c1")));
+  $("#pa_c2").addEventListener("click", ()=>拷(
+    提示詞 + "\n\n──────── 以下為勾選項目全文（條文／施行細則／應備佐證） ────────\n\n" + 全文, $("#pa_c2")));
+  $("#pa_c3").addEventListener("click", ()=>{ box.hidden = true; box.innerHTML = ""; });
+  box.scrollIntoView({behavior:"smooth", block:"start"});
+});
+
+$("#q").addEventListener("input", e => { 關鍵字 = e.target.value.trim(); 渲染(); });
+$("#chips").addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  const p = b.dataset.p;
+  選中原則.has(p) ? 選中原則.delete(p) : 選中原則.add(p);
+  b.classList.toggle("on");
+  渲染();
+});
+$("#reset").addEventListener("click", ()=>{
+  關鍵字 = ""; $("#q").value = "";
+  選中原則.clear();
+  document.querySelectorAll(".chip.on").forEach(c=>c.classList.remove("on"));
+  渲染();
+});
+
+/* ── 段落捲動軸：顯示目前所在段落，可點擊跳轉 ── */
+const 軸 = (()=>{
+  const el = document.createElement("nav");
+  el.className = "rail"; el.setAttribute("aria-label","段落導覽");
+  document.body.appendChild(el);
+  let 目標 = [], 連結 = [];
+
+  function 標題文字(h){
+    const c = h.cloneNode(true);
+    c.querySelectorAll(".tag").forEach(x=>x.remove());
+    const n = c.querySelector(".n");
+    if (n){ const t = n.textContent.trim(); n.remove();
+            return t + "、" + c.textContent.trim(); }
+    return c.textContent.trim();
+  }
+  function 更新(){
+    if (!目標.length) return;
+    let i = 0;
+    目標.forEach((t,k)=>{ if (t.getBoundingClientRect().top <= 130) i = k; });
+    連結.forEach((a,k)=>a.classList.toggle("on", k===i));
+  }
+  window.addEventListener("scroll", 更新, {passive:true});
+  window.addEventListener("resize", 更新, {passive:true});
+
+  return function 建立(選擇器, 標題選擇器){
+    目標 = [...document.querySelectorAll(選擇器)];
+    if (目標.length < 2){ el.classList.remove("on"); el.innerHTML = ""; return; }
+    目標.forEach((t,i)=>{ if (!t.id) t.id = "rail-" + i; });
+    el.innerHTML = 目標.map(t=>{
+      const h = 標題選擇器 ? t.querySelector(標題選擇器) : t;
+      return `<a href="#${t.id}" data-t="${標題文字(h||t).replace(/"/g,"&quot;")}"><i></i></a>`;
+    }).join("");
+    連結 = [...el.querySelectorAll("a")];
+    el.classList.add("on");
+    更新();
+  };
+})();
+
+渲染();
+軸(".stage > h2");
+if (location.hash){
+  const el = document.querySelector(location.hash);
+  if (el) el.scrollIntoView();
+}
+</script>
+</body>
+</html>
