@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>個人資料保護法法令遵循工具箱（Global CBPR 對照版）</title>
+<meta name="description" content="臺灣個人資料保護法法令遵循工具箱，對照 Global CBPR System Program Requirements（Chinese Taipei, Annex B）。含 DSAR 回應與個資事故應對兩套互動底稿產生器，及四份可搜尋的法規對照表。">
+<style>
+:root{
+  --ink:#16233A;--ink-2:#3A4A64;--muted:#6B7789;
+  --rule:#D3DAE3;--rule-soft:#E6EAF0;--field:#EDF1F6;--paper:#FFFFFF;
+  --seal:#A8322D;--seal-soft:#F5E9E8;--amber:#8A5A12;--amber-soft:#FBF2E0;
+  --serif:"Noto Serif TC","Songti TC","Source Han Serif TC","PMingLiU",serif;
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",sans-serif;
+  --mono:ui-monospace,"SF Mono","Roboto Mono","Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--field);font-size:15px;line-height:1.8;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px 90px}
+
+/* 首頁題頭 */
+.hero{background:var(--paper);border-bottom:1px solid var(--rule)}
+.hero .inner{max-width:1080px;margin:0 auto;padding:52px 20px 44px}
+.hero .eyebrow{font-size:12px;letter-spacing:.24em;color:var(--seal);margin:0 0 16px}
+.hero h1{font-family:var(--serif);font-size:36px;line-height:1.4;font-weight:600;margin:0 0 6px;letter-spacing:.01em}
+@media(max-width:620px){.hero h1{font-size:27px}}
+.hero h1 .en{display:block;font-size:15px;letter-spacing:.06em;color:var(--muted);font-weight:400;margin-top:10px;font-family:var(--sans)}
+.hero .lede{font-size:16px;color:var(--ink-2);max-width:44em;margin:20px 0 0}
+.hero .by{margin:26px 0 0;font-size:13px;color:var(--muted);border-top:1px solid var(--rule-soft);padding-top:16px}
+.hero .by b{color:var(--ink);font-weight:600}
+.hero .by a{color:var(--muted)}
+
+h2.sec{font-family:var(--serif);font-size:20px;font-weight:600;margin:48px 0 6px;padding-bottom:9px;border-bottom:2px solid var(--ink)}
+h2.sec .n{font-family:var(--mono);font-size:12px;color:var(--seal);margin-right:12px;letter-spacing:.08em}
+p.seclede{font-size:14px;color:var(--muted);margin:0 0 20px}
+
+/* 路徑卡 */
+.paths{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:860px){.paths{grid-template-columns:1fr}}
+.path{background:var(--paper);border:1px solid var(--rule);padding:22px 22px 20px;display:flex;flex-direction:column}
+.path .tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--seal);margin-bottom:10px}
+.path h3{font-family:var(--serif);font-size:18px;font-weight:600;margin:0 0 8px}
+.path p{font-size:13.5px;color:var(--ink-2);margin:0 0 16px;flex:1}
+.path .go{display:inline-block;font-size:13.5px;padding:9px 15px;border:1px solid var(--ink);background:var(--ink);color:#fff;text-decoration:none;align-self:flex-start}
+.path .go:hover{opacity:.86}
+.path .go.ghost{background:#fff;color:var(--ink)}
+.path .also{font-size:12.5px;color:var(--muted);margin:12px 0 0}
+.path .also a{color:var(--muted)}
+
+/* 文件表 */
+.docs{background:var(--paper);border:1px solid var(--rule)}
+.doc{display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:baseline;padding:16px 22px;border-bottom:1px solid var(--rule-soft)}
+.doc:last-child{border-bottom:0}
+@media(max-width:620px){.doc{grid-template-columns:44px 1fr;gap:10px}.doc .act{grid-column:2}}
+.doc .no{font-family:var(--mono);font-size:13px;color:var(--seal)}
+.doc h3{font-family:var(--serif);font-size:16px;font-weight:600;margin:0 0 3px}
+.doc p{font-size:13px;color:var(--muted);margin:0}
+.doc .act{white-space:nowrap}
+.doc .act a{font-size:12.5px;padding:5px 11px;border:1px solid var(--rule);text-decoration:none;color:var(--ink)}
+.doc .act a:hover{border-color:var(--ink)}
+.doc .act .none{font-size:12.5px;color:var(--muted)}
+
+/* 一般區塊 */
+.box{background:var(--paper);border:1px solid var(--rule);padding:24px 26px}
+.box p{margin:0 0 14px;font-size:14.5px;color:var(--ink-2)}
+.box p:last-child{margin:0}
+.box b{color:var(--ink)}
+.pull{border-left:3px solid var(--seal);background:var(--seal-soft);padding:14px 18px;margin:0 0 16px;font-size:14px;line-height:1.85;color:var(--ink-2)}
+.pull b{color:var(--seal)}
+dl.meta{display:grid;grid-template-columns:150px 1fr;gap:0;margin:0;font-size:13.5px;border-top:1px solid var(--rule-soft)}
+@media(max-width:620px){dl.meta{grid-template-columns:1fr}dl.meta dt{padding-bottom:0!important;border-bottom:0!important}}
+dl.meta dt{padding:9px 0;color:var(--muted);border-bottom:1px solid var(--rule-soft);font-size:13px}
+dl.meta dd{padding:9px 0;margin:0;border-bottom:1px solid var(--rule-soft)}
+.foot{margin-top:40px;padding-top:20px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--muted);line-height:1.9}
+.foot a{color:var(--muted)}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="inner">
+    <p class="eyebrow">法令遵循參考工具　·　v1.2　·　CC BY-NC-SA 4.0</p>
+    <h1>個人資料保護法法令遵循工具箱
+      <span class="en">Taiwan PDPA Compliance Toolkit　·　Mapped to the Global CBPR System Program Requirements</span>
+    </h1>
+    <p class="lede">以臺灣個人資料保護法的日常法令遵循為核心，涵蓋生命週期義務、當事人權利回應與個資事故應變三條作業路徑，並逐項對照 Global CBPR System Program Requirements（Chinese Taipei, Annex B）。</p>
+    <p class="by">作者　<b>蔡易融</b>　｜　
+      <a href="https://www.linkedin.com/in/ijungtsai" target="_blank" rel="noopener">LinkedIn</a>　·　
+      <a href="https://www.threads.com/@irongtsay" target="_blank" rel="noopener">Threads</a>　·　
+      <a href="https://github.com/alfred-ij-tsai/tw-pdpa-gcbpr-toolkit" target="_blank" rel="noopener">GitHub 原始文件庫</a></p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <h2 class="sec"><span class="n">01</span>從你手上的問題開始</h2>
+  <p class="seclede">三條路徑對應三種實務情境。填答後產出可列印的工作底稿，供改寫為貴組織的正式文件。</p>
+
+  <div class="paths">
+    <div class="path">
+      <div class="tag">路徑 A</div>
+      <h3>日常法令遵循</h3>
+      <p>盤點個資從蒐集到銷毀七個階段的法定義務、施行細則對應條文與應備佐證，並比對貴業別安全維護辦法的加嚴要求。</p>
+      <a class="go ghost" href="table-03.html">開啟生命週期主表</a>
+      <p class="also">業別辦法查詢見 <a href="table-02.html">02 法規盤點對照表</a></p>
+    </div>
+
+    <div class="path">
+      <div class="tag">路徑 B</div>
+      <h3>當事人近用請求</h3>
+      <p>收到查詢、複製本、更正、停止或刪除的請求。填入收件日與請求類型，依 15 日或 30 日自動分流計算准駁期限，產出逐項查核清單與行動建議。</p>
+      <a class="go" href="dsar.html">開啟 DSAR 底稿產生器</a>
+      <p class="also">義務全表見 <a href="table-04.html">04 DSAR 對照表</a></p>
+    </div>
+
+    <div class="path">
+      <div class="tag">路徑 C</div>
+      <h3>個資事故應變</h3>
+      <p>發生竊取、洩漏、竄改、毀損或滅失。填入知悉時點與主管機關，產出時序總覽、查核清單，及可交付 AI 的比對提示詞。</p>
+      <a class="go" href="incident.html">開啟事故應對底稿產生器</a>
+      <p class="also">義務全表見 <a href="table-05.html">05 個資事故對照表</a></p>
+    </div>
+  </div>
+
+  <h2 class="sec"><span class="n">02</span>五份文件</h2>
+  <p class="seclede">網頁版可搜尋、可深連結、可列印。原始 Word 與 PDF 檔置於 GitHub 文件庫。</p>
+
+  <div class="docs">
+    <div class="doc">
+      <span class="no">01</span>
+      <div><h3>AI 使用 Prompt</h3><p>三條路徑的 AI 協作總綱，本工具箱各互動功能之設計依據</p></div>
+      <span class="act"><span class="none">已內建於三條路徑產生器</span></span>
+    </div>
+    <div class="doc">
+      <span class="no">02</span>
+      <div><h3>法規盤點對照表</h3><p>三十個主管機關、六十五部個資法規命令清冊</p></div>
+      <span class="act"><a href="table-02.html">開啟</a></span>
+    </div>
+    <div class="doc">
+      <span class="no">03</span>
+      <div><h3>個資生命週期法令遵循主表</h3><p>七階段逐項義務，含施行細則與應備佐證</p></div>
+      <span class="act"><a href="table-03.html">開啟</a></span>
+    </div>
+    <div class="doc">
+      <span class="no">04</span>
+      <div><h3>當事人近用請求（DSAR）對照表</h3><p>五項權利之回應義務、15／30 日期限分流，含醫療法特別規定</p></div>
+      <span class="act"><a href="table-04.html">開啟</a></span>
+    </div>
+    <div class="doc">
+      <span class="no">05</span>
+      <div><h3>個資安維案件（個資事故）對照表</h3><p>行政院要點六階段流程、十六項義務</p></div>
+      <span class="act"><a href="table-05.html">開啟</a></span>
+    </div>
+  </div>
+
+  <h2 class="sec"><span class="n">03</span>為什麼對照 Global CBPR</h2>
+  <div class="box">
+    <p class="pull"><b>可以把它想成隱私護照。</b>通過一次驗證，效力在全體成員經濟體之間相互承認，不必為每一個市場重做一次合規論證。</p>
+    <p>臺灣是 Global CBPR Forum 的<b>創始成員</b>，國家發展委員會擔任協調角色，財團法人資訊工業策進會為我國的當責機構（Accountability Agent）。這意味著臺灣企業要取得跨境資料流通的國際互信，Global CBPR 是現成且已就位的制度路徑。</p>
+    <p>選擇 Global CBPR 作為對照基準，還有一個務實理由：<b>Annex B 的 Enforcement Map 是公開文件</b>，且已有中英對照版本。這使得本工具箱得以完整引用其問題全文，並以開放授權釋出，任何人都能自由取用、修改與再散布。</p>
+    <p>本工具箱的核心始終是<b>臺灣個資法的日常法令遵循</b>。GCBPR 欄位是附加的對照參考，供有跨境需求或正在準備驗證的組織使用，不影響本國法義務的判斷。</p>
+  </div>
+
+  <h2 class="sec"><span class="n">04</span>版本、範圍與限制</h2>
+  <div class="box">
+    <dl class="meta">
+      <dt>工具箱版本</dt>
+      <dd>v1.2（2026 年 7 月）。本版更正 DSAR 期限體系（第 13 條依請求類型分流為 15 日與 30 日）、第 10 條之適用範圍與但書、收費依據（第 14 條）、第 5 條及第 22 條第 4 項引文，並增列第 7 條第 3、4 項、第 9 條、第 19 條第 2 項。更正項目詳見 GitHub 文件庫之版本紀錄。</dd>
+      <dt>個人資料保護法</dt>
+      <dd>現行有效條文。114.11.11 修正公布之條文，施行日期由行政院定之，尚未施行；涉及該次修正處均另行標示。</dd>
+      <dt>施行細則</dt>
+      <dd>105 年 3 月 2 日修正發布</dd>
+      <dt>行政院要點</dt>
+      <dd>行政院及所屬各機關落實個人資料保護聯繫作業要點（114.01.07 修正）</dd>
+      <dt>對照基準</dt>
+      <dd>Global CBPR System Program Requirements Enforcement Map for Chinese Taipei（Annex B）</dd>
+      <dt>適用對象</dt>
+      <dd>非公務機關。公務機關之安全維護義務依個資法第 18 條，並另有政府資訊公開法、檔案法、行政程序法等特別規定，不在涵蓋範圍。各表條文引用以非公務機關適用部分為限。</dd>
+      <dt>收錄範圍</dt>
+      <dd>個資法及其授權訂定之法規命令。各業別之勞動、醫療、金融、電信等專業法規不在收錄範圍，惟醫療法第 68 條、第 71 條因直接牽動當事人權利之履行方式，例外納入 04 表。</dd>
+      <dt>期限計算</dt>
+      <dd>各底稿所列日期均為依日數或時數計算之原始到期日，未計入例假日順延。實際末日請依行政程序法第 48 條並核對當年度辦公日曆表後確認。</dd>
+    </dl>
+    <p style="margin-top:18px"><b>本工具箱為法令遵循參考資料，不構成法律意見。</b>所引法規應以
+      <a href="https://law.moj.gov.tw/" target="_blank" rel="noopener">全國法規資料庫</a>現行有效版本為準。
+      產出之底稿為工作底稿，具體個案請諮詢法律專業人士。</p>
+  </div>
+
+  <p class="foot">
+    個人資料保護法法令遵循工具箱（Global CBPR 對照版）　·　v1.2　·　作者：蔡易融　·　
+    本著作採<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際授權條款</a>釋出。<br>
+    歡迎轉載、改作與再散布，請標示作者姓名、不得為商業性利用，並以相同授權方式釋出。
+  </p>
+</div>
+
+</body>
+</html>
