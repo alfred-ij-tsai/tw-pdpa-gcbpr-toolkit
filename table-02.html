@@ -105,13 +105,22 @@ nav.toc a{display:block;padding:8px 0;border-bottom:1px solid var(--rule-soft);f
 nav.toc a:hover{color:var(--seal)}
 nav.toc a.sub2{padding-left:14px;font-size:12.5px;color:var(--ink-2)}
 @media print{ h2.part{break-after:avoid} table.sp{break-inside:auto} table.sp tr{break-inside:avoid} }
+
+/* 語言切換（Language switch） */
+.langbar{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.langbar>.eyebrow{flex:1 1 auto;min-width:0}
+a.lang{flex:0 0 auto;font-family:var(--sans);font-size:12px;letter-spacing:.06em;
+  color:var(--muted);text-decoration:none;border:1px solid var(--rule);
+  padding:4px 11px;line-height:1.5;white-space:nowrap;align-self:center}
+a.lang:hover{border-color:var(--ink);color:var(--ink)}
+@media print{a.lang{display:none}}
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="inner">
-    <p class="eyebrow"><a href="index.html">個人資料保護法法令遵循工具箱</a>　／　文件 02　·　v1.3</p>
+    <div class="langbar"><p class="eyebrow"><a href="index.html">個人資料保護法法令遵循工具箱</a>　／　文件 02　·　v1.3</p><a class="lang" href="en/table-02.html" title="Read this page in English" rel="alternate">English</a></div>
     <h1>法規盤點對照表</h1>
     <p class="sub">甲部：三十個主管機關轄下之個人資料保護法規命令清冊，含全國法規資料庫連結　｜　乙部：優先於個資法適用之特別法清冊</p>
   </div>

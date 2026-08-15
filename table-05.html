@@ -114,13 +114,22 @@ mark{background:#FCEFA8;color:inherit;padding:0 1px}
   details.gc,details.nt{display:none}
   a{text-decoration:none}
 }
+
+/* 語言切換（Language switch） */
+.langbar{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.langbar>.eyebrow{flex:1 1 auto;min-width:0}
+a.lang{flex:0 0 auto;font-family:var(--sans);font-size:12px;letter-spacing:.06em;
+  color:var(--muted);text-decoration:none;border:1px solid var(--rule);
+  padding:4px 11px;line-height:1.5;white-space:nowrap;align-self:center}
+a.lang:hover{border-color:var(--ink);color:var(--ink)}
+@media print{a.lang{display:none}}
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="inner">
-    <p class="eyebrow"><a href="index.html">個人資料保護法法令遵循工具箱</a>　／　文件 05　·　v1.3</p>
+    <div class="langbar"><p class="eyebrow"><a href="index.html">個人資料保護法法令遵循工具箱</a>　／　文件 05　·　v1.3</p><a class="lang" href="en/table-05.html" title="Read this page in English" rel="alternate">English</a></div>
     <h1>個資安維案件（個資事故）對照表</h1>
     <p class="sub">依行政院要點所定六階段處理流程，逐項對應個資法及施行細則之義務，並對照 Global CBPR 計畫要求</p>
   </div>

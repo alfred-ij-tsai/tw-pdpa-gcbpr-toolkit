@@ -4,6 +4,14 @@
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
+> **English edition available.**
+> A compliance toolkit for Taiwan's Personal Data Protection Act, written for lawyers,
+> in-house counsel and privacy professionals, and mapped throughout to the Global CBPR
+> System Program Requirements (Chinese Taipei, Annex B). Seven single-file HTML tools:
+> four searchable reference tables and two interactive draft generators, for data subject
+> requests and for personal data incidents. No installation, no build step, no server.
+> **➜ [Open the English edition](https://alfred-ij-tsai.github.io/tw-pdpa-gcbpr-toolkit/en/)**
+
 一套以臺灣個資法、施行細則、產業別安全維護辦法、行政院要點為核心，涵蓋**日常法令遵循、當事人近用請求（DSAR）、個資事故應對**三大實務場景的工具箱，設計給律師、企業法務、法令遵循人員，以及需要快速掌握個資法義務的使用者。
 
 本工具箱的核心內容，是完整的臺灣個資法日常法令遵循應用：每一項法條義務、每一份佐證文件，都直接對應到機構實際運作的蒐集、處理、利用、事故通報等場景。在此基礎上，本版本另外逐項對照 **Global CBPR System Program Requirements**，讓機構在完成國內法遵的同時，也能一併檢視自身是否具備跨境資料流通所需的佐證能力。
@@ -29,7 +37,7 @@
 
 ## 網頁互動版
 
-**➜ [開啟工具箱首頁](https://alfred-ij-tsai.github.io/tw-pdpa-gcbpr-toolkit/)**
+**➜ [開啟工具箱首頁](https://alfred-ij-tsai.github.io/tw-pdpa-gcbpr-toolkit/)**　｜　**[English edition](https://alfred-ij-tsai.github.io/tw-pdpa-gcbpr-toolkit/en/)**
 
 | 檔案 | 內容 | 特性 |
 | --- | --- | --- |

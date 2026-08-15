@@ -75,13 +75,22 @@ dl.meta dt{padding:9px 0;color:var(--muted);border-bottom:1px solid var(--rule-s
 dl.meta dd{padding:9px 0;margin:0;border-bottom:1px solid var(--rule-soft)}
 .foot{margin-top:40px;padding-top:20px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--muted);line-height:1.9}
 .foot a{color:var(--muted)}
+
+/* 語言切換（Language switch） */
+.langbar{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.langbar>.eyebrow{flex:1 1 auto;min-width:0}
+a.lang{flex:0 0 auto;font-family:var(--sans);font-size:12px;letter-spacing:.06em;
+  color:var(--muted);text-decoration:none;border:1px solid var(--rule);
+  padding:4px 11px;line-height:1.5;white-space:nowrap;align-self:center}
+a.lang:hover{border-color:var(--ink);color:var(--ink)}
+@media print{a.lang{display:none}}
 </style>
 </head>
 <body>
 
 <div class="hero">
   <div class="inner">
-    <p class="eyebrow">法令遵循參考工具　·　v1.3　·　CC BY-NC-SA 4.0</p>
+    <div class="langbar"><p class="eyebrow">法令遵循參考工具　·　v1.3　·　CC BY-NC-SA 4.0</p><a class="lang" href="en/" title="Read this page in English" rel="alternate">English</a></div>
     <h1>個人資料保護法法令遵循工具箱
       <span class="en">Taiwan PDPA Compliance Toolkit　·　Mapped to the Global CBPR System Program Requirements</span>
     </h1>

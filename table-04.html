@@ -114,13 +114,22 @@ mark{background:#FCEFA8;color:inherit;padding:0 1px}
   details.gc,details.nt{display:none}
   a{text-decoration:none}
 }
+
+/* 語言切換（Language switch） */
+.langbar{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.langbar>.eyebrow{flex:1 1 auto;min-width:0}
+a.lang{flex:0 0 auto;font-family:var(--sans);font-size:12px;letter-spacing:.06em;
+  color:var(--muted);text-decoration:none;border:1px solid var(--rule);
+  padding:4px 11px;line-height:1.5;white-space:nowrap;align-self:center}
+a.lang:hover{border-color:var(--ink);color:var(--ink)}
+@media print{a.lang{display:none}}
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="inner">
-    <p class="eyebrow"><a href="index.html">個人資料保護法法令遵循工具箱</a>　／　文件 04　·　v1.3</p>
+    <div class="langbar"><p class="eyebrow"><a href="index.html">個人資料保護法法令遵循工具箱</a>　／　文件 04　·　v1.3</p><a class="lang" href="en/table-04.html" title="Read this page in English" rel="alternate">English</a></div>
     <h1>當事人近用請求（DSAR）對照表</h1>
     <p class="sub">查詢閱覽、製給複製本、補充更正、停止蒐集處理利用、刪除五項權利之回應義務、期限與拒絕事由，並對照 Global CBPR 計畫要求</p>
   </div>
