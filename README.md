@@ -10,7 +10,7 @@
 > System Program Requirements (Chinese Taipei, Annex B). Seven single-file HTML tools:
 > four searchable reference tables and two interactive draft generators, for data subject
 > requests and for personal data incidents. No installation, no build step, no server.
-> **➜ [Open the English edition](https://alfred-ij-tsai.github.io/tw-pdpa-gcbpr-toolkit/en/)**
+> > **➜ [Open the English edition](https://alfred-ij-tsai.github.io/tw-pdpa-gcbpr-toolkit/en/)**　·　[English README](https://github.com/alfred-ij-tsai/tw-pdpa-gcbpr-toolkit/tree/main/en)
 
 一套以臺灣個資法、施行細則、產業別安全維護辦法、行政院要點為核心，涵蓋**日常法令遵循、當事人近用請求（DSAR）、個資事故應對**三大實務場景的工具箱，設計給律師、企業法務、法令遵循人員，以及需要快速掌握個資法義務的使用者。
 
