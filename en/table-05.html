@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05 Personal Data Incident Table | Taiwan PDPA Compliance Toolkit</title>
+<style>
+:root{
+  --ink:#16233A;--ink-2:#3A4A64;--muted:#6B7789;
+  --rule:#D3DAE3;--rule-soft:#E6EAF0;--field:#EDF1F6;--paper:#FFFFFF;
+  --seal:#A8322D;--seal-soft:#F5E9E8;--amber:#8A5A12;--amber-soft:#FBF2E0;
+  --serif:"Noto Serif","Source Serif 4","Iowan Old Style","Palatino Linotype",Georgia,"Noto Serif TC",serif;
+  --sans:"Noto Sans","Inter","Helvetica Neue",Arial,"Noto Sans TC",sans-serif;
+  --mono:ui-monospace,"SF Mono","Roboto Mono","Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--field);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px 80px}
+header.top{border-bottom:1px solid var(--rule);background:var(--paper)}
+header.top .inner{max-width:1240px;margin:0 auto;padding:22px 20px 18px}
+.eyebrow{font-size:12px;letter-spacing:.22em;color:var(--muted);margin:0 0 6px}
+.eyebrow a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
+h1{font-family:var(--serif);font-size:26px;font-weight:600;margin:0 0 8px;letter-spacing:.02em}
+.sub{margin:0;color:var(--ink-2);font-size:13.5px}
+.usage{max-width:1240px;margin:0 auto;padding:16px 20px 0}
+.usage p{background:var(--paper);border:1px solid var(--rule);border-left:3px solid var(--ink);padding:14px 18px;margin:0;font-size:13px;line-height:1.9;color:var(--ink-2)}
+.usage p b{color:var(--ink)}
+.cols{display:grid;grid-template-columns:280px 1fr;gap:26px;align-items:start;margin-top:26px}
+@media(max-width:940px){.cols{grid-template-columns:1fr}}
+.side{background:var(--paper);border:1px solid var(--rule);padding:18px 18px 22px;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
+@media(max-width:940px){.side{position:static;max-height:none}}
+.side h2{font-family:var(--serif);font-size:15px;font-weight:600;margin:0 0 10px}
+input[type=search]{width:100%;font-family:var(--sans);font-size:14px;padding:9px 10px;border:1px solid var(--rule);background:#fff;color:var(--ink);border-radius:0;-webkit-appearance:none}
+input[type=search]:focus,select:focus,button:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.count{font-size:12px;color:var(--muted);margin:8px 0 18px;font-family:var(--mono)}
+.count b{color:var(--seal)}
+nav.stages{border-top:1px solid var(--rule-soft);margin-bottom:16px}
+nav.stages a{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid var(--rule-soft);font-size:13.5px;text-decoration:none;color:var(--ink)}
+nav.stages a:hover{color:var(--seal)}
+nav.stages a .n{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+nav.stages a.dim{color:var(--rule);pointer-events:none}
+.side h3{font-size:12px;letter-spacing:.1em;color:var(--muted);margin:0 0 8px;font-weight:400}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:18px}
+.chip{font-family:var(--sans);font-size:12px;padding:4px 9px;border:1px solid var(--rule);background:#fff;color:var(--ink-2);cursor:pointer;border-radius:0}
+.chip:hover{border-color:var(--ink-2)}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.side .reset{font-size:12.5px;padding:7px 12px;border:1px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;font-family:var(--sans)}
+main{min-width:0}
+.stage{background:var(--paper);border:1px solid var(--rule);margin-bottom:22px}
+.stage>h2{font-family:var(--serif);font-size:18px;font-weight:600;margin:0;padding:18px 26px 15px;border-bottom:2px solid var(--ink);scroll-margin-top:16px}
+.stage>h2 .n{font-family:var(--mono);font-size:12px;color:var(--seal);margin-right:10px;letter-spacing:.08em}
+.rec{padding:20px 26px;border-bottom:1px solid var(--rule-soft);scroll-margin-top:16px}
+.rec:last-child{border-bottom:0}
+.rec:target{background:var(--amber-soft)}
+.rec .top{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin-bottom:8px}
+.rec .src{font-family:var(--serif);font-weight:600;font-size:15.5px}
+.rec .lk{font-family:var(--mono);font-size:11px;color:var(--muted);background:none;border:1px solid var(--rule);padding:2px 7px;cursor:pointer;white-space:nowrap}
+.rec .lk:hover{border-color:var(--ink-2);color:var(--ink)}
+.rec .law{font-size:13.5px;line-height:1.9;color:var(--ink-2);border-left:2px solid var(--rule);padding-left:13px;margin:0 0 9px}
+.rec .rule{font-size:13px;line-height:1.85;color:var(--muted);padding-left:15px;margin:0 0 8px}
+.rec .yp{font-size:13px;line-height:1.85;color:var(--ink-2);background:#F5F7FA;padding:9px 12px;margin:0 0 9px;border-left:2px solid var(--amber)}
+.rec .yp .k{font-weight:600;color:var(--amber);margin-right:6px}
+.rec .evi{font-size:13.5px;margin:0}
+.rec .evi .k{color:var(--muted);font-size:13px}
+.rec .note{font-size:12.5px;line-height:1.8;background:var(--amber-soft);border-left:3px solid var(--amber);padding:9px 12px;margin:9px 0 0;color:var(--ink-2)}
+.rec .note b{color:var(--amber)}
+details.nt{margin-top:9px}
+details.nt summary{cursor:pointer;font-size:12.5px;color:var(--amber);list-style:none;display:inline-block;border-bottom:1px dotted var(--amber)}
+details.nt summary::-webkit-details-marker{display:none}
+details.nt summary::before{content:"+ ";font-family:var(--mono)}
+details.nt[open] summary::before{content:"– "}
+details.nt .body{font-size:12.5px;line-height:1.85;color:var(--ink-2);margin-top:8px;padding:9px 12px;background:var(--amber-soft);border-left:3px solid var(--amber)}
+details.gc{margin-top:9px}
+details.gc summary{cursor:pointer;font-size:12.5px;color:var(--muted);list-style:none;display:inline-block;border-bottom:1px dotted var(--rule)}
+details.gc summary::-webkit-details-marker{display:none}
+details.gc summary::before{content:"+ ";font-family:var(--mono)}
+details.gc[open] summary::before{content:"– "}
+details.gc .body{font-size:12.5px;line-height:1.85;color:var(--ink-2);margin-top:8px;padding-left:13px;border-left:1px solid var(--rule)}
+details.gc .pr{font-weight:600;color:var(--ink);display:block;margin-top:7px}
+details.gc .pr:first-child{margin-top:0}
+mark{background:#FCEFA8;color:inherit;padding:0 1px}
+.none{background:var(--paper);border:1px solid var(--rule);padding:50px 26px;text-align:center;color:var(--muted);font-size:14px}
+.foot{margin-top:26px;background:#FAFBFC;border:1px solid var(--rule);padding:20px 26px 24px}
+.foot p{margin:0 0 8px;font-size:12px;color:var(--muted);line-height:1.85}
+.foot p:last-child{margin-bottom:0}
+.foot b{color:var(--ink-2)}
+
+.rail{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:60;
+ display:none;flex-direction:column;align-items:flex-end}
+.rail.on{display:flex}
+.rail::before{content:"";position:absolute;right:5px;top:12px;bottom:12px;width:1px;background:var(--rule)}
+.rail a{position:relative;display:block;padding:7px 0;text-decoration:none}
+.rail a i{display:block;width:9px;height:9px;border:1px solid var(--muted);
+ background:var(--paper);border-radius:50%;position:relative;z-index:1}
+.rail a:hover i{border-color:var(--ink)}
+.rail a.on i{width:11px;height:11px;background:var(--seal);border-color:var(--seal);margin-right:-1px}
+.rail a::after{content:attr(data-t);position:absolute;right:20px;top:50%;
+ transform:translateY(-50%);white-space:nowrap;font-size:12px;line-height:1.6;
+ color:var(--muted);background:rgba(255,255,255,.95);border:1px solid var(--rule);
+ padding:2px 9px;opacity:0;pointer-events:none;transition:opacity .12s}
+.rail a:hover::after{opacity:1}
+.rail a.on::after{opacity:1;color:var(--ink);border-color:var(--ink)}
+@media(max-width:1320px){.rail{display:none!important}}
+
+
+.pa select{width:100%;font:inherit;font-size:13px;padding:7px 8px;border:1px solid var(--rule);background:#fff;color:var(--ink);margin:0 0 8px}
+.pa .pa-count{font-size:12.5px;color:var(--ink-2);margin:2px 0 8px}
+.pa .pa-count b{color:var(--ink)}
+.pa button{display:block;width:100%;text-align:center;font:inherit;font-size:13px;padding:7px 10px;margin:0 0 7px;cursor:pointer;border:1px solid var(--ink);background:var(--ink);color:#fff}
+.pa button.ghost{background:#fff;color:var(--ink)}
+.pa button.mini{border-color:var(--rule);background:#fff;color:var(--ink-2);font-size:12.5px;padding:5px 8px}
+.pa button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pa .pa-hint{font-size:12px;color:var(--muted);line-height:1.7;margin:0 0 8px}
+.rec .ck{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--ink-2);cursor:pointer;user-select:none;white-space:nowrap}
+.rec .ck input{accent-color:var(--ink);width:14px;height:14px;cursor:pointer}
+.rec.picked{box-shadow:inset 3px 0 0 var(--ink)}
+#exportbox{margin:0 0 26px;border:1px solid var(--ink);background:#FBFCFD}
+#exportbox .xh{padding:14px 20px;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+#exportbox .xh h2{font-size:16px;margin:0}
+#exportbox .xh .xc{font-size:12.5px;color:var(--muted)}
+#exportbox .xnote{font-size:12.5px;color:var(--ink-2);line-height:1.8;margin:12px 20px 0}
+#exportbox pre{margin:12px 20px;padding:14px 16px;background:#fff;border:1px solid var(--rule);font-family:var(--mono,ui-monospace,monospace);font-size:12px;line-height:1.8;white-space:pre-wrap;word-break:break-all;max-height:420px;overflow:auto}
+#exportbox .xbar{display:flex;gap:8px;flex-wrap:wrap;padding:12px 20px;border-top:1px solid var(--rule);background:#F3F5F8}
+#exportbox .xbar button{font:inherit;font-size:13px;padding:7px 14px;cursor:pointer;border:1px solid var(--ink);background:var(--ink);color:#fff}
+#exportbox .xbar button.ghost{background:#fff;color:var(--ink)}
+
+@media print{.rail{display:none!important}}
+@media print{
+ body{background:#fff;font-size:10.5pt}
+ header.top,.side,.lk,.noprint{display:none!important}
+  #exportbox .xbar{display:none!important}
+  #exportbox pre{max-height:none;overflow:visible}
+  .cols{display:block}
+  .wrap{max-width:none;padding:0}
+  .stage{border:0;margin-bottom:0}
+  .rec{break-inside:avoid;padding:10px 0}
+ details.gc,details.nt{display:none}
+ a{text-decoration:none}
+}
+
+
+/* 語言切換（Language switch） */
+.langbar{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.langbar>.eyebrow{flex:1 1 auto;min-width:0}
+a.lang{flex:0 0 auto;font-family:var(--sans);font-size:12px;letter-spacing:.06em;
+  color:var(--muted);text-decoration:none;border:1px solid var(--rule);
+  padding:4px 11px;line-height:1.5;white-space:nowrap;align-self:center}
+a.lang:hover{border-color:var(--ink);color:var(--ink)}
+@media print{a.lang{display:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner">
+    <div class="langbar"><p class="eyebrow"><a href="index.html">Taiwan PDPA Compliance Toolkit</a> / Document 05 · v1.3-EN</p><a class="lang" href="../table-05.html" title="以繁體中文閱讀本頁" rel="alternate">中文</a></div>
+    <h1>Personal Data Incident Table</h1>
+    <p class="sub">The six-stage handling process established by the Executive Yuan Directions, with the corresponding obligations under the PDPA and its Enforcement Rules, mapped to the Global CBPR System Program Requirements</p>
+  </div>
+</header>
+
+<div class="usage">
+  <p><b>How to use this table</b> The structure follows the process for handling security violation cases under the Directions for the Executive Yuan and Its Subordinate Agencies on Liaison Operations for the Implementation of Personal Data Protection (amended 7 January 2025). It was built outward from the fields of the Supervision and Notification Record Form in Annex 1 to those Directions, rather than from the statute towards the form.
+  <b>Provisions are quoted only to the extent that they apply to non-government agencies</b>: where a provision addresses government and non-government agencies together, such as Article 12, only the part applicable to non-government agencies is reproduced.
+ To generate a printable checklist, timeline and AI prompt for a particular case, use the <a href="incident.html">incident draft generator</a>.
+ General lifecycle obligations are in <a href="table-03.html">03 Lifecycle Table</a>.</p>
+</div>
+
+<div class="usage" style="padding-top:10px">
+  <p style="border-left-color:var(--amber);background:var(--amber-soft)"><b>Two things to hold apart before reading this table.</b>
+ First, the Executive Yuan Directions have <b>no official English translation</b>. Every passage from them shown below is an unofficial translation prepared for this toolkit; the Mandarin text governs. The full bilingual text is in <a href="table-02.html#directions">02 Sources and Terminology</a>.
+ Second, and more consequentially, the 24-hour and 72-hour deadlines in the Directions are <b>obligations of the central government authority</b>, running from the moment that authority becomes aware of the case. They are not your organisation's reporting deadlines. Under the provisions of the PDPA currently in force, a non-government agency has no obligation to report an incident to any authority at all; only the obligation under Article 12 to notify affected data subjects. Where a reporting obligation exists, it comes from the sector-specific regulation that applies to your organisation.</p>
+</div>
+
+<div class="usage" style="padding-top:10px">
+  <p style="border-left-color:var(--amber);background:var(--amber-soft)"><b>Special laws may change the analysis.</b> Article 1 of the PDPA provides that the collection, processing and use of personal data shall be governed by the Act, <i>except where otherwise provided by other laws</i>. Several statutes impose duties of confidentiality or prohibit the disclosure of identifying information, and these bear directly on how an incident is contained and how data subjects are notified: Article 48, Paragraph 2 of the Banking Act on customer data; Article 23 of the Physicians Act; Article 14 of the HIV Infection Control and Patient Rights Protection Act; Article 69 of the Protection of Children and Youths Welfare and Rights Act; and the victim-identity provisions of the Sexual Assault Crime Prevention Act and the Domestic Violence Prevention Act. None is reproduced in this toolkit. A non-exhaustive catalogue is in <a href="table-02.html#special">Part D</a>; sector-specific regulations made under Article 27, Paragraph 2 are indexed by authority, non-exhaustively, in <a href="table-02.html#sector">Part E</a>.</p>
+</div>
+
+<div class="wrap">
+<div class="cols">
+
+  <aside class="side noprint">
+    <h2>Search and filter</h2>
+    <input type="search" id="q" placeholder="Article number, keyword or question number" aria-label="Search">
+    <p class="count" id="count"></p>
+
+    <h3>Stage</h3>
+    <nav class="stages" id="nav"></nav>
+
+    <h3>Global CBPR Privacy Principle</h3>
+    <div class="chips" id="chips"></div>
+
+    <button class="reset" id="reset">Clear all filters</button>
+  </aside>
+
+  <main id="out"></main>
+</div>
+
+<div class="foot">
+  <p><b>Versions relied on</b> Personal Data Protection Act: official English translation of the provisions in force, amended 31 May 2023. Enforcement Rules: official English translation, amended 2 March 2016. Executive Yuan Directions: amended 7 January 2025 (Letter Yuan-Shou-Ge-Zi-Chou-Cha-Zi No. 1140500004); no official English translation exists, and the passages quoted here are unofficial.</p>
+  <p><b>Mapping baseline</b> Global CBPR System Program Requirements Enforcement Map for Chinese Taipei (Annex B).</p>
+  <p><b>Whose deadlines these are</b> The 24 hours (major and high-profile cases) and 72 hours (ordinary cases) set by the Directions are the deadlines by which the <b>central government authority in charge of the industry concerned</b> must notify the PDPC Preparatory Office. They run from the moment that authority receives a notification or a copy of one, or otherwise becomes aware of the case. A non-government agency's own reporting deadline, where one exists, is set by the sector-specific regulation applicable to it. The two must not be conflated.</p>
+  <p><b>What makes a case major and high-profile</b> Point 2, Paragraph 2 of the Directions: a case that has attracted the attention of the Executive Yuan, the Legislative Yuan or the Control Yuan; or one that has received prominent media coverage, such as coverage in the national pages of print media or feature discussion in electronic media.</p>
+  <p><b>Parallel reporting tracks</b> Where a personal data incident is also a cybersecurity incident, the procedures under the PDPA and under the Cyber Security Management Act run separately. The recipients, deadlines and formats differ, and a failure in either track is an independent violation.</p>
+  <p><b>Special laws</b> Statutes that prevail over the PDPA under the proviso to its Article 1 are not reproduced here; see the non-exhaustive catalogue in 02 Sources and Terminology, Part D, and the index of sector-specific regulations in Part E. The confidentiality and non-disclosure provisions in Part D are particularly relevant to incident handling, since they may restrict what may be said, to whom, and in what form.</p>
+  <p><b>Scope</b> This table assumes a non-government agency. Incidents at government agencies are handled under Article 18 of the PDPA and the provisions of the Directions applicable to government agencies, and are outside its scope.</p>
+  <p><b>Disclaimer</b> This table is a compliance reference and does not constitute legal advice. Provisions should be checked against the versions in force in the Laws &amp; Regulations Database (law.moj.gov.tw), and the Directions against the version published by the PDPC Preparatory Office. Where the English and Mandarin versions differ, the Mandarin version governs. Consult a qualified lawyer on any specific matter.</p>
+  <p>Taiwan PDPA Compliance Toolkit (Global CBPR Mapped), English Edition  / Document 05 Author: I Jung (Alfred) Tsai Licence: CC BY-NC-SA 4.0 · v1.3-EN</p>
+</div>
+</div>
+
+<script>
+const GQ = {
+"1": "Do you provide clear and easily accessible statements about your practices and policies that govern the personal information described above (a privacy statement)? Where YES, provide a copy of all applicable privacy statements and/or hyperlinks to the same.",
+"10": "Do you disclose personal information you collect (whether directly or through the use of third parties acting on your behalf) to other personal information controllers? If YES, describe.",
+"11": "Do you transfer personal information to personal information processors? If YES, describe.",
+"12": "If you answered YES to question 10 and/or question 11, is the disclosure and/or transfer undertaken to fulfill the original purpose of collection or another compatible or related purpose? If YES, describe.",
+"13": "If you answered NO to question 12 or if otherwise appropriate, does the disclosure and/or transfer take place under one of the following circumstances? 13.a) Based on express consent of the individual? 13.b) Necessary to provide a service or product requested by the individual? 13.c) Compelled by applicable laws?",
+"14": "Subject to the Qualifications described below, do you provide a mechanism for individuals to exercise choice in relation to the collection of their personal information? Where YES describe such mechanisms below.",
+"15": "Subject to the Qualifications described below, do you provide a mechanism for individuals to exercise choice in relation to the use of their personal information? Where YES, describe such mechanisms below.",
+"16": "Subject to the Qualifications described below, do you provide a mechanism for individuals to exercise choice in relation to the disclosure of their personal information? Where YES describe such mechanisms below.",
+"17": "When choices are provided to the individual offering the ability to limit the collection (question 14), use (question 15) and/or disclosure (question 16) of their personal information, are they displayed or provided in a clear and conspicuous manner?",
+"18": "When choices are provided to the individual offering the ability to limit the collection (question 14), use (question 15) and/or disclosure (question 16) of their personal information, are they clearly worded and easily understandable?",
+"19": "When choices are provided to the individual offering the ability to limit the collection (question 14), use (question 15) and/or disclosure (question 16) of their personal information, are these choices easily accessible and affordable? Where YES, describe.",
+"1a": "Does this privacy statement describe how personal information is collected?",
+"1b": "Does this privacy statement describe the purpose(s) for which personal information is collected?",
+"1c": "Does this privacy statement inform individuals whether their personal information is made available to third parties and for what purpose?",
+"1d": "Does this privacy statement disclose the name of the Applicant Organization's company and location, including contact information regarding practices and handling of personal information upon collection?",
+"1e": "Does this privacy statement provide information regarding the use and disclosure of an individual's personal information?",
+"1f": "Does this privacy statement provide information regarding whether and how an individual can access and correct their personal information?",
+"2": "Subject to the Qualifications listed below, at the time of collection of personal information (whether directly or through the use of third parties acting on your behalf), do you provide notice that such information is being collected?",
+"20": "What mechanisms are in place so that choices, where appropriate, can be honored in an effective and expeditious manner? Provide a description in the space below or in an attachment if necessary. Describe below.",
+"21": "Do you take steps to verify that the personal information held by you is up to date, accurate and complete, to the extent necessary for the purposes of use? If YES, describe.",
+"22": "Do you have a mechanism for correcting inaccurate, incomplete and outdated personal information to the extent necessary for purposes of use? Provide a description in the space below or in an attachment if necessary.",
+"23": "Where inaccurate, incomplete or out of date information will affect the purposes of use and corrections are made to the information subsequent to the transfer of the information, do you communicate the corrections to personal information processors, agents, or other service providers to whom the personal information was transferred? If YES, describe.",
+"24": "Where inaccurate, incomplete or out of date information will affect the purposes of use and corrections are made to the information subsequent to the disclosure of the information, do you communicate the corrections to other third parties to whom the personal information was disclosed? If YES, describe.",
+"25": "Do you require personal information processors, agents, or other service providers acting on your behalf to inform you when they become aware of information that is inaccurate, incomplete, or out-of-date?",
+"26": "Have you implemented an information security policy?",
+"27": "Describe the physical, technical and administrative safeguards you have implemented to protect personal information against risks such as loss or unauthorized access, destruction, use, modification or disclosure of information or other misuses?",
+"28": "Describe how the safeguards you identified in response to question 27 are proportional to the likelihood and severity of the harm threatened, the sensitivity of the information, and the context in which it is held.",
+"29": "Describe how you make your employees aware of the importance of maintaining the security of personal information (e.g., through regular training and oversight).",
+"3": "Subject to the Qualifications listed below, at the time of collection of personal information (whether directly or through the use of third parties acting on your behalf), do you indicate the purpose(s) for which personal information is being collected?",
+"30": "Have you implemented safeguards that are proportional to the likelihood and severity of the harm threatened, the sensitivity of the information, and the context in which it is held through: 30.a) Employee training and management or other safeguards? 30.b) Information systems and management, including network and software design, as well as information processing, storage, transmission, and disposal? 30.c) Detecting, preventing, and responding to attacks, intrusions, or other security failures? 30.d) Physical security?",
+"30a": "Employee training and management or other safeguards?",
+"30b": "Information systems and management, including network and software design, as well as information processing, storage, transmission, and disposal?",
+"30c": "Detecting, preventing, and responding to attacks, intrusions, or other security failures?",
+"30d": "Physical security?",
+"31": "Have you implemented a policy for secure disposal of personal information?",
+"32": "Have you implemented measures to detect, prevent, and respond to attacks, intrusions, or other security failures?",
+"33": "Do you have processes in place to test the effectiveness of the safeguards referred to above in question 32? Describe below.",
+"34": "Do you use third-party certifications or other risk assessments?",
+"35": "Do you require personal information processors, agents, contractors, or other service providers to whom you transfer personal information to protect against loss, or unauthorized access, destruction, use, modification or disclosure or other misuses of the information by: 35.a) Implementing an information security program that is proportionate to the sensitivity of the information and services provided? 35.b) Notifying you promptly when they become aware of an occurrence of breach of the privacy or security of the personal information of the Applicant Organization’s customers? 35.c) Taking immediate steps to correct/address the security failure which caused the privacy or security breach?",
+"35a": "Implementing an information security program that is proportionate to the sensitivity of the information and services provided?",
+"35b": "Notifying you promptly when they become aware of an occurrence of breach of the privacy or security of the personal information of the Applicant Organization's customers?",
+"35c": "Taking immediate steps to correct/address the security failure which caused the privacy or security breach?",
+"36": "Upon request, do you provide confirmation of whether or not you hold personal information about the requesting individual? Describe below.",
+"37": "Upon request, do you provide individuals access to the personal information that you hold about them?",
+"37a": "Do you take steps to confirm the identity of the individual requesting access?",
+"37b": "Do you provide access within a reasonable time frame following an individual's request for access?",
+"37c": "Is information communicated in a reasonable manner that is generally understandable (in a legible format)?",
+"37d": "Is information provided in a way that is compatible with the regular form of interaction with the individual (e.g., email, same language, etc.)?",
+"37e": "Do you charge a fee for providing access? If YES, describe below what the fee is based on and how you ensure that the fee is not excessive.",
+"38": "Do you permit individuals to challenge the accuracy of their information, and to have it rectified, completed, amended and/or deleted? Describe your Applicant Organization's policies/procedures in this regard below and answer questions 38(a)-(e).",
+"38a": "Are your access and correction mechanisms presented in a clear and conspicuous manner?",
+"38b": "If an individual demonstrates that personal information about them is incomplete or incorrect, do you make the requested correction, addition, or where appropriate, deletion?",
+"38c": "Do you make such corrections or deletions within a reasonable time frame following an individual's request for correction or deletion?",
+"38d": "Do you provide a copy to the individual of the corrected personal information or provide confirmation that the data has been corrected or deleted?",
+"38e": "If access or correction is refused, do you provide the individual with an explanation of why access or correction will not be provided, together with contact information for further inquiries about the denial of access or correction?",
+"39": "What measures do you take to ensure compliance with the Global CBPR Privacy Principles? (Internal guidelines or policies; contracts; compliance with applicable industry or sector laws and regulations; compliance with a self-regulatory code or rules; other.)",
+"4": "Subject to the Qualifications listed below, at the time of collection of personal information, do you notify individuals that their personal information may be shared with third parties?",
+"40": "Have you appointed an individual(s) to be responsible for your overall compliance with the Global CBPR Privacy Principles?",
+"41": "Do you have procedures in place to receive, investigate and respond to privacy-related complaints? Please describe.",
+"42": "Do you have procedures in place to ensure individuals receive a timely response to their complaints?",
+"43": "If YES, does this response include an explanation of remedial action relating to their complaint? Describe.",
+"44": "Do you have procedures in place for training employees with respect to your privacy policies and procedures, including how to respond to privacy-related complaints? If YES, describe.",
+"45": "Do you have procedures in place for responding to judicial or other government subpoenas, warrants or orders, including those that require the disclosure of personal information?",
+"46": "Do you have mechanisms in place with personal information processors, agents, contractors, or other service providers pertaining to personal information they process on your behalf, to ensure that your obligations to the individual will be met? (Internal guidelines or policies; contracts; compliance with applicable industry or sector laws and regulations; compliance with a self-regulatory code or rules; other.)",
+"47": "Do these agreements generally require that personal information processors, agents, contractors or other service providers: abide by your Global CBPR-compliant privacy policies and practices as stated in your privacy statement; implement privacy practices that are substantially similar to your own; follow instructions provided by you relating to the manner in which personal information must be handled; impose restrictions on subcontracting unless with your consent; be Global CBPR-certified by a Forum-recognized Accountability Agent in their jurisdiction; notify you in the case of a breach of the personal information of your customers; other?",
+"48": "Do you require your personal information processors, agents, contractors or other service providers to provide you with self- assessments to ensure compliance with your instructions and/or agreements/contracts? If YES, describe below.",
+"49": "Do you carry out regular spot checking or monitoring of your personal information processors, agents, contractors or other service providers to ensure compliance with your instructions and/or agreements/contracts? If YES, describe.",
+"5": "How do you obtain personal information: 5.a) Directly from the individual? 5.b) From third parties collecting on your behalf? 5.c) Other. If YES, describe.",
+"50": "Do you disclose personal information to other recipient persons or organizations in situations where due diligence and reasonable steps to ensure compliance with the Global CBPR System by the recipient as described above is impractical or impossible?",
+"6": "Do you limit your personal information collection (whether directly or through the use of third parties acting on your behalf) to information that is relevant to fulfil the purpose(s) for which it is collected or other compatible or related purposes?",
+"7": "Do you collect personal information (whether directly or through the use of third parties acting on your behalf) by lawful and fair means, consistent with the requirements of the jurisdiction that governs the collection of such personal information? Where YES, describe.",
+"8": "Do you limit the use of the personal information you collect (whether directly or through the use of third parties acting on your behalf) as identified in your privacy statement and/or in the notice provided at the time of collection, to those purposes for which the information was collected or for other compatible or related purposes? If necessary, provide a description in the space below.",
+"9": "If you answered NO, do you use the personal information you collect for unrelated purposes under one of the following circumstances? Describe below. 9.a) Based on express consent of the individual? 9.b) Compelled by applicable laws?"
+};
+
+
+const PRINCIPLES = ["Notice","Collection Limitation","Uses of Personal Information","Choice","Integrity of Personal Information","Security Safeguards","Access and Correction","Accountability"];
+
+const L27_1 = "Non-government agencies in possession of personal data files shall implement proper security measures to prevent the personal data from being stolen, altered, damaged, destroyed or disclosed.";
+const L22_1 = "The central government authorities in charge of the industries concerned, the special municipality, county (city) government concerned may, when they deem necessary or suspect any possible violation of the PDPA, inspect compliance with the security control measures, the rules on disposing personal data upon business termination, and the restrictions on cross-border transfers, or conduct any other routine inspections by having their staff enter non-government agencies' premises upon presentation of their official identification documents and order relevant personnel at the non-government agencies to provide necessary explanations, cooperate on adopting relevant measures, or provide supporting documents.";
+const L22_1_4 = L22_1 + " (Paragraph 1) Non-government agencies and their personnel may not evade such inspections, obstruct the investigators from accessing the premises or data, or refuse to comply with the inspections or decisions referred to in paragraphs 1 and 2. (Paragraph 4)";
+
+const R12_2 = n => "Enforcement Rules Article 12, Paragraph 2, Subparagraph " + n + ": " + {
+  3:"establishing a mechanism of risk assessment and management of personal data.",
+  4:"establishing a mechanism of preventing, giving notice of, and responding to a data breach.",
+  5:"establishing an internal control procedure for the collection, processing, and use of personal data.",
+  9:"establishing an audit mechanism of data security.",
+  10:"keeping records, log files and relevant evidence.",
+  11:"implementing integrated and persistent improvements on the security and maintenance of personal data."
+}[n];
+
+const STAGES = [
+{ no:"I", name:"Detecting and confirming a security violation case", key:"discover", items:[
+  {
+        id:"discover-01",
+        src:"PDPA Article 27, Paragraph 1 (security and maintenance obligation)",
+        law:L27_1,
+        rules:[R12_2(4)],
+        ey:"Point 5, Paragraph 1, Subparagraph 3: the Security Maintenance Regulations shall prescribe, for cases where a security violation case occurs at a non-government agency, the recipient of the notification, the time by which notification must be made, the matters to be notified, the subsequent administrative investigation and related matters.",
+        evi:"Documented detection, prevention and response measures for security incidents",
+        gcbpr:[["Security Safeguards","32","33"]]
+  },
+  {
+        id:"discover-02",
+        src:"Enforcement Rules Article 12, Paragraph 2, Subparagraph 10 (log files and preservation of evidence)",
+        law:"(One of the measures constituting proper security measures under Article 27, Paragraph 1 of the PDPA.) Keeping records, log files and relevant evidence.",
+        rules:[],
+        ey:"Annex 2, node 3.2: once the case is confirmed, the central competent authority may dispatch personnel carrying documentation evidencing the performance of their duties to enter and inspect, and may order the relevant persons to provide supporting materials.",
+        evi:"System logs, audit trails, audit plan and audit findings",
+        gcbpr:[["Security Safeguards","27","30b","34"]]
+  },
+  {
+        id:"discover-03",
+        src:"Enforcement Rules Article 12, Paragraph 2, Subparagraph 3 (risk assessment and management)",
+        law:"(One of the measures constituting proper security measures under Article 27, Paragraph 1 of the PDPA.) Establishing a mechanism of risk assessment and management of personal data.",
+        rules:[],
+        ey:"Point 4, Paragraph 4: each central competent authority shall assess the risk that the non-government agencies under its supervision will give rise to security violation cases, and shall give priority to including high-risk agencies among the subjects of its annual administrative inspection.",
+        evi:"Risk assessment records; personal data asset inventory",
+        gcbpr:[["Security Safeguards","28","34"]]
+  }
+]},
+
+{ no:"II", name:"Notification and reporting", key:"notify", items:[
+  {
+        id:"notify-01",
+        src:"PDPA Article 12 (clarifying the facts and notifying data subjects)",
+        law:"If any personal data is stolen, disclosed, altered, or otherwise infringed upon due to a violation of the PDPA by a non-government agency, the data subject shall be notified via appropriate means after the relevant facts have been clarified.",
+        rules:[
+      "Enforcement Rules Article 22: A notification given via \"appropriate means\", as referred to under Article 12 of the PDPA, shall mean a notification that is given in a prompt manner via verbal words, in writing, over the phone, via text messages, email, fax, electronic documents or other means that can effectively make the information known or available to the data subjects. However, if such notification entails disproportionate costs, a government or non-government agency may, taking into consideration the technical feasibility and privacy protection of the data subjects, notify the data subjects through the Internet, the media or other proper and public means.",
+      "Enforcement Rules Article 23: A notification given under Article 12 of the PDPA shall include the facts pertaining to the data breach and the response measures already adopted to address such breach of personal data."
+    ],
+        ey:"Annex 1, Supervision and Notification Record Form: the field \"response measures to be taken\", and the field \"intended timing and method of notifying data subjects pursuant to Article 12 of the PDPA and Article 22 of its Enforcement Rules\".",
+        evi:"Content of the notification to data subjects, records of dispatch and statistics on delivery",
+        gcbpr:[["Security Safeguards","32","35b"]],
+        note:"This is the only reporting or notification obligation the PDPA currently imposes on a non-government agency after an incident, and it runs to the data subjects, not to any authority. There is no fixed number of days: the obligation is to notify promptly once the facts have been clarified. The notification must contain both statutory elements — the facts of the infringement and the response measures already taken."
+  },
+  {
+        id:"notify-01b",
+        src:"PDPA Article 12, Paragraphs 2 to 4 (reporting to the competent authority) — amended 11 November 2025, NOT YET IN FORCE",
+        law:"Where the circumstances described under the preceding paragraph fall within a specified scope of report, the government or non-government agency shall submit reports to the following authorities: 1. Government agencies shall submit reports to the competent authority and the authorities designated under Paragraph 1, Article 21-1 to receive reports on their implementation status. 2. Non-government agencies shall submit reports to the competent authority. Upon receiving the reports, the competent authority shall also inform the authorities in charge of the industries concerned. (Paragraph 2) Under the circumstances described under Paragraph 1, the government or non-government agency shall take immediate and effective countermeasures to prevent the incident from escalating, document the relevant facts, impacts, and response measures taken, and preserve the relevant records for inspection by the competent authority. (Paragraph 3) The regulations on the content, method, time limit, and scope of notification or reporting, countermeasures, record retention, and other relevant matters under the preceding three paragraphs shall be prescribed by the competent authority. (Paragraph 4)",
+        rules:[],
+        ey:"",
+        evi:"Not yet applicable. Once these provisions take effect, the records to hold will be determined by the regulations to be prescribed by the competent authority under Paragraph 4.",
+        gcbpr:[["Accountability","39","40"]],
+        note:"NOT YET IN FORCE. These paragraphs were promulgated on 11 November 2025; their enforcement date is to be set by the Executive Yuan and had not been set as at the date of this edition. They are included because they will change the structure of this table substantially: for the first time a non-government agency will report directly to the Personal Data Protection Commission, which will then inform the authority in charge of the industry concerned. The content, method, time limit and reporting threshold will be set by regulations yet to be issued. Do not act on this row; watch for the Commission's announcements. Quoted from the official English translation of the 11 November 2025 amendment."
+  },
+  {
+        id:"notify-02",
+        src:"PDPA Article 22, Paragraph 1 (the competent authority's inspection powers)",
+        law:L22_1,
+        rules:[R12_2(9)],
+        ey:"Point 7, Paragraph 1 [ordinary cases]: where a central competent authority receives a notification or a copy of one, or otherwise becomes aware of a security violation case, it shall, after confirming jurisdiction, complete the Supervision and Notification Record Form and notify the PDPC Preparatory Office within seventy-two hours of receiving the notification or copy, or of becoming aware of the case.\nPoint 8, Paragraph 1 [major and high-profile cases]: notification to the PDPC Preparatory Office and the Ministry of Digital Affairs within twenty-four hours.",
+        evi:"Records of, and acknowledgements of, any report made to the competent authority",
+        gcbpr:[["Security Safeguards","32","33"]],
+        note:"The 72 hours and 24 hours are the authority's deadlines, running from when the authority becomes aware. Your organisation's own reporting deadline, if any, is in the sector-specific regulation that applies to you. Reporting early is nevertheless in your interest: it starts the authority's clock on your terms and reduces the chance that the authority learns of the case independently or through the media, which is one of the routes by which a case becomes major and high-profile."
+  },
+  {
+        id:"notify-03",
+        src:"Supervision and Notification Record Form: case identification fields",
+        law:"(Matters to be entered in Annex 1 to the Directions. A non-government agency must supply the information the authority needs in order to complete the form.)",
+        rules:[R12_2(5)],
+        ey:"Annex 1, fields \"name of the non-government agency\" and \"notifying agency\": the subject of the case and the notifying agency, enterable only once jurisdiction is confirmed.\nField \"time of occurrence\": where \"unknown\" is entered, the time at which the non-government agency was ascertained to have become aware of the case shall also be noted (Annex 1, Note 3).\nField \"cause of occurrence and case summary\": where the information is not yet established, \"unknown\" may be entered initially and supplemented in a later notification (Annex 1, Note 1).",
+        evi:"Records of processing activities; incident chronology",
+        gcbpr:[["Accountability","39","40"]]
+  },
+  {
+        id:"notify-04",
+        src:"Supervision and Notification Record Form: extent of harm",
+        law:"(Matters to be entered in Annex 1 to the Directions.)",
+        rules:[],
+        ey:"Annex 1, field \"extent of harm\": approximate total number of personal data records affected; the number of general personal data records and the number of Article 6 personal data records, entered separately; whether property loss was caused to data subjects, and if so the amount; and any other harm.",
+        evi:"Personal data asset inventory; statistics on the scope of data affected",
+        gcbpr:[["Collection Limitation","5","6"]],
+        note:"General personal data and Article 6 personal data must be counted separately and may not be combined into a single figure. Article 6 personal data is defined by Article 6, Paragraph 1 of the PDPA: medical records, healthcare, genetics, sex life, physical examination and criminal records."
+  },
+  {
+        id:"notify-05",
+        src:"Supervision and Notification Record Form: type of occurrence",
+        law:"The forms of infringement identified in Article 12 of the PDPA.",
+        rules:["(The Enforcement Rules do not further subdivide the forms of infringement.)"],
+        ey:"Annex 1, field \"type of occurrence\" (tick all that apply): theft, disclosure, alteration, damage, loss, other infringement.",
+        evi:"Incident investigation records",
+        gcbpr:[["Security Safeguards","32"]]
+  }
+]},
+
+{ no:"III", name:"Cooperating with the administrative investigation", key:"investigate", items:[
+  {
+        id:"investigate-01",
+        src:"PDPA Article 22, Paragraphs 1 and 4 (entry and inspection; the duty not to obstruct)",
+        law:L22_1_4,
+        rules:[R12_2(9), R12_2(10)],
+        ey:"Point 7, Paragraph 2 [ordinary cases]: the investigation shall be completed and the case closed within three months of the authority receiving the notification or copy, or becoming aware of the case; where necessary the period may be extended by three months with the consent of the Chief Information Security Officer or an authorised person, and the PDPC Preparatory Office notified immediately.\nPoint 8, Paragraph 2 [major and high-profile cases]: the administrative investigation shall commence within three days and the investigation report be completed within ten days, and submitted to the PDPC Preparatory Office and the Ministry of Digital Affairs. Where necessary, a meeting may be convened, in principle within two weeks, before the designated Minister without Portfolio.",
+        evi:"Audit plan and audit findings; records of non-conformities and corrective actions",
+        gcbpr:[["Security Safeguards","27","33","34"]],
+        note:"Evading, obstructing or refusing an inspection is an independent violation, penalised under Article 49, regardless of whether the underlying incident is found to breach the PDPA."
+  },
+  {
+        id:"investigate-02",
+        src:"PDPA Article 22, Paragraph 1 (annual administrative inspection)",
+        law:L22_1,
+        rules:[R12_2(9)],
+        ey:"Point 4: each central competent authority shall formulate an annual administrative inspection plan and implement it without delay, submitting it to the PDPC Preparatory Office by the end of January each year for consolidation and report to the Liaison Meeting.",
+        evi:"Audit plan and audit findings",
+        gcbpr:[["Security Safeguards","33","34"]]
+  }
+]},
+
+{ no:"IV", name:"Fines and corrective orders", key:"penalty", items:[
+  {
+        id:"penalty-01",
+        src:"PDPA Articles 47, 48(2), 48(3) and 50 (fines and orders to rectify)",
+        law:"Article 47: If a non-government agency violates any of the following provisions, the central government authority in charge of the industry concerned or the special municipality, county (city) government concerned shall impose a fine of not less than NT$50,000 but not more than NT$500,000 on the non-government agency, and shall order the non-government agency to rectify the violation within a specified period of time. If the non-government agency fails to rectify the violation in time, a fine shall be imposed for each occurrence of the violation: 1. paragraph 1 of Article 6; 2. Article 19; 3. paragraph 1 of Article 20; and/or 4. an order or decision relating to the restrictions on cross-border transfers made by the central government authority in charge of the industry concerned under Article 21.\n\nArticle 48, Paragraph 2: If a non-government agency violates paragraph 1 of Article 27 or fails to establish a security and maintenance plan for the protection of personal data files or rules on disposing of personal data following a business termination under paragraph 2 of Article 27, the central government authority in charge of the industry concerned or the special municipality, county (city) government concerned shall impose a fine of not less than NT$20,000 but not more than NT$2,000,000 on the non-government agency, and shall order the non-government agency to rectify the violation within a specified period of time. If the non-government agency fails to rectify the violation in time, a fine of not less than NT$150,000 but not more than NT$15,000,000 shall be imposed for each occurrence of the violation.\n\nArticle 48, Paragraph 3: If a non-government agency violates paragraph 1 of Article 27, or fails to establish a security and maintenance plan for the protection of personal data files or rules on disposing of personal data following a business termination under paragraph 2 of Article 27, which is of a serious violation, the central government authority in charge of the industry concerned or the special municipality, county (city) government concerned shall impose a fine not less than NT$150,000 but not more than NT$15,000,000 on the non-government agency to rectify the violation within a specified period of time; if the non-government agency fails to rectify the violation in time, a fine shall be imposed for each occurrence of the violation.\n\nArticle 50: The representative, manager, or any other authorized representative of a non-government agency shall be fined the same amount imposed on the non-government agency for a violation of any of the preceding three articles, unless said person proves that he/she has exercised due care to prevent such violation.",
+        rules:["(The Enforcement Rules contain no separate provision on the penalty procedure.)"],
+        ey:"Point 9: where a violation of the PDPA is established upon investigation, the central competent authority shall proceed in accordance with Articles 47 through 50 of the PDPA in the light of the specific findings.\nAnnex 1, field \"the competent authority's determination as to whether the PDPA was violated\" (yes / no).\nAnnex 2: once a violation is found, the process branches into an administrative fine, an order to rectify, or both (nodes 5.1, 5.2.1 and 5.2.2).",
+        evi:"Records of non-conformities and corrective actions; written statement of position",
+        gcbpr:[["Accountability","39","41","43"]],
+        note:"Article 50 exposes the representative or manager personally to a fine of the same amount, unless that person proves they exercised due care to prevent the violation. Where a fine is imposed for each successive occurrence of an unrectified violation, the amounts accumulate quickly."
+  },
+  {
+        id:"penalty-02",
+        src:"PDPA Article 25, Paragraph 1 (corrective measures other than fines)",
+        law:"In the event that a non-government agency has violated the PDPA, the central government authority in charge of the industry concerned or the special municipality, county (city) government concerned may impose fines on the non-government agency in accordance with the PDPA and may also enforce the following corrective measures: 1. prohibit the collection, processing or use of the personal data; 2. order the erasure of the processed personal data and personal data files; 3. confiscate or order the destruction of the unlawfully collected personal data; and/or 4. disclose to the public the violation of the non-government agency, the name of the non-government agency and its responsible person/representative.",
+        rules:["(The Enforcement Rules contain no separate provision on Article 25 measures.)"],
+        ey:"Point 9, Paragraph 3: (1) prohibiting the collection, processing or use of personal data; (2) ordering the deletion of the processed personal data file; (3) confiscating or ordering the destruction of personal data collected unlawfully; (4) publishing the violation together with the agency's name and the name of its responsible person.\nAnnex 1, field \"subsequent disposition of the case by the competent authority\".",
+        evi:"Data retention and secure disposal policy; records of measures carried out",
+        gcbpr:[["Security Safeguards","31","32"]],
+        note:"Subparagraph 4 — public disclosure of the violation together with the names of the agency and its responsible person — usually has a greater practical effect on reputation than the fine itself, and should be weighed accordingly when deciding how to respond."
+  },
+  {
+        id:"penalty-03",
+        src:"PDPA Articles 22(1), 48(2) and 48(3) (re-inspection and successive fines)",
+        law:"... and shall order the non-government agency to rectify the violation within a specified period of time. If the non-government agency fails to rectify the violation in time, a fine ... shall be imposed for each occurrence of the violation. (The authority conducts a re-inspection of a non-government agency that has been ordered to rectify.)",
+        rules:[R12_2(11)],
+        ey:"Annex 1, field \"whether the competent authority has conducted an administrative investigation (including re-inspection)\" (yes / no).\nAnnex 2, node 6: the authority conducts a re-inspection; if it is passed, the case is closed; if not, further fines or dispositions follow.",
+        evi:"Records of non-conformities and corrective actions; rectification completion report",
+        gcbpr:[["Accountability","41","42"]]
+  }
+]},
+
+{ no:"V", name:"Remediation and release from monitored status", key:"improve", items:[
+  {
+        id:"improve-01",
+        src:"PDPA Article 22, Paragraph 1 (continuing supervision)",
+        law:L22_1,
+        rules:[R12_2(11)],
+        ey:"Point 7, Paragraph 2: for ordinary cases, subsequent administrative measures and the disposition of the case shall be reported to the PDPC Preparatory Office on a quarterly basis.\nPoint 8, Paragraph 4: for major and high-profile cases, subsequent administrative measures and disposition shall be notified to the PDPC Preparatory Office and the Ministry of Digital Affairs immediately.",
+        evi:"Audit plan and audit findings; material required for quarterly reporting",
+        gcbpr:[["Accountability","39","40","42"]],
+        note:"Reporting is not a single event. Because the authority reports quarterly on ordinary cases and immediately on major cases, your organisation will be asked for remediation progress repeatedly. A fixed internal reporting rhythm is worth establishing early."
+  },
+  {
+        id:"improve-02",
+        src:"PDPA Article 27, Paragraph 1 (continual improvement)",
+        law:L27_1 + " (Including remediation measures taken after an incident.)",
+        rules:[R12_2(11)],
+        ey:"Annex 1, field \"recommended date of release from monitored status\": released from monitored status on ____ / not released. A non-government agency should maintain a corrective action tracker and apply for release once rectification is complete.",
+        evi:"Records of non-conformities and corrective actions; application for release from monitored status",
+        gcbpr:[["Accountability","41","43"]]
+  }
+]},
+
+{ no:"VI", name:"Inter-ministerial coordination and jurisdictional disputes", key:"coordinate", items:[
+  {
+        id:"coordinate-01",
+        src:"PDPA Articles 22 to 26 (scope of the competent authority's powers)",
+        law:"(Under Articles 22 through 26 of the PDPA, the central government authority in charge of the industry concerned takes appropriate supervisory and management measures in respect of a non-government agency.)",
+        rules:["(The Enforcement Rules contain no separate provision on inter-agency coordination.)"],
+        ey:"Point 2: the Executive Yuan convenes the Liaison Meeting on the Implementation of Personal Data Protection by Administrative Agencies, which coordinates the supervisory notification of security violation cases, determines the agency having jurisdiction where a major and high-profile case is disputed, and coordinates inter-ministerial administrative investigations.\nPoint 11: where jurisdiction is in dispute, the PDPC Preparatory Office shall determine the agency having jurisdiction as soon as possible, and may convene an inter-ministerial coordination meeting.",
+        evi:"Documented legal and regulatory requirements; records of correspondence with each authority",
+        gcbpr:[["Accountability","39","45","50"]],
+        note:"An organisation whose activities span several regulated industries may face a dispute over which authority has jurisdiction. Reporting must not be suspended while that is resolved: report to the authority most likely to have jurisdiction, copy the others, and keep the full correspondence, so that no inference of failure to report can later be drawn."
+  }
+]}
+];
+
+/* ============================================================
+Rendering logic — no need to edit below this line.
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let kw = "", chosen = new Set();
+
+$("#chips").innerHTML = PRINCIPLES.map(p=>`<button class="chip" data-p="${p}">${p}</button>`).join("");
+
+const qline = id => "Q" + id + ". " + (GQ[id] || "(question text not available)");
+
+function fulltext(r){
+      return [r.src, r.law, r.evi, r.note||"", r.ey||"", ...r.rules,
+          ...r.gcbpr.map(g => g[0] + " " + g.slice(1).map(qline).join(" "))].join(" ");
+}
+function mark(t){
+      if (!kw) return esc(t);
+      const k = kw.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+      return esc(t).replace(new RegExp(k,"gi"), m=>`<mark>${m}</mark>`);
+}
+const nl = t => mark(t).replace(/\n/g,"<br>");
+function match(r){
+      if (kw && !fulltext(r).toLowerCase().includes(kw.toLowerCase())) return false;
+      if (chosen.size){
+        const ps = r.gcbpr.map(g=>g[0]);
+        if (![...chosen].some(p => ps.includes(p))) return false;
+  }
+      return true;
+}
+
+function render(){
+      let total = 0, html = "", nav = "";
+      STAGES.forEach(st => {
+          const hits = st.items.filter(match);
+          total += hits.length;
+          nav += `<a href="#${st.key}" class="${hits.length?'':'dim'}">
+      <span>${st.no}. ${st.name}</span><span class="n">${hits.length}</span></a>`;
+          if (!hits.length) return;
+          html += `<section class="stage"><h2 id="${st.key}"><span class="n">${st.no}</span>${st.name}</h2>`;
+          hits.forEach(r => {
+              html += `<article class="rec" id="${r.id}">
+        <div class="top">
+          <span class="src">${mark(r.src)}</span>
+          <button class="lk noprint" data-id="${r.id}">Copy link</button>
+        </div>
+        <p class="law">${nl(r.law)}</p>`;
+              r.rules.forEach(x => html += `<p class="rule">◆ ${mark(x)}</p>`);
+              if (r.ey) html += `<p class="yp"><span class="k">Executive Yuan Directions (unofficial translation)</span>${nl(r.ey)}</p>`;
+              html += `<p class="evi"><span class="k">Supporting records:</span> ${mark(r.evi)}</p>`;
+              if (r.gcbpr.length){
+                html += `<details class="gc"><summary>Global CBPR Program Requirements</summary><div class="body">` +
+                r.gcbpr.map(g=>`<span class="pr">[${mark(g[0])}]</span>` + g.slice(1).map(id=>mark(qline(id))).join("<br>")).join("") +
+          `</div></details>`;
+      }
+              if (r.note) html += `<details class="nt"><summary>Editorial note</summary><div class="body">${mark(r.note)}</div></details>`;
+              html += `</article>`;
+    });
+          html += `</section>`;
+  });
+
+  $("#nav").innerHTML = nav;
+  $("#out").innerHTML = total ? html
+    : `<div class="none">Nothing matches. Adjust the search term or clear the filters.</div>`;
+  $("#count").innerHTML = `<b>${total}</b> matching / ${STAGES.reduce((a,s)=>a+s.items.length,0)} in total`;
+
+      rail(".stage > h2");
+
+      document.querySelectorAll(".lk").forEach(b => b.addEventListener("click", async ()=>{
+            const url = location.href.split("#")[0] + "#" + b.dataset.id;
+            const old = b.textContent;
+            try{ await navigator.clipboard.writeText(url); b.textContent = "Copied"; }
+            catch(e){ b.textContent = "Copy failed"; }
+            setTimeout(()=>b.textContent = old, 1500);
+  }));
+}
+
+$("#q").addEventListener("input", e => { kw = e.target.value.trim(); render(); });
+$("#chips").addEventListener("click", e => {
+        const b = e.target.closest(".chip"); if (!b) return;
+        const p = b.dataset.p;
+        chosen.has(p) ? chosen.delete(p) : chosen.add(p);
+        b.classList.toggle("on");
+        render();
+});
+$("#reset").addEventListener("click", ()=>{
+        kw = ""; $("#q").value = "";
+        chosen.clear();
+        document.querySelectorAll(".chip.on").forEach(c=>c.classList.remove("on"));
+        render();
+});
+
+const rail = (()=>{
+        const el = document.createElement("nav");
+        el.className = "rail"; el.setAttribute("aria-label","Section navigation");
+        document.body.appendChild(el);
+        let targets = [], links = [];
+        function label(h){
+          const c = h.cloneNode(true);
+          c.querySelectorAll(".tag").forEach(x=>x.remove());
+          const n = c.querySelector(".n");
+          if (n){ const t = n.textContent.trim(); n.remove(); return t + ". " + c.textContent.trim(); }
+          return c.textContent.trim();
+  }
+        function update(){
+          if (!targets.length) return;
+          let i = 0;
+          targets.forEach((t,k)=>{ if (t.getBoundingClientRect().top <= 130) i = k; });
+          links.forEach((a,k)=>a.classList.toggle("on", k===i));
+  }
+        window.addEventListener("scroll", update, {passive:true});
+        window.addEventListener("resize", update, {passive:true});
+        return function build(sel, headSel){
+          targets = [...document.querySelectorAll(sel)];
+          if (targets.length < 2){ el.classList.remove("on"); el.innerHTML = ""; return; }
+          targets.forEach((t,i)=>{ if (!t.id) t.id = "rail-" + i; });
+          el.innerHTML = targets.map(t=>{
+              const h = headSel ? t.querySelector(headSel) : t;
+              return `<a href="#${t.id}" data-t="${label(h||t).replace(/"/g,"&quot;")}"><i></i></a>`;
+    }).join("");
+          links = [...el.querySelectorAll("a")];
+          el.classList.add("on");
+          update();
+  };
+})();
+
+render();
+rail(".stage > h2");
+if (location.hash){
+      const el = document.querySelector(location.hash);
+      if (el) el.scrollIntoView();
+}
+</script>
+</body>
+</html>

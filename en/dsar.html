@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DSAR Response Draft Generator | Taiwan PDPA Compliance Toolkit</title>
+<style>
+:root{
+  --ink:#16233A;
+  --ink-2:#3A4A64;
+  --muted:#6B7789;
+  --rule:#D3DAE3;
+  --rule-soft:#E6EAF0;
+  --field:#EDF1F6;
+  --paper:#FFFFFF;
+  --seal:#A8322D;
+  --seal-soft:#F5E9E8;
+  --amber:#8A5A12;
+  --amber-soft:#FBF2E0;
+  --serif:"Noto Serif","Source Serif 4","Iowan Old Style","Palatino Linotype",Georgia,"Noto Serif TC",serif;
+  --sans:"Noto Sans","Inter","Helvetica Neue",Arial,"Noto Sans TC",sans-serif;
+  --mono:ui-monospace,"SF Mono","Roboto Mono","Courier New",monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+ font-family:var(--sans);
+ color:var(--ink);
+ background:var(--field);
+ font-size:15px;
+ line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--ink)}
+
+
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px 80px}
+header.top{
+ border-bottom:1px solid var(--rule);
+ background:var(--paper);
+ margin-bottom:28px;
+}
+header.top .inner{max-width:1240px;margin:0 auto;padding:22px 20px 18px}
+.eyebrow a{color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)}
+.eyebrow{
+ font-size:12px;letter-spacing:.22em;color:var(--muted);
+ text-transform:none;margin:0 0 6px;
+}
+h1{
+ font-family:var(--serif);
+ font-size:26px;font-weight:600;margin:0 0 8px;letter-spacing:.02em;
+}
+.sub{margin:0;color:var(--ink-2);font-size:13.5px}
+.sub b{font-weight:600}
+
+.cols{display:grid;grid-template-columns:390px 1fr;gap:28px;align-items:start}
+@media(max-width:960px){.cols{grid-template-columns:1fr}}
+
+
+.panel{
+ background:var(--paper);
+ border:1px solid var(--rule);
+ padding:22px 22px 26px;
+}
+.panel.sticky{position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
+@media(max-width:960px){.panel.sticky{position:static;max-height:none}}
+@media(max-width:960px){.panel.sticky{position:static}}
+.panel h2{
+ font-family:var(--serif);font-size:17px;font-weight:600;
+ margin:0 0 4px;
+}
+.panel .note{font-size:12.5px;color:var(--muted);margin:0 0 20px}
+
+fieldset{border:0;padding:0;margin:0 0 20px}
+legend{padding:0;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:8px}
+legend .n{
+ font-family:var(--mono);font-size:11px;color:var(--muted);
+ margin-right:8px;
+}
+.hint{font-size:12px;color:var(--muted);margin:-4px 0 8px;line-height:1.6}
+
+input[type=date],select{
+ width:100%;font-family:var(--mono);font-size:15px;
+ padding:9px 10px;border:1px solid var(--rule);background:#fff;color:var(--ink);
+ border-radius:0;
+}
+input[type=date]:focus,select:focus,label.opt:focus-within{
+ outline:2px solid var(--ink);outline-offset:1px;
+}
+select{font-family:var(--sans)}
+
+label.opt{
+ display:flex;gap:9px;align-items:flex-start;
+ padding:7px 9px;border:1px solid var(--rule-soft);
+ margin-bottom:5px;cursor:pointer;font-size:14px;background:#fff;
+}
+label.opt:hover{border-color:var(--ink-2)}
+label.opt input{margin:5px 0 0;accent-color:var(--ink)}
+label.opt .lawref{display:block;font-size:11.5px;color:var(--muted);font-family:var(--mono)}
+label.opt.on{border-color:var(--ink);background:#F7F9FC}
+
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+button{
+ font-family:var(--sans);font-size:13.5px;padding:9px 16px;
+ border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;
+ border-radius:0;
+}
+button.ghost{background:#fff;color:var(--ink)}
+button:hover{opacity:.86}
+button:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+
+
+.draft{background:var(--paper);border:1px solid var(--rule);padding:0}
+.draft .head{
+ padding:26px 30px 20px;border-bottom:2px solid var(--ink);
+}
+.draft .head h2{
+ font-family:var(--serif);font-size:22px;font-weight:600;margin:0 0 6px;
+}
+.draft .head .meta{font-size:12.5px;color:var(--muted);font-family:var(--mono)}
+
+.empty{padding:70px 30px;text-align:center;color:var(--muted);font-size:14px}
+.empty .big{font-family:var(--serif);font-size:19px;color:var(--ink-2);display:block;margin-bottom:8px}
+
+section.blk{padding:24px 30px;border-bottom:1px solid var(--rule-soft)}
+section.blk:last-child{border-bottom:0}
+h3.blkt{
+ font-family:var(--serif);font-size:16.5px;font-weight:600;margin:0 0 14px;
+ padding-bottom:7px;border-bottom:1px solid var(--rule);
+}
+h3.blkt .tag{
+ font-family:var(--sans);font-size:11px;font-weight:400;color:var(--muted);
+ margin-left:10px;letter-spacing:.05em;
+}
+
+
+.deadlines{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--ink)}
+@media(max-width:620px){.deadlines{grid-template-columns:1fr}}
+.dl{padding:18px 20px 16px}
+.dl+.dl{border-left:1px solid var(--rule)}
+@media(max-width:620px){.dl+.dl{border-left:0;border-top:1px solid var(--rule)}}
+.dl .lab{font-size:12px;color:var(--muted);letter-spacing:.1em;margin-bottom:2px}
+.dl .date{
+ font-family:var(--mono);font-size:30px;font-weight:600;
+ letter-spacing:.01em;line-height:1.25;font-variant-numeric:tabular-nums;
+}
+.dl .wk{font-family:var(--sans);font-size:13px;color:var(--ink-2);margin-left:8px}
+.dl .basis{font-size:12px;color:var(--ink-2);margin-top:7px;line-height:1.65}
+.dl.med .date{font-family:var(--serif);font-size:22px}
+
+.stamp{
+ margin-top:14px;border:1px solid var(--seal);background:var(--seal-soft);
+ color:var(--seal);padding:10px 13px;font-size:12.5px;line-height:1.7;
+}
+.stamp b{font-weight:600;letter-spacing:.04em}
+
+.alert{
+ border-left:3px solid var(--seal);background:var(--seal-soft);
+ padding:12px 15px;margin:0 0 14px;font-size:13.5px;line-height:1.75;
+}
+.alert.warn{border-left-color:var(--amber);background:var(--amber-soft)}
+.alert .t{font-weight:600;display:block;margin-bottom:3px}
+
+
+dl.info{display:grid;grid-template-columns:130px 1fr;gap:0;margin:0;font-size:14px;border-top:1px solid var(--rule-soft)}
+dl.info dt{padding:8px 0;color:var(--muted);border-bottom:1px solid var(--rule-soft);font-size:13px}
+dl.info dd{padding:8px 0;margin:0;border-bottom:1px solid var(--rule-soft)}
+
+
+.item{border-top:1px solid var(--rule-soft);padding:15px 0}
+.item:first-of-type{border-top:0}
+.item .src{
+ font-family:var(--serif);font-weight:600;font-size:15px;margin-bottom:6px;
+ display:flex;gap:9px;align-items:baseline;
+}
+.item .box{
+ flex:0 0 auto;width:13px;height:13px;border:1.5px solid var(--ink);
+ display:inline-block;margin-top:1px;
+}
+.item .law{
+ font-size:13.5px;line-height:1.85;color:var(--ink-2);
+ border-left:2px solid var(--rule);padding-left:12px;margin:0 0 8px;
+}
+.item .rule{
+ font-size:13px;line-height:1.8;color:var(--muted);
+ padding-left:14px;margin:0 0 8px;
+}
+.item .rule b{color:var(--ink-2);font-weight:600}
+.item .evi{font-size:13px;margin:0 0 6px}
+.item .evi .k{color:var(--muted)}
+.item .act{
+ font-size:13.5px;background:#F5F7FA;padding:9px 12px;margin-top:8px;
+ border-left:2px solid var(--ink-2);
+}
+.item .act .k{font-weight:600;margin-right:6px}
+
+details.gc{margin-top:8px}
+details.gc summary{
+ cursor:pointer;font-size:12.5px;color:var(--muted);
+ list-style:none;display:inline-block;border-bottom:1px dotted var(--rule);
+}
+details.gc summary::-webkit-details-marker{display:none}
+details.gc summary::before{content:"+ ";font-family:var(--mono)}
+details.gc[open] summary::before{content:"– "}
+details.gc .body{
+ font-size:12.5px;line-height:1.8;color:var(--ink-2);
+ margin-top:8px;padding-left:12px;border-left:1px solid var(--rule);
+}
+details.gc .pr{font-weight:600;color:var(--ink);display:block;margin-top:6px}
+details.gc .pr:first-child{margin-top:0}
+
+
+ol.actions{margin:0;padding-left:0;list-style:none;counter-reset:a}
+ol.actions li{
+ counter-increment:a;position:relative;padding:11px 0 11px 40px;
+ border-top:1px solid var(--rule-soft);font-size:14px;line-height:1.8;
+}
+ol.actions li:first-child{border-top:0}
+ol.actions li::before{
+ content:counter(a,decimal-leading-zero);
+ position:absolute;left:0;top:11px;
+ font-family:var(--mono);font-size:12px;color:var(--seal);
+}
+ol.actions li .by{
+ display:inline-block;font-family:var(--mono);font-size:12px;
+ color:var(--ink);background:var(--field);padding:1px 6px;margin-left:6px;
+}
+ol.actions li .ref{display:block;font-size:12px;color:var(--muted);font-family:var(--mono)}
+
+.foot{padding:22px 30px 28px;background:#FAFBFC;border-top:1px solid var(--rule)}
+.foot p{margin:0 0 8px;font-size:12px;color:var(--muted);line-height:1.8}
+.foot p:last-child{margin-bottom:0}
+.foot b{color:var(--ink-2)}
+
+
+.promptbox{border:1px solid var(--ink);background:#FBFCFD}
+.promptbox pre{
+ margin:0;padding:18px 20px;white-space:pre-wrap;word-break:break-word;
+ font-family:var(--mono);font-size:12.5px;line-height:1.9;color:var(--ink);
+ max-height:420px;overflow:auto;
+}
+.promptbar{display:flex;gap:8px;flex-wrap:wrap;padding:12px 20px;border-top:1px solid var(--rule);background:#F3F5F8}
+.promptbar button{font-size:13px;padding:7px 14px}
+.promptnote{font-size:12.5px;color:var(--ink-2);line-height:1.8;margin:0 0 12px}
+
+.sitefoot{margin-top:26px;font-size:12px;color:var(--muted);line-height:1.9}
+
+
+
+.rail{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:60;
+ display:none;flex-direction:column;align-items:flex-end}
+.rail.on{display:flex}
+.rail::before{content:"";position:absolute;right:5px;top:12px;bottom:12px;width:1px;background:var(--rule)}
+.rail a{position:relative;display:block;padding:7px 0;text-decoration:none}
+.rail a i{display:block;width:9px;height:9px;border:1px solid var(--muted);
+ background:var(--paper);border-radius:50%;position:relative;z-index:1}
+.rail a:hover i{border-color:var(--ink)}
+.rail a.on i{width:11px;height:11px;background:var(--seal);border-color:var(--seal);margin-right:-1px}
+.rail a::after{content:attr(data-t);position:absolute;right:20px;top:50%;
+ transform:translateY(-50%);white-space:nowrap;font-size:12px;line-height:1.6;
+ color:var(--muted);background:rgba(255,255,255,.95);border:1px solid var(--rule);
+ padding:2px 9px;opacity:0;pointer-events:none;transition:opacity .12s}
+.rail a:hover::after{opacity:1}
+.rail a.on::after{opacity:1;color:var(--ink);border-color:var(--ink)}
+@media(max-width:1320px){.rail{display:none!important}}
+@media print{.rail{display:none!important}}
+@media print{
+ body{background:#fff;font-size:11.5pt}
+ header.top,.panel,.btnrow,.sitefoot,.noprint{display:none!important}
+  .promptbar{display:none!important}
+  .promptbox pre{max-height:none;overflow:visible;font-size:10pt}
+  .wrap{max-width:none;padding:0}
+  .cols{display:block}
+  .draft{border:0}
+ section.blk{padding:14px 0;break-inside:auto}
+  .item{break-inside:avoid}
+ details.gc{display:none}
+  .deadlines{break-inside:avoid}
+ a{text-decoration:none}
+}
+
+
+/* 語言切換（Language switch） */
+.langbar{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.langbar>.eyebrow{flex:1 1 auto;min-width:0}
+a.lang{flex:0 0 auto;font-family:var(--sans);font-size:12px;letter-spacing:.06em;
+  color:var(--muted);text-decoration:none;border:1px solid var(--rule);
+  padding:4px 11px;line-height:1.5;white-space:nowrap;align-self:center}
+a.lang:hover{border-color:var(--ink);color:var(--ink)}
+@media print{a.lang{display:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner">
+    <div class="langbar"><p class="eyebrow"><a href="index.html">Taiwan PDPA Compliance Toolkit</a> / 04 Path B · v1.3-EN</p><a class="lang" href="../dsar.html" title="以繁體中文閱讀本頁" rel="alternate">中文</a></div>
+    <h1>Data Subject Access Request — Response Draft Generator</h1>
+    <p class="sub">For <b>non-government agencies</b> | Based on the provisions of the PDPA and its Enforcement Rules currently in force</p>
+  </div>
+</header>
+
+<div class="wrap">
+<div class="cols">
+
+  <form class="panel sticky noprint" id="f" autocomplete="off">
+    <h2>Case details</h2>
+    <p class="note">Five questions. The draft appears on the right as you answer. Everything stays in your browser; nothing is uploaded.</p>
+
+    <fieldset>
+      <legend><span class="n">01</span>Date the request was received</legend>
+      <p class="hint">Periods run from the following day; the day of receipt is not counted.</p>
+      <input type="date" id="q_date">
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="n">02</span>Type of request (select all that apply)</legend>
+      <div id="q_rights"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="n">03</span>Has the requester's identity been verified?</legend>
+      <select id="q_id">
+        <option value="Not yet">Not yet verified</option>
+        <option value="Completed">Verification completed</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="n">04</span>Do you intend to refuse?</legend>
+      <select id="q_deny">
+        <option value="No">No — intending to grant, or not yet decided</option>
+        <option value="Yes">Yes — intending to refuse in whole or in part</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="n">05</span>Are you extending the decision period?</legend>
+      <p class="hint">An extension may be granted once only: up to a further fifteen days for inquiry, review and copies; up to a further thirty days for supplement, correction, cessation and erasure. In either case the reason must be notified to the requester in writing.</p>
+      <select id="q_ext">
+        <option value="No">No</option>
+        <option value="Yes">Yes — extended, or intending to extend</option>
+      </select>
+    </fieldset>
+
+    <div class="btnrow">
+      <button type="button" id="b_print">Print or save as PDF</button>
+      <button type="button" class="ghost" id="b_copy">Copy draft as text</button>
+      <button type="button" class="ghost" id="b_reset">Clear and start again</button>
+    </div>
+  </form>
+
+  <main class="draft" id="out"></main>
+
+</div>
+
+<p class="sitefoot">
+ Taiwan PDPA Compliance Toolkit (Global CBPR Mapped), English Edition  / Document 04, interactive | Author: I Jung (Alfred) Tsai<br>
+ Released under CC BY-NC-SA 4.0. A compliance reference only; this page does not constitute legal advice.
+</p>
+</div>
+
+<script>
+const GQ = {
+"1": "Do you provide clear and easily accessible statements about your practices and policies that govern the personal information described above (a privacy statement)? Where YES, provide a copy of all applicable privacy statements and/or hyperlinks to the same.",
+"10": "Do you disclose personal information you collect (whether directly or through the use of third parties acting on your behalf) to other personal information controllers? If YES, describe.",
+"11": "Do you transfer personal information to personal information processors? If YES, describe.",
+"12": "If you answered YES to question 10 and/or question 11, is the disclosure and/or transfer undertaken to fulfill the original purpose of collection or another compatible or related purpose? If YES, describe.",
+"13": "If you answered NO to question 12 or if otherwise appropriate, does the disclosure and/or transfer take place under one of the following circumstances? 13.a) Based on express consent of the individual? 13.b) Necessary to provide a service or product requested by the individual? 13.c) Compelled by applicable laws?",
+"14": "Subject to the Qualifications described below, do you provide a mechanism for individuals to exercise choice in relation to the collection of their personal information? Where YES describe such mechanisms below.",
+"15": "Subject to the Qualifications described below, do you provide a mechanism for individuals to exercise choice in relation to the use of their personal information? Where YES, describe such mechanisms below.",
+"16": "Subject to the Qualifications described below, do you provide a mechanism for individuals to exercise choice in relation to the disclosure of their personal information? Where YES describe such mechanisms below.",
+"17": "When choices are provided to the individual offering the ability to limit the collection (question 14), use (question 15) and/or disclosure (question 16) of their personal information, are they displayed or provided in a clear and conspicuous manner?",
+"18": "When choices are provided to the individual offering the ability to limit the collection (question 14), use (question 15) and/or disclosure (question 16) of their personal information, are they clearly worded and easily understandable?",
+"19": "When choices are provided to the individual offering the ability to limit the collection (question 14), use (question 15) and/or disclosure (question 16) of their personal information, are these choices easily accessible and affordable? Where YES, describe.",
+"1a": "Does this privacy statement describe how personal information is collected?",
+"1b": "Does this privacy statement describe the purpose(s) for which personal information is collected?",
+"1c": "Does this privacy statement inform individuals whether their personal information is made available to third parties and for what purpose?",
+"1d": "Does this privacy statement disclose the name of the Applicant Organization's company and location, including contact information regarding practices and handling of personal information upon collection?",
+"1e": "Does this privacy statement provide information regarding the use and disclosure of an individual's personal information?",
+"1f": "Does this privacy statement provide information regarding whether and how an individual can access and correct their personal information?",
+"2": "Subject to the Qualifications listed below, at the time of collection of personal information (whether directly or through the use of third parties acting on your behalf), do you provide notice that such information is being collected?",
+"20": "What mechanisms are in place so that choices, where appropriate, can be honored in an effective and expeditious manner? Provide a description in the space below or in an attachment if necessary. Describe below.",
+"21": "Do you take steps to verify that the personal information held by you is up to date, accurate and complete, to the extent necessary for the purposes of use? If YES, describe.",
+"22": "Do you have a mechanism for correcting inaccurate, incomplete and outdated personal information to the extent necessary for purposes of use? Provide a description in the space below or in an attachment if necessary.",
+"23": "Where inaccurate, incomplete or out of date information will affect the purposes of use and corrections are made to the information subsequent to the transfer of the information, do you communicate the corrections to personal information processors, agents, or other service providers to whom the personal information was transferred? If YES, describe.",
+"24": "Where inaccurate, incomplete or out of date information will affect the purposes of use and corrections are made to the information subsequent to the disclosure of the information, do you communicate the corrections to other third parties to whom the personal information was disclosed? If YES, describe.",
+"25": "Do you require personal information processors, agents, or other service providers acting on your behalf to inform you when they become aware of information that is inaccurate, incomplete, or out-of-date?",
+"26": "Have you implemented an information security policy?",
+"27": "Describe the physical, technical and administrative safeguards you have implemented to protect personal information against risks such as loss or unauthorized access, destruction, use, modification or disclosure of information or other misuses?",
+"28": "Describe how the safeguards you identified in response to question 27 are proportional to the likelihood and severity of the harm threatened, the sensitivity of the information, and the context in which it is held.",
+"29": "Describe how you make your employees aware of the importance of maintaining the security of personal information (e.g., through regular training and oversight).",
+"3": "Subject to the Qualifications listed below, at the time of collection of personal information (whether directly or through the use of third parties acting on your behalf), do you indicate the purpose(s) for which personal information is being collected?",
+"30": "Have you implemented safeguards that are proportional to the likelihood and severity of the harm threatened, the sensitivity of the information, and the context in which it is held through: 30.a) Employee training and management or other safeguards? 30.b) Information systems and management, including network and software design, as well as information processing, storage, transmission, and disposal? 30.c) Detecting, preventing, and responding to attacks, intrusions, or other security failures? 30.d) Physical security?",
+"30a": "Employee training and management or other safeguards?",
+"30b": "Information systems and management, including network and software design, as well as information processing, storage, transmission, and disposal?",
+"30c": "Detecting, preventing, and responding to attacks, intrusions, or other security failures?",
+"30d": "Physical security?",
+"31": "Have you implemented a policy for secure disposal of personal information?",
+"32": "Have you implemented measures to detect, prevent, and respond to attacks, intrusions, or other security failures?",
+"33": "Do you have processes in place to test the effectiveness of the safeguards referred to above in question 32? Describe below.",
+"34": "Do you use third-party certifications or other risk assessments?",
+"35": "Do you require personal information processors, agents, contractors, or other service providers to whom you transfer personal information to protect against loss, or unauthorized access, destruction, use, modification or disclosure or other misuses of the information by: 35.a) Implementing an information security program that is proportionate to the sensitivity of the information and services provided? 35.b) Notifying you promptly when they become aware of an occurrence of breach of the privacy or security of the personal information of the Applicant Organization’s customers? 35.c) Taking immediate steps to correct/address the security failure which caused the privacy or security breach?",
+"35a": "Implementing an information security program that is proportionate to the sensitivity of the information and services provided?",
+"35b": "Notifying you promptly when they become aware of an occurrence of breach of the privacy or security of the personal information of the Applicant Organization's customers?",
+"35c": "Taking immediate steps to correct/address the security failure which caused the privacy or security breach?",
+"36": "Upon request, do you provide confirmation of whether or not you hold personal information about the requesting individual? Describe below.",
+"37": "Upon request, do you provide individuals access to the personal information that you hold about them?",
+"37a": "Do you take steps to confirm the identity of the individual requesting access?",
+"37b": "Do you provide access within a reasonable time frame following an individual's request for access?",
+"37c": "Is information communicated in a reasonable manner that is generally understandable (in a legible format)?",
+"37d": "Is information provided in a way that is compatible with the regular form of interaction with the individual (e.g., email, same language, etc.)?",
+"37e": "Do you charge a fee for providing access? If YES, describe below what the fee is based on and how you ensure that the fee is not excessive.",
+"38": "Do you permit individuals to challenge the accuracy of their information, and to have it rectified, completed, amended and/or deleted? Describe your Applicant Organization's policies/procedures in this regard below and answer questions 38(a)-(e).",
+"38a": "Are your access and correction mechanisms presented in a clear and conspicuous manner?",
+"38b": "If an individual demonstrates that personal information about them is incomplete or incorrect, do you make the requested correction, addition, or where appropriate, deletion?",
+"38c": "Do you make such corrections or deletions within a reasonable time frame following an individual's request for correction or deletion?",
+"38d": "Do you provide a copy to the individual of the corrected personal information or provide confirmation that the data has been corrected or deleted?",
+"38e": "If access or correction is refused, do you provide the individual with an explanation of why access or correction will not be provided, together with contact information for further inquiries about the denial of access or correction?",
+"39": "What measures do you take to ensure compliance with the Global CBPR Privacy Principles? (Internal guidelines or policies; contracts; compliance with applicable industry or sector laws and regulations; compliance with a self-regulatory code or rules; other.)",
+"4": "Subject to the Qualifications listed below, at the time of collection of personal information, do you notify individuals that their personal information may be shared with third parties?",
+"40": "Have you appointed an individual(s) to be responsible for your overall compliance with the Global CBPR Privacy Principles?",
+"41": "Do you have procedures in place to receive, investigate and respond to privacy-related complaints? Please describe.",
+"42": "Do you have procedures in place to ensure individuals receive a timely response to their complaints?",
+"43": "If YES, does this response include an explanation of remedial action relating to their complaint? Describe.",
+"44": "Do you have procedures in place for training employees with respect to your privacy policies and procedures, including how to respond to privacy-related complaints? If YES, describe.",
+"45": "Do you have procedures in place for responding to judicial or other government subpoenas, warrants or orders, including those that require the disclosure of personal information?",
+"46": "Do you have mechanisms in place with personal information processors, agents, contractors, or other service providers pertaining to personal information they process on your behalf, to ensure that your obligations to the individual will be met? (Internal guidelines or policies; contracts; compliance with applicable industry or sector laws and regulations; compliance with a self-regulatory code or rules; other.)",
+"47": "Do these agreements generally require that personal information processors, agents, contractors or other service providers: abide by your Global CBPR-compliant privacy policies and practices as stated in your privacy statement; implement privacy practices that are substantially similar to your own; follow instructions provided by you relating to the manner in which personal information must be handled; impose restrictions on subcontracting unless with your consent; be Global CBPR-certified by a Forum-recognized Accountability Agent in their jurisdiction; notify you in the case of a breach of the personal information of your customers; other?",
+"48": "Do you require your personal information processors, agents, contractors or other service providers to provide you with self- assessments to ensure compliance with your instructions and/or agreements/contracts? If YES, describe below.",
+"49": "Do you carry out regular spot checking or monitoring of your personal information processors, agents, contractors or other service providers to ensure compliance with your instructions and/or agreements/contracts? If YES, describe.",
+"5": "How do you obtain personal information: 5.a) Directly from the individual? 5.b) From third parties collecting on your behalf? 5.c) Other. If YES, describe.",
+"50": "Do you disclose personal information to other recipient persons or organizations in situations where due diligence and reasonable steps to ensure compliance with the Global CBPR System by the recipient as described above is impractical or impossible?",
+"6": "Do you limit your personal information collection (whether directly or through the use of third parties acting on your behalf) to information that is relevant to fulfil the purpose(s) for which it is collected or other compatible or related purposes?",
+"7": "Do you collect personal information (whether directly or through the use of third parties acting on your behalf) by lawful and fair means, consistent with the requirements of the jurisdiction that governs the collection of such personal information? Where YES, describe.",
+"8": "Do you limit the use of the personal information you collect (whether directly or through the use of third parties acting on your behalf) as identified in your privacy statement and/or in the notice provided at the time of collection, to those purposes for which the information was collected or for other compatible or related purposes? If necessary, provide a description in the space below.",
+"9": "If you answered NO, do you use the personal information you collect for unrelated purposes under one of the following circumstances? Describe below. 9.a) Based on express consent of the individual? 9.b) Compelled by applicable laws?"
+};
+
+
+const VERSIONS = {
+  pdpa: "official English translation of the provisions in force, amended 31 May 2023 (the amendments of 11 November 2025 are not yet in force; their enforcement date is to be set by the Executive Yuan)",
+  rules: "official English translation, amended 2 March 2016",
+  medical: "official English translation, amended 28 June 2023",
+  mapping: "Global CBPR System Program Requirements Enforcement Map for Chinese Taipei (Annex B)"
+};
+
+const RIGHTS = [
+  { id:"inquiry", name:"Inquiry and review", ref:"PDPA Art. 3(1)" },
+  { id:"copy", name:"A copy of the personal data", ref:"PDPA Art. 3(2)" },
+  { id:"correct", name:"Supplement or correction", ref:"PDPA Art. 3(3)" },
+  { id:"cease", name:"Cessation of collection, processing or use", ref:"PDPA Art. 3(4)" },
+  { id:"erase", name:"Erasure", ref:"PDPA Art. 3(5)" }
+];
+
+/* The three grounds in the proviso to Article 10 apply only to inquiry, review and copies.
+Requests under Article 10: inquiry, copy -> 15 days. Requests under Article 11: correct, cease, erase -> 30 days. */
+const ART10 = ["inquiry", "copy"];
+const ART11 = ["correct", "cease", "erase"];
+
+const L27_1 = "Non-government agencies in possession of personal data files shall implement proper security measures to prevent the personal data from being stolen, altered, damaged, destroyed or disclosed.";
+const L11_2 = "In the event of a dispute regarding the accuracy of the personal data, the government or non-government agency shall, on its own initiative or upon the request of the data subject, cease processing or using the personal data, unless the processing or use is either necessary for the performance of an official or business duty, or has been agreed to by the data subject in writing, and the dispute has been recorded.";
+const L11_3 = "When the specific purpose of data collection no longer exists, or upon expiration of the relevant time period, government or non-government agencies shall, on their own initiative or upon the request of the data subject, erase or cease processing or using the personal data, unless the processing or use is either necessary for the performance of an official or business duty, or has been agreed to by the data subject in writing.";
+const L11_4 = "Government or non-government agencies shall, on their own initiative or upon the request of the data subject, erase the personal data collected or cease collecting, processing or using the personal data in the event where the collection, processing or use of the personal data is in violation of the PDPA.";
+
+const R12_2 = n => "Enforcement Rules Article 12, Paragraph 2, Subparagraph " + n + ": " + {
+  5:"establishing an internal control procedure for the collection, processing, and use of personal data.",
+  7:"promoting awareness, education and training.",
+  9:"establishing an audit mechanism of data security.",
+  10:"keeping records, log files and relevant evidence.",
+  11:"implementing integrated and persistent improvements on the security and maintenance of personal data."
+}[n];
+const R14 = "Enforcement Rules Article 14: In accordance with the Electronic Signatures Act, a data subject's \"consent in writing\", as referred to under subparagraph 6 of the proviso to paragraph 1 of Article 6, paragraph 2 and 3 of the proviso to Article 11 of the PDPA, may be given in an electronic form.";
+const R16 = "Enforcement Rules Article 16: The obligation to inform data subjects as required under Articles 8, 9, and 54 of the PDPA may be fulfilled via verbal words, in writing, over the phone, via text messages, email, fax, electronic documents or other means that can effectively make the information known or available to the data subjects.";
+const R19 = "Enforcement Rules Article 19: When a data subject requests a government or non-government agency to correct or supplement his/her personal data in accordance with paragraph 1 of Article 11 of the PDPA, the data subject shall provide the agency with an adequate explanation therefor.";
+const R20 = "Enforcement Rules Article 20: \"When the specific purpose of data collection no longer exists\" referred to under paragraph 3 of Article 11 of the PDPA shall mean any of the following circumstances: 1. the government agency has been dissolved or reorganized without another agency to take over its tasks; 2. the non-government agency has ceased its business or been dissolved without another agency to take over its business, or the non-government agency has changed the scope of its business, thereby causing the purpose for which the personal data were collected to be no longer applicable; 3. the specific purpose has been reached, and there is therefore no longer necessary to continue the processing and use of personal data; or 4. other circumstances where the specific purpose evidently can no longer be reached or no longer exists.";
+const R21 = "Enforcement Rules Article 21: \"Necessary for the performance of an official or business duty\", as referred to in the proviso to paragraph 3 of Article 11 of the PDPA, shall mean any of the following circumstances: 1. where a retention period is prescribed by laws or regulations, or agreed upon under a contract; 2. where there are sufficient reasons to believe that the deletion of the personal data will infringe upon the data subject's interests that warrant protection; or 3. where there are other legitimate reasons for not erasing the personal data.";
+
+const BLOCKS = [
+
+{
+    no:"I", title:"Procedural foundations", tag:"Applies to all five rights", when:"always",
+    items:[
+    {
+        src:"PDPA Article 3 (five rights that cannot be waived)",
+        law:"A data subject shall be able to exercise the following rights with regard to his/her personal data and such rights shall not be waived or limited contractually in advance: 1. the right to make an inquiry of and to review his/her personal data; 2. the right to request a copy of his/her personal data; 3. the right to supplement or correct his/her personal data; 4. the right to demand the cessation of the collection, processing or use of his/her personal data; and 5. the right to erase his/her personal data.",
+        rules:[],
+        evi:"Documented access and correction procedure",
+        gcbpr:[["Access and Correction","36","37","38"]],
+        act:"Confirm that your internal DSAR procedure covers this type of request, and that no standard-form contract term purports to limit or waive the data subject's rights in advance.",
+        urg:2
+    },
+    {
+        src:"PDPA Article 13 (decision periods, split by the article under which the request is made)",
+        law:"Where a request is made by a data subject to a government or non-government agency pursuant to Article 10, the agency shall determine whether to accept or reject such request within fifteen days; such deadline may be extended by up to fifteen days if necessary, and the data subject shall be notified in writing of the reason for the extension. (Paragraph 1) Where a request is made by a data subject to a government or non-government agency pursuant to Article 11, the agency shall determine whether to accept or reject such request within thirty days; such deadline may be extended by up to thirty days if necessary, and the data subject shall be notified in writing of the reason for the extension. (Paragraph 2)",
+        rules:[],
+        evi:"Documented access and correction procedure; decision notice and proof of service",
+        gcbpr:[["Access and Correction","37b","38c"]],
+        act:"First establish whether this is a request under Article 10 (inquiry, review, copy — fifteen days) or under Article 11 (supplement, correction, cessation, erasure — thirty days). Reach and serve a decision before the relevant period expires. If you extend, notify the requester in writing, stating the reason, within the original period.",
+        urg:1
+    },
+    {
+        src:"PDPA Article 14 (fee covering necessary costs)",
+        law:"Government or non-government agencies may charge a fee to cover necessary costs from those who make an inquiry or request to review or obtain copies of the personal data.",
+        rules:[],
+        evi:"Published fee schedule; records of fees charged",
+        gcbpr:[["Access and Correction","37e"]],
+        act:"Charge only for inquiry, review and copies, only to the extent of necessary costs, and only against a published schedule. No fee may be charged for supplement, correction, cessation or erasure.",
+        urg:2
+    },
+    {
+        src:"PDPA Article 10 (duty to respond to inquiry, review and copy requests, and the exceptions)",
+        law:"Upon the request of a data subject, the government or non-government agency shall reply to the data subject's inquiry, allow the data subject to review the personal data collected, or provide the data subject with a copy thereof except under any of the following circumstances: 1. where national security, diplomatic or military secrets, overall economic interests or other material national interests may be harmed; 2. where a government agency may be prevented from performing its statutory duties; or 3. where the vital interests of the data collectors or any third parties may be adversely affected.",
+        rules:["Enforcement Rules Article 18: The circumstances \"where the vital interests of any third parties may be adversely affected\", as referred to under the subparagraph 3 of the proviso to paragraph 1 of Article 10 of the PDPA, shall mean the circumstances where any third parties' life, body, freedom, properties or other material interests may be harmed."],
+        evi:"Documented legal and regulatory requirements; record of the reasons for any refusal",
+        gcbpr:[["Access and Correction","36","37","38e"]],
+        act:"The three grounds in this proviso apply only to refusing inquiry, review and copies. Refusal of correction, cessation or erasure must be assessed under the main text and provisos of Article 11. If you rely on the proviso, work through each ground and set out the specific facts in the decision notice.",
+        urg:2
+    },
+    {
+        src:"PDPA Article 27, Paragraph 1 (security measures)",
+        law:L27_1,
+        rules:[R12_2(5)],
+        evi:"Records of processing activities",
+        gcbpr:[["Accountability","39"]],
+        act:"Confirm that the whole handling of this case — intake, retrieval, response — sits within your existing internal control procedure, and record it in your records of processing activities.",
+        urg:3
+    },
+    {
+        src:"Enforcement Rules Article 12, Paragraph 2, Subparagraph 7 (awareness and training)",
+        law:"(One of the measures constituting proper security measures under Article 27, Paragraph 1 of the PDPA.) Promoting awareness, education and training.",
+        rules:[],
+        evi:"Employee privacy training records",
+        gcbpr:[["Accountability","44"]],
+        act:"Confirm that the person actually handling this case has completed DSAR training, and that the training record can be produced on request.",
+        urg:3
+    },
+    {
+        src:"Enforcement Rules Article 12, Paragraph 2, Subparagraph 9 (data security audit mechanism)",
+        law:"(One of the measures constituting proper security measures under Article 27, Paragraph 1 of the PDPA.) Establishing an audit mechanism of data security.",
+        rules:[],
+        evi:"Records of non-conformities and corrective actions",
+        gcbpr:[["Accountability","41","42","43"]],
+        act:"State in the decision notice how the requester may pursue the matter further if dissatisfied, and give a contact point.",
+        urg:2
+    },
+    {
+        src:"Enforcement Rules Article 12, Paragraph 2, Subparagraph 10 (records, log files and evidence)",
+        law:"(One of the measures constituting proper security measures under Article 27, Paragraph 1 of the PDPA.) Keeping records, log files and relevant evidence.",
+        rules:[],
+        evi:"Audit plan and audit findings",
+        gcbpr:[["Security Safeguards","27","30b"]],
+        act:"Retain the full trail from intake to closure: time of receipt, method of identity verification, system retrieval logs, content of the response, and proof of service.",
+        urg:2
+    },
+    {
+        src:"PDPA Article 8, Paragraph 1, Subparagraph 5 (informing data subjects of the route in advance)",
+        law:"Non-government agencies shall expressly inform the data subject of the following information when collecting [sic] their personal data in accordance with Article 19 of the PDPA: 5. the data subject's rights under Article 3 and the methods for exercising such rights.",
+        rules:[R16],
+        evi:"Privacy statement or notification document",
+        gcbpr:[["Notice","1","1f","2","3","4"]],
+        act:"Check whether your privacy statement sets out all five rights, how to exercise them, and where requests are received. If this request reached you indirectly because the requester could not find that route, fix the statement as well. (The official English translation of Article 8, Paragraph 1 reads \"colleting\"; corrected here and marked [sic].)",
+        urg:3
+    }
+  ]
+},
+
+{
+    no:"II", title:"Inquiry and review", tag:"PDPA Article 3, Subparagraph 1", when:"inquiry",
+    items:[
+    {
+        src:"PDPA Article 27, Paragraph 1 (security measures: verifying identity)",
+        law:L27_1,
+        rules:[R12_2(5)],
+        evi:"Records of processing activities; records of identity verification",
+        gcbpr:[["Access and Correction","36","37a","37b","37c","37d"]],
+        act:"Once identity is verified, search every system holding personal data about this data subject, and compile the response in a form the data subject can understand.",
+        urg:1
+    }
+  ]
+},
+
+{
+    no:"III", title:"Requesting a copy", tag:"PDPA Article 3, Subparagraph 2", when:"copy",
+    items:[
+    {
+        src:"PDPA Article 27, Paragraph 1 (security in producing and delivering a copy)",
+        law:L27_1,
+        rules:[R12_2(5) + " (Applied here to the security controls over producing and delivering the copy.)"],
+        evi:"Records of processing activities",
+        gcbpr:[["Access and Correction","37","37c","37d"]],
+        act:"Check that the copy excludes other people's personal data and any trade secrets. Redact where necessary and record the reason for each redaction.",
+        urg:1
+    },
+    {
+        src:"Secure transmission (a specific application of PDPA Article 27, Paragraph 1)",
+        law:"A copy should be delivered by encrypted means or through another secure channel, so that it cannot be obtained by a third party in transit.",
+        rules:[],
+        evi:"Documented rules and agreements on secure transmission",
+        gcbpr:[["Security Safeguards","27","30b"]],
+        act:"Deliver the copy as an encrypted attachment or through a secure download link, send the password by a separate channel, and retain a record of delivery.",
+        urg:2
+    }
+  ]
+},
+
+{
+    no:"IV", title:"Supplement or correction", tag:"PDPA Article 3, Subparagraph 3", when:"correct",
+    items:[
+    {
+        src:"PDPA Article 11, Paragraph 1 (duty to maintain accuracy)",
+        law:"A government or non-government agency shall ensure the accuracy of personal data in its possession and correct or supplement such data on its own initiative or upon the request of data subjects.",
+        rules:[R19],
+        evi:"Documented access, correction and erasure procedure",
+        gcbpr:[["Access and Correction","38","38a","38b","38c","38d"]],
+        act:"Ask the data subject for an adequate explanation of what is inaccurate and what it should say. If the explanation is insufficient, request further particulars in writing and set a period for supplying them. Once the correction is made, confirm it to the data subject or provide a corrected copy.",
+        urg:1
+    },
+    {
+        src:"PDPA Article 11, Paragraph 2 (cessation where accuracy is disputed)",
+        law:L11_2,
+        rules:[R14],
+        evi:"Records of processing activities; record annotating the dispute",
+        gcbpr:[["Integrity of Personal Information","21","22"]],
+        act:"While the dispute is unresolved, stop processing or using the record as a matter of course. To continue under the proviso, you need both limbs: the processing must be necessary for the performance of an official or business duty or agreed to in writing, and the dispute must be recorded. Keep a note of your reasoning.",
+        urg:1
+    },
+    {
+        src:"PDPA Article 11, Paragraph 5 (notifying recipients after correction or supplement)",
+        law:"If any failure to correct or supplement any personal data is attributable to a government or non-government agency, the government or non-government agency shall notify the persons who have been provided with such personal data after the correction or supplement is made.",
+        rules:[],
+        evi:"Register of parties to whom personal data has been provided; records of notifications sent",
+        gcbpr:[["Integrity of Personal Information","23","24"]],
+        act:"First decide whether the earlier failure to correct is attributable to your organisation. If it is, identify everyone to whom the record was provided, notify each of them after the correction, and keep the notification records. This obligation is triggered by correction or supplement; erasure does not trigger it.",
+        urg:2
+    },
+    {
+        src:"PDPA Article 4 (commissioned processing)",
+        law:"Whoever is commissioned by government agencies or non-government agencies to collect, process or use personal data shall be deemed to be acting on behalf of the commissioning agency to the extent that the PDPA applies.",
+        rules:["Enforcement Rules Article 8: For the purpose of supervision, the commissioning agency shall carry out regular inspections to verify the commissioned agency's performance of the engagement contract and document the findings of such inspections."],
+        evi:"Documented accountability arrangements with commissioned processors; records of notifications to processors",
+        gcbpr:[["Integrity of Personal Information","25"]],
+        act:"Tell your commissioned processors to apply the same correction, and check that the outsourcing contract obliges them to report back when they find personal data that is inaccurate, incomplete or out of date.",
+        urg:2
+    }
+  ]
+},
+
+{
+    no:"V", title:"Cessation of collection, processing or use", tag:"PDPA Article 3, Subparagraph 4", when:"cease",
+    items:[
+    {
+        src:"PDPA Article 11, Paragraph 2 (cessation where accuracy is disputed)",
+        law:L11_2,
+        rules:[R14],
+        evi:"Records of processing activities",
+        gcbpr:[["Choice","15","20"]],
+        act:"Establish whether the request to cease arises from a dispute about accuracy. If it does, stop processing or using the data until the dispute is resolved; if you rely on the proviso, the dispute must also be recorded.",
+        urg:1
+    },
+    {
+        src:"PDPA Article 11, Paragraph 3 (specific purpose no longer exists, or the period has expired)",
+        law:L11_3,
+        rules:[R20, R21],
+        evi:"Data retention policy and procedure; record of the assessment of whether the specific purpose still exists",
+        gcbpr:[["Choice","15"]],
+        act:"Work through the four circumstances in Enforcement Rules Article 20 to decide whether the specific purpose still exists. If you intend to rely on the proviso, work through the three circumstances in Article 21 and record your reasons in writing, citing the specific legal basis for any statutory retention period.",
+        urg:1
+    },
+    {
+        src:"PDPA Article 11, Paragraph 4 (unlawful collection, processing or use)",
+        law:L11_4,
+        rules:[],
+        evi:"Records of the review of lawful basis",
+        gcbpr:[["Collection Limitation","6"]],
+        act:"Re-examine whether the collection and use of this record had a lawful basis under Article 19 or Article 20. If not, this paragraph contains no proviso: you must cease and erase.",
+        urg:1
+    },
+    {
+        src:"PDPA Article 27, Paragraph 1 (technical implementation of a cessation instruction)",
+        law:L27_1,
+        rules:[R12_2(5) + " (Applied here to the technical implementation of a cessation instruction and the associated system configuration procedure.)"],
+        evi:"Access control policy; records of system configuration changes",
+        gcbpr:[["Security Safeguards","27","30a","30b"]],
+        act:"Set the suppression flag in each system and confirm that it has taken effect downstream in marketing, customer service and analytics. Retain the configuration change records.",
+        urg:2
+    }
+  ]
+},
+
+{
+    no:"VI", title:"Erasure", tag:"PDPA Article 3, Subparagraph 5", when:"erase",
+    items:[
+    {
+        src:"PDPA Article 11, Paragraph 3 (erasure once the specific purpose no longer exists)",
+        law:L11_3,
+        rules:[R20, R21],
+        evi:"Data retention policy and procedure; record of the reasons for the erasure decision",
+        gcbpr:[["Access and Correction","38","38b","38c","38d"]],
+        act:"Establish whether the specific purpose has ceased to exist or the retention period has expired. To refuse erasure, rely on the proviso to Article 11, Paragraph 3, work through the three circumstances in Enforcement Rules Article 21, and state your reasons. The proviso to Article 10 is not available here; it applies only to inquiry, review and copies.",
+        urg:1
+    },
+    {
+        src:"PDPA Article 11, Paragraph 4 (erasure where collection, processing or use was unlawful)",
+        law:L11_4,
+        rules:[],
+        evi:"Records of the review of lawful basis",
+        gcbpr:[["Collection Limitation","6"]],
+        act:"If the record lacked a lawful basis from the outset, this paragraph contains no proviso, and the proviso to Paragraph 3 cannot be relied on to refuse erasure.",
+        urg:1
+    },
+    {
+        src:"PDPA Article 27, Paragraph 1 (technical security of erasure)",
+        law:L27_1,
+        rules:[R12_2(5) + " (Erasure should be carried out to a standard that ensures the data cannot be recovered.)"],
+        evi:"Data retention and secure disposal policy; disposal records",
+        gcbpr:[["Security Safeguards","31"]],
+        act:"Extend the erasure to backups, logs and any copies held by commissioned processors. Use a method from which the data cannot be recovered and make a disposal record. Where a backup cannot be erased immediately, record how it will be handled and when it will be erased.",
+        urg:2
+    }
+  ]
+},
+
+{
+    no:"VII", title:"Records and audit", tag:"Applies to all five rights", when:"always",
+    items:[
+    {
+        src:"PDPA Article 22, Paragraphs 1 and 4 (cooperating with inspection)",
+        law:"The central government authorities in charge of the industries concerned, the special municipality, county (city) government concerned may, when they deem necessary or suspect any possible violation of the PDPA, inspect compliance with the security control measures, the rules on disposing personal data upon business termination, and the restrictions on cross-border transfers, or conduct any other routine inspections by having their staff enter non-government agencies' premises upon presentation of their official identification documents and order relevant personnel at the non-government agencies to provide necessary explanations, cooperate on adopting relevant measures, or provide supporting documents. (Paragraph 1) Non-government agencies and their personnel may not evade such inspections, obstruct the investigators from accessing the premises or data, or refuse to comply with the inspections or decisions referred to in paragraphs 1 and 2. (Paragraph 4)",
+        rules:[R12_2(9), R12_2(10)],
+        evi:"Audit plan and audit findings",
+        gcbpr:[["Accountability","39","45"]],
+        act:"Keep the case file capable of being retrieved on its own, so that the whole chain — intake, assessment, decision, service — can be shown to an inspector.",
+        urg:3
+    },
+    {
+        src:"PDPA Article 27, Paragraph 1 (securing audit logs)",
+        law:L27_1,
+        rules:[R12_2(10)],
+        evi:"Audit plan and audit findings",
+        gcbpr:[["Security Safeguards","27","32","33","34"]],
+        act:"Confirm that the retention period for the relevant system logs is long enough to cover any later dispute or inspection.",
+        urg:3
+    },
+    {
+        src:"PDPA Article 27, Paragraphs 1 and 2 (security and maintenance plan)",
+        law:L27_1 + " The central government authorities in charge of the industries concerned may designate and order certain non-government agencies to establish a security and maintenance plan for the protection of personal data files and rules on disposing personal data following a business termination. (Paragraph 2)",
+        rules:[R12_2(11)],
+        evi:"Records of non-conformities and corrective actions; security and maintenance plan for personal data files",
+        gcbpr:[["Accountability","40","41","42","43"]],
+        act:"Record any procedural gap this case exposed in your corrective action log, and feed it back into the data subject rights section of your security and maintenance plan.",
+        urg:3
+    }
+  ]
+}
+];
+
+/* ============================================================
+Rendering logic — no need to edit below this line.
+   ============================================================ */
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const qline = id => "Q" + id + ". " + (GQ[id] || "(question text not available)");
+
+$("#q_rights").innerHTML = RIGHTS.map(r =>
+  `<label class="opt" data-id="${r.id}">
+     <input type="checkbox" value="${r.id}">
+     <span>${r.name}<span class="lawref">${r.ref}</span></span>
+   </label>`).join("");
+
+/* Day count: the day of receipt is not counted; add n days */
+function addDays(iso, n){
+      const [y,m,d] = iso.split("-").map(Number);
+      const t = Date.UTC(y, m-1, d) + n*86400000;
+      const x = new Date(t);
+      const WK = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+      return {
+        txt: `${x.getUTCFullYear()}-${String(x.getUTCMonth()+1).padStart(2,"0")}-${String(x.getUTCDate()).padStart(2,"0")}`,
+        wk: WK[x.getUTCDay()]
+  };
+}
+
+function read(){
+      return {
+        date: $("#q_date").value,
+        rights: [...document.querySelectorAll("#q_rights input:checked")].map(i=>i.value),
+        id: $("#q_id").value,
+        deny: $("#q_deny").value,
+        ext: $("#q_ext").value
+  };
+}
+
+function applies(b, s){
+  if (b.when === "always") return true;
+  return s.rights.includes(b.when);
+}
+
+const nameOf = id => RIGHTS.find(x=>x.id===id).name;
+
+function render(){
+      const s = read();
+      document.querySelectorAll("#q_rights .opt").forEach(l=>{
+          l.classList.toggle("on", l.querySelector("input").checked);
+  });
+
+      const out = $("#out");
+
+      if (!s.date || s.rights.length === 0){
+        out.innerHTML = `<div class="empty">
+      <span class="big">Enter the date received and the type of request</span>
+        The draft will appear here, ready to print, save as PDF or copy as text.</div>`;
+        return;
+  }
+
+      const now = new Date();
+      const issued = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}`;
+      const start = addDays(s.date, 1);
+      const has10 = s.rights.some(r => ART10.includes(r));
+      const has11 = s.rights.some(r => ART11.includes(r));
+      const d10 = addDays(s.date, 15), d10x = addDays(s.date, 30);
+      const d11 = addDays(s.date, 30), d11x = addDays(s.date, 60);
+      const earliest = has10 ? d10 : d11;
+
+      let h = "";
+
+      h += `<div class="head">
+    <h2>Data Subject Request — Response Checklist</h2>
+    <div class="meta">Issued ${issued} | Non-government agency | Path B</div>
+  </div>`;
+
+  /* Deadlines */
+      h += `<section class="blk"><h3 class="blkt">Deadlines</h3>`;
+      h += `<div class="deadlines">`;
+      if (has10){
+        h += `<div class="dl">
+      <div class="lab">Decision deadline (inquiry / review / copy)</div>
+      <div class="date">${d10.txt}<span class="wk">(${d10.wk})</span></div>
+      <div class="basis">PDPA Article 13, Paragraph 1: a request under Article 10 must be granted or refused within fifteen days.<br>
+        The day of receipt is not counted; the period runs from ${start.txt}.</div>
+    </div>`;
+        h += `<div class="dl">
+      <div class="lab">${s.ext === "Yes" ? "Extended deadline" : "If extended, up to"}</div>
+      <div class="date">${d10x.txt}<span class="wk">(${d10x.wk})</span></div>
+      <div class="basis">One extension only, of no more than fifteen days, giving thirty days in total.<br>
+        The reason must be notified to the requester <b>in writing</b>; without that notice the extension has no effect.</div>
+    </div>`;
+  }
+      if (has11){
+        h += `<div class="dl">
+      <div class="lab">Decision deadline (supplement / correction / cessation / erasure)</div>
+      <div class="date">${d11.txt}<span class="wk">(${d11.wk})</span></div>
+      <div class="basis">PDPA Article 13, Paragraph 2: a request under Article 11 must be granted or refused within thirty days.<br>
+        The day of receipt is not counted; the period runs from ${start.txt}.</div>
+    </div>`;
+        h += `<div class="dl">
+      <div class="lab">${s.ext === "Yes" ? "Extended deadline" : "If extended, up to"}</div>
+      <div class="date">${d11x.txt}<span class="wk">(${d11x.wk})</span></div>
+      <div class="basis">One extension only, of no more than thirty days, giving sixty days in total.<br>
+        The reason must be notified to the requester <b>in writing</b>; without that notice the extension has no effect.</div>
+    </div>`;
+  }
+      h += `</div>`;
+      if (has10 && has11){
+        h += `<div class="stamp"><b>This case contains both types of request.</b> The inquiry, review and copy elements carry fifteen days; the supplement, correction, cessation and erasure elements carry thirty. The two periods run independently. If you answer with a single decision notice, the earlier deadline governs.</div>`;
+  }
+
+      h += `<div class="stamp">
+    <b>Postponement is not accounted for.</b> The dates above are the raw expiry dates obtained by counting days.
+      Where the final day falls on a weekend, a public holiday or another non-working day, it is postponed to the next working day
+      under Article 48, Paragraph 4 of the Administrative Procedure Act. Designated make-up working days may also affect the calculation.
+      Confirm the actual final day against the official working calendar for the year in question.
+  </div>`;
+      h += `</section>`;
+
+  /* Case details */
+      h += `<section class="blk"><h3 class="blkt">Case details</h3><dl class="info">
+    <dt>Date received</dt><dd>${s.date}</dd>
+    <dt>Type of request</dt><dd>${s.rights.map(r=>{
+      const o = RIGHTS.find(x=>x.id===r); return `${o.name} (${o.ref})`;
+    }).join("<br>")}</dd>
+    <dt>Identity verification</dt><dd>${s.id === "Completed" ? "Completed" : "<b>Not yet completed</b>"}</dd>
+    <dt>Intended outcome</dt><dd>${s.deny === "Yes" ? "Refusal in whole or in part" : "Grant, or not yet decided"}</dd>
+    <dt>Extension</dt><dd>${s.ext === "Yes" ? "Extended once, or intending to" : "Not extended"}</dd>
+  </dl></section>`;
+
+  /* Alerts */
+      const alerts = [];
+      alerts.push(["seal","Check first whether a special law displaces the PDPA",
+        `Article 1 of the PDPA provides that the collection, processing and use of personal data shall be governed by the Act, <i>except where otherwise provided by other laws</i>.
+         Several statutes change how a data subject right is performed, or how long you have to perform it, and this draft reproduces none of them.
+         The Medical Care Act is the clearest example: Article 71 requires a copy of a patient's medical records to be provided without undue delay, setting no fixed period and providing no ground of refusal,
+         so the fifteen-day period above governs the decision on the request and is not a ceiling on delivery; and Article 68 requires an amended entry to be struck through with a line rather than erased,
+         which constrains how a correction may be performed. Identify the statutes applicable to your own sector before relying on the deadlines and grounds of refusal set out here.
+         A non-exhaustive catalogue is at <a href="table-02.html#special" target="_blank" rel="noopener">Part D</a>.
+     A sector-specific regulation made under Article 27, Paragraph 2 of the PDPA may also add requirements to how you handle a request; those regulations are indexed by authority at <a href="table-02.html#sector" target="_blank" rel="noopener">Part E</a>. Neither layer is reproduced here.`]);
+      if (s.id !== "Completed"){
+        alerts.push(["warn","Identity verification is not complete",
+      "Do not release personal data until you have confirmed that the requester is the data subject or a duly authorised representative. Record the method used and the outcome (PDPA Article 27, Paragraph 1; Enforcement Rules Article 12, Paragraph 2, Subparagraph 5)."]);
+  }
+      if (has11){
+        alerts.push(["warn","No fee may be charged for supplement, correction, cessation or erasure",
+      "The fee under Article 14 of the PDPA covers only inquiry, review and copies. No fee may be charged for the Article 11 elements of this request."]);
+  }
+      if (s.deny === "Yes"){
+        const p10 = s.rights.filter(r => ART10.includes(r));
+        const p11 = s.rights.filter(r => ART11.includes(r));
+        if (p10.length){
+          alerts.push(["seal","Grounds for refusing inquiry, review or a copy",
+        `For the ${p10.map(nameOf).join(" and ")} element(s) of this request, refusal is available only on the three grounds in the proviso to Article 10: harm to national security, diplomatic or military secrets, overall economic interests or other material national interests; prevention of a government agency from performing its statutory duties; or adverse effect on the vital interests of the data collector or a third party. Work through each ground and set out the specific facts in the decision notice.`]);
+    }
+        if (p11.length){
+          alerts.push(["seal","Grounds for refusing supplement, correction, cessation or erasure",
+        `For the ${p11.map(nameOf).join(" and ")} element(s) of this request, the proviso to Article 10 is not available. Refusal must be assessed under Article 11: the proviso to Paragraph 2 for cessation on grounds of a disputed record; the proviso to Paragraph 3, read with Enforcement Rules Article 21, for erasure once the purpose has ceased; and Paragraph 4, which contains no proviso, for data collected or used unlawfully. Address each separately in the decision notice.`]);
+    }
+        alerts.push(["seal","Formal requirements for a refusal",
+      "A refusal should be in writing, stating the reasons, the legal basis and the route for challenging the decision, with proof of service retained. Where the decision period is extended, Article 13 requires that the reason be notified to the requester in writing."]);
+  }
+      if (s.rights.includes("correct")){
+        alerts.push(["warn","Cessation of use while a correction dispute is unresolved",
+      "Where the accuracy of personal data is disputed, processing and use must cease. To continue under the proviso you need both limbs: the processing must be necessary for the performance of an official or business duty or agreed to by the data subject in writing, and the dispute must be recorded (PDPA Article 11, Paragraph 2)."]);
+  }
+      if (s.rights.includes("erase") && !s.rights.includes("correct")){
+        alerts.push(["warn","Erasure does not trigger the duty to notify recipients",
+      "The notification duty under Article 11, Paragraph 5 arises from correction or supplement, and only where the earlier failure to correct was attributable to your organisation. Erasure alone, under Article 3, Subparagraph 5, carries no duty under the provisions in force to notify those to whom the data was previously provided."]);
+  }
+      if (alerts.length){
+        h += `<section class="blk"><h3 class="blkt">Points triggered by this case<span class="tag">Derived from your answers</span></h3>`;
+        h += alerts.map(([k,t,b]) =>
+      `<div class="alert ${k==='warn'?'warn':''}"><span class="t">${t}</span>${b}</div>`).join("");
+        h += `</section>`;
+  }
+
+  /* Checklist */
+      const used = BLOCKS.filter(z => applies(z, s));
+      used.forEach(z => {
+          h += `<section class="blk"><h3 class="blkt">${z.no}. ${z.title}<span class="tag">${z.tag}</span></h3>`;
+          z.items.forEach(it => {
+              h += `<div class="item">
+        <div class="src"><span class="box"></span><span>${esc(it.src)}</span></div>
+        <p class="law">${esc(it.law)}</p>`;
+              if (it.rules.length) h += it.rules.map(r=>`<p class="rule">◆ ${esc(r)}</p>`).join("");
+              h += `<p class="evi"><span class="k">Supporting records:</span> ${esc(it.evi)}</p>`;
+              if (it.gcbpr.length){
+                h += `<details class="gc"><summary>Global CBPR Program Requirements</summary><div class="body">` +
+                it.gcbpr.map(g => `<span class="pr">[${g[0]}]</span>` + g.slice(1).map(id=>esc(qline(id))).join("<br>")).join("") +
+          `</div></details>`;
+      }
+              h += `<p class="act"><span class="k">What to do</span>${esc(it.act)}</p>`;
+              h += `</div>`;
+    });
+          h += `</section>`;
+  });
+
+  /* Recommended actions */
+      const actions = [];
+      used.forEach(z => z.items.forEach(it => actions.push({t:it.act, r:it.src, u:it.urg})));
+      actions.sort((a,b)=>a.u-b.u);
+      const by = u => u===1 ? earliest.txt : (u===2 ? addDays(s.date,10).txt : addDays(s.date,15).txt);
+
+      h += `<section class="blk"><h3 class="blkt">Recommended actions<span class="tag">Ordered by urgency; target dates do not account for holiday postponement</span></h3><ol class="actions">`;
+      actions.forEach(a => {
+          h += `<li>${esc(a.t)}<span class="by">By ${by(a.u)}</span><span class="ref">${esc(a.r)}</span></li>`;
+  });
+      h += `</ol></section>`;
+
+  /* AI prompt */
+      let P = "";
+      P += "You are a legal assistant with expertise in Taiwan's Personal Data Protection Act (the PDPA). Below is a summary of a data subject request received by my organisation, generated by the Taiwan PDPA Compliance Toolkit, Document 04, Path B. Help me draft a formal decision notice, following the task list below. Ask one question at a time and wait for my answer before continuing.\n\n";
+      P += "[Case summary]\n";
+      P += `Date received: ${s.date} (the period runs from the following day, ${start.txt}; the day of receipt is not counted)\n`;
+      P += `Type of request: ${s.rights.map(nameOf).join("; ")}\n`;
+      P += `Identity of the requester verified: ${s.id}\n`;
+      P += `Extending the decision period: ${s.ext}\n`;
+      P += `Intending to refuse in whole or in part: ${s.deny}\n\n`;
+      P += "[Statutory deadlines, PDPA Article 13]\n";
+      if (has10){
+        P += `Inquiry / review / copy: a decision within fifteen days, by ${d10.txt}; if extended (once only, by no more than fifteen days, with the reason notified in writing within the original period), by ${d10x.txt}.\n`;
+  }
+      if (has11){
+        P += `Supplement / correction / cessation / erasure: a decision within thirty days, by ${d11.txt}; if extended (once only, by no more than thirty days, with the reason notified in writing within the original period), by ${d11x.txt}.\n`;
+  }
+      if (has10 && has11){
+        P += "This case contains both types of request; the periods run independently. If a single decision notice is used, the earlier deadline governs.\n";
+  }
+      P += "\n";
+      if (alerts.length){
+        P += "[Points triggered by this case]\n";
+        alerts.forEach((w,i)=>{ P += `${i+1}. ${w[1]}: ${w[2].replace(/\s+/g," ").trim()}\n`; });
+        P += "\n";
+  }
+      P += "[Task]\n";
+      P += "1. Confirm with me, element by element, the intended outcome for each request (granted, granted in part, refused) and the relevant factual background.\n";
+      P += "2. Draft a formal decision notice containing: the addressee; the subject (setting out the request and the date received); the operative decision, dealing with each element separately; the reasons and legal basis (for elements granted, how and by when they will be carried out; for elements refused, the specific ground relied on and the facts establishing it — noting that refusal of inquiry, review or a copy is available only on the three grounds in the proviso to Article 10, while refusal of supplement, correction, cessation or erasure is governed by the main text and provisos of Article 11); the route for challenging the decision; and the date and the name of the organisation.\n";
+      P += "3. Fees: a fee covering necessary costs may be charged under Article 14 only for inquiry, review and copies. No fee may be charged for supplement, correction, cessation or erasure. Where a fee is charged, state the amount and the basis in the notice.\n";
+      P += "4. If the period is being extended, draft a separate extension notice: in writing, stating the reason, and served on the requester within the original period.\n";
+      P += "5. Quote provisions in full rather than paraphrasing operative wording. Where the English and Mandarin versions of a provision differ, the Mandarin version governs.\n";
+      P += "6. Before drafting, ask me two things. First, whether any statute-level special law applies to my organisation. Article 1 of the PDPA provides that other laws prevail where they provide otherwise, and several statutes change how a data subject right is performed or how long is allowed: the Medical Care Act on copies of medical records and on how entries may be amended, the National Health Insurance Act on insurance data, and others in finance, employment and the protection of victims and vulnerable people. Second, whether a sector-specific regulation issued under Article 27, Paragraph 2 of the PDPA applies. Both layers are in Mandarin in the operative version; work from the Mandarin text if I provide it, and say plainly if I do not know rather than assuming that none applies.\n";
+      P += "7. Finish by reminding me that this is a working draft, not legal advice, and must be reviewed by a qualified lawyer before it is issued.\n";
+
+      h += `<section class="blk"><h3 class="blkt">Prompt for an AI assistant<span class="tag">For drafting the formal decision notice</span></h3>`;
+      h += `<p class="promptnote">
+      Copy the prompt below into an AI assistant to draft a formal decision notice reflecting this case's deadlines and pressure points.
+    "Copy prompt and full draft" appends the checklist above, so the assistant can work through each obligation.
+      The result remains a working draft and must be reviewed by a qualified lawyer before it is issued.</p>`;
+      h += `<div class="promptbox">
+    <pre id="promptText">${esc(P)}</pre>
+    <div class="promptbar noprint">
+      <button type="button" id="b_p1">Copy prompt</button>
+      <button type="button" class="ghost" id="b_p2">Copy prompt and full draft</button>
+    </div>
+  </div></section>`;
+
+  /* Versions and disclaimer */
+      h += `<div class="foot">
+    <p><b>Versions relied on</b> Personal Data Protection Act: ${VERSIONS.pdpa}. Enforcement Rules: ${VERSIONS.rules}.</p>
+    <p><b>Mapping baseline</b> ${VERSIONS.mapping}.</p>
+    <p><b>Scope</b> This draft assumes a non-government agency. Government agencies are subject to Article 18 of the PDPA and to Article 14 of the Freedom of Government Information Act, the Archives Act, Article 46 of the Administrative Procedure Act and other special provisions, which are outside its scope.</p>
+    <p><b>Special laws and sector regulations</b> Two layers sit above this draft and are not reproduced in it. First, statutes that prevail over the PDPA under the proviso to its Article 1: the Medical Care Act, for instance, requires a copy of a patient&rsquo;s medical records to be provided without undue delay, setting no fixed period and no ground of refusal, and requires an amended entry to be struck through with a line rather than erased. A non-exhaustive catalogue is in 02 Sources and Terminology, Part D. Second, sector-specific regulations issued under Article 27, Paragraph 2 of the PDPA, which have no English text that can be relied on; they are indexed by authority, non-exhaustively, in Part E. Identify both layers for your own sector and read them alongside this draft.</p>
+    <p><b>Calculating periods</b> All dates are raw expiry dates obtained by counting days. They do not account for postponement where the final day falls on a holiday, nor for the time required for service. Confirm the actual final day under Article 48 of the Administrative Procedure Act against the official working calendar for the year in question.</p>
+    <p><b>Disclaimer</b> This is a working draft for compliance reference and does not constitute legal advice. Provisions should be checked against the versions in force in the Laws &amp; Regulations Database (law.moj.gov.tw). Where the English and Mandarin versions differ, the Mandarin version governs. Consult a qualified lawyer on any specific matter.</p>
+    <p>Taiwan PDPA Compliance Toolkit (Global CBPR Mapped), English Edition  / Document 04, Path B Author: I Jung (Alfred) Tsai Licence: CC BY-NC-SA 4.0 · v1.3-EN</p>
+  </div>`;
+
+      out.innerHTML = h;
+      rail("section.blk", "h3.blkt");
+
+      const p1 = $("#b_p1"), p2 = $("#b_p2");
+      if (p1) p1.addEventListener("click", ()=>copyText(P, p1));
+      if (p2) p2.addEventListener("click", ()=>{
+          const body = out.innerText.split("Prompt for an AI assistant")[0].trim();
+          copyText(P + "\n\n──────── DSAR response checklist ────────\n\n" + body, p2);
+  });
+}
+
+async function copyText(text, btn){
+      const old = btn.textContent;
+      try{
+        await navigator.clipboard.writeText(text);
+        btn.textContent = "Copied";
+  }catch(e){
+        btn.textContent = "Copy failed — select manually";
+  }
+      setTimeout(()=>btn.textContent = old, 1800);
+}
+
+$("#f").addEventListener("input", render);
+$("#f").addEventListener("change", render);
+$("#b_print").addEventListener("click", ()=>window.print());
+$("#b_reset").addEventListener("click", ()=>{ $("#f").reset(); render(); });
+$("#b_copy").addEventListener("click", async ()=>{
+        const el = $("#out");
+        if (!el.querySelector(".head")) return;
+        const t = el.innerText.replace(/\n{3,}/g,"\n\n");
+        const b = $("#b_copy"); const o = b.textContent;
+        try{
+          await navigator.clipboard.writeText(t);
+          b.textContent = "Copied"; setTimeout(()=>b.textContent = o, 1600);
+  }catch(e){
+          b.textContent = "Copy failed — select manually"; setTimeout(()=>b.textContent = o, 1600);
+  }
+});
+
+/* ---- Section rail ---- */
+const rail = (()=>{
+        const el = document.createElement("nav");
+        el.className = "rail"; el.setAttribute("aria-label","Section navigation");
+        document.body.appendChild(el);
+        let targets = [], links = [];
+        function label(h){
+          const c = h.cloneNode(true);
+          c.querySelectorAll(".tag").forEach(x=>x.remove());
+          return c.textContent.trim();
+  }
+        function update(){
+          if (!targets.length) return;
+          let i = 0;
+          targets.forEach((t,k)=>{ if (t.getBoundingClientRect().top <= 130) i = k; });
+          links.forEach((a,k)=>a.classList.toggle("on", k===i));
+  }
+        window.addEventListener("scroll", update, {passive:true});
+        window.addEventListener("resize", update, {passive:true});
+        return function build(sel, headSel){
+          targets = [...document.querySelectorAll(sel)];
+          if (targets.length < 2){ el.classList.remove("on"); el.innerHTML = ""; return; }
+          targets.forEach((t,i)=>{ if (!t.id) t.id = "rail-" + i; });
+          el.innerHTML = targets.map(t=>{
+              const h = headSel ? t.querySelector(headSel) : t;
+              return `<a href="#${t.id}" data-t="${label(h||t).replace(/"/g,"&quot;")}"><i></i></a>`;
+    }).join("");
+          links = [...el.querySelectorAll("a")];
+          el.classList.add("on");
+          update();
+  };
+})();
+
+render();
+</script>
+</body>
+</html>

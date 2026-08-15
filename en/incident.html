@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Personal Data Incident Response Draft Generator | Taiwan PDPA Compliance Toolkit</title>
+<style>
+:root{
+  --ink:#16233A;
+  --ink-2:#3A4A64;
+  --muted:#6B7789;
+  --rule:#D3DAE3;
+  --rule-soft:#E6EAF0;
+  --field:#EDF1F6;
+  --paper:#FFFFFF;
+  --seal:#A8322D;
+  --seal-soft:#F5E9E8;
+  --amber:#8A5A12;
+  --amber-soft:#FBF2E0;
+  --serif:"Noto Serif","Source Serif 4","Iowan Old Style","Palatino Linotype",Georgia,"Noto Serif TC",serif;
+  --sans:"Noto Sans","Inter","Helvetica Neue",Arial,"Noto Sans TC",sans-serif;
+  --mono:ui-monospace,"SF Mono","Roboto Mono","Courier New",monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+ font-family:var(--sans);
+ color:var(--ink);
+ background:var(--field);
+ font-size:15px;
+ line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--ink)}
+
+
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px 80px}
+header.top{
+ border-bottom:1px solid var(--rule);
+ background:var(--paper);
+ margin-bottom:28px;
+}
+header.top .inner{max-width:1240px;margin:0 auto;padding:22px 20px 18px}
+.eyebrow a{color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)}
+.eyebrow{
+ font-size:12px;letter-spacing:.22em;color:var(--muted);
+ text-transform:none;margin:0 0 6px;
+}
+h1{
+ font-family:var(--serif);
+ font-size:26px;font-weight:600;margin:0 0 8px;letter-spacing:.02em;
+}
+.sub{margin:0;color:var(--ink-2);font-size:13.5px}
+.sub b{font-weight:600}
+
+.cols{display:grid;grid-template-columns:390px 1fr;gap:28px;align-items:start}
+@media(max-width:960px){.cols{grid-template-columns:1fr}}
+
+
+.panel{
+ background:var(--paper);
+ border:1px solid var(--rule);
+ padding:22px 22px 26px;
+}
+.panel.sticky{position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
+@media(max-width:960px){.panel.sticky{position:static;max-height:none}}
+@media(max-width:960px){.panel.sticky{position:static}}
+.panel h2{
+ font-family:var(--serif);font-size:17px;font-weight:600;
+ margin:0 0 4px;
+}
+.panel .note{font-size:12.5px;color:var(--muted);margin:0 0 20px}
+
+fieldset{border:0;padding:0;margin:0 0 20px}
+legend{padding:0;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:8px}
+legend .n{
+ font-family:var(--mono);font-size:11px;color:var(--muted);
+ margin-right:8px;
+}
+.hint{font-size:12px;color:var(--muted);margin:-4px 0 8px;line-height:1.6}
+
+input[type=date],select{
+ width:100%;font-family:var(--mono);font-size:15px;
+ padding:9px 10px;border:1px solid var(--rule);background:#fff;color:var(--ink);
+ border-radius:0;
+}
+input[type=date]:focus,select:focus,label.opt:focus-within{
+ outline:2px solid var(--ink);outline-offset:1px;
+}
+select{font-family:var(--sans)}
+
+label.opt{
+ display:flex;gap:9px;align-items:flex-start;
+ padding:7px 9px;border:1px solid var(--rule-soft);
+ margin-bottom:5px;cursor:pointer;font-size:14px;background:#fff;
+}
+label.opt:hover{border-color:var(--ink-2)}
+label.opt input{margin:5px 0 0;accent-color:var(--ink)}
+label.opt .lawref{display:block;font-size:11.5px;color:var(--muted);font-family:var(--mono)}
+label.opt.on{border-color:var(--ink);background:#F7F9FC}
+
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+button{
+ font-family:var(--sans);font-size:13.5px;padding:9px 16px;
+ border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;
+ border-radius:0;
+}
+button.ghost{background:#fff;color:var(--ink)}
+button:hover{opacity:.86}
+button:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+
+
+.draft{background:var(--paper);border:1px solid var(--rule);padding:0}
+.draft .head{
+ padding:26px 30px 20px;border-bottom:2px solid var(--ink);
+}
+.draft .head h2{
+ font-family:var(--serif);font-size:22px;font-weight:600;margin:0 0 6px;
+}
+.draft .head .meta{font-size:12.5px;color:var(--muted);font-family:var(--mono)}
+
+.empty{padding:70px 30px;text-align:center;color:var(--muted);font-size:14px}
+.empty .big{font-family:var(--serif);font-size:19px;color:var(--ink-2);display:block;margin-bottom:8px}
+
+section.blk{padding:24px 30px;border-bottom:1px solid var(--rule-soft)}
+section.blk:last-child{border-bottom:0}
+h3.blkt{
+ font-family:var(--serif);font-size:16.5px;font-weight:600;margin:0 0 14px;
+ padding-bottom:7px;border-bottom:1px solid var(--rule);
+}
+h3.blkt .tag{
+ font-family:var(--sans);font-size:11px;font-weight:400;color:var(--muted);
+ margin-left:10px;letter-spacing:.05em;
+}
+
+
+.deadlines{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--ink)}
+@media(max-width:620px){.deadlines{grid-template-columns:1fr}}
+.dl{padding:18px 20px 16px}
+.dl+.dl{border-left:1px solid var(--rule)}
+@media(max-width:620px){.dl+.dl{border-left:0;border-top:1px solid var(--rule)}}
+.dl .lab{font-size:12px;color:var(--muted);letter-spacing:.1em;margin-bottom:2px}
+.dl .date{
+ font-family:var(--mono);font-size:30px;font-weight:600;
+ letter-spacing:.01em;line-height:1.25;font-variant-numeric:tabular-nums;
+}
+.dl .wk{font-family:var(--sans);font-size:13px;color:var(--ink-2);margin-left:8px}
+.dl .basis{font-size:12px;color:var(--ink-2);margin-top:7px;line-height:1.65}
+.dl.med .date{font-family:var(--serif);font-size:22px}
+
+.stamp{
+ margin-top:14px;border:1px solid var(--seal);background:var(--seal-soft);
+ color:var(--seal);padding:10px 13px;font-size:12.5px;line-height:1.7;
+}
+.stamp b{font-weight:600;letter-spacing:.04em}
+
+.alert{
+ border-left:3px solid var(--seal);background:var(--seal-soft);
+ padding:12px 15px;margin:0 0 14px;font-size:13.5px;line-height:1.75;
+}
+.alert.warn{border-left-color:var(--amber);background:var(--amber-soft)}
+.alert .t{font-weight:600;display:block;margin-bottom:3px}
+
+
+dl.info{display:grid;grid-template-columns:130px 1fr;gap:0;margin:0;font-size:14px;border-top:1px solid var(--rule-soft)}
+dl.info dt{padding:8px 0;color:var(--muted);border-bottom:1px solid var(--rule-soft);font-size:13px}
+dl.info dd{padding:8px 0;margin:0;border-bottom:1px solid var(--rule-soft)}
+
+
+.item{border-top:1px solid var(--rule-soft);padding:15px 0}
+.item:first-of-type{border-top:0}
+.item .src{
+ font-family:var(--serif);font-weight:600;font-size:15px;margin-bottom:6px;
+ display:flex;gap:9px;align-items:baseline;
+}
+.item .box{
+ flex:0 0 auto;width:13px;height:13px;border:1.5px solid var(--ink);
+ display:inline-block;margin-top:1px;
+}
+.item .law{
+ font-size:13.5px;line-height:1.85;color:var(--ink-2);
+ border-left:2px solid var(--rule);padding-left:12px;margin:0 0 8px;
+}
+.item .rule{
+ font-size:13px;line-height:1.8;color:var(--muted);
+ padding-left:14px;margin:0 0 8px;
+}
+.item .rule b{color:var(--ink-2);font-weight:600}
+.item .evi{font-size:13px;margin:0 0 6px}
+.item .evi .k{color:var(--muted)}
+.item .act{
+ font-size:13.5px;background:#F5F7FA;padding:9px 12px;margin-top:8px;
+ border-left:2px solid var(--ink-2);
+}
+.item .act .k{font-weight:600;margin-right:6px}
+
+details.gc{margin-top:8px}
+details.gc summary{
+ cursor:pointer;font-size:12.5px;color:var(--muted);
+ list-style:none;display:inline-block;border-bottom:1px dotted var(--rule);
+}
+details.gc summary::-webkit-details-marker{display:none}
+details.gc summary::before{content:"+ ";font-family:var(--mono)}
+details.gc[open] summary::before{content:"– "}
+details.gc .body{
+ font-size:12.5px;line-height:1.8;color:var(--ink-2);
+ margin-top:8px;padding-left:12px;border-left:1px solid var(--rule);
+}
+details.gc .pr{font-weight:600;color:var(--ink);display:block;margin-top:6px}
+details.gc .pr:first-child{margin-top:0}
+
+
+ol.actions{margin:0;padding-left:0;list-style:none;counter-reset:a}
+ol.actions li{
+ counter-increment:a;position:relative;padding:11px 0 11px 40px;
+ border-top:1px solid var(--rule-soft);font-size:14px;line-height:1.8;
+}
+ol.actions li:first-child{border-top:0}
+ol.actions li::before{
+ content:counter(a,decimal-leading-zero);
+ position:absolute;left:0;top:11px;
+ font-family:var(--mono);font-size:12px;color:var(--seal);
+}
+ol.actions li .by{
+ display:inline-block;font-family:var(--mono);font-size:12px;
+ color:var(--ink);background:var(--field);padding:1px 6px;margin-left:6px;
+}
+ol.actions li .ref{display:block;font-size:12px;color:var(--muted);font-family:var(--mono)}
+
+.foot{padding:22px 30px 28px;background:#FAFBFC;border-top:1px solid var(--rule)}
+.foot p{margin:0 0 8px;font-size:12px;color:var(--muted);line-height:1.8}
+.foot p:last-child{margin-bottom:0}
+.foot b{color:var(--ink-2)}
+
+
+.promptbox{border:1px solid var(--ink);background:#FBFCFD}
+.promptbox pre{
+ margin:0;padding:18px 20px;white-space:pre-wrap;word-break:break-word;
+ font-family:var(--mono);font-size:12.5px;line-height:1.9;color:var(--ink);
+ max-height:420px;overflow:auto;
+}
+.promptbar{display:flex;gap:8px;flex-wrap:wrap;padding:12px 20px;border-top:1px solid var(--rule);background:#F3F5F8}
+.promptbar button{font-size:13px;padding:7px 14px}
+.promptnote{font-size:12.5px;color:var(--ink-2);line-height:1.8;margin:0 0 12px}
+
+.sitefoot{margin-top:26px;font-size:12px;color:var(--muted);line-height:1.9}
+
+
+
+.rail{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:60;
+ display:none;flex-direction:column;align-items:flex-end}
+.rail.on{display:flex}
+.rail::before{content:"";position:absolute;right:5px;top:12px;bottom:12px;width:1px;background:var(--rule)}
+.rail a{position:relative;display:block;padding:7px 0;text-decoration:none}
+.rail a i{display:block;width:9px;height:9px;border:1px solid var(--muted);
+ background:var(--paper);border-radius:50%;position:relative;z-index:1}
+.rail a:hover i{border-color:var(--ink)}
+.rail a.on i{width:11px;height:11px;background:var(--seal);border-color:var(--seal);margin-right:-1px}
+.rail a::after{content:attr(data-t);position:absolute;right:20px;top:50%;
+ transform:translateY(-50%);white-space:nowrap;font-size:12px;line-height:1.6;
+ color:var(--muted);background:rgba(255,255,255,.95);border:1px solid var(--rule);
+ padding:2px 9px;opacity:0;pointer-events:none;transition:opacity .12s}
+.rail a:hover::after{opacity:1}
+.rail a.on::after{opacity:1;color:var(--ink);border-color:var(--ink)}
+@media(max-width:1320px){.rail{display:none!important}}
+@media print{.rail{display:none!important}}
+@media print{
+ body{background:#fff;font-size:11.5pt}
+ header.top,.panel,.btnrow,.sitefoot,.noprint{display:none!important}
+  .promptbar{display:none!important}
+  .promptbox pre{max-height:none;overflow:visible;font-size:10pt}
+  .wrap{max-width:none;padding:0}
+  .cols{display:block}
+  .draft{border:0}
+ section.blk{padding:14px 0;break-inside:auto}
+  .item{break-inside:avoid}
+ details.gc{display:none}
+  .deadlines{break-inside:avoid}
+ a{text-decoration:none}
+}
+
+.tl{border:1px solid var(--ink);margin-bottom:14px}
+.tl .band{padding:14px 20px 16px;border-bottom:1px solid var(--rule)}
+.tl .band:last-child{border-bottom:0}
+.tl .band.own{background:#FCFCFD}
+.tl .band.reg{background:#F6F7F9}
+.tl .bl{font-size:12px;letter-spacing:.1em;color:var(--muted);margin-bottom:10px}
+.tl .bl b{color:var(--ink);letter-spacing:0;font-size:13px}
+.marks{display:flex;gap:0;flex-wrap:wrap}
+.mk{flex:1 1 150px;min-width:150px;padding:0 14px 0 0;position:relative}
+.mk+.mk{padding-left:16px;border-left:1px solid var(--rule-soft)}
+.mk .off{font-family:var(--mono);font-size:11.5px;color:var(--seal);letter-spacing:.04em}
+.mk .val{font-family:var(--mono);font-size:19px;font-weight:600;line-height:1.35;font-variant-numeric:tabular-nums;margin:1px 0 3px}
+.mk .val.soft{font-family:var(--serif);font-size:15px;font-weight:600}
+.mk .cap{font-size:11.5px;color:var(--ink-2);line-height:1.6}
+.tl .band.future{background:var(--amber-soft)}
+.tl .band.future .bl b{color:var(--amber)}
+legend .opt{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--seal);text-transform:uppercase;margin-left:8px;border:1px solid var(--seal);padding:1px 6px;vertical-align:2px}
+#pick_out .chosen{margin:10px 0 0;padding:10px 12px;border-left:3px solid var(--seal);background:var(--seal-soft);font-size:12.5px;line-height:1.75;color:var(--ink-2)}
+#pick_out .chosen b{color:var(--seal)}
+#pick_out .chosen .zh{font-family:"Noto Serif TC","Songti TC",serif;display:block;margin-top:3px;-webkit-user-select:all;user-select:all}
+
+/* 語言切換（Language switch） */
+.langbar{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.langbar>.eyebrow{flex:1 1 auto;min-width:0}
+a.lang{flex:0 0 auto;font-family:var(--sans);font-size:12px;letter-spacing:.06em;
+  color:var(--muted);text-decoration:none;border:1px solid var(--rule);
+  padding:4px 11px;line-height:1.5;white-space:nowrap;align-self:center}
+a.lang:hover{border-color:var(--ink);color:var(--ink)}
+@media print{a.lang{display:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner">
+    <div class="langbar"><p class="eyebrow"><a href="index.html">Taiwan PDPA Compliance Toolkit</a> / 05 Path C · v1.3-EN</p><a class="lang" href="../incident.html" title="以繁體中文閱讀本頁" rel="alternate">中文</a></div>
+    <h1>Personal Data Incident — Response Draft Generator</h1>
+    <p class="sub">For <b>non-government agencies</b> | Based on the PDPA and its Enforcement Rules currently in force, and on the Executive Yuan Directions (unofficial translation)</p>
+  </div>
+</header>
+
+<div class="wrap">
+<div class="cols">
+
+  <form class="panel sticky noprint" id="f" autocomplete="off">
+    <h2>Incident details</h2>
+    <p class="note">Six questions, plus two optional ones at the end. The draft appears on the right as you answer. Everything stays in your browser; nothing is uploaded.</p>
+
+    <fieldset>
+      <legend><span class="n">01</span>When you became aware of the incident</legend>
+      <p class="hint">The deadlines in the Directions are counted in hours and run continuously; they do not pause for weekends or holidays. Enter the time to the minute.</p>
+      <input type="datetime-local" id="q_when">
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="n">02</span>Is this a major and high-profile case?</legend>
+      <p class="hint alarm">Point 2, Paragraph 2 of the Directions: a case that has attracted the attention of the Executive Yuan, the Legislative Yuan or the Control Yuan, or one covered in the national pages of print media or discussed as a feature in electronic media. Answering yes switches the competent authority's deadline from 72 hours to 24 and moves the investigation to a 3-day and 10-day rhythm.</p>
+      <select id="q_major">
+        <option value="No">No, or no indication so far</option>
+        <option value="Yes">Yes, or clear indications</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="n">03</span>Form of infringement (select all that apply)</legend>
+      <div id="q_types"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="n">04</span>Does it involve Article 6 personal data?</legend>
+      <p class="hint">Medical records, healthcare, genetics, sex life, physical examination and criminal records (PDPA Article 6, Paragraph 1).</p>
+      <select id="q_sensitive">
+        <option value="No">No</option>
+        <option value="Unclear">Not yet clear</option>
+        <option value="Yes">Yes</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="n">05</span>Is your organisation a specific non-government agency under the Cyber Security Management Act?</legend>
+      <p class="hint">A critical infrastructure provider designated by the competent authority. If so, the cybersecurity reporting procedure must be started in parallel.</p>
+      <select id="q_cyber">
+        <option value="No">No</option>
+        <option value="Unsure">Unsure</option>
+        <option value="Yes">Yes</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="n">06</span>Have the facts of the infringement been clarified?</legend>
+      <p class="hint">The duty to notify data subjects under Article 12 of the PDPA arises once the facts have been clarified.</p>
+      <select id="q_known">
+        <option value="Not yet">Not yet clarified</option>
+        <option value="Partly">Partly clarified</option>
+        <option value="Clarified">Clarified</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="n">07</span>Which authority regulates your organisation? <span class="opt">optional</span></legend>
+      <p class="hint">Leave blank if you do not know. The draft still works; the prompt will simply tell the assistant how to proceed without it. The full index is in <a href="table-02.html#sector" target="_blank" rel="noopener">02 Sources and Terminology, Part E</a>.</p>
+      <select id="q_ag"><option value="">— not selected —</option></select>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="n">08</span>Which sector regulation applies? <span class="opt">optional</span></legend>
+      <p class="hint">Select an authority above to see its regulations. Leave blank if you do not know or none applies.</p>
+      <select id="q_rg" disabled><option value="">— select an authority first —</option></select>
+      <div id="pick_out"></div>
+    </fieldset>
+
+    <div class="btnrow">
+      <button type="button" id="b_print">Print or save as PDF</button>
+      <button type="button" class="ghost" id="b_copy">Copy draft as text</button>
+      <button type="button" class="ghost" id="b_reset">Clear and start again</button>
+    </div>
+  </form>
+
+  <main class="draft" id="out"></main>
+</div>
+
+<p class="sitefoot">
+ Taiwan PDPA Compliance Toolkit (Global CBPR Mapped), English Edition  / Document 05, interactive | Author: I Jung (Alfred) Tsai<br>
+ Released under CC BY-NC-SA 4.0. A compliance reference only; this page does not constitute legal advice.
+</p>
+</div>
+
+<script>
+const GQ = {
+"1": "Do you provide clear and easily accessible statements about your practices and policies that govern the personal information described above (a privacy statement)? Where YES, provide a copy of all applicable privacy statements and/or hyperlinks to the same.",
+"10": "Do you disclose personal information you collect (whether directly or through the use of third parties acting on your behalf) to other personal information controllers? If YES, describe.",
+"11": "Do you transfer personal information to personal information processors? If YES, describe.",
+"12": "If you answered YES to question 10 and/or question 11, is the disclosure and/or transfer undertaken to fulfill the original purpose of collection or another compatible or related purpose? If YES, describe.",
+"13": "If you answered NO to question 12 or if otherwise appropriate, does the disclosure and/or transfer take place under one of the following circumstances? 13.a) Based on express consent of the individual? 13.b) Necessary to provide a service or product requested by the individual? 13.c) Compelled by applicable laws?",
+"14": "Subject to the Qualifications described below, do you provide a mechanism for individuals to exercise choice in relation to the collection of their personal information? Where YES describe such mechanisms below.",
+"15": "Subject to the Qualifications described below, do you provide a mechanism for individuals to exercise choice in relation to the use of their personal information? Where YES, describe such mechanisms below.",
+"16": "Subject to the Qualifications described below, do you provide a mechanism for individuals to exercise choice in relation to the disclosure of their personal information? Where YES describe such mechanisms below.",
+"17": "When choices are provided to the individual offering the ability to limit the collection (question 14), use (question 15) and/or disclosure (question 16) of their personal information, are they displayed or provided in a clear and conspicuous manner?",
+"18": "When choices are provided to the individual offering the ability to limit the collection (question 14), use (question 15) and/or disclosure (question 16) of their personal information, are they clearly worded and easily understandable?",
+"19": "When choices are provided to the individual offering the ability to limit the collection (question 14), use (question 15) and/or disclosure (question 16) of their personal information, are these choices easily accessible and affordable? Where YES, describe.",
+"1a": "Does this privacy statement describe how personal information is collected?",
+"1b": "Does this privacy statement describe the purpose(s) for which personal information is collected?",
+"1c": "Does this privacy statement inform individuals whether their personal information is made available to third parties and for what purpose?",
+"1d": "Does this privacy statement disclose the name of the Applicant Organization's company and location, including contact information regarding practices and handling of personal information upon collection?",
+"1e": "Does this privacy statement provide information regarding the use and disclosure of an individual's personal information?",
+"1f": "Does this privacy statement provide information regarding whether and how an individual can access and correct their personal information?",
+"2": "Subject to the Qualifications listed below, at the time of collection of personal information (whether directly or through the use of third parties acting on your behalf), do you provide notice that such information is being collected?",
+"20": "What mechanisms are in place so that choices, where appropriate, can be honored in an effective and expeditious manner? Provide a description in the space below or in an attachment if necessary. Describe below.",
+"21": "Do you take steps to verify that the personal information held by you is up to date, accurate and complete, to the extent necessary for the purposes of use? If YES, describe.",
+"22": "Do you have a mechanism for correcting inaccurate, incomplete and outdated personal information to the extent necessary for purposes of use? Provide a description in the space below or in an attachment if necessary.",
+"23": "Where inaccurate, incomplete or out of date information will affect the purposes of use and corrections are made to the information subsequent to the transfer of the information, do you communicate the corrections to personal information processors, agents, or other service providers to whom the personal information was transferred? If YES, describe.",
+"24": "Where inaccurate, incomplete or out of date information will affect the purposes of use and corrections are made to the information subsequent to the disclosure of the information, do you communicate the corrections to other third parties to whom the personal information was disclosed? If YES, describe.",
+"25": "Do you require personal information processors, agents, or other service providers acting on your behalf to inform you when they become aware of information that is inaccurate, incomplete, or out-of-date?",
+"26": "Have you implemented an information security policy?",
+"27": "Describe the physical, technical and administrative safeguards you have implemented to protect personal information against risks such as loss or unauthorized access, destruction, use, modification or disclosure of information or other misuses?",
+"28": "Describe how the safeguards you identified in response to question 27 are proportional to the likelihood and severity of the harm threatened, the sensitivity of the information, and the context in which it is held.",
+"29": "Describe how you make your employees aware of the importance of maintaining the security of personal information (e.g., through regular training and oversight).",
+"3": "Subject to the Qualifications listed below, at the time of collection of personal information (whether directly or through the use of third parties acting on your behalf), do you indicate the purpose(s) for which personal information is being collected?",
+"30": "Have you implemented safeguards that are proportional to the likelihood and severity of the harm threatened, the sensitivity of the information, and the context in which it is held through: 30.a) Employee training and management or other safeguards? 30.b) Information systems and management, including network and software design, as well as information processing, storage, transmission, and disposal? 30.c) Detecting, preventing, and responding to attacks, intrusions, or other security failures? 30.d) Physical security?",
+"30a": "Employee training and management or other safeguards?",
+"30b": "Information systems and management, including network and software design, as well as information processing, storage, transmission, and disposal?",
+"30c": "Detecting, preventing, and responding to attacks, intrusions, or other security failures?",
+"30d": "Physical security?",
+"31": "Have you implemented a policy for secure disposal of personal information?",
+"32": "Have you implemented measures to detect, prevent, and respond to attacks, intrusions, or other security failures?",
+"33": "Do you have processes in place to test the effectiveness of the safeguards referred to above in question 32? Describe below.",
+"34": "Do you use third-party certifications or other risk assessments?",
+"35": "Do you require personal information processors, agents, contractors, or other service providers to whom you transfer personal information to protect against loss, or unauthorized access, destruction, use, modification or disclosure or other misuses of the information by: 35.a) Implementing an information security program that is proportionate to the sensitivity of the information and services provided? 35.b) Notifying you promptly when they become aware of an occurrence of breach of the privacy or security of the personal information of the Applicant Organization’s customers? 35.c) Taking immediate steps to correct/address the security failure which caused the privacy or security breach?",
+"35a": "Implementing an information security program that is proportionate to the sensitivity of the information and services provided?",
+"35b": "Notifying you promptly when they become aware of an occurrence of breach of the privacy or security of the personal information of the Applicant Organization's customers?",
+"35c": "Taking immediate steps to correct/address the security failure which caused the privacy or security breach?",
+"36": "Upon request, do you provide confirmation of whether or not you hold personal information about the requesting individual? Describe below.",
+"37": "Upon request, do you provide individuals access to the personal information that you hold about them?",
+"37a": "Do you take steps to confirm the identity of the individual requesting access?",
+"37b": "Do you provide access within a reasonable time frame following an individual's request for access?",
+"37c": "Is information communicated in a reasonable manner that is generally understandable (in a legible format)?",
+"37d": "Is information provided in a way that is compatible with the regular form of interaction with the individual (e.g., email, same language, etc.)?",
+"37e": "Do you charge a fee for providing access? If YES, describe below what the fee is based on and how you ensure that the fee is not excessive.",
+"38": "Do you permit individuals to challenge the accuracy of their information, and to have it rectified, completed, amended and/or deleted? Describe your Applicant Organization's policies/procedures in this regard below and answer questions 38(a)-(e).",
+"38a": "Are your access and correction mechanisms presented in a clear and conspicuous manner?",
+"38b": "If an individual demonstrates that personal information about them is incomplete or incorrect, do you make the requested correction, addition, or where appropriate, deletion?",
+"38c": "Do you make such corrections or deletions within a reasonable time frame following an individual's request for correction or deletion?",
+"38d": "Do you provide a copy to the individual of the corrected personal information or provide confirmation that the data has been corrected or deleted?",
+"38e": "If access or correction is refused, do you provide the individual with an explanation of why access or correction will not be provided, together with contact information for further inquiries about the denial of access or correction?",
+"39": "What measures do you take to ensure compliance with the Global CBPR Privacy Principles? (Internal guidelines or policies; contracts; compliance with applicable industry or sector laws and regulations; compliance with a self-regulatory code or rules; other.)",
+"4": "Subject to the Qualifications listed below, at the time of collection of personal information, do you notify individuals that their personal information may be shared with third parties?",
+"40": "Have you appointed an individual(s) to be responsible for your overall compliance with the Global CBPR Privacy Principles?",
+"41": "Do you have procedures in place to receive, investigate and respond to privacy-related complaints? Please describe.",
+"42": "Do you have procedures in place to ensure individuals receive a timely response to their complaints?",
+"43": "If YES, does this response include an explanation of remedial action relating to their complaint? Describe.",
+"44": "Do you have procedures in place for training employees with respect to your privacy policies and procedures, including how to respond to privacy-related complaints? If YES, describe.",
+"45": "Do you have procedures in place for responding to judicial or other government subpoenas, warrants or orders, including those that require the disclosure of personal information?",
+"46": "Do you have mechanisms in place with personal information processors, agents, contractors, or other service providers pertaining to personal information they process on your behalf, to ensure that your obligations to the individual will be met? (Internal guidelines or policies; contracts; compliance with applicable industry or sector laws and regulations; compliance with a self-regulatory code or rules; other.)",
+"47": "Do these agreements generally require that personal information processors, agents, contractors or other service providers: abide by your Global CBPR-compliant privacy policies and practices as stated in your privacy statement; implement privacy practices that are substantially similar to your own; follow instructions provided by you relating to the manner in which personal information must be handled; impose restrictions on subcontracting unless with your consent; be Global CBPR-certified by a Forum-recognized Accountability Agent in their jurisdiction; notify you in the case of a breach of the personal information of your customers; other?",
+"48": "Do you require your personal information processors, agents, contractors or other service providers to provide you with self- assessments to ensure compliance with your instructions and/or agreements/contracts? If YES, describe below.",
+"49": "Do you carry out regular spot checking or monitoring of your personal information processors, agents, contractors or other service providers to ensure compliance with your instructions and/or agreements/contracts? If YES, describe.",
+"5": "How do you obtain personal information: 5.a) Directly from the individual? 5.b) From third parties collecting on your behalf? 5.c) Other. If YES, describe.",
+"50": "Do you disclose personal information to other recipient persons or organizations in situations where due diligence and reasonable steps to ensure compliance with the Global CBPR System by the recipient as described above is impractical or impossible?",
+"6": "Do you limit your personal information collection (whether directly or through the use of third parties acting on your behalf) to information that is relevant to fulfil the purpose(s) for which it is collected or other compatible or related purposes?",
+"7": "Do you collect personal information (whether directly or through the use of third parties acting on your behalf) by lawful and fair means, consistent with the requirements of the jurisdiction that governs the collection of such personal information? Where YES, describe.",
+"8": "Do you limit the use of the personal information you collect (whether directly or through the use of third parties acting on your behalf) as identified in your privacy statement and/or in the notice provided at the time of collection, to those purposes for which the information was collected or for other compatible or related purposes? If necessary, provide a description in the space below.",
+"9": "If you answered NO, do you use the personal information you collect for unrelated purposes under one of the following circumstances? Describe below. 9.a) Based on express consent of the individual? 9.b) Compelled by applicable laws?"
+};
+
+
+const SECTOR_REGS = [
+  { en:"Ministry of Economic Affairs", zh:"經濟部", regs:[
+    ["電業與公用天然氣事業及加油站業個人資料檔案安全維護管理辦法","Regulations Governing Personal Information File Security Maintenance and Administration of the Electricity Enterprise and Natural Gas Industry Administration"],
+    ["製造業及技術服務業個人資料檔案安全維護管理辦法","Regulations Governing Personal Information File Security Maintenance Plan for Manufacturing Industries and Technical Service Industries"],
+    ["零售業個人資料檔案安全維護管理辦法","Regulations Governing the Security Maintenance of Personal Data Files for Retail Business"],
+    ["自來水事業個人資料檔案安全維護計畫標準辦法","Regulations Governing the Water Supply Enterprises' Plan of Security Measures for Personal Information Files"],
+    ["著作權集體管理團體個人資料檔案安全維護管理辦法","Regulations for the Security and the Maintenance of Personal Information Files in Copyright Collective Management Organizations"]
+  ]},
+  { en:"Ministry of Finance", zh:"財政部", regs:[
+    ["報關業個人資料檔案安全維護管理辦法","Regulations Governing Personal Data Files Security and Maintenance for Customs Brokers"],
+    ["保稅倉庫及物流中心個人資料檔案安全維護管理辦法","Regulations Governing Personal Data Files Security and Maintenance for Bonded Warehouses and Logistics Centers"],
+    ["記帳士與記帳及報稅代理人個人資料檔案安全維護管理辦法","Regulations for the Security and the Maintenance of Personal Information Files for Certified Public Bookkeepers and Bookkeeping and Tax Return Filing Agents"],
+    ["菸酒事業個人資料檔案安全維護管理辦法","Regulations Governing Personal Information File Security Maintenance and Administration of Alcohol and Tobacco Industry"],
+    ["公益彩券發行機構個人資料檔案安全維護管理辦法","Regulations Governing Security Measures of Personal Information File for Public Welfare Lottery Issue Agency"]
+  ]},
+  { en:"Ministry of Transportation and Communications", zh:"交通部", regs:[
+    ["汽車運輸業與計程車客運服務業個人資料檔案安全維護計畫及處理辦法","Regulations for the Security Protection Plans and Processing Procedures of Personal Information Files in Automobile Transportation Operators and Taxi Passenger Transport Operators"],
+    ["民用航空事業個人資料檔案安全維護計畫及處理辦法","Regulations Governing Personal Information File Security Maintenance Plan and Processing Method for the Civil Air Transport Enterprise"],
+    ["船舶運送業個人資料檔案安全維護管理辦法","Regulations Governing the Security and Maintenance of Personal Data Files for the Vessel Carrier"],
+    ["交通部指定觀光產業類非公務機關個人資料檔案安全維護計畫及處理辦法","Regulations Regarding the Security Protection Plan for the Processing of Personal Information Files in Tourism Industry-Related Non-government Agencies Designated by the Ministry of Transportation and Communications"],
+    ["停車場經營業個人資料檔案安全維護計畫及處理辦法","Regulations for the Security Protection Plans for and Processing of Personal Information Files in Parking Facility Operation"],
+    ["交通部指定氣象產業類非公務機關個人資料檔案安全維護計畫及處理辦法","Regulations Regarding the Security Protection Plan for the Processing of Personal Information Files in Weather Industry-Related Non-government Agencies Designated by the Ministry of Transportation and Communications"],
+    ["郵政業個人資料檔案安全維護管理辦法","Regulations for the Security Protection Plans and Processing Procedures of Personal Information Files in Postal Operators"]
+  ]},
+  { en:"Ministry of Digital Affairs", zh:"數位發展部", regs:[
+    ["數位經濟相關產業個人資料檔案安全維護管理辦法","Regulations Regarding the Security Protection Plan for the Processing of Personal Information Files in Digital Economy Industry-Related Non-government Agencies Designated by the Ministry of Digital Affairs"],
+    ["電信事業個人資料檔案安全維護計畫實施辦法","Regulations Governing the Implementation of Personal Data File Security and Maintenance Plans for Telecommunications Enterprises"]
+  ]},
+  { en:"Ministry of Culture", zh:"文化部", regs:[
+    ["電影事業個人資料檔案安全維護計畫及處理辦法","Regulations Governing Personal Information File Security Maintenance Plan and Processing Method for the Film Industry"]
+  ]},
+  { en:"Ministry of Agriculture", zh:"農業部", regs:[
+    ["農藥販賣業個人資料檔案安全維護管理辦法","Regulations Governing Personal Information File Security Maintenance and Administration for Agro-Pesticide Dealers"],
+    ["農業金融業個人資料檔案安全維護管理辦法","Regulations Governing the Security and Maintenance of Personal Data Files for the Agricultural Finance Industry"]
+  ]},
+  { en:"Ministry of Health and Welfare", zh:"衛生福利部", regs:[
+    ["醫院個人資料檔案安全維護計畫實施辦法","Regulations Governing the Hospital's Plan of Security Maintenance for Personal Information Files"],
+    ["精神復健機構個人資料檔案安全維護計畫實施辦法","Regulations on Mental Rehabilitation Agency for Maintaining the Security of Personal Information Files"],
+    ["護理機構個人資料檔案安全維護計畫實施辦法","Regulations on Nursing Institutions for Maintaining the Security of Personal Information Files"],
+    ["私立長期照顧服務機構個人資料檔案安全維護計畫實施辦法","Regulations Governing the Implementation of Personal Data File Security and Maintenance Plans for Private Long-Term Care Service Institutions"],
+    ["社會福利機構個人資料檔案安全維護計畫實施辦法","Regulations Governing the Implementation of Maintaining the Security of Personal Information Files of Social Welfare Institutions"],
+    ["社會福利財團法人個人資料檔案安全維護計畫實施辦法","Regulations for the Security and the Maintenance of Personal Information Files in Social Welfare Foundations"],
+    ["西藥批發零售業個人資料檔案安全維護計畫實施辦法","Regulations for the Security and the Maintenance of Personal Information Files in Wholesaling and Retailing Western Pharmaceuticals"],
+    ["中藥批發零售業個人資料檔案安全維護計畫實施辦法","Regulations for the Security and the Maintenance of Personal Information Files in Wholesaling and Retailing Chinese Medicinal Materials and Pharmaceuticals"],
+    ["化粧品批發零售業個人資料檔案安全維護計畫實施辦法","Implementation Regulations Governing Personal Information File Security Maintenance Plans in Wholesaling and Retailing Cosmetics"],
+    ["醫療器材批發零售業個人資料檔案安全維護計畫實施辦法","Implementation Regulations Governing Personal Information File Security Maintenance Plans in Wholesaling and Retailing Medical Devices"],
+    ["非輻射電子醫療器材設備製造業個人資料檔案安全維護計畫實施辦法","Regulations Governing the Implementation of Personal Information File Security Maintenance Plans for the Manufacture of Non-irradiation and Electromedical Equipment"],
+    ["食品業個人資料檔案安全維護計畫實施辦法","Regulations for the Security and the Maintenance of Personal Information Files in Food Businesses"]
+  ]},
+  { en:"Ministry of the Interior", zh:"內政部", regs:[
+    ["內政部指定交友服務業個人資料檔案安全維護管理辦法","Regulations for the Security Maintenance and Management of Personal Data Files in the Dating Service Industry Designated by the Ministry of the Interior"],
+    ["內政部指定營建類非公務機關個人資料檔案安全維護管理辦法","Regulations Governing Personal Data File Security Maintenance and Management for Construction Non-governmental Agencies Designated by Ministry of the Interior"],
+    ["內政部指定政黨及全國性民政財團法人個人資料檔案安全維護管理辦法","Regulations Governing Personal Information File Security Maintenance Plan and Processing Method for Political Parties and National Foundations of Civil Affairs Designated by Ministry of the Interior"],
+    ["內政部指定祭祀團體個人資料檔案安全維護管理辦法","Regulations Governing the Security and Maintenance of Personal Data Files for Ancestral Worship Organizations Designated by the Ministry of the Interior"],
+    ["內政部指定宗教團體個人資料檔案安全維護管理辦法","Regulations Governing the Security and Maintenance of Personal Data Files for Religious Organizations Designated by the Ministry of the Interior"],
+    ["內政部指定地政類非公務機關個人資料檔案安全維護管理辦法","Regulations Governing Personal Information File Security Maintenance and Administration for Land Administration-related Non-governmental Agencies Designated by Ministry of the Interior"],
+    ["內政部指定合作及人民團體類非公務機關個人資料檔案安全維護管理辦法","Regulations for the Security and Maintenance of Personal Information Files in Cooperative & Civil Associations-related Non-government Agencies Designated by Ministry of the Interior"],
+    ["內政部指定殯葬服務業個人資料檔案安全維護管理辦法","Regulations Governing Personal Information File Security Maintenance and Administration for the Mortuary Service Designated by Ministry of the Interior"],
+    ["內政部指定移民業務機構個人資料檔案安全維護管理辦法","Regulations Governing Personal Information File Security Maintenance and Administration for Immigration Business Organizations Designated by Ministry of the Interior"],
+    ["內政部指定警政類非公務機關個人資料檔案安全維護管理辦法","Regulations for the Security and Maintenance of Personal Information Files in Police-related Non-governmental Agencies Designated by Ministry of the Interior"]
+  ]},
+  { en:"Ministry of Labor", zh:"勞動部", regs:[
+    ["私立職業訓練機構個人資料檔案安全維護計畫及處理辦法","Regulations on Security and Maintenance Plan of Personal Data for Private Vocational Training Organizations"],
+    ["人力供應業個人資料檔案安全維護計畫及處理辦法","Regulations Governing Personal Information File Security Maintenance Plan and Processing Method for the Human Resources Provision Industry"],
+    ["人力仲介業個人資料檔案安全維護計畫及處理辦法","Regulations Governing Personal Information File Security Maintenance Plan and Processing Method for the Human Resources Recruitment Industry"]
+  ]},
+  { en:"Ministry of Education", zh:"教育部", regs:[
+    ["短期補習班個人資料檔案安全維護計畫實施辦法","Implementation Regulations Governing Personal Information File Security Maintenance Plans of Short-term Tutorial Centers"],
+    ["私立兒童課後照顧服務中心個人資料檔案安全維護計畫實施辦法","Implementation Regulations Governing Personal Information File Security Maintenance Plans in Private After-school Childcare Centers"],
+    ["私立高級中等以下學校及幼兒園個人資料檔案安全維護計畫實施辦法","Regulations Governing the Implementation of Personal Data File Security and Maintenance Plans for Private Schools at the Senior High School Level or Below and Preschools"],
+    ["私立專科以上學校及私立學術研究機構個人資料檔案安全維護計畫實施辦法","Regulations Governing the Implementation of Personal Data File Security and Maintenance Plans for Private Junior Colleges and Above and Private Academic Research Institutions"],
+    ["海外臺灣學校及大陸地區臺商學校個人資料檔案安全維護計畫實施辦法","Implementation Regulations Governing Personal Information File Security Maintenance Planning in Overseas Taiwan Schools and in Schools for the Children of Businesspeople from Taiwan in the Mainland Area"]
+  ]},
+  { en:"Financial Supervisory Commission", zh:"金融監督管理委員會", regs:[
+    ["金融監督管理委員會指定非公務機關個人資料檔案安全維護辦法","Regulations Governing Security Measures of the Personal Information File for Non-government Agencies Designated by Financial Supervisory Commission"]
+  ]},
+  { en:"Mainland Affairs Council", zh:"大陸委員會", regs:[
+    ["大陸委員會指定非公務機關個人資料檔案安全維護辦法","Regulations for the Security and Maintenance of Personal Data Files of Non-governmental Agencies Designated by the Mainland Affairs Council"]
+  ]},
+  { en:"Overseas Community Affairs Council", zh:"僑務委員會", regs:[
+    ["僑務委員會指定特定非公務機關個人資料檔案安全維護辦法","Regulations for the Security and the Maintenance of Personal Information Files for Specific Non-government Agencies Designated by Overseas Community Affairs Council"]
+  ]},
+  { en:"Nuclear Safety Commission", zh:"核能安全委員會", regs:[
+    ["游離輻射設備製造業個人資料檔案安全維護管理辦法","Regulations Governing Personal Information File Security Maintenance and Administration for Ionizing Radiation Equipment Manufacturing Enterprise"]
+  ]},
+  { en:"Public Construction Commission", zh:"行政院公共工程委員會", regs:[
+    ["工程技術顧問業個人資料檔案安全維護計畫及處理辦法","Regulations Governing the Security Assurance Plan and Processing Method for Personal Data of the Engineering Consulting Industry"]
+  ]},
+  { en:"Central Bank of the Republic of China (Taiwan)", zh:"中央銀行", regs:[
+    ["票據交換所個人資料檔案安全維護計畫標準辦法","Regulations Governing the Clearinghouse's Plan of Security Measures for Personal Information Files"]
+  ]},
+  { en:"Fair Trade Commission", zh:"公平交易委員會", regs:[
+    ["多層次傳銷業訂定個人資料檔案安全維護計畫及業務終止後個人資料處理方法作業辦法","Regulations Governing the Formulation by Multi-Level Marketing Enterprises of Personal Data File Security and Maintenance Plans and Methods of Handling Personal Data Following Business Termination"]
+  ]},
+  { en:"National Communications Commission", zh:"國家通訊傳播委員會", regs:[
+    ["國家通訊傳播委員會指定非公務機關個人資料檔案安全維護辦法","Regulations for the Security and Maintenance of Personal Information Files in Non-government Agencies Designated by National Communications Commission"]
+  ]},
+  { en:"Ministry of Sports", zh:"運動部", regs:[
+    ["運動彩券業個人資料檔案安全維護計畫實施辦法","Regulations Governing Implementation of the Plan for the Security and the Maintenance of Personal Information Files in Sports Lottery Industries"]
+  ]},
+  { en:"Ministry of Justice", zh:"法務部", regs:[] },
+  { en:"Ministry of Foreign Affairs", zh:"外交部", regs:[] },
+  { en:"Ministry of National Defense", zh:"國防部", regs:[] },
+  { en:"Ministry of Environment", zh:"環境部", regs:[] },
+  { en:"Veterans Affairs Council", zh:"國軍退除役官兵輔導委員會", regs:[] },
+  { en:"National Science and Technology Council", zh:"國家科學及技術委員會", regs:[] },
+  { en:"Hakka Affairs Council", zh:"客家委員會", regs:[] },
+  { en:"Council of Indigenous Peoples", zh:"原住民族委員會", regs:[] },
+  { en:"Judicial Yuan", zh:"司法院", regs:[] }
+];
+
+const VERSIONS = {
+  pdpa:"official English translation of the provisions in force, amended 31 May 2023 (the amendments of 11 November 2025 are not yet in force; their enforcement date is to be set by the Executive Yuan)",
+  rules:"official English translation, amended 2 March 2016",
+  ey:"Directions for the Executive Yuan and Its Subordinate Agencies on Liaison Operations for the Implementation of Personal Data Protection, amended 7 January 2025 (Letter Yuan-Shou-Ge-Zi-Chou-Cha-Zi No. 1140500004). No official English translation exists; passages are quoted here in an unofficial translation",
+  mapping:"Global CBPR System Program Requirements Enforcement Map for Chinese Taipei (Annex B)"
+};
+
+const TYPES = [
+  {id:"theft", name:"Theft"},
+  {id:"disclosure", name:"Disclosure"},
+  {id:"alteration", name:"Alteration"},
+  {id:"damage", name:"Damage"},
+  {id:"loss", name:"Loss"},
+  {id:"other", name:"Other infringement"}
+];
+
+const L27_1 = "Non-government agencies in possession of personal data files shall implement proper security measures to prevent the personal data from being stolen, altered, damaged, destroyed or disclosed.";
+const L22_1 = "The central government authorities in charge of the industries concerned, the special municipality, county (city) government concerned may, when they deem necessary or suspect any possible violation of the PDPA, inspect compliance with the security control measures, the rules on disposing personal data upon business termination, and the restrictions on cross-border transfers, or conduct any other routine inspections by having their staff enter non-government agencies' premises upon presentation of their official identification documents and order relevant personnel at the non-government agencies to provide necessary explanations, cooperate on adopting relevant measures, or provide supporting documents.";
+const L22_1_4 = L22_1 + " (Paragraph 1) Non-government agencies and their personnel may not evade such inspections, obstruct the investigators from accessing the premises or data, or refuse to comply with the inspections or decisions referred to in paragraphs 1 and 2. (Paragraph 4)";
+
+const R12_2 = n => "Enforcement Rules Article 12, Paragraph 2, Subparagraph " + n + ": " + {
+  3:"establishing a mechanism of risk assessment and management of personal data.",
+  4:"establishing a mechanism of preventing, giving notice of, and responding to a data breach.",
+  5:"establishing an internal control procedure for the collection, processing, and use of personal data.",
+  9:"establishing an audit mechanism of data security.",
+  10:"keeping records, log files and relevant evidence.",
+  11:"implementing integrated and persistent improvements on the security and maintenance of personal data."
+}[n];
+
+const BLOCKS = [
+
+{
+    no:"I", title:"Detecting and confirming the incident", tag:"Directions, Points 4 and 5",
+    items:[
+    {
+        src:"PDPA Article 27, Paragraph 1 (security and maintenance obligation)",
+        law:L27_1,
+        rules:[R12_2(4)],
+        ey:"Point 5, Paragraph 1, Subparagraph 3: the Security Maintenance Regulations shall prescribe, for cases where a security violation case occurs at a non-government agency, the recipient of the notification, the time by which notification must be made, the matters to be notified, the subsequent administrative investigation and related matters.",
+        evi:"Documented detection, prevention and response measures for security incidents",
+        gcbpr:[["Security Safeguards","32","33"]],
+        act:"Activate your internal response procedure now, appoint a single point of contact for external communication, and start an hour-by-hour log of what is done. Retrieve your security and maintenance plan for personal data files and check the reporting recipient and deadline it sets.",
+        urg:1
+    },
+    {
+        src:"Enforcement Rules Article 12, Paragraph 2, Subparagraph 10 (log files and preservation of evidence)",
+        law:"(One of the measures constituting proper security measures under Article 27, Paragraph 1 of the PDPA.) Keeping records, log files and relevant evidence.",
+        rules:[],
+        ey:"Annex 2, node 3.2: once the case is confirmed, the central competent authority may dispatch personnel carrying documentation evidencing the performance of their duties to enter and inspect, and may order the relevant persons to provide supporting materials.",
+        evi:"System logs, audit trails, audit plan and audit findings",
+        gcbpr:[["Security Safeguards","27","30b","34"]],
+        act:"Preserve evidence before anything else: suspend log rotation and deletion, take forensic images, and record when evidence was captured and by whom. Once a log has been overwritten it cannot be recovered, and the authority will ask for it when it inspects.",
+        urg:1
+    },
+    {
+        src:"Enforcement Rules Article 12, Paragraph 2, Subparagraph 3 (risk assessment and management)",
+        law:"(One of the measures constituting proper security measures under Article 27, Paragraph 1 of the PDPA.) Establishing a mechanism of risk assessment and management of personal data.",
+        rules:[],
+        ey:"Point 4, Paragraph 4: each central competent authority shall assess the risk that the non-government agencies under its supervision will give rise to security violation cases, and shall give priority to including high-risk agencies among the subjects of its annual administrative inspection.",
+        evi:"Risk assessment records; personal data asset inventory",
+        gcbpr:[["Security Safeguards","28","34"]],
+        act:"Use your personal data asset inventory to make a first estimate of how many records and which categories are affected, separating general personal data from Article 6 personal data. This estimate drives both the notification scope and the report. Note that this incident will affect where your organisation ranks in next year's inspection priorities.",
+        urg:1
+    }
+  ]
+},
+
+{
+    no:"II", title:"Notification and reporting", tag:"PDPA Article 12; Directions, Points 7 and 8, and Annex 1",
+    items:[
+    {
+        src:"PDPA Article 12 (clarifying the facts and notifying data subjects)",
+        law:"If any personal data is stolen, disclosed, altered, or otherwise infringed upon due to a violation of the PDPA by a non-government agency, the data subject shall be notified via appropriate means after the relevant facts have been clarified.",
+        rules:[
+        "Enforcement Rules Article 22: A notification given via \"appropriate means\", as referred to under Article 12 of the PDPA, shall mean a notification that is given in a prompt manner via verbal words, in writing, over the phone, via text messages, email, fax, electronic documents or other means that can effectively make the information known or available to the data subjects. However, if such notification entails disproportionate costs, a government or non-government agency may, taking into consideration the technical feasibility and privacy protection of the data subjects, notify the data subjects through the Internet, the media or other proper and public means.",
+        "Enforcement Rules Article 23: A notification given under Article 12 of the PDPA shall include the facts pertaining to the data breach and the response measures already adopted to address such breach of personal data."
+      ],
+        ey:"Annex 1, Supervision and Notification Record Form: the field \"response measures to be taken\", and the field \"intended timing and method of notifying data subjects pursuant to Article 12 of the PDPA and Article 22 of its Enforcement Rules\".",
+        evi:"Content of the notification to data subjects, records of dispatch and statistics on delivery",
+        gcbpr:[["Security Safeguards","32","35b"]],
+        act:"This is the only obligation the PDPA currently places on you after an incident, and it runs to the data subjects rather than to any authority. There is no fixed number of days: the duty is to notify promptly once the facts are clarified. The notification must contain both statutory elements — the facts of the infringement, and the response measures already taken. Do not send a vague notice before the facts are clear, but equally do not defer indefinitely on the basis that they are not yet clear.",
+        urg:1
+    },
+    {
+        src:"PDPA Article 22, Paragraph 1 (the competent authority's inspection powers)",
+        law:L22_1,
+        rules:[R12_2(9)],
+        ey:"Point 7, Paragraph 1 [ordinary cases]: where a central competent authority receives a notification or a copy of one, or otherwise becomes aware of a security violation case, it shall, after confirming jurisdiction, complete the Supervision and Notification Record Form and notify the PDPC Preparatory Office within seventy-two hours of receiving the notification or copy, or of becoming aware of the case.\nPoint 8, Paragraph 1 [major and high-profile cases]: notification to the PDPC Preparatory Office and the Ministry of Digital Affairs within twenty-four hours.",
+        evi:"Records of, and acknowledgements of, any report made to the competent authority",
+        gcbpr:[["Security Safeguards","32","33"]],
+        act:"Read these deadlines carefully: the 24 and 72 hours belong to the competent authority and run from when it becomes aware, not from when you did. Your own reporting deadline, if you have one, is in the sector-specific regulation that applies to your organisation, which is in Mandarin and must be checked directly. Reporting early is still in your interest: it starts the authority's clock on your terms, and reduces the chance that it learns of the case independently or through the media, which is one of the routes by which a case becomes major and high-profile.",
+        urg:1
+    },
+    {
+        src:"Supervision and Notification Record Form: case identification fields",
+        law:"(Matters to be entered in Annex 1 to the Directions. A non-government agency must supply the information the authority needs in order to complete the form.)",
+        rules:[R12_2(5)],
+        ey:"Annex 1, fields \"name of the non-government agency\" and \"notifying agency\": the subject of the case and the notifying agency, enterable only once jurisdiction is confirmed.\nField \"time of occurrence\": where \"unknown\" is entered, the time at which the non-government agency was ascertained to have become aware of the case shall also be noted (Annex 1, Note 3).\nField \"cause of occurrence and case summary\": where the information is not yet established, \"unknown\" may be entered initially and supplemented in a later notification (Annex 1, Note 1).",
+        evi:"Records of processing activities; incident chronology",
+        gcbpr:[["Accountability","39","40"]],
+        act:"Assemble what the authority needs to complete the form: full legal name, unified business number, contact point, time of occurrence, time you became aware, cause and case summary. Where the time of occurrence is unknown, say so and give the time you became aware. Do not guess.",
+        urg:1
+    },
+    {
+        src:"Supervision and Notification Record Form: extent of harm",
+        law:"(Matters to be entered in Annex 1 to the Directions.)",
+        rules:[],
+        ey:"Annex 1, field \"extent of harm\": approximate total number of personal data records affected; the number of general personal data records and the number of Article 6 personal data records, entered separately; whether property loss was caused to data subjects, and if so the amount; and any other harm.",
+        evi:"Personal data asset inventory; statistics on the scope of data affected",
+        gcbpr:[["Collection Limitation","5","6"]],
+        act:"Count general personal data and Article 6 personal data separately; they may not be combined into a single figure. Article 6 personal data is defined by Article 6, Paragraph 1 of the PDPA: medical records, healthcare, genetics, sex life, physical examination and criminal records. Where an exact count is not yet possible, give an approximate figure and state the basis of the estimate.",
+        urg:1
+    },
+    {
+        src:"Supervision and Notification Record Form: type of occurrence",
+        law:"The forms of infringement identified in Article 12 of the PDPA.",
+        rules:["(The Enforcement Rules do not further subdivide the forms of infringement.)"],
+        ey:"Annex 1, field \"type of occurrence\" (tick all that apply): theft, disclosure, alteration, damage, loss, other infringement.",
+        evi:"Incident investigation records",
+        gcbpr:[["Security Safeguards","32"]],
+        act:"More than one form may be ticked; do not select a single one for the sake of simplicity. The classification shapes the direction of the subsequent investigation and the kinds of harm data subjects may have suffered.",
+        urg:2
+    }
+  ]
+},
+
+{
+    no:"III", title:"Cooperating with the administrative investigation", tag:"Directions, Point 7(2) and Point 8(2)",
+    items:[
+    {
+        src:"PDPA Article 22, Paragraphs 1 and 4 (entry and inspection; the duty not to obstruct)",
+        law:L22_1_4,
+        rules:[R12_2(9), R12_2(10)],
+        ey:"Point 7, Paragraph 2 [ordinary cases]: the investigation shall be completed and the case closed within three months of the authority receiving the notification or copy, or becoming aware of the case; where necessary the period may be extended by three months with the consent of the Chief Information Security Officer or an authorised person, and the PDPC Preparatory Office notified immediately.\nPoint 8, Paragraph 2 [major and high-profile cases]: the administrative investigation shall commence within three days and the investigation report be completed within ten days, and submitted to the PDPC Preparatory Office and the Ministry of Digital Affairs. Where necessary, a meeting may be convened, in principle within two weeks, before the designated Minister without Portfolio.",
+        evi:"Audit plan and audit findings; records of non-conformities and corrective actions",
+        gcbpr:[["Security Safeguards","27","33","34"]],
+        act:"Evading, obstructing or refusing an inspection is an independent violation under Article 49, whether or not the underlying incident turns out to breach the PDPA. Appoint one person to handle document production, keep a schedule of what has been provided, and retain delivery records. In a major and high-profile case the authority must complete its report within ten days, so your production has to keep pace.",
+        urg:1
+    },
+    {
+        src:"PDPA Article 22, Paragraph 1 (annual administrative inspection)",
+        law:L22_1,
+        rules:[R12_2(9)],
+        ey:"Point 4: each central competent authority shall formulate an annual administrative inspection plan and implement it without delay, submitting it to the PDPC Preparatory Office by the end of January each year for consolidation and report to the Liaison Meeting.",
+        evi:"Audit plan and audit findings",
+        gcbpr:[["Security Safeguards","33","34"]],
+        act:"This incident makes it likely that your organisation will be included in next year's inspection. Once the case is closed, carry out an internal audit and keep the record, so that you have something to show.",
+        urg:3
+    }
+  ]
+},
+
+{
+    no:"IV", title:"Fines and corrective orders", tag:"Directions, Point 9; PDPA Articles 25 and 47 to 50",
+    items:[
+    {
+        src:"PDPA Articles 47, 48(2), 48(3) and 50 (fines and orders to rectify)",
+        law:"Article 48, Paragraph 2: If a non-government agency violates paragraph 1 of Article 27 or fails to establish a security and maintenance plan for the protection of personal data files or rules on disposing of personal data following a business termination under paragraph 2 of Article 27, the central government authority in charge of the industry concerned or the special municipality, county (city) government concerned shall impose a fine of not less than NT$20,000 but not more than NT$2,000,000 on the non-government agency, and shall order the non-government agency to rectify the violation within a specified period of time. If the non-government agency fails to rectify the violation in time, a fine of not less than NT$150,000 but not more than NT$15,000,000 shall be imposed for each occurrence of the violation.\n\nArticle 48, Paragraph 3: If a non-government agency violates paragraph 1 of Article 27, or fails to establish a security and maintenance plan for the protection of personal data files or rules on disposing of personal data following a business termination under paragraph 2 of Article 27, which is of a serious violation, the central government authority in charge of the industry concerned or the special municipality, county (city) government concerned shall impose a fine not less than NT$150,000 but not more than NT$15,000,000 on the non-government agency to rectify the violation within a specified period of time; if the non-government agency fails to rectify the violation in time, a fine shall be imposed for each occurrence of the violation.\n\nArticle 50: The representative, manager, or any other authorized representative of a non-government agency shall be fined the same amount imposed on the non-government agency for a violation of any of the preceding three articles, unless said person proves that he/she has exercised due care to prevent such violation.",
+        rules:["(The Enforcement Rules contain no separate provision on the penalty procedure.)"],
+        ey:"Point 9: where a violation of the PDPA is established upon investigation, the central competent authority shall proceed in accordance with Articles 47 through 50 of the PDPA in the light of the specific findings.\nAnnex 1, field \"the competent authority's determination as to whether the PDPA was violated\" (yes / no).\nAnnex 2: once a violation is found, the process branches into an administrative fine, an order to rectify, or both (nodes 5.1, 5.2.1 and 5.2.2).",
+        evi:"Records of non-conformities and corrective actions; written statement of position",
+        gcbpr:[["Accountability","39","41","43"]],
+        act:"You have a right to be heard before a penalty is imposed, under Article 102 of the Administrative Procedure Act. Use it to put forward the response measures already taken and your remediation plan. Diarise the rectification deadline: once it passes, a fine may be imposed for each successive occurrence, and the amounts accumulate quickly. Note too that Article 50 exposes the representative or manager personally to the same amount unless due care is proved.",
+        urg:2
+    },
+    {
+        src:"PDPA Article 25, Paragraph 1 (corrective measures other than fines)",
+        law:"In the event that a non-government agency has violated the PDPA, the central government authority in charge of the industry concerned or the special municipality, county (city) government concerned may impose fines on the non-government agency in accordance with the PDPA and may also enforce the following corrective measures: 1. prohibit the collection, processing or use of the personal data; 2. order the erasure of the processed personal data and personal data files; 3. confiscate or order the destruction of the unlawfully collected personal data; and/or 4. disclose to the public the violation of the non-government agency, the name of the non-government agency and its responsible person/representative.",
+        rules:["(The Enforcement Rules contain no separate provision on Article 25 measures.)"],
+        ey:"Point 9, Paragraph 3: (1) prohibiting the collection, processing or use of personal data; (2) ordering the deletion of the processed personal data file; (3) confiscating or ordering the destruction of personal data collected unlawfully; (4) publishing the violation together with the agency's name and the name of its responsible person.\nAnnex 1, field \"subsequent disposition of the case by the competent authority\".",
+        evi:"Data retention and secure disposal policy; records of measures carried out",
+        gcbpr:[["Security Safeguards","31","32"]],
+        act:"Subparagraph 4 — public disclosure of the violation together with the names of the organisation and its responsible person — usually does more practical damage to reputation than the fine, and should be weighed accordingly when deciding how to respond. If you are ordered to erase or destroy data, use a method from which it cannot be recovered and make a record.",
+        urg:2
+    },
+    {
+        src:"PDPA Articles 22(1), 48(2) and 48(3) (re-inspection and successive fines)",
+        law:"... and shall order the non-government agency to rectify the violation within a specified period of time. If the non-government agency fails to rectify the violation in time, a fine ... shall be imposed for each occurrence of the violation. (The authority conducts a re-inspection of a non-government agency that has been ordered to rectify.)",
+        rules:[R12_2(11)],
+        ey:"Annex 1, field \"whether the competent authority has conducted an administrative investigation (including re-inspection)\" (yes / no).\nAnnex 2, node 6: the authority conducts a re-inspection; if it is passed, the case is closed; if not, further fines or dispositions follow.",
+        evi:"Records of non-conformities and corrective actions; rectification completion report",
+        gcbpr:[["Accountability","41","42"]],
+        act:"Once rectification is complete, submit a written report with supporting evidence on your own initiative, so as to pass the re-inspection first time. Failing it puts you back into the cycle of successive fines.",
+        urg:2
+    }
+  ]
+},
+
+{
+    no:"V", title:"Remediation and release from monitored status", tag:"Directions, Point 7(2) and Point 8(4)",
+    items:[
+    {
+        src:"PDPA Article 22, Paragraph 1 (continuing supervision)",
+        law:L22_1,
+        rules:[R12_2(11)],
+        ey:"Point 7, Paragraph 2: for ordinary cases, subsequent administrative measures and the disposition of the case shall be reported to the PDPC Preparatory Office on a quarterly basis.\nPoint 8, Paragraph 4: for major and high-profile cases, subsequent administrative measures and disposition shall be notified to the PDPC Preparatory Office and the Ministry of Digital Affairs immediately.",
+        evi:"Audit plan and audit findings; material required for quarterly reporting",
+        gcbpr:[["Accountability","39","40","42"]],
+        act:"Reporting is not a single event. Because the authority reports quarterly on ordinary cases and immediately on major ones, you will be asked for remediation progress repeatedly. Set a fixed internal rhythm for progress updates rather than waiting to be chased.",
+        urg:2
+    },
+    {
+        src:"PDPA Article 27, Paragraph 1 (continual improvement)",
+        law:L27_1 + " (Including remediation measures taken after an incident.)",
+        rules:[R12_2(11)],
+        ey:"Annex 1, field \"recommended date of release from monitored status\": released from monitored status on ____ / not released. A non-government agency should maintain a corrective action tracker and apply for release once rectification is complete.",
+        evi:"Records of non-conformities and corrective actions; application for release from monitored status",
+        gcbpr:[["Accountability","41","43"]],
+        act:"Build a corrective action tracker recording each finding, the measure taken, the owner, the completion date and the supporting evidence. When all items are closed, assemble the file and apply for release from monitored status, and feed what this incident taught you back into your security and maintenance plan.",
+        urg:3
+    }
+  ]
+},
+
+{
+    no:"VI", title:"Inter-ministerial coordination and jurisdictional disputes", tag:"Directions, Points 2 and 11",
+    items:[
+    {
+        src:"PDPA Articles 22 to 26 (scope of the competent authority's powers)",
+        law:"(Under Articles 22 through 26 of the PDPA, the central government authority in charge of the industry concerned takes appropriate supervisory and management measures in respect of a non-government agency.)",
+        rules:["(The Enforcement Rules contain no separate provision on inter-agency coordination.)"],
+        ey:"Point 2: the Executive Yuan convenes the Liaison Meeting on the Implementation of Personal Data Protection by Administrative Agencies, which coordinates the supervisory notification of security violation cases, determines the agency having jurisdiction where a major and high-profile case is disputed, and coordinates inter-ministerial administrative investigations.\nPoint 11: where jurisdiction is in dispute, the PDPC Preparatory Office shall determine the agency having jurisdiction as soon as possible, and may convene an inter-ministerial coordination meeting.",
+        evi:"Documented legal and regulatory requirements; records of correspondence with each authority",
+        gcbpr:[["Accountability","39","45","50"]],
+        act:"If your activities span several regulated industries, jurisdiction may be disputed. Do not suspend reporting while that is resolved: report to the authority most likely to have jurisdiction, copy the others, and keep the full correspondence, so that no inference of a failure to report can later be drawn.",
+        urg:2
+    }
+  ]
+}
+];
+
+/* ============================================================
+Rendering logic — no need to edit below this line.
+   ============================================================ */
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const nl = s => esc(s).replace(/\n/g,"<br>");
+const qline = id => "Q" + id + ". " + (GQ[id] || "(question text not available)");
+
+$("#q_types").innerHTML = TYPES.map(t =>
+  `<label class="opt" data-id="${t.id}"><input type="checkbox" value="${t.id}"><span>${t.name}</span></label>`).join("");
+
+/* optional sector selectors */
+SECTOR_REGS.forEach((a,i)=>{
+  const o = document.createElement("option");
+  o.value = String(i);
+  o.textContent = a.en + (a.regs.length ? "" : " — no regulation issued");
+  $("#q_ag").appendChild(o);
+});
+$("#q_ag").addEventListener("change", ()=>{
+  const sel = $("#q_rg"), i = $("#q_ag").value;
+  sel.innerHTML = "";
+  if (i === ""){
+    sel.disabled = true;
+    sel.innerHTML = `<option value="">— select an authority first —</option>`;
+    return;
+  }
+  const a = SECTOR_REGS[+i];
+  if (!a.regs.length){
+    sel.disabled = true;
+    sel.innerHTML = `<option value="">— this authority has issued none —</option>`;
+    return;
+  }
+  sel.disabled = false;
+  sel.innerHTML = `<option value="">— not selected —</option>` +
+    a.regs.map((r,j)=>`<option value="${j}">${esc(r[1])}</option>`).join("");
+});
+
+function addHours(iso, h){
+      const d = new Date(iso);
+      const x = new Date(d.getTime() + h*3600000);
+      const p = n => String(n).padStart(2,"0");
+      return `${x.getFullYear()}-${p(x.getMonth()+1)}-${p(x.getDate())} ${p(x.getHours())}:${p(x.getMinutes())}`;
+}
+function addDays(iso, n){
+      const d = new Date(iso);
+      const x = new Date(d.getTime() + n*86400000);
+      const p = v => String(v).padStart(2,"0");
+      return `${x.getFullYear()}-${p(x.getMonth()+1)}-${p(x.getDate())}`;
+}
+function addMonths(iso, n){
+      const d = new Date(iso);
+      const day = d.getDate();
+      const x = new Date(d.getTime());
+      x.setDate(1);
+      x.setMonth(x.getMonth()+n);
+      const last = new Date(x.getFullYear(), x.getMonth()+1, 0).getDate();
+      x.setDate(Math.min(day, last));
+      const p = v => String(v).padStart(2,"0");
+      return `${x.getFullYear()}-${p(x.getMonth()+1)}-${p(x.getDate())}`;
+}
+
+function read(){
+      return {
+        when: $("#q_when").value,
+        major: $("#q_major").value,
+        types: [...document.querySelectorAll("#q_types input:checked")].map(i=>i.value),
+        sensitive: $("#q_sensitive").value,
+        cyber: $("#q_cyber").value,
+        known: $("#q_known").value,
+    agIdx: $("#q_ag").value,
+    rgIdx: $("#q_rg").value
+  };
+}
+
+function buildPrompt(s, major){
+  const forms = s.types.length ? s.types.map(t=>TYPES.find(x=>x.id===t).name).join(", ") : "not yet determined";
+  const timing = major
+    ? "This case has been assessed as a major and high-profile security violation case, so Point 8 of the Directions applies to the competent authority: notification within 24 hours, investigation commencing within 3 days, and an investigation report within 10 days."
+    : "This case is currently assessed as an ordinary security violation case, so Point 7 of the Directions applies to the competent authority: notification within 72 hours, and investigation completed and closed within 3 months, extendable by 3 months.";
+
+  const ag = s.agIdx === "" ? null : SECTOR_REGS[+s.agIdx];
+  const rg = (ag && s.rgIdx !== "" && ag.regs.length) ? ag.regs[+s.rgIdx] : null;
+
+  const L = [];
+  L.push("You are a legal compliance assistant with expertise in Taiwan's Personal Data Protection Act and in handling personal data file security violation cases.");
+  L.push("");
+  L.push("[Facts of this case]");
+  L.push("- Type of organisation: non-government agency");
+  L.push("- Time we became aware of the incident: " + s.when.replace("T"," "));
+  L.push("- Classification: " + (major ? "major and high-profile security violation case" : "ordinary security violation case"));
+  L.push("- Form of infringement: " + forms);
+  L.push("- Involves Article 6 personal data (PDPA Article 6, Paragraph 1): " + s.sensitive);
+  L.push("- A specific non-government agency under the Cyber Security Management Act: " + s.cyber);
+  L.push("- Facts of the infringement clarified: " + s.known);
+  L.push("");
+  L.push("[Two layers of law you must ask me about]");
+  L.push("Neither layer is reproduced in the checklist below. Ask me about both before you begin.");
+  L.push("");
+
+  if (rg){
+    L.push("1. Sector-specific regulation. I have identified the following as applicable to my organisation:");
+    L.push("   Competent authority: " + ag.en + " (" + ag.zh + ")");
+    L.push("   Mandarin title: " + rg[0]);
+    L.push("   English title (for identification only): " + rg[1]);
+    L.push("   Ask me to obtain and paste the full Mandarin text. It can be found by searching the Mandarin title above in the Laws & Regulations Database at law.moj.gov.tw. The English title is given so that you can recognise which regulation is meant; no English text of its provisions is relied on here, and the Mandarin text governs. Take all operative wording from the Mandarin. This regulation is where my own reporting deadline, if I have one, will be found.");
+  } else if (ag && !ag.regs.length){
+    L.push("1. Sector-specific regulation. My competent authority is the " + ag.en + " (" + ag.zh + "), which has issued no regulation under Article 27, Paragraph 2 of the PDPA. Treat the PDPA, its Enforcement Rules and the Executive Yuan Directions as the complete baseline for this layer, and do not reason by analogy from another sector's regulation. Note in particular that this means I have no sector-imposed reporting deadline.");
+  } else if (ag){
+    L.push("1. Sector-specific regulation. My competent authority is the " + ag.en + " (" + ag.zh + "), which has issued " + ag.regs.length + " regulation(s) under Article 27, Paragraph 2 of the PDPA, but I have not identified which one applies to me. Ask me which of its regulations covers my industry, then ask me to paste the full Mandarin text. Part E of the toolkit's Sources and Terminology page lists them all by authority with their Mandarin names.");
+  } else {
+    L.push("1. Sector-specific regulations. Under Article 27, Paragraph 2 of the PDPA, a central government authority in charge of an industry may designate non-government agencies to establish a security and maintenance plan for personal data files. Many such regulations are in force and none has an English text that can be relied on. Ask me which authority regulates my industry and whether such a regulation applies; point me to Part E of the toolkit's Sources and Terminology page, which lists every one of them by authority with its Mandarin name. Then ask me to paste the full Mandarin text. This is where my own reporting deadline, if I have one, will be found.");
+  }
+
+  L.push("");
+  L.push("2. Statute-level special laws. Article 1 of the PDPA provides that other laws prevail where they provide otherwise. Several statutes impose duties of confidentiality or prohibit the disclosure of information identifying a person, which bears directly on how this incident may be contained and how the notification to data subjects may be worded. Examples include Article 48, Paragraph 2 of the Banking Act on customer data; Article 23 of the Physicians Act and Article 28 of the Nurses Act; Article 14 of the HIV Infection Control and Patient Rights Protection Act; Articles 10 and 11 of the Communicable Disease Control Act; Article 69 of the Protection of Children and Youths Welfare and Rights Act; and the victim-identity provisions of the Sexual Assault Crime Prevention Act and the Domestic Violence Prevention Act. This list is not exhaustive; Part D of the toolkit's Sources and Terminology page has a fuller one. Ask me what industry my organisation is in, what categories of data subject are affected, and whether any such statute applies.");
+  L.push("");
+  L.push("3. Whichever layer applies, the text will be in Mandarin. Work from the Mandarin directly for all operative wording; do not rely on an unofficial translation. If I do not know whether something applies, say so plainly rather than assuming that nothing does.");
+  L.push("");
+  L.push("4. If I cannot supply either layer, your output is a PRELIMINARY ANALYSIS ONLY. Say so in a clearly marked line at the very top of your answer, before anything else: that it covers only the general rules of the PDPA, its Enforcement Rules and the Executive Yuan Directions, that special laws and sector-specific regulations have not been taken into account, and that both must be checked before any report is filed or any data subject is notified. Under time pressure I am likely to read only the opening lines, so put it there and nowhere else.");
+  L.push("");
+  L.push("[What I will also provide]");
+  L.push("The \"personal data incident response checklist\" below, generated from the PDPA, its Enforcement Rules, and the Directions for the Executive Yuan and Its Subordinate Agencies on Liaison Operations for the Implementation of Personal Data Protection (amended 7 January 2025). The passages from the Directions are an unofficial translation; the Mandarin text governs.");
+  L.push("");
+  L.push("[What I want you to do]");
+  L.push("1. Using the checklist as the baseline, compare any applicable special law or sector regulation clause by clause and annotate each obligation with a difference marker:");
+  L.push("   O same as the baseline / + stricter / ^ exempted / * a new obligation / - not applicable");
+  L.push("   For \"+\", use the form \"Art. X: short description\". For \"*\", add a new row to the checklist.");
+  L.push("2. Keep special laws and sector regulations in separate blocks. They sit at different levels: a sector regulation is made under Article 27, Paragraph 2 of the PDPA and ranks below it, so it supplements the PDPA and cannot override it; a special law ranks equal to the PDPA and prevails over it under the proviso to Article 1. State which layer each stricter requirement comes from, and never merge the two.");
+  L.push("3. Compile every \"+\" and \"*\" item into a separate [Stricter requirements] summary, subdivided by layer.");
+  L.push("4. Set out the following four points separately, citing the article for each. Where the source is silent, write \"not addressed\". Do not estimate, and do not reason by analogy from another sector's regulation:");
+  L.push("   (1) the time limit for my organisation to report to the central government authority in charge of the industry concerned");
+  L.push("   (2) the recipient of the report and the contact point");
+  L.push("   (3) the matters to be reported and the form to be used");
+  L.push("   (4) any additional requirements for notifying data subjects");
+  L.push("5. Produce an [Action list] ordered by urgency. For each item give the statutory provision, the article of any special law or sector regulation, and a recommended completion time. Where a duty of confidentiality or a prohibition on disclosure applies to any category of affected data subject, say expressly how it constrains the wording and the channel of the notification under Article 12.");
+  L.push("");
+  L.push("[Constraints]");
+  L.push("- " + timing + " All of the periods set by the Directions — the 24 hours, the 72 hours and the investigation periods — are obligations of the central government authority in charge of the industry concerned, running from the moment that authority receives a notification or a copy of one, or otherwise becomes aware of the case. Do not describe them as my organisation's reporting deadlines.");
+  L.push("- Under the provisions of the PDPA currently in force, a non-government agency has no obligation to report an incident to any authority. Its only post-incident obligation is to notify affected data subjects under Article 12. Any reporting deadline for my organisation can come only from a special law or from the sector regulation. Where both are silent, say so.");
+  L.push("- Article 12, Paragraphs 2 to 4 as amended on 11 November 2025 would introduce a reporting obligation to the competent authority, but are not yet in force and the implementing regulations have not been issued. Mention them only as a forthcoming change, clearly marked as not yet in force, and do not treat them as a current obligation.");
+  L.push("- Quote provisions in full. Do not paraphrase or condense operative wording.");
+  L.push("- Provisions should be taken from the versions in force in the Laws & Regulations Database. Where the English and Mandarin versions differ, the Mandarin version governs.");
+  L.push("- If you are unsure of a version or an article number, say so rather than filling the gap.");
+  L.push("- End by reminding me that this is a working draft, not legal advice, and must be reviewed by a qualified lawyer before it is relied on for any report to an authority or notification to data subjects.");
+  return L.join("\n");
+}
+
+function render(){
+      const s = read();
+      document.querySelectorAll("#q_types .opt").forEach(l=>{
+          l.classList.toggle("on", l.querySelector("input").checked);
+  });
+      const out = $("#out");
+
+      if (!s.when){
+        out.innerHTML = `<div class="empty">
+      <span class="big">Start with the time you became aware</span>
+        The draft will appear here, ready to print, save as PDF or copy as text.</div>`;
+        return;
+  }
+
+      const now = new Date();
+      const p = n => String(n).padStart(2,"0");
+      const issued = `${now.getFullYear()}-${p(now.getMonth()+1)}-${p(now.getDate())} ${p(now.getHours())}:${p(now.getMinutes())}`;
+      const major = s.major === "Yes";
+
+      let h = "";
+
+      h += `<div class="head">
+    <h2>Personal Data Incident Response Checklist</h2>
+    <div class="meta">Issued ${issued} | Non-government agency | Path C</div>
+  </div>`;
+
+  /* ---- Timeline ---- */
+      h += `<section class="blk"><h3 class="blkt">Timeline</h3>`;
+      h += `<div class="tl">`;
+
+      h += `<div class="band own"><div class="bl"><b>Your organisation's obligations</b> Under the provisions of the PDPA currently in force</div><div class="marks">
+    <div class="mk">
+      <div class="off">T = 0</div>
+      <div class="val">${s.when.replace("T"," ")}</div>
+      <div class="cap">You became aware of the incident. This is the reference point for everything that follows; retain the basis on which this time was determined.</div>
+    </div>
+    <div class="mk">
+      <div class="off">Promptly, once clarified</div>
+      <div class="val soft">No fixed period</div>
+      <div class="cap">Notify affected data subjects (PDPA Article 12). The notification must state the facts of the infringement and the response measures already taken (Enforcement Rules Articles 22 and 23).</div>
+    </div>
+    <div class="mk">
+      <div class="off">Sector regulation</div>
+      <div class="val soft">Check the regulation</div>
+      <div class="cap">The PDPA itself imposes no obligation to report to an authority. Where such a deadline exists it comes from the security and maintenance regulation issued for your industry under Article 27, Paragraph 2. Those regulations have no official English translation, so the Mandarin text must be checked directly.</div>
+    </div>
+  </div></div>`;
+
+      h += `<div class="band future"><div class="bl"><b>Not yet in force</b> PDPA Article 12, Paragraphs 2 to 4, promulgated 11 November 2025; enforcement date to be set by the Executive Yuan</div><div class="marks">
+    <div class="mk">
+      <div class="off">Once in force</div>
+      <div class="val soft">Report to the competent authority</div>
+      <div class="cap">A non-government agency will report directly to the Personal Data Protection Commission, which will then inform the authority in charge of the industry concerned.</div>
+    </div>
+    <div class="mk">
+      <div class="off">Once in force</div>
+      <div class="val soft">Scope and deadline to be set</div>
+      <div class="cap">The content, method, time limit and reporting threshold are to be prescribed by the competent authority in regulations that have not yet been issued.</div>
+    </div>
+    <div class="mk">
+      <div class="off">Once in force</div>
+      <div class="val soft">Countermeasures and records</div>
+      <div class="cap">Immediate and effective countermeasures to prevent escalation, and documented facts, impacts and response measures retained for inspection by the competent authority.</div>
+    </div>
+  </div></div>`;
+
+      h += `<div class="band reg"><div class="bl"><b>The competent authority's internal deadlines</b> Shown so you can anticipate the pace; these run from when the authority becomes aware, not from when you did</div><div class="marks">`;
+      if (major){
+        h += `<div class="mk">
+        <div class="off">+ 24 hours</div>
+        <div class="val">${addHours(s.when,24)}</div>
+        <div class="cap">If the authority became aware at the same time as you, this is its deadline for notifying the PDPC Preparatory Office and the Ministry of Digital Affairs (Directions, Point 8, Paragraph 1).</div>
+      </div>
+      <div class="mk">
+        <div class="off">+ 3 days</div>
+        <div class="val">${addDays(s.when,3)}</div>
+        <div class="cap">The authority commences its administrative investigation (Directions, Point 8, Paragraph 2).</div>
+      </div>
+      <div class="mk">
+        <div class="off">+ 10 days</div>
+        <div class="val">${addDays(s.when,10)}</div>
+        <div class="cap">The authority completes its investigation report and submits it to the PDPC Preparatory Office and the Ministry of Digital Affairs.</div>
+      </div>`;
+  } else {
+        h += `<div class="mk">
+        <div class="off">+ 72 hours</div>
+        <div class="val">${addHours(s.when,72)}</div>
+        <div class="cap">If the authority became aware at the same time as you, this is its deadline for completing the Supervision and Notification Record Form and notifying the PDPC Preparatory Office (Directions, Point 7, Paragraph 1).</div>
+      </div>
+      <div class="mk">
+        <div class="off">+ 3 months</div>
+        <div class="val">${addMonths(s.when,3)}</div>
+        <div class="cap">The authority completes its investigation and closes the case (Directions, Point 7, Paragraph 2).</div>
+      </div>
+      <div class="mk">
+        <div class="off">+ 6 months</div>
+        <div class="val">${addMonths(s.when,6)}</div>
+        <div class="cap">The longest investigation period, after a three-month extension has been consented to. Subsequent disposition is reported quarterly.</div>
+      </div>`;
+  }
+      h += `</div></div></div>`;
+
+      h += `<div class="stamp">
+    <b>Keep the two sets of deadlines apart.</b> The 24 hours, 72 hours and investigation periods set by the Directions are obligations of the
+      central government authority in charge of the industry concerned, running from the moment that authority receives a notification or a copy of one,
+      or otherwise becomes aware of the case. The dates above are calculated from the time <i>you</i> became aware, and are shown only so that you can
+      anticipate the likely pace. Your own reporting deadline, if you have one, comes from the security and maintenance regulation issued for your industry.
+  </div>`;
+      h += `</section>`;
+
+  /* ---- Case details ---- */
+      h += `<section class="blk"><h3 class="blkt">Case details</h3><dl class="info">
+    <dt>Became aware</dt><dd>${s.when.replace("T"," ")}</dd>
+    <dt>Classification</dt><dd>${major ? "<b>Major and high-profile security violation case</b> (Directions, Point 8)" : "Ordinary security violation case (Directions, Point 7)"}</dd>
+    <dt>Form of infringement</dt><dd>${s.types.length ? s.types.map(t=>TYPES.find(x=>x.id===t).name).join(", ") : "Not yet determined"}</dd>
+    <dt>Article 6 personal data</dt><dd>${esc(s.sensitive)}</dd>
+    <dt>Cyber Security Management Act</dt><dd>${esc(s.cyber)}</dd>
+    <dt>Facts clarified</dt><dd>${esc(s.known)}</dd>
+  </dl></section>`;
+
+  /* ---- Alerts ---- */
+      const alerts = [];
+
+      const agSel = s.agIdx === "" ? null : SECTOR_REGS[+s.agIdx];
+
+      const rgSel = (agSel && s.rgIdx !== "" && agSel.regs.length) ? agSel.regs[+s.rgIdx] : null;
+
+      alerts.push(["seal","What you are looking at is a preliminary analysis",
+
+        `This draft reflects only the general rules: the PDPA, its Enforcement Rules and the Executive Yuan Directions. Two further layers of Taiwanese law sit above it and are not reproduced here, and either can change the obligations, deadlines and judgements set out below.<br>
+
+         <b>Statute-level special laws</b> prevail under the proviso to Article 1 of the PDPA. Those imposing duties of confidentiality or prohibiting disclosure of identifying information bear directly on how you contain this incident and how you word the notification to data subjects. A non-exhaustive catalogue is at <a href="table-02.html#special" target="_blank" rel="noopener">Part D</a>.<br>
+
+         <b>Sector-specific regulations</b> made under Article 27, Paragraph 2 set the recipient, deadline and content of any report you must file. Many are in force, indexed by authority and non-exhaustively at <a href="table-02.html#sector" target="_blank" rel="noopener">Part E</a>. Do not assume a deadline by analogy from another industry: they differ from one another, and many express the trigger qualitatively rather than in hours.<br>
+
+         ` + (rgSel
+
+            ? `<b>You have identified <span style="font-family:\'Noto Serif TC\',serif">${esc(rgSel[0])}</span> as applicable</b> (${esc(agSel.en)}). The prompt below already names it. You still need to obtain its Mandarin text and supply it to the assistant.`
+
+            : (agSel && !agSel.regs.length
+
+              ? `<b>You have selected ${esc(agSel.en)}</b>, which has issued no regulation under Article 27, Paragraph 2. Only the special-law layer remains to be checked.`
+
+              : `For a more accurate analysis, identify what applies to your organisation in Parts D and E, obtain the Mandarin text, and use the prompt at the foot of this page to fold it in clause by clause. Questions 07 and 08 in the panel let you name your regulation, which makes the prompt more precise; both are optional.`))]);
+
+      alerts.push(["warn","The PDPA currently requires you to notify data subjects, not an authority",
+    `Under the provisions in force, the only obligation Article 12 places on a non-government agency after an incident is to notify affected data subjects, promptly, once the facts are clarified.
+          There is no general obligation to report to any authority. Article 12, Paragraphs 2 to 4 as amended on 11 November 2025 would introduce one, together with a duty to take immediate countermeasures and to retain records for inspection,
+          but they are not yet in force and the implementing regulations have not been issued. Watch for announcements from the Personal Data Protection Commission.`]);
+
+      if (major){
+        alerts.push(["seal","A major and high-profile case moves quickly",
+      "The competent authority must notify the PDPC Preparatory Office and the Ministry of Digital Affairs within 24 hours, commence its investigation within 3 days, and complete its report within 10 days. Your document production and external communications have to match that pace. Appoint a spokesperson now and prepare a factual chronology."]);
+  }
+      if (s.cyber === "Yes"){
+        alerts.push(["seal","Start the cybersecurity reporting procedure in parallel",
+      "Where a personal data incident is also a cybersecurity incident, the procedures under the PDPA and under the Cyber Security Management Act run separately. The recipients, deadlines and formats differ, and a failure in either track is an independent violation."]);
+  } else if (s.cyber === "Unsure"){
+        alerts.push(["warn","Establish whether the Cyber Security Management Act applies",
+      "That Act applies to government agencies and to specific non-government agencies designated by the competent authority, principally critical infrastructure providers. Settle the question immediately: if it applies and you do not report in time, a separate liability arises. The Administration for Cyber Security of the Ministry of Digital Affairs can advise."]);
+  }
+      if (s.sensitive === "Yes"){
+        alerts.push(["seal","Article 6 personal data is involved",
+      "The Supervision and Notification Record Form requires general personal data and Article 6 personal data to be counted separately. An infringement involving Article 6 personal data is generally treated as more serious, which bears on both the penalty assessment and future inspection priorities, and the notification to data subjects should be correspondingly fuller and more careful."]);
+  }
+      if (s.known === "Not yet" || s.known === "Partly"){
+        alerts.push(["warn","Clarifying the facts and reporting are parallel tracks",
+      "The duty to notify data subjects under Article 12 of the PDPA depends on the facts having been clarified. Reporting to an authority under a sector regulation generally does not. Annex 1 to the Directions expressly allows the cause and case summary to be entered as \"unknown\" initially and supplemented later. Do not defer a report on the ground that the facts are not yet clear."]);
+  }
+      if (s.types.includes("alteration")){
+        alerts.push(["warn","Alteration also triggers the accuracy obligations",
+      "Where personal data has been altered, the duty under Article 11, Paragraph 1 of the PDPA to ensure accuracy arises alongside the incident obligations. Start data restoration and accuracy verification at the same time, and note that Article 11, Paragraph 2 requires processing or use to cease while accuracy is in dispute."]);
+  }
+      if (alerts.length){
+        h += `<section class="blk"><h3 class="blkt">Points triggered by this case<span class="tag">Derived from your answers</span></h3>`;
+        h += alerts.map(([k,t,b]) => `<div class="alert ${k==='warn'?'warn':''}"><span class="t">${t}</span>${b}</div>`).join("");
+        h += `</section>`;
+  }
+
+  /* ---- Checklist ---- */
+      BLOCKS.forEach(z => {
+          h += `<section class="blk"><h3 class="blkt">${z.no}. ${z.title}<span class="tag">${z.tag}</span></h3>`;
+          z.items.forEach(it => {
+              h += `<div class="item">
+        <div class="src"><span class="box"></span><span>${esc(it.src)}</span></div>
+        <p class="law">${nl(it.law)}</p>`;
+              if (it.rules.length) h += it.rules.map(r=>`<p class="rule">◆ ${esc(r)}</p>`).join("");
+              if (it.ey) h += `<p class="yp"><span class="k">Executive Yuan Directions (unofficial translation)</span>${nl(it.ey)}</p>`;
+              h += `<p class="evi"><span class="k">Supporting records:</span> ${esc(it.evi)}</p>`;
+              if (it.gcbpr.length){
+                h += `<details class="gc"><summary>Global CBPR Program Requirements</summary><div class="body">` +
+                it.gcbpr.map(g => `<span class="pr">[${g[0]}]</span>` + g.slice(1).map(id=>esc(qline(id))).join("<br>")).join("") +
+          `</div></details>`;
+      }
+              h += `<p class="act"><span class="k">What to do</span>${esc(it.act)}</p></div>`;
+    });
+          h += `</section>`;
+  });
+
+  /* ---- Recommended actions ---- */
+      const actions = [];
+      BLOCKS.forEach(z => z.items.forEach(it => actions.push({t:it.act, r:it.src, u:it.urg})));
+      actions.sort((a,b)=>a.u-b.u);
+      const by = u => u===1 ? `Within ${major ? "24" : "72"} hours of becoming aware (${addHours(s.when, major?24:72)})`
+                  : (u===2 ? `By ${addDays(s.when,7)}` : `By ${addMonths(s.when,1)}`);
+
+      h += `<section class="blk"><h3 class="blkt">Recommended actions<span class="tag">Ordered by urgency; the target times are internal working goals, not statutory deadlines</span></h3><ol class="actions">`;
+      actions.forEach(a => {
+          h += `<li>${esc(a.t)}<span class="by">${by(a.u)}</span><span class="ref">${esc(a.r)}</span></li>`;
+  });
+      h += `</ol></section>`;
+
+  /* ---- AI prompt ---- */
+      const prompt = buildPrompt(s, major);
+      h += `<section class="blk"><h3 class="blkt">Prompt for an AI assistant<span class="tag">Use together with the text of your sector regulation</span></h3>`;
+      h += `<p class="promptnote">
+      Copy the prompt below into an AI assistant. It will ask you which statutes and which sector regulation apply to your organisation, and for their full text,
+      then fold those requirements into this checklist clause by clause. The regulation will be in Mandarin and is available from the
+    <a href="https://law.moj.gov.tw/" target="_blank" rel="noopener">Laws &amp; Regulations Database</a>.
+      The result remains a working draft and must be reviewed by a qualified lawyer before it is relied on for any report to an authority or notification to data subjects.</p>`;
+      h += `<div class="promptbox">
+    <pre id="promptText">${esc(prompt)}</pre>
+    <div class="promptbar noprint">
+      <button type="button" id="b_p1">Copy prompt</button>
+      <button type="button" class="ghost" id="b_p2">Copy prompt and full draft</button>
+    </div>
+  </div></section>`;
+
+  /* ---- Versions and disclaimer ---- */
+      h += `<div class="foot">
+    <p><b>Versions relied on</b> Personal Data Protection Act: ${VERSIONS.pdpa}. Enforcement Rules: ${VERSIONS.rules}. ${VERSIONS.ey}.</p>
+    <p><b>Mapping baseline</b> ${VERSIONS.mapping}.</p>
+    <p><b>Special laws and sector regulations</b> This draft reproduces neither layer. Statutes that prevail over the PDPA under the proviso to its Article 1, in particular those imposing duties of confidentiality or prohibiting the disclosure of identifying information, may constrain how an incident is contained and how data subjects are notified; a non-exhaustive catalogue is in 02 Sources and Terminology, Part D. Separately, roughly sixty-five security and maintenance regulations issued under Article 27, Paragraph 2 of the PDPA exist, and almost none has an official English translation. Identify both layers for your own sector, obtain the Mandarin text, and fold them in clause by clause, with the result confirmed by a qualified lawyer.</p>
+    <p><b>Scope</b> This draft assumes a non-government agency. Incidents at government agencies are handled under Article 18 of the PDPA and the provisions of the Directions applicable to government agencies, and are outside its scope.</p>
+    <p><b>Quotation of provisions</b> Provisions are quoted only to the extent that they apply to non-government agencies; where a provision addresses both, such as Article 12, only the part applicable to non-government agencies is reproduced.</p>
+    <p><b>Nature of the deadlines</b> The 24 hours, 72 hours and investigation periods set by the Directions are obligations of the central government authority in charge of the industry concerned. They run from the moment that authority becomes aware of the case, and are absolute periods that do not pause for weekends or holidays. Your own reporting deadline, if any, comes from the security and maintenance regulation applicable to your industry. The target times in the recommended actions are internal working goals and have no statutory force.</p>
+    <p><b>Disclaimer</b> This is a working draft for compliance reference and does not constitute legal advice. Provisions should be checked against the versions in force in the Laws &amp; Regulations Database (law.moj.gov.tw), and the Directions against the version published by the PDPC Preparatory Office. The translation of the Directions used here is unofficial; the Mandarin text governs. Consult a qualified lawyer on any specific matter.</p>
+    <p>Taiwan PDPA Compliance Toolkit (Global CBPR Mapped), English Edition  / Document 05, Path C Author: I Jung (Alfred) Tsai Licence: CC BY-NC-SA 4.0 · v1.3-EN</p>
+  </div>`;
+
+      out.innerHTML = h;
+      rail("section.blk", "h3.blkt");
+
+      const p1 = $("#b_p1"), p2 = $("#b_p2");
+      if (p1) p1.addEventListener("click", ()=>copyText(prompt, p1));
+      if (p2) p2.addEventListener("click", ()=>{
+          const body = out.innerText.split("Prompt for an AI assistant")[0].trim();
+          copyText(prompt + "\n\n──────── Personal data incident response checklist ────────\n\n" + body, p2);
+  });
+}
+
+async function copyText(text, btn){
+      const old = btn.textContent;
+      try{
+        await navigator.clipboard.writeText(text);
+        btn.textContent = "Copied";
+  }catch(e){
+        btn.textContent = "Copy failed — select manually";
+  }
+      setTimeout(()=>btn.textContent = old, 1800);
+}
+
+$("#f").addEventListener("input", render);
+$("#f").addEventListener("change", render);
+$("#b_print").addEventListener("click", ()=>window.print());
+$("#b_reset").addEventListener("click", ()=>{ $("#f").reset(); render(); });
+$("#b_copy").addEventListener("click", async ()=>{
+        const el = $("#out");
+        if (!el.querySelector(".head")) return;
+        const t = el.innerText.replace(/\n{3,}/g,"\n\n");
+        const b = $("#b_copy"); const o = b.textContent;
+        try{
+          await navigator.clipboard.writeText(t);
+          b.textContent = "Copied"; setTimeout(()=>b.textContent = o, 1600);
+  }catch(e){
+          b.textContent = "Copy failed — select manually"; setTimeout(()=>b.textContent = o, 1600);
+  }
+});
+
+/* ---- Section rail ---- */
+const rail = (()=>{
+        const el = document.createElement("nav");
+        el.className = "rail"; el.setAttribute("aria-label","Section navigation");
+        document.body.appendChild(el);
+        let targets = [], links = [];
+        function label(h){
+          const c = h.cloneNode(true);
+          c.querySelectorAll(".tag").forEach(x=>x.remove());
+          return c.textContent.trim();
+  }
+        function update(){
+          if (!targets.length) return;
+          let i = 0;
+          targets.forEach((t,k)=>{ if (t.getBoundingClientRect().top <= 130) i = k; });
+          links.forEach((a,k)=>a.classList.toggle("on", k===i));
+  }
+        window.addEventListener("scroll", update, {passive:true});
+        window.addEventListener("resize", update, {passive:true});
+        return function build(sel, headSel){
+          targets = [...document.querySelectorAll(sel)];
+          if (targets.length < 2){ el.classList.remove("on"); el.innerHTML = ""; return; }
+          targets.forEach((t,i)=>{ if (!t.id) t.id = "rail-" + i; });
+          el.innerHTML = targets.map(t=>{
+              const h = headSel ? t.querySelector(headSel) : t;
+              return `<a href="#${t.id}" data-t="${label(h||t).replace(/"/g,"&quot;")}"><i></i></a>`;
+    }).join("");
+          links = [...el.querySelectorAll("a")];
+          el.classList.add("on");
+          update();
+  };
+})();
+
+render();
+</script>
+</body>
+</html>
