@@ -294,7 +294,7 @@ a.lang:hover{border-color:var(--ink);color:var(--ink)}
 
 <header class="top">
   <div class="inner">
-    <div class="langbar"><p class="eyebrow"><a href="index.html">Taiwan PDPA Compliance Toolkit</a> / 04 Path B · v1.3-EN</p><a class="lang" href="../dsar.html" title="以繁體中文閱讀本頁" rel="alternate">中文</a></div>
+    <div class="langbar"><p class="eyebrow"><a href="index.html">Taiwan PDPA Compliance Toolkit</a> / 04 Path B · v1.4-EN</p><a class="lang" href="../dsar.html" title="以繁體中文閱讀本頁" rel="alternate">中文</a></div>
     <h1>Data Subject Access Request — Response Draft Generator</h1>
     <p class="sub">For <b>non-government agencies</b> | Based on the provisions of the PDPA and its Enforcement Rules currently in force</p>
   </div>
@@ -470,6 +470,7 @@ const R12_2 = n => "Enforcement Rules Article 12, Paragraph 2, Subparagraph " + 
   10:"keeping records, log files and relevant evidence.",
   11:"implementing integrated and persistent improvements on the security and maintenance of personal data."
 }[n];
+const ER6 = "Enforcement Rules Article 6, Paragraph 1: \"Deleting\", as referred to under subparagraph 4, paragraph 1 of Article 2 of the PDPA, shall mean to erase the personal data from the personal data file.";
 const R14 = "Enforcement Rules Article 14: In accordance with the Electronic Signatures Act, a data subject's \"consent in writing\", as referred to under subparagraph 6 of the proviso to paragraph 1 of Article 6, paragraph 2 and 3 of the proviso to Article 11 of the PDPA, may be given in an electronic form.";
 const R16 = "Enforcement Rules Article 16: The obligation to inform data subjects as required under Articles 8, 9, and 54 of the PDPA may be fulfilled via verbal words, in writing, over the phone, via text messages, email, fax, electronic documents or other means that can effectively make the information known or available to the data subjects.";
 const R19 = "Enforcement Rules Article 19: When a data subject requests a government or non-government agency to correct or supplement his/her personal data in accordance with paragraph 1 of Article 11 of the PDPA, the data subject shall provide the agency with an adequate explanation therefor.";
@@ -528,7 +529,7 @@ const BLOCKS = [
     },
     {
         src:"Enforcement Rules Article 12, Paragraph 2, Subparagraph 7 (awareness and training)",
-        law:"(One of the measures constituting proper security measures under Article 27, Paragraph 1 of the PDPA.) Promoting awareness, education and training.",
+        law:"The measures prescribed in the preceding paragraph may include the following and shall be proportionate to the intended purposes of personal data protection: … 7. promoting awareness, education and training; …",
         rules:[],
         evi:"Employee privacy training records",
         gcbpr:[["Accountability","44"]],
@@ -537,7 +538,7 @@ const BLOCKS = [
     },
     {
         src:"Enforcement Rules Article 12, Paragraph 2, Subparagraph 9 (data security audit mechanism)",
-        law:"(One of the measures constituting proper security measures under Article 27, Paragraph 1 of the PDPA.) Establishing an audit mechanism of data security.",
+        law:"The measures prescribed in the preceding paragraph may include the following and shall be proportionate to the intended purposes of personal data protection: … 9. establishing an audit mechanism of data security; …",
         rules:[],
         evi:"Records of non-conformities and corrective actions",
         gcbpr:[["Accountability","41","42","43"]],
@@ -546,7 +547,7 @@ const BLOCKS = [
     },
     {
         src:"Enforcement Rules Article 12, Paragraph 2, Subparagraph 10 (records, log files and evidence)",
-        law:"(One of the measures constituting proper security measures under Article 27, Paragraph 1 of the PDPA.) Keeping records, log files and relevant evidence.",
+        law:"The measures prescribed in the preceding paragraph may include the following and shall be proportionate to the intended purposes of personal data protection: … 10. keeping records, log files and relevant evidence; and …",
         rules:[],
         evi:"Audit plan and audit findings",
         gcbpr:[["Security Safeguards","27","30b"]],
@@ -555,7 +556,7 @@ const BLOCKS = [
     },
     {
         src:"PDPA Article 8, Paragraph 1, Subparagraph 5 (informing data subjects of the route in advance)",
-        law:"Non-government agencies shall expressly inform the data subject of the following information when collecting [sic] their personal data in accordance with Article 19 of the PDPA: 5. the data subject's rights under Article 3 and the methods for exercising such rights.",
+        law:"Government or non-government agencies shall expressly inform the data subject of the following information when colleting [sic] their personal data in accordance with Article 15 or 19 of the PDPA: … 5. the data subject's rights under Article 3 and the methods for exercising such rights; …",
         rules:[R16],
         evi:"Privacy statement or notification document",
         gcbpr:[["Notice","1","1f","2","3","4"]],
@@ -637,7 +638,7 @@ const BLOCKS = [
     {
         src:"PDPA Article 4 (commissioned processing)",
         law:"Whoever is commissioned by government agencies or non-government agencies to collect, process or use personal data shall be deemed to be acting on behalf of the commissioning agency to the extent that the PDPA applies.",
-        rules:["Enforcement Rules Article 8: For the purpose of supervision, the commissioning agency shall carry out regular inspections to verify the commissioned agency's performance of the engagement contract and document the findings of such inspections."],
+        rules:["Enforcement Rules Article 8, Paragraph 3: For the purpose of supervision prescribed under paragraph 1, the commissioning agency shall carry out regular inspections to verify the commissioned agency's performance of the engagement contract and document the findings of such inspections."],
         evi:"Documented accountability arrangements with commissioned processors; records of notifications to processors",
         gcbpr:[["Integrity of Personal Information","25"]],
         act:"Tell your commissioned processors to apply the same correction, and check that the outsourcing contract obliges them to report back when they find personal data that is inaccurate, incomplete or out of date.",
@@ -712,10 +713,10 @@ const BLOCKS = [
     {
         src:"PDPA Article 27, Paragraph 1 (technical security of erasure)",
         law:L27_1,
-        rules:[R12_2(5) + " (Erasure should be carried out to a standard that ensures the data cannot be recovered.)"],
+        rules:[ER6, R12_2(5)],
         evi:"Data retention and secure disposal policy; disposal records",
         gcbpr:[["Security Safeguards","31"]],
-        act:"Extend the erasure to backups, logs and any copies held by commissioned processors. Use a method from which the data cannot be recovered and make a disposal record. Where a backup cannot be erased immediately, record how it will be handled and when it will be erased.",
+        act:"Extend the erasure to backups, logs and any copies held by commissioned processors. Use a method from which the data cannot be recovered and make a disposal record. (The provisions in force define deleting only as erasing the data from the file, under Enforcement Rules Article 6; irrecoverability is recommended practice.) Where a backup cannot be erased immediately, record how it will be handled and when it will be erased.",
         urg:2
     }
   ]
@@ -1019,7 +1020,7 @@ function render(){
     <p><b>Special laws and sector regulations</b> Two layers sit above this draft and are not reproduced in it. First, statutes that prevail over the PDPA under the proviso to its Article 1: the Medical Care Act, for instance, requires a copy of a patient&rsquo;s medical records to be provided without undue delay, setting no fixed period and no ground of refusal, and requires an amended entry to be struck through with a line rather than erased. A non-exhaustive catalogue is in 02 Sources and Terminology, Part D. Second, sector-specific regulations issued under Article 27, Paragraph 2 of the PDPA, which have no English text that can be relied on; they are indexed by authority, non-exhaustively, in Part E. Identify both layers for your own sector and read them alongside this draft.</p>
     <p><b>Calculating periods</b> All dates are raw expiry dates obtained by counting days. They do not account for postponement where the final day falls on a holiday, nor for the time required for service. Confirm the actual final day under Article 48 of the Administrative Procedure Act against the official working calendar for the year in question.</p>
     <p><b>Disclaimer</b> This is a working draft for compliance reference and does not constitute legal advice. Provisions should be checked against the versions in force in the Laws &amp; Regulations Database (law.moj.gov.tw). Where the English and Mandarin versions differ, the Mandarin version governs. Consult a qualified lawyer on any specific matter.</p>
-    <p>Taiwan PDPA Compliance Toolkit (Global CBPR Mapped), English Edition  / Document 04, Path B Author: I Jung (Alfred) Tsai Licence: CC BY-NC-SA 4.0 · v1.3-EN</p>
+    <p>Taiwan PDPA Compliance Toolkit (Global CBPR Mapped), English Edition  / Document 04, Path B Author: I Jung (Alfred) Tsai Licence: CC BY-NC-SA 4.0 · v1.4-EN</p>
   </div>`;
 
       out.innerHTML = h;

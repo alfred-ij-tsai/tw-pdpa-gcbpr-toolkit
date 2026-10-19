@@ -163,13 +163,47 @@ a.lang{flex:0 0 auto;font-family:var(--sans);font-size:12px;letter-spacing:.06em
   padding:4px 11px;line-height:1.5;white-space:nowrap;align-self:center}
 a.lang:hover{border-color:var(--ink);color:var(--ink)}
 @media print{a.lang{display:none}}
+
+/* v1.4：施行細則與附註收合、收合標籤深藍、表尾版本異動紀錄、表頭警語收合 */
+details.gc summary{color:#1F3864!important;font-weight:600;border-bottom-color:#1F3864!important}
+details.rl{margin:0 0 9px}
+details.rl summary{cursor:pointer;font-size:12.5px;color:#1F3864;font-weight:600;list-style:none;display:inline-block;border-bottom:1px dotted #1F3864}
+details.rl summary::-webkit-details-marker{display:none}
+details.rl summary::before{content:"＋ ";font-family:var(--mono)}
+details.rl[open] summary::before{content:"− "}
+details.rl .body{margin-top:8px}
+details.rl .body .rule:last-child{margin-bottom:0}
+a.eylink{font-size:12.5px;color:#1F3864;margin-left:6px;white-space:nowrap}
+details.chg{margin:26px 0 0;border:1px solid var(--rule);background:#FAFBFC}
+details.chg summary{cursor:pointer;padding:12px 18px;font-size:13.5px;color:var(--ink-2);font-weight:600}
+details.chg table{width:100%;border-collapse:collapse;font-size:12.5px;line-height:1.7}
+details.chg th{background:#1F3864;color:#fff;text-align:left;padding:7px 10px;font-weight:600}
+details.chg td{padding:7px 10px;border-top:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-2)}
+details.chg td.v{font-family:var(--mono);white-space:nowrap;color:var(--seal)}
+details.chg td a{color:var(--ink)}
+details.chg .cn{font-size:12px;color:var(--muted);margin:8px 18px 12px}
+details.disc{margin:0}
+details.disc>summary{cursor:pointer;list-style:none;color:var(--seal);font-weight:600;font-size:14px;padding:10px 14px;border:1px solid var(--seal);background:var(--seal-soft)}
+details.disc>summary::-webkit-details-marker{display:none}
+details.disc>summary::before{content:"⚠ ";}
+details.disc>summary::after{content:"  + open";font-weight:400;font-size:12.5px}
+details.disc[open]>summary::after{content:"  − close"}
+details.disc>p{margin-top:0!important}
+@media print{details.chg{display:none}}
+.rec{display:grid;grid-template-columns:30px 1fr;column-gap:10px;align-items:start}
+.rec>.ck{display:flex;align-items:center;justify-content:center;width:30px;height:30px;margin-top:-3px;cursor:pointer;border:1px solid var(--rule);background:#fff}
+.rec>.ck:hover{border-color:var(--ink)}
+.rec>.ck input{accent-color:var(--seal);width:18px;height:18px;margin:0;cursor:pointer}
+.rec.picked>.ck{border-color:var(--seal);background:var(--seal-soft)}
+.rec .rb{min-width:0}
+@media print{.rec{display:block}.rec>.ck{display:none}}
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="inner">
-    <div class="langbar"><p class="eyebrow"><a href="index.html">Taiwan PDPA Compliance Toolkit</a> / Document 03 · v1.3-EN</p><a class="lang" href="../table-03.html" title="以繁體中文閱讀本頁" rel="alternate">中文</a></div>
+    <div class="langbar"><p class="eyebrow"><a href="index.html">Taiwan PDPA Compliance Toolkit</a> / Document 03 · v1.4-EN</p><a class="lang" href="../table-03.html" title="以繁體中文閱讀本頁" rel="alternate">中文</a></div>
     <h1>Personal Data Lifecycle Compliance Table</h1>
     <p class="sub">Collection → Processing → Use → Storage → Transmission → Cross-border transfer → Erasure and disposal, an arrangement worked out by the author from the PDPA rather than a statutory classification. For each stage: the statutory obligation, the corresponding Enforcement Rules provision, the supporting records to hold, and the mapping to the Global CBPR System Program Requirements.</p>
   </div>
@@ -180,15 +214,17 @@ a.lang:hover{border-color:var(--ink);color:var(--ink)}
   <p><b>How to use this table</b> The table is organised by lifecycle stage. The Global CBPR column is taken from the Annex B Enforcement Map for Chinese Taipei; it is collapsed by default, and expands to show the full question text for each mapped requirement.
  Incident obligations are in <a href="table-05.html">05 Incident Table</a>; data subject rights are in <a href="table-04.html">04 DSAR Table</a>.
  For Path A, tick the obligations you want to compare, then export a prompt you can hand to an AI assistant together with the full text of the sector-specific regulation that applies to your organisation.
-  <b>Provisions are quoted only to the extent that they apply to non-government agencies</b>: where a provision addresses government and non-government agencies together (Articles 8, 9 and 12, for example), only the part applicable to non-government agencies is reproduced. The full text is in the Laws &amp; Regulations Database.</p>
+  <b>Provisions are quoted verbatim</b>: where a provision addresses government and non-government agencies together (Articles 8, 9 and 12, for example), the parts that concern government agencies only do not apply to non-government agencies. Omissions are marked with an ellipsis (…).</p>
 </div>
 
 <div class="usage" style="padding-top:10px">
-  <p style="border-left-color:var(--amber);background:var(--amber-soft)"><b>What you are looking at is a preliminary analysis.</b>
+  <details class="disc"><summary>Read before use: this table is a preliminary analysis</summary>
+  <p style="border-left-color:var(--seal);background:#fff"><b>What you are looking at is a preliminary analysis.</b>
   This table reflects only the general rules: the PDPA and its Enforcement Rules. Two further layers of Taiwanese law sit above it and are not reproduced here, and either can change the obligations set out below.<br>
   <b>Statute-level special laws.</b> Article 1 of the PDPA provides that other laws prevail where they provide otherwise. Article 177-1 of the Insurance Act, for instance, allows insurance enterprises and their agents and brokers to collect, process and use data on medical records, healthcare and physical examinations with the written consent of the data subject, displacing the ordinary Article 6 analysis for the entire insurance sector. A non-exhaustive catalogue is in <a href="table-02.html#special">Part D</a>.<br>
   <b>Sector-specific regulations.</b> Under Article 27, Paragraph 2 of the PDPA, a central government authority may designate non-government agencies to establish a security and maintenance plan; many such regulations are in force and none has an English text you can rely on. They are indexed by authority, non-exhaustively, in <a href="table-02.html#sector">Part E</a>.<br>
   For a more accurate analysis, identify what applies to your organisation in Parts D and E, obtain the Mandarin text, and use the Path A export panel to generate a prompt that folds it in clause by clause.</p>
+  </details>
 </div>
 
 <div class="wrap">
@@ -210,7 +246,7 @@ a.lang:hover{border-color:var(--ink);color:var(--ink)}
 
     <h3>Path A: compare against your sector regulation</h3>
     <div class="pa">
-      <p class="pa-hint">Tick the obligations you want compared, then export a prompt. Paste it into an AI assistant together with the full text of the regulation that applies to your organisation.</p>
+      <p class="pa-hint">Tick the box to the left of each obligation you want compared, then export a prompt. Paste it into an AI assistant together with the full text of the regulation that applies to your organisation.</p>
       <p class="pa-count">Selected: <b id="pa_n">0</b></p>
       <button class="mini" id="pa_all">Select all currently shown</button>
       <button class="mini" id="pa_clear">Clear selection</button>
@@ -225,11 +261,11 @@ a.lang:hover{border-color:var(--ink);color:var(--ink)}
 <div class="foot">
   <p><b>Versions relied on</b> Personal Data Protection Act: official English translation of the provisions in force, amended 31 May 2023. The amendments of 11 November 2025 are not yet in force; their enforcement date is to be set by the Executive Yuan. Enforcement Rules of the Personal Data Protection Act: official English translation, amended 2 March 2016.</p>
   <p><b>Mapping baseline</b> Global CBPR System Program Requirements Enforcement Map for Chinese Taipei (Annex B). Question text is reproduced from the English column of that document.</p>
-  <p><b>Scope</b> This table assumes a non-government agency. The security and maintenance obligations of government agencies fall under Article 18 of the PDPA and are outside its scope. Provisions are quoted only to the extent that they apply to non-government agencies.</p>
+  <p><b>Scope</b> This table assumes a non-government agency. The security and maintenance obligations of government agencies fall under Article 18 of the PDPA and are outside its scope. Only provisions that apply to non-government agencies are quoted, and they are quoted verbatim; where a provision also addresses government agencies, the parts that concern government agencies only do not apply.</p>
   <p><b>Special laws and sector regulations</b> This table sets out the PDPA baseline only. Neither the statutes that prevail over the PDPA under the proviso to its Article 1, nor the sector-specific regulations issued under its Article 27, Paragraph 2, are reproduced here. See the non-exhaustive catalogue in 02 Sources and Terminology, Part D, and the non-exhaustive index of sector-specific regulations in Part E, and satisfy yourself independently as to which apply to your sector.</p>
   <p><b>Editorial corrections</b> Where the official English translation contains a typographical error, the corrected word is given and marked [sic], with the original noted in the editorial note on that row.</p>
   <p><b>Disclaimer</b> This table is a compliance reference and does not constitute legal advice. Provisions should be checked against the versions in force in the Laws &amp; Regulations Database (law.moj.gov.tw). Where the English and Mandarin versions differ, the Mandarin version governs. Consult a qualified lawyer on any specific matter.</p>
-  <p>Taiwan PDPA Compliance Toolkit (Global CBPR Mapped), English Edition  / Document 03 Author: I Jung (Alfred) Tsai Licence: CC BY-NC-SA 4.0 · v1.3-EN</p>
+  <p>Taiwan PDPA Compliance Toolkit (Global CBPR Mapped), English Edition  / Document 03 Author: I Jung (Alfred) Tsai Licence: CC BY-NC-SA 4.0 · v1.4-EN</p>
 </div>
 </div>
 
@@ -455,8 +491,23 @@ const R16 = "Enforcement Rules Article 16: The obligation to inform data subject
 const R19 = "Enforcement Rules Article 19: When a data subject requests a government or non-government agency to correct or supplement his/her personal data in accordance with paragraph 1 of Article 11 of the PDPA, the data subject shall provide the agency with an adequate explanation therefor.";
 const R20 = "Enforcement Rules Article 20: \"When the specific purpose of data collection no longer exists\" referred to under paragraph 3 of Article 11 of the PDPA shall mean any of the following circumstances: 1. the government agency has been dissolved or reorganized without another agency to take over its tasks; 2. the non-government agency has ceased its business or been dissolved without another agency to take over its business, or the non-government agency has changed the scope of its business, thereby causing the purpose for which the personal data were collected to be no longer applicable; 3. the specific purpose has been reached, and there is therefore no longer necessary to continue the processing and use of personal data; or 4. other circumstances where the specific purpose evidently can no longer be reached or no longer exists.";
 const R21 = "Enforcement Rules Article 21: \"Necessary for the performance of an official or business duty\", as referred to in the proviso to paragraph 3 of Article 11 of the PDPA, shall mean any of the following circumstances: 1. where a retention period is prescribed by laws or regulations, or agreed upon under a contract; 2. where there are sufficient reasons to believe that the deletion of the personal data will infringe upon the data subject's interests that warrant protection; or 3. where there are other legitimate reasons for not erasing the personal data.";
-const R8_FULL = "Enforcement Rules Article 8: The collection, processing or use of personal data by the commissioned legal person, group or natural person shall comply with the same laws and regulations applicable to the commissioning agency. When commissioning another to collect, process or use personal data, the commissioning agency shall properly supervise the commissioned agency. The scope of supervision shall include at least the following: 1. the planned scope, category, specific purpose and time period of the collection, processing or use of personal data; 2. the measures taken by the commissioned agency in accordance with paragraph 2 of Article 12; 3. the third party, if any, further commissioned by the commissioned agency; 4. the information that must be notified to the commissioning agency and the remedial measures that must be taken in the event that the commissioned agency or its employees violate(s) the PDPA or other laws and regulations relating to the protection of personal data; 5. any reserved matters for which the commissioned agency is required to obtain prior instructions from the commissioning agency; and 6. the return of any medium containing personal data and the deletion of any personal data stored and possessed by the commissioned agency due to its performance of the engagement contract, upon the termination or cancellation thereof. For the purpose of supervision, the commissioning agency shall carry out regular inspections to verify the commissioned agency's performance of the engagement contract and document the findings of such inspections.";
-const R8_SHORT = "Enforcement Rules Article 8: When commissioning another to collect, process or use personal data, the commissioning agency shall properly supervise the commissioned agency. For the purpose of supervision, the commissioning agency shall carry out regular inspections to verify the commissioned agency's performance of the engagement contract and document the findings of such inspections.";
+const R7 = "Enforcement Rules Article 7: The collection, processing or use of personal data by the commissioned legal person, group or natural person shall comply with the same laws and regulations applicable to the commissioning agency.";
+const R8_FULL = "Enforcement Rules Article 8: When commissioning another to collect, process or use personal data, the commissioning agency shall properly supervise the commissioned agency. (Paragraph 1) The scope of supervision prescribed in the preceding paragraph shall include at least the followings: 1. the planned scope, category, specific purpose and time period of the collection, processing or use of personal data; 2. the measures taken by the commissioned agency in accordance with paragraph 2 of Article 12; 3. the third party, if any, further commissioned by the commissioned agency; 4. the information that must be notified to the commissioning agency and the remedial measures that must be taken in the event that the commissioned agency or its employees violate(s) the PDPA or other laws and regulations relating to the protection of personal data; 5. any reserved matters for which the commissioned agency is required to obtain prior instructions from the commissioning agency; and 6. the return of any medium containing personal data and the deletion of any personal data stored and possessed by the commissioned agency due to its performance of the engagement contract between the commissioning agency and the commissioned agency, upon the termination or cancellation thereof. (Paragraph 2) For the purpose of supervision prescribed under paragraph 1, the commissioning agency shall carry out regular inspections to verify the commissioned agency's performance of the engagement contract and document the findings of such inspections. (Paragraph 3) The commissioned agency may collect, process or use personal data but only to the extent within the commissioning agency's instructions. If the commissioned agency considers that the commissioning agency's instructions are in contravention of the PDPA or other laws and regulations relating to the protection of personal data, the commissioned agency shall forthwith notify the commissioning agency. (Paragraph 4)";
+const R8_SHORT = "Enforcement Rules Article 8: When commissioning another to collect, process or use personal data, the commissioning agency shall properly supervise the commissioned agency. (Paragraph 1) … For the purpose of supervision prescribed under paragraph 1, the commissioning agency shall carry out regular inspections to verify the commissioned agency's performance of the engagement contract and document the findings of such inspections. (Paragraph 3)";
+
+/* v1.4: further Enforcement Rules provisions (official English translation, amended 2 March 2016) */
+const ER2 = "Enforcement Rules Article 2: A \"person\" or \"individual\", as referred to under the PDPA, shall mean a living natural person.";
+const ER3 = "Enforcement Rules Article 3: The circumstances where a data subject can be \"indirectly identified\", as referred to under subparagraph 1, paragraph 1 of Article 2 of the PDPA, shall mean the circumstances where a government or non-government agency possessing such data cannot directly identify the data subject, unless it compares, combines or connects such data with other data.";
+const ER4 = "Enforcement Rules Article 4: Personal data pertaining to a person's \"medical records\", as referred to under subparagraph 1, paragraph 1 of Article 2 of the PDPA, shall mean the data specified in the subparagraphs of paragraph 2 of Article 67 of the Medical Care Act. Personal data pertaining to a person's \"healthcare data\", as referred to under subparagraph 1, paragraph 1 of Article 2 of the PDPA, shall mean medical histories and any other data pertaining to checkups or treatments implemented by physicians or other medical professionals for the purpose of treating, correcting or preventing diseases, harms or disabilities of the human body or for other legitimate medical reasons, or shall mean other data produced from the prescription, medication, operation or disposition based on the findings of the above-mentioned checkups. Personal data pertaining to a person's \"genetic data\", as referred to under subparagraph 1, paragraph 1 of Article 2 of the PDPA, shall mean the information on a heredity unit, consisting of one segment of deoxyribonucleic acid (DNA) of the human body, for controlling the specific functions thereof. Personal data pertaining to a person's \"sex life\", as referred to under subparagraph 1, paragraph 1 of Article 2 of the PDPA, shall mean the personal data on sexual orientation or sexual habits. Personal data pertaining to a person's \"records of physical examination\", as referred to under subparagraph 1, paragraph 1 of Article 2 of the PDPA, shall mean the data produced by medical examinations conducted not for the purpose of diagnosing or treating a specific disease. Personal data pertaining to a person's \"criminal records\", as referred to under subparagraph 1, paragraph 1 of Article 2 of the PDPA, shall mean the records of deferred prosecutions, ex officio non-indictments, or a final guilty verdict rendered by a court and its enforcement.";
+const ER5 = "Enforcement Rules Article 5: \"Personal data file\", as referred to under subparagraph 2, paragraph 1 of Article 2 of the PDPA, includes the backup file(s).";
+const ER6 = "Enforcement Rules Article 6, Paragraph 1: \"Deleting\", as referred to under subparagraph 4, paragraph 1 of Article 2 of the PDPA, shall mean to erase the personal data from the personal data file.";
+const ER9 = "Enforcement Rules Article 9: \"Law\", as referred to under subparagraph 1 of the proviso to paragraph 1 of Article 6, subparagraph 1, paragraph 2 of Article 8, subparagraph 1 of the proviso to paragraph 1 of Article 16, subparagraph 1, paragraph 1 of Article 19, and subparagraph 1 of the proviso to paragraph 1 of Article 20 of the PDPA, shall mean laws, or those regulations specifically and expressly authorized by laws.";
+const ER11 = "Enforcement Rules Article 11: \"Statutory obligations\", as referred to under subparagraphs 2 and 5 of the proviso to paragraph 1 of Article 6, and subparagraph 2, paragraph 2 of Article 8 of the PDPA, shall mean the obligations of non-government agencies prescribed by laws or those regulations specifically and expressly authorized by laws.";
+const ER13 = "Enforcement Rules Article 13: Personal data \"manifestly made public by the data subject\", as referred to under subparagraph 3 of the proviso to paragraph 1 of Article 6, subparagraph 2, paragraph 2 of Article 9, and subparagraph 3, paragraph 1 of Article 19 of the PDPA, shall mean the personal data voluntarily disclosed by the data subject to non-specific persons or a large number of specific persons. Personal data \"publicized legally\", as referred to under subparagraph 3 of the proviso to paragraph 1 of Article 6, subparagraph 2, paragraph 2 of Article 9, and subparagraph 3, paragraph 1 of Article 19 of the PDPA, shall mean personal data that has been published, publicly announced or disclosed to the public through other lawful means in accordance with laws or those regulations specifically and expressly authorized by laws.";
+const ER17 = "Enforcement Rules Article 17: \"May not lead to the identification of a specific data subject\", as referred to under subparagraph 4 of the proviso to paragraph 1 of Article 6, subparagraph 4, paragraph 2 of Article 9, subparagraph 5 of the proviso to paragraph 1 of Article 16, subparagraph 4, paragraph 1 of Article 19, and subparagraph 5 of the proviso to paragraph 1 of Article 20 of the PDPA, shall mean the personal data replaced with codes, deleted data subject’s name, partially concealed, or processed via other means to the extent that the data subject may not be directly identified.";
+const ER26 = "Enforcement Rules Article 26: A \"contractual or quasi-contractual relationship\", as referred to under subparagraph 2, paragraph 1 of Article 19 of the PDPA, is not limited to the relationship formed after the amendment to the PDPA has taken into effect.";
+const ER27 = "Enforcement Rules Article 27: A \"contractual relationship\", as referred to under subparagraph 2, paragraph 1 of Article 19 of the PDPA, shall include the contractual relationship between a non-government agency and a data subject, and also the relationship where a non-government agency and a data subject are either contacting, negotiating or communicating with, receiving delivery from or making delivery to a necessary third party for the purpose of performing the contract between the non-government agency and the data subject. A \"quasi-contractual relationship\", as referred to under subparagraph 2, paragraph 1 of Article 19 of the PDPA, shall mean any of the following: 1. any relationships involving the contact and negotiation between a non-government agency and a data subject before the execution of a contract for the purpose of preparing for or negotiating the terms of such contract or transaction; or 2. any relationships involving the communication between a non-government agency and a data subject upon the extinguishment of a contract due to the invalidation, rescission, cancellation or termination thereof or upon the complete performance of a contract, for the purpose of exercising their rights, performing their obligations, or ensuring the integrity of the personal data.";
+const ER28 = "Enforcement Rules Article 28: \"Publicly available sources\", as referred to under subparagraph 7, paragraph 1 of Article 19 of the PDPA, shall mean mass media, the Internet, news, magazines, government gazettes and other channels through which the general public may become aware of or come in contact with and then subsequently obtain personal data.";
 
 /* Statutory text reused across many records */
 const L27_1 = "Non-government agencies in possession of personal data files shall implement proper security measures to prevent the personal data from being stolen, altered, damaged, destroyed or disclosed.";
@@ -468,6 +519,24 @@ const L22_1 = "The central government authorities in charge of the industries co
 
 const STAGES = [
 { no:"I", name:"Collection", key:"collect", items:[
+  {
+        id:"c-02",
+        src:"PDPA Article 2, Subparagraphs 1 and 2 (what counts as personal data)",
+        law:"1. \"personal data\" refers to a natural person's name, date of birth, national identification Card number, passport number, physical characteristics, fingerprints, marital status, family information, education background, occupation, medical records, healthcare data, genetic data, sex life, records of physical examination, criminal records, contact information, financial conditions, social activities and any other information that may be used to directly or indirectly identify a natural person; (Subparagraph 1) 2. a \"personal data file\" refers to a collection of personal data structured to facilitate data retrieval and management by automated or non-automated means; (Subparagraph 2)",
+        rules:[ER2, ER3, ER5],
+        evi:"Personal data inventory recording, for each data set, why it is or is not personal data",
+        gcbpr:[],
+        note:"Whether the PDPA applies at all turns on this row, so it comes before every other obligation. Data that cannot identify a person directly is still personal data if the holder can identify the person by comparing, combining or connecting it with other data (Rules Article 3); data about deceased persons falls outside the PDPA (Rules Article 2); and backup files form part of the personal data file (Rules Article 5). The Global CBPR Annex B Enforcement Map contains no question on the definition of personal information.", changes:[["v1.4-EN","Row added."], ["v1.4-EN","Subparagraph numbering, capitalisation and punctuation now follow the official translation."]]
+  },
+  {
+        id:"c-51",
+        src:"PDPA Article 51 (where the PDPA does not apply; extraterritorial reach)",
+        law:"The PDPA does not apply to the following circumstances: 1. where personal data is being collected, processed, or used by a natural person purely for purposes of personal or household activities; or 2. where audio-visual data is collected, processed, or used in public places or public activities and not connected to other personal data. (Paragraph 1) The PDPA also applies to the government and the non-government agencies outside the territory of the Republic of China (R.O.C) when they collect, process or use the personal data of R.O.C. nationals. (Paragraph 2)",
+        rules:[],
+        evi:"Records of the assessment where an exclusion is relied on",
+        gcbpr:[],
+        note:"Subparagraph 2 is read narrowly. The National Development Council has taken the view that audiovisual data collected by a non-government agency for business purposes falls outside this exclusion (Letter Fa-Fa-Zi No. 1100010412, 31 May 2021), so CCTV in shops and offices remains subject to the PDPA.", changes:[["v1.4-EN","Row added."]]
+  },
   {
         id:"c-05",
         src:"PDPA Article 5 (proportionality)",
@@ -496,12 +565,12 @@ const STAGES = [
   },
   {
         id:"c-08-1",
-        src:"PDPA Article 8, Paragraph 1 (obligation to inform)",
-        law:"Non-government agencies shall expressly inform the data subject of the following information when collecting [sic] their personal data in accordance with Article 19 of the PDPA: 1. the name of the non-government agency; 2. the purpose of the collection; 3. the categories of the personal data to be collected; 4. the time period, territory, recipients, and methods of which the personal data is used; 5. the data subject's rights under Article 3 and the methods for exercising such rights; and 6. the data subject's rights and interests that will be affected if he/she elects not to provide his/her personal data.",
-        rules:[R16],
+        src:"PDPA Article 8, Paragraphs 1 and 2 (obligation to inform; when it may be waived)",
+        law:"Government or non-government agencies shall expressly inform the data subject of the following information when colleting [sic] their personal data in accordance with Article 15 or 19 of the PDPA: 1. the name of the government or non-government agency; 2. the purpose of the collection; 3. the categories of the personal data to be collected; 4. the time period, territory, recipients, and methods of which the personal data is used; 5. the data subject's rights under Article 3 and the methods for exercising such rights; and 6. the data subject's rights and interests that will be affected if he/she elects not to provide his/her personal data. (Paragraph 1) The obligation to inform as prescribed in the preceding paragraph may be waived under any of the following circumstances: 1. where notification may be waived in accordance with the law; 2. where the collection of personal data is necessary for the government agencies to perform their statutory duties or the non-government agencies to fulfill their statutory obligation; 3. where giving notice will prevent the government agencies from performing their statutory duties; 4. where giving notice will harm public interests; 5. where the data subject has already known the content of the notification; or 6. where the collection of personal data is for non-profit purposes and clearly has no adverse effect on the data subject. (Paragraph 2)",
+        rules:[R16, ER9, ER11],
         evi:"Privacy statement or notification document",
         gcbpr:[["Notice","1","1a","1b","1c","1d","1e","1f","2","3","4"]],
-        note:"The official English translation of this paragraph reads \"colleting\"; corrected here to \"collecting\" and marked [sic]. The official text addresses government and non-government agencies together and refers to Article 15 or 19; only the part applicable to non-government agencies is reproduced."
+        note:"\"colleting\" [sic] is reproduced as it appears in the official English translation. The Article addresses government and non-government agencies together; the parts that concern government agencies only (such as Paragraph 2, Subparagraph 3) do not apply to non-government agencies. Paragraph 2, the circumstances in which the obligation may be waived, is reproduced in full because Article 9, Paragraph 2 incorporates it by reference.", changes:[["v1.4-EN","Paragraph 2 (when notice may be waived) and Enforcement Rules Articles 9 and 11 added."], ["v1.4-EN","Paragraph 1 was rewritten to cover non-government agencies only; it is now quoted as in the official translation."]]
   },
   {
         id:"c-09",
@@ -516,9 +585,10 @@ const STAGES = [
         id:"c-19-1",
         src:"PDPA Article 19, Paragraph 1 (specific purpose and lawful basis for collection or processing)",
         law:L19_1,
-        rules:[R12_1],
+        rules:[R12_1, ER9, ER13, ER17, ER26, ER27, ER28],
         evi:"Documented lawful basis for collection",
-        gcbpr:[["Collection Limitation","7"]]
+        gcbpr:[["Collection Limitation","7"]],
+        changes:[["v1.4-EN","Enforcement Rules Articles 9, 13, 17, 26, 27 and 28 added."]]
   },
   {
         id:"c-19-2",
@@ -533,10 +603,10 @@ const STAGES = [
         id:"c-06-1",
         src:"PDPA Article 6, Paragraph 1 (Article 6 personal data, 'sensitive data')",
         law:"Data pertaining to a natural person's medical records, healthcare, genetics, sex life, physical examination and criminal records shall not be collected, processed or used unless on any of the following bases: 1. where it is expressly required by law; 2. where it is within the necessary scope for a government agency to perform its statutory duties or for a non-government agency to fulfill its statutory obligation, provided that proper security and maintenance measures are adopted prior or subsequent to such collection, processing or use of personal data; 3. where the personal data has been manifestly made public by the data subject or publicized legally; 4. where it is necessary for statistics gathering or academic research by a government agency or an academic institution for the purpose of healthcare, public health, or crime prevention, provided that such data, as processed by the data provider or as disclosed by the data collector, may not lead to the identification of a specific data subject; 5. where it is necessary to assist a government agency in performing its statutory duties or a non-government agency in fulfilling its statutory obligations, provided that proper security and maintenance measures are adopted prior or subsequent to such collection, processing, or use of personal data; or 6. where the data subject has consented to the collection, processing and use of his/her personal data in writing, except where the collection, processing or use exceeds the necessary scope of the specific purpose, or where the collection, processing or use based solely on the consent of the data subject is otherwise prohibited by law, or where such consent is not given by the data subject out of his/her free will.",
-        rules:["Enforcement Rules Article 14: In accordance with the Electronic Signatures Act, a data subject's \"consent in writing\", as referred to under subparagraph 6 of the proviso to paragraph 1 of Article 6, paragraph 2 and 3 of the proviso to Article 11 of the PDPA, may be given in an electronic form."],
+        rules:[ER4, ER9, ER11, ER13, ER17, "Enforcement Rules Article 14: In accordance with the Electronic Signatures Act, a data subject's \"consent in writing\", as referred to under subparagraph 6 of the proviso to paragraph 1 of Article 6, paragraph 2 and 3 of the proviso to Article 11 of the PDPA, may be given in an electronic form."],
         evi:"Records of the assessment carried out before collecting Article 6 personal data",
         gcbpr:[["Collection Limitation","5","6","7"]],
-        note:"The PDPA has no collective English term for these categories. This toolkit calls them \"Article 6 personal data ('sensitive data')\". Note that the Global CBPR Annex B Enforcement Map does not use the term \"sensitive\" at all and has no equivalent category. Note also that Article 6, Paragraph 2 of the Mandarin text requires the Subparagraph 6 consent to be given in writing; the official English translation omits that requirement."
+        note:"The PDPA has no collective English term for these categories. This toolkit calls them \"Article 6 personal data ('sensitive data')\". Note that the Global CBPR Annex B Enforcement Map does not use the term \"sensitive\" at all and has no equivalent category. Note also that Article 6, Paragraph 2 of the Mandarin text requires the Subparagraph 6 consent to be given in writing; the official English translation omits that requirement.", changes:[["v1.4-EN","Enforcement Rules Articles 4, 9, 11, 13 and 17 added."]]
   },
   {
         id:"c-27-1-a",
@@ -586,9 +656,10 @@ const STAGES = [
         id:"p-04",
         src:"PDPA Article 4 (commissioned processing)",
         law:L4,
-        rules:[R8_FULL],
+        rules:[R7, R8_FULL],
         evi:"Contracts with commissioned processors and records of supervision",
-        gcbpr:[["Security Safeguards","35"]]
+        gcbpr:[["Security Safeguards","35"]],
+        changes:[["v1.4-EN","Enforcement Rules Article 7 separated from Article 8; Article 8 now quoted in full as in the official translation."]]
   }
 ]},
 
@@ -669,7 +740,9 @@ const STAGES = [
 
 { no:"V", name:"Transmission (domestic)", key:"transfer", items:[
   { id:"t-27-1", src:"PDPA Article 27, Paragraph 1 (security in transmission)", law:L27_1, rules:[R12_1], evi:"Documented rules and agreements on secure transmission", gcbpr:[["Security Safeguards","35"]] },
-  { id:"t-04", src:"PDPA Article 4 (commissioned processing: the transmission aspect)", law:L4, rules:[R8_SHORT], evi:"Documented accountability arrangements with commissioned processors", gcbpr:[["Accountability","46","47","48","49"]] }
+  { id:"t-04", src:"PDPA Article 4 (commissioned processing: the transmission aspect)", law:L4, rules:[R8_SHORT], evi:"Documented accountability arrangements with commissioned processors", gcbpr:[["Accountability","46","47","48","49"]],
+        changes:[["v1.4-EN","Enforcement Rules Article 8, Paragraph 3 now quoted as in the official translation (\"prescribed under paragraph 1\")."]]
+ }
 ]},
 
 { no:"VI", name:"Cross-border transfer", key:"cross", items:[
@@ -680,7 +753,7 @@ const STAGES = [
         rules:[],
         evi:"Cross-border transfer assessment and documented safeguards",
         gcbpr:[["Accountability","50"]],
-        note:"Article 21 operates as a power to restrict, not as a prior authorisation requirement: a cross-border transfer is permissible unless the competent authority has imposed a restriction. Note also that in Annex B the word \"transfer\" refers to transfers to processors rather than to cross-border movement."
+        note:"Article 21 operates as a power to restrict, not as a prior authorisation requirement: a cross-border transfer is permissible unless the competent authority has imposed a restriction. Note also that in Annex B the word \"transfer\" refers to transfers to processors rather than to cross-border movement. Restrictions on cross-border transfer currently in force (non-exhaustive; check the issuing authority's announcements before relying on this list; the English descriptions are for identification only, as all of these instruments are in Mandarin only): (1) Ministry of Health and Welfare, social worker offices, transfer to mainland China, Wei-Bu-Jiu-Zi No. 1111360009, 21 January 2022, effective immediately; (2) Ministry of Labor, private employment service agencies (human resources recruitment industry), transfer to mainland China, Announcement Lao-Dong-Fa-Guan-Zi No. 1120500319A, 20 February 2023, effective immediately; (3) Ministry of Health and Welfare, western pharmaceutical wholesalers and retailers, transfer to mainland China, Hong Kong and Macao, Wei-Shou-Shi-Zi No. 1149037011, 30 September 2025, effective 1 October 2026, subject to the exceptions listed in that instrument. These three were issued under Article 21, Subparagraph 3. In addition, National Communications Commission Order Tong-Chuan-Tong-Xun-Zi No. 10141050780 of 25 September 2012, restricting communications and broadcasting enterprises from transferring subscribers' personal data to mainland China, was issued under Article 24, Subparagraph 3 of the former Computer-Processed Personal Data Protection Act and remains in effect. Violating such a restriction is itself sanctionable: Article 47, Subparagraph 4 provides a fine, and Article 41 a criminal penalty where the violation is committed with intent to obtain an unlawful gain for oneself or a third party, or to harm another, and is sufficient to cause damage. Two approval regimes operate differently from an Article 21 restriction, because they require prior approval rather than empowering the authority to restrict: first, under Article 15 of the Human Biobank Management Act (a statute), any cross-border transfer of biobank data, or export of derivatives, requires the approval of the competent authority, and specimens other than derivatives may not be exported at all (see 02 Sources and Terminology, Part D1); second, under Article 18 of the Financial Supervisory Commission's regulations on outsourcing by financial institutions (金融機構作業委託他人處理內部作業制度及程序辦法), a financial institution that outsources material retail financial business information systems overseas must first apply to the competent authority for approval, and must assure that the service provider's use, processing and safekeeping of customer information comply with the PDPA.", changes:[["v1.4-EN","Note on the cross-border transfer restrictions in force and the prior-approval regimes added."]]
   },
   { id:"x-27-1", src:"PDPA Article 27, Paragraph 1 (security in cross-border transfer)", law:L27_1, rules:[R12_1], evi:"Documented rules and agreements on secure transmission", gcbpr:[["Uses of Personal Information","10","12"]] }
 ]},
@@ -690,22 +763,21 @@ const STAGES = [
         id:"d-11-3-4",
         src:"PDPA Article 11, Paragraphs 3 and 4 (obligation to erase)",
         law:L11_3 + " (Paragraph 3) Government or non-government agencies shall, on their own initiative or upon the request of the data subject, erase the personal data collected or cease collecting, processing or using the personal data in the event where the collection, processing or use of the personal data is in violation of the PDPA. (Paragraph 4)",
-        rules:[R20, R21],
+        rules:[ER6, R20, R21],
         evi:"Data retention and secure disposal policy",
         gcbpr:[["Security Safeguards","31"]],
-        note:"Paragraph 4 contains no proviso. Where data was collected, processed or used in violation of the PDPA, the proviso to Paragraph 3 cannot be relied on to refuse erasure."
+        note:"Paragraph 4 contains no proviso. Where data was collected, processed or used in violation of the PDPA, the proviso to Paragraph 3 cannot be relied on to refuse erasure.", changes:[["v1.4-EN","Enforcement Rules Article 6 added."]]
   },
   {
         id:"d-12",
         src:"PDPA Article 12 (notification of the data subject after an infringement)",
-        law:"If any personal data is stolen, disclosed, altered, or otherwise infringed upon due to a violation of the PDPA by a non-government agency, the data subject shall be notified via appropriate means after the relevant facts have been clarified.",
+        law:"If any personal data is stolen, disclosed, altered, or otherwise infringed upon due to a violation of the PDPA by a government or non-government agency, the data subject shall be notified via appropriate means after the relevant facts have been clarified.",
         rules:[
-      "Enforcement Rules Article 22: A notification given via \"appropriate means\", as referred to under Article 12 of the PDPA, shall mean a notification that is given in a prompt manner via verbal words, in writing, over the phone, via text messages, email, fax, electronic documents or other means that can effectively make the information known or available to the data subjects. However, if such notification entails disproportionate costs, a government or non-government agency may, taking into consideration the technical feasibility and privacy protection of the data subjects, notify the data subjects through the Internet, the media or other proper and public means.",
-      "Enforcement Rules Article 23: A notification given under Article 12 of the PDPA shall include the facts pertaining to the data breach and the response measures already adopted to address such breach of personal data."
+      "Enforcement Rules Article 22: A notification given via \"appropriate means\", as referred to under Article 12 of the PDPA, shall mean a notification that is given in a prompt manner via verbal words, in writing, over the phone, via text messages, email, fax, electronic documents or other means that can effectively make the information known or available to the data subjects. However, if such notification entails disproportionate costs, a government or non-government agency may, taking into consideration the technical feasibility and privacy protection of the data subjects, notify the data subjects through the Internet, the media or other proper and public means. (Paragraph 1) A notification given under Article 12 of the PDPA shall include the facts pertaining to the data breach and the response measures already adopted to address such breach of personal data. (Paragraph 2)"
     ],
         evi:"Documented detection, prevention and response measures, including notification of data subjects after a privacy infringement",
         gcbpr:[["Security Safeguards","32","35b"]],
-        note:"In the official English translation the means of notification (Rules Article 22) and the required content (Rules Article 23) are separate provisions; both are reproduced here. Under the provisions currently in force there is no obligation on a non-government agency to report an incident to the competent authority. Article 12, Paragraph 2 as amended on 11 November 2025 would introduce one, but is not yet in force."
+        note:"Under the provisions currently in force there is no obligation on a non-government agency to report an incident to the competent authority. Article 12, Paragraph 2 as amended on 11 November 2025 would introduce one, but is not yet in force. The Ministry of Justice has interpreted Article 12 to mean that confirming the agency's own legal liability is not a prerequisite for the duty to notify; where verifying the facts takes time, notice should not be withheld until a violation is established (Letter Fa-Lu-Zi No. 10603503230, 5 June 2017, addressed to a government agency).", changes:[["v1.4-EN","Enforcement Rules citation corrected: the means and content of a notification are both in Article 22."], ["v1.4-EN","Ministry of Justice interpretation added to the note."], ["v1.4-EN","Article 12 was rewritten to cover non-government agencies only; it is now quoted as in the official translation."]]
   },
   {
         id:"d-27-1",
@@ -748,6 +820,19 @@ function match(r){
       return true;
 }
 
+/* Version history: collects each row's changes, shown collapsed at the foot of the table */
+function changeTable(){
+  const rows = [];
+  STAGES.forEach(st => st.items.forEach(r => (r.changes||[]).forEach(c => rows.push([c[0], r, c[1]]))));
+  if (!rows.length) return "";
+  const ord = v => -parseFloat(v.replace(/^v/,""));
+  rows.sort((a,b) => ord(a[0]) - ord(b[0]));
+  return `<details class="chg"><summary>Version history (${rows.length} entries — open to see corrections and additions to this table)</summary>
+    <table><thead><tr><th>Version</th><th>Row</th><th>Change</th></tr></thead><tbody>` +
+    rows.map(([v,r,t]) => `<tr><td class="v">${v}</td><td><a href="#${r.id}">${esc(r.src)}</a></td><td>${esc(t)}</td></tr>`).join("") +
+    `</tbody></table><p class="cn">Full release notes are in the README on the GitHub repository.</p></details>`;
+}
+
 function render(){
       let total = 0, html = "", nav = "";
       STAGES.forEach(st => {
@@ -759,30 +844,36 @@ function render(){
           html += `<section class="stage"><h2 id="${st.key}"><span class="n">${st.no}</span>${st.name}</h2>`;
           hits.forEach(r => {
               html += `<article class="rec${picked.has(r.id)?' picked':''}" id="${r.id}">
+        <label class="ck noprint" title="Select this row for the Path A export"><input type="checkbox" data-ck="${r.id}"${picked.has(r.id)?' checked':''} aria-label="Select ${esc(r.src)}"></label>
+        <div class="rb">
         <div class="top">
           <span class="src">${mark(r.src)}</span>
-          <span style="display:inline-flex;gap:10px;align-items:center">
-            <label class="ck noprint"><input type="checkbox" data-ck="${r.id}"${picked.has(r.id)?' checked':''}>Select</label>
-            <button class="lk noprint" data-id="${r.id}">Copy link</button>
-          </span>
+          <button class="lk noprint" data-id="${r.id}">Copy link</button>
         </div>
-        <p class="law">${mark(r.law)}</p>`;
-              r.rules.forEach(x => html += `<p class="rule">◆ ${mark(x)}</p>`);
+        <p class="law">${mark(r.law)}${r.dirlink ? `<a class="eylink" href="table-02.html#dir-annex1">→ See 02 Sources and Terminology, Annex 1 to the Directions</a>` : ""}</p>`;
+              if (r.rules.length){
+                const op = kw && r.rules.join(" ").toLowerCase().includes(kw.toLowerCase()) ? " open" : "";
+                html += `<details class="rl"${op}><summary>Enforcement Rules provisions (${r.rules.length})</summary><div class="body">` +
+                  r.rules.map(x => `<p class="rule">◆ ${mark(x)}</p>`).join("") + `</div></details>`;
+              }
               html += `<p class="evi"><span class="k">Supporting records:</span> ${mark(r.evi)}</p>`;
               if (r.gcbpr.length){
                 html += `<details class="gc"><summary>Global CBPR Program Requirements</summary><div class="body">` +
                 r.gcbpr.map(g=>`<span class="pr">[${mark(g[0])}]</span>` + g.slice(1).map(id=>mark(qline(id))).join("<br>")).join("") +
           `</div></details>`;
       }
-              if (r.note) html += `<details class="nt"><summary>Editorial note</summary><div class="body">${mark(r.note)}</div></details>`;
-              html += `</article>`;
+              if (r.note){
+                const op = kw && r.note.toLowerCase().includes(kw.toLowerCase()) ? " open" : "";
+                html += `<details class="nt"${op}><summary>Note</summary><div class="body">${mark(r.note)}</div></details>`;
+              }
+              html += `</div></article>`;
     });
           html += `</section>`;
   });
 
   $("#nav").innerHTML = nav;
-  $("#out").innerHTML = total ? html
-    : `<div class="none">Nothing matches. Adjust the search term or clear the filters.</div>`;
+  $("#out").innerHTML = (total ? html
+    : `<div class="none">Nothing matches. Adjust the search term or clear the filters.</div>`) + changeTable();
   $("#count").innerHTML = `<b>${total}</b> matching / ${STAGES.reduce((a,s)=>a+s.items.length,0)} in total`;
 
       rail(".stage > h2");
@@ -849,7 +940,7 @@ function paPrompt(pick){
   const {n} = paList(false);
   const L = [];
   L.push("You are a legal compliance assistant with expertise in Taiwan's Personal Data Protection Act (the PDPA) and its subordinate regulations.");
-  L.push("The list below is taken from the Taiwan PDPA Compliance Toolkit, Document 03 (Personal Data Lifecycle Compliance Table, v1.3-EN, applicable to non-government agencies). It sets out the obligations I have selected as relevant to my organisation. Work through the steps below, asking one question at a time and waiting for my answer before continuing.");
+  L.push("The list below is taken from the Taiwan PDPA Compliance Toolkit, Document 03 (Personal Data Lifecycle Compliance Table, v1.4-EN, applicable to non-government agencies). It sets out the obligations I have selected as relevant to my organisation. Work through the steps below, asking one question at a time and waiting for my answer before continuing.");
   L.push("");
   L.push("[Before you begin]");
   L.push("Two layers of Taiwanese law bear on this analysis and neither is reproduced in the list below.");
@@ -1061,6 +1152,7 @@ if (location.hash){
       const el = document.querySelector(location.hash);
       if (el) el.scrollIntoView();
 }
+window.addEventListener("beforeprint", () => document.querySelectorAll("details.rl,details.nt").forEach(d => d.open = true));
 </script>
 </body>
 </html>

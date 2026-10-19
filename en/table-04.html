@@ -149,13 +149,40 @@ a.lang{flex:0 0 auto;font-family:var(--sans);font-size:12px;letter-spacing:.06em
   padding:4px 11px;line-height:1.5;white-space:nowrap;align-self:center}
 a.lang:hover{border-color:var(--ink);color:var(--ink)}
 @media print{a.lang{display:none}}
+
+/* v1.4：施行細則與附註收合、收合標籤深藍、表尾版本異動紀錄、表頭警語收合 */
+details.gc summary{color:#1F3864!important;font-weight:600;border-bottom-color:#1F3864!important}
+details.rl{margin:0 0 9px}
+details.rl summary{cursor:pointer;font-size:12.5px;color:#1F3864;font-weight:600;list-style:none;display:inline-block;border-bottom:1px dotted #1F3864}
+details.rl summary::-webkit-details-marker{display:none}
+details.rl summary::before{content:"＋ ";font-family:var(--mono)}
+details.rl[open] summary::before{content:"− "}
+details.rl .body{margin-top:8px}
+details.rl .body .rule:last-child{margin-bottom:0}
+a.eylink{font-size:12.5px;color:#1F3864;margin-left:6px;white-space:nowrap}
+details.chg{margin:26px 0 0;border:1px solid var(--rule);background:#FAFBFC}
+details.chg summary{cursor:pointer;padding:12px 18px;font-size:13.5px;color:var(--ink-2);font-weight:600}
+details.chg table{width:100%;border-collapse:collapse;font-size:12.5px;line-height:1.7}
+details.chg th{background:#1F3864;color:#fff;text-align:left;padding:7px 10px;font-weight:600}
+details.chg td{padding:7px 10px;border-top:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-2)}
+details.chg td.v{font-family:var(--mono);white-space:nowrap;color:var(--seal)}
+details.chg td a{color:var(--ink)}
+details.chg .cn{font-size:12px;color:var(--muted);margin:8px 18px 12px}
+details.disc{margin:0}
+details.disc>summary{cursor:pointer;list-style:none;color:var(--seal);font-weight:600;font-size:14px;padding:10px 14px;border:1px solid var(--seal);background:var(--seal-soft)}
+details.disc>summary::-webkit-details-marker{display:none}
+details.disc>summary::before{content:"⚠ ";}
+details.disc>summary::after{content:"  + open";font-weight:400;font-size:12.5px}
+details.disc[open]>summary::after{content:"  − close"}
+details.disc>p{margin-top:0!important}
+@media print{details.chg{display:none}}
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="inner">
-    <div class="langbar"><p class="eyebrow"><a href="index.html">Taiwan PDPA Compliance Toolkit</a> / Document 04 · v1.3-EN</p><a class="lang" href="../table-04.html" title="以繁體中文閱讀本頁" rel="alternate">中文</a></div>
+    <div class="langbar"><p class="eyebrow"><a href="index.html">Taiwan PDPA Compliance Toolkit</a> / Document 04 · v1.4-EN</p><a class="lang" href="../table-04.html" title="以繁體中文閱讀本頁" rel="alternate">中文</a></div>
     <h1>Data Subject Access Request (DSAR) Table</h1>
     <p class="sub">The five rights under Article 3 — inquiry and review, a copy, supplement or correction, cessation of collection, processing or use, and erasure — with the response obligations, time limits and grounds for refusal for each, mapped to the Global CBPR System Program Requirements</p>
   </div>
@@ -164,13 +191,15 @@ a.lang:hover{border-color:var(--ink);color:var(--ink)}
 <div class="usage">
   <p><b>How to use this table</b> Part I (procedural foundations) and Part VIII (records and audit) apply to all five rights; Parts II to VII set out the obligations specific to each.
  The decision period depends on which article the request is made under: requests under Article 10 — inquiry, review and copies — carry fifteen days, extendable once by up to fifteen; requests under Article 11 — supplement, correction, cessation and erasure — carry thirty days, extendable once by up to thirty (Article 13).
-  <b>Provisions are quoted only to the extent that they apply to non-government agencies.</b>
+  <b>Only provisions that apply to non-government agencies are quoted, and they are quoted verbatim; where a provision also addresses government agencies, the parts that concern government agencies only do not apply.</b>
  To generate a printable checklist and calculated deadlines for a particular case, use the <a href="dsar.html">DSAR draft generator</a>.
  General lifecycle obligations are in <a href="table-03.html">03 Lifecycle Table</a>; incident obligations are in <a href="table-05.html">05 Incident Table</a>.</p>
 </div>
 
 <div class="usage" style="padding-top:10px">
-  <p style="border-left-color:var(--amber);background:var(--amber-soft)"><b>Check first whether a special law displaces the PDPA.</b> Article 1 of the PDPA provides that the collection, processing and use of personal data shall be governed by the Act, <i>except where otherwise provided by other laws</i>. Several statutes change how a data subject right is performed, or how long you have to perform it. The Medical Care Act is the clearest example: Article 71 requires a copy of a patient's medical records to be provided without undue delay, setting no fixed period and providing no ground of refusal, and Article 68 requires an amended entry to be struck through with a line rather than erased. This table reproduces no statute other than the PDPA and its Enforcement Rules, so identify any special law applicable to your sector and read it alongside. A non-exhaustive catalogue is in <a href="table-02.html#special">Part D</a>. A sector-specific regulation made under Article 27, Paragraph 2 of the PDPA may add further requirements; they are indexed by authority in <a href="table-02.html#sector">Part E</a>, non-exhaustively.</p>
+  <details class="disc"><summary>Read before use: check first whether a special law displaces the PDPA</summary>
+  <p style="border-left-color:var(--seal);background:#fff"><b>Check first whether a special law displaces the PDPA.</b> Article 1 of the PDPA provides that the collection, processing and use of personal data shall be governed by the Act, <i>except where otherwise provided by other laws</i>. Several statutes change how a data subject right is performed, or how long you have to perform it. The Medical Care Act is the clearest example: Article 71 requires a copy of a patient's medical records to be provided without undue delay, setting no fixed period and providing no ground of refusal, and Article 68 requires an amended entry to be struck through with a line rather than erased. This table reproduces no statute other than the PDPA and its Enforcement Rules, so identify any special law applicable to your sector and read it alongside. A non-exhaustive catalogue is in <a href="table-02.html#special">Part D</a>. A sector-specific regulation made under Article 27, Paragraph 2 of the PDPA may add further requirements; they are indexed by authority in <a href="table-02.html#sector">Part E</a>, non-exhaustively.</p>
+  </details>
 </div>
 
 <div class="wrap">
@@ -201,7 +230,7 @@ a.lang:hover{border-color:var(--ink);color:var(--ink)}
   <p><b>Grounds for refusal</b> The three grounds in the proviso to Article 10 apply only to requests to inquire, review or obtain a copy — Article 3, Subparagraphs 1 and 2. Refusal of a request to supplement, correct, cease or erase must be assessed under the main text and provisos of Article 11, not under Article 10. Every refusal should state its reasons in writing and be retained on file.</p>
   <p><b>Scope</b> This table assumes a non-government agency. The obligations of government agencies fall under Article 18 of the PDPA and are outside its scope.</p>
   <p><b>Disclaimer</b> This table is a compliance reference and does not constitute legal advice. Provisions should be checked against the versions in force in the Laws &amp; Regulations Database (law.moj.gov.tw). Where the English and Mandarin versions differ, the Mandarin version governs. Consult a qualified lawyer on any specific matter.</p>
-  <p>Taiwan PDPA Compliance Toolkit (Global CBPR Mapped), English Edition  / Document 04 Author: I Jung (Alfred) Tsai Licence: CC BY-NC-SA 4.0 · v1.3-EN</p>
+  <p>Taiwan PDPA Compliance Toolkit (Global CBPR Mapped), English Edition  / Document 04 Author: I Jung (Alfred) Tsai Licence: CC BY-NC-SA 4.0 · v1.4-EN</p>
 </div>
 </div>
 
@@ -298,6 +327,7 @@ const R12_2 = n => "Enforcement Rules Article 12, Paragraph 2, Subparagraph " + 
   10:"keeping records, log files and relevant evidence.",
   11:"implementing integrated and persistent improvements on the security and maintenance of personal data."
 }[n];
+const ER6 = "Enforcement Rules Article 6, Paragraph 1: \"Deleting\", as referred to under subparagraph 4, paragraph 1 of Article 2 of the PDPA, shall mean to erase the personal data from the personal data file.";
 const R14 = "Enforcement Rules Article 14: In accordance with the Electronic Signatures Act, a data subject's \"consent in writing\", as referred to under subparagraph 6 of the proviso to paragraph 1 of Article 6, paragraph 2 and 3 of the proviso to Article 11 of the PDPA, may be given in an electronic form.";
 const R16 = "Enforcement Rules Article 16: The obligation to inform data subjects as required under Articles 8, 9, and 54 of the PDPA may be fulfilled via verbal words, in writing, over the phone, via text messages, email, fax, electronic documents or other means that can effectively make the information known or available to the data subjects.";
 const R19 = "Enforcement Rules Article 19: When a data subject requests a government or non-government agency to correct or supplement his/her personal data in accordance with paragraph 1 of Article 11 of the PDPA, the data subject shall provide the agency with an adequate explanation therefor.";
@@ -352,35 +382,38 @@ const STAGES = [
   {
         id:"general-05",
         src:"Enforcement Rules Article 12, Paragraph 2, Subparagraph 7 (awareness and training)",
-        law:"(One of the measures constituting proper security measures under Article 27, Paragraph 1 of the PDPA.) Promoting awareness, education and training.",
+        law:"The measures prescribed in the preceding paragraph may include the following and shall be proportionate to the intended purposes of personal data protection: … 7. promoting awareness, education and training; …",
         rules:[],
         evi:"Employee privacy training records",
-        gcbpr:[["Accountability","44"]]
+        gcbpr:[["Accountability","44"]],
+        changes:[["v1.4-EN","The statute field carried an editorial gloss before the Enforcement Rules Article 12 item; it now quotes the provision."]]
   },
   {
         id:"general-06",
         src:"Enforcement Rules Article 12, Paragraph 2, Subparagraph 9 (data security audit mechanism)",
-        law:"(One of the measures constituting proper security measures under Article 27, Paragraph 1 of the PDPA.) Establishing an audit mechanism of data security.",
+        law:"The measures prescribed in the preceding paragraph may include the following and shall be proportionate to the intended purposes of personal data protection: … 9. establishing an audit mechanism of data security; …",
         rules:[],
         evi:"Records of non-conformities and corrective actions",
-        gcbpr:[["Accountability","41","42","43"]]
+        gcbpr:[["Accountability","41","42","43"]],
+        changes:[["v1.4-EN","The statute field carried an editorial gloss before the Enforcement Rules Article 12 item; it now quotes the provision."]]
   },
   {
         id:"general-07",
         src:"Enforcement Rules Article 12, Paragraph 2, Subparagraph 10 (records, log files and evidence)",
-        law:"(One of the measures constituting proper security measures under Article 27, Paragraph 1 of the PDPA.) Keeping records, log files and relevant evidence.",
+        law:"The measures prescribed in the preceding paragraph may include the following and shall be proportionate to the intended purposes of personal data protection: … 10. keeping records, log files and relevant evidence; and …",
         rules:[],
         evi:"Audit plan and audit findings",
-        gcbpr:[["Security Safeguards","27","30b"]]
+        gcbpr:[["Security Safeguards","27","30b"]],
+        changes:[["v1.4-EN","The statute field carried an editorial gloss before the Enforcement Rules Article 12 item; it now quotes the provision."]]
   },
   {
         id:"general-08",
         src:"PDPA Article 8, Paragraph 1, Subparagraph 5 (informing data subjects of the route in advance)",
-        law:"Non-government agencies shall expressly inform the data subject of the following information when collecting [sic] their personal data in accordance with Article 19 of the PDPA: 5. the data subject's rights under Article 3 and the methods for exercising such rights.",
+        law:"Government or non-government agencies shall expressly inform the data subject of the following information when colleting [sic] their personal data in accordance with Article 15 or 19 of the PDPA: … 5. the data subject's rights under Article 3 and the methods for exercising such rights; …",
         rules:[R16],
         evi:"Privacy statement or notification document",
         gcbpr:[["Notice","1","1f","2","3","4"]],
-        note:"The official English translation of Article 8, Paragraph 1 reads \"colleting\"; corrected here to \"collecting\" and marked [sic]."
+        note:"\"colleting\" [sic] is reproduced as it appears in the official English translation.", changes:[["v1.4-EN","Article 8, Paragraph 1 was rewritten to cover non-government agencies only; it is now quoted as in the official translation."]]
   }
 ]},
 
@@ -407,8 +440,9 @@ const STAGES = [
   {
         id:"copy-02",
         src:"Secure transmission (a specific application of PDPA Article 27, Paragraph 1)",
-        law:"A copy should be delivered by encrypted means or through another secure channel, so that it cannot be obtained by a third party in transit.",
+        law:L27_1,
         rules:[],
+        note:"Recommended practice: a copy should be delivered by encrypted means or through another secure channel, so that it cannot be obtained by a third party in transit. This sentence is the author's recommendation, not statutory text.", changes:[["v1.4-EN","The statute field held the author's recommended practice; it now quotes Article 27, Paragraph 1, and the recommendation has moved to the note."]],
         evi:"Documented rules and agreements on secure transmission",
         gcbpr:[["Security Safeguards","27","30b"]]
   }
@@ -444,9 +478,10 @@ const STAGES = [
         id:"correct-04",
         src:"PDPA Article 4 (commissioned processing)",
         law:"Whoever is commissioned by government agencies or non-government agencies to collect, process or use personal data shall be deemed to be acting on behalf of the commissioning agency to the extent that the PDPA applies.",
-        rules:["Enforcement Rules Article 8: For the purpose of supervision, the commissioning agency shall carry out regular inspections to verify the commissioned agency's performance of the engagement contract and document the findings of such inspections."],
+        rules:["Enforcement Rules Article 8, Paragraph 3: For the purpose of supervision prescribed under paragraph 1, the commissioning agency shall carry out regular inspections to verify the commissioned agency's performance of the engagement contract and document the findings of such inspections."],
         evi:"Documented accountability arrangements with commissioned processors; records of notifications to processors",
-        gcbpr:[["Integrity of Personal Information","25"]]
+        gcbpr:[["Integrity of Personal Information","25"]],
+        changes:[["v1.4-EN","Enforcement Rules Article 8, Paragraph 3 now quoted as in the official translation."]]
   }
 ]},
 
@@ -491,9 +526,10 @@ const STAGES = [
         id:"delete-01",
         src:"PDPA Article 11, Paragraph 3 (erasure once the specific purpose no longer exists)",
         law:L11_3,
-        rules:[R20, R21],
+        rules:[ER6, R20, R21],
         evi:"Data retention policy and procedure; records of the reasons for the erasure decision",
-        gcbpr:[["Access and Correction","38","38b","38c","38d"]]
+        gcbpr:[["Access and Correction","38","38b","38c","38d"]],
+        changes:[["v1.4-EN","Now cites Enforcement Rules Article 6 (definition of deleting)."]]
   },
   {
         id:"delete-02",
@@ -508,9 +544,10 @@ const STAGES = [
         id:"delete-03",
         src:"PDPA Article 27, Paragraph 1 (technical security of erasure)",
         law:L27_1,
-        rules:[R12_2(5) + " (Erasure should be carried out to a standard that ensures the data cannot be recovered.)"],
+        rules:[ER6, R12_2(5)],
         evi:"Data retention and secure disposal policy; disposal records",
-        gcbpr:[["Security Safeguards","31"]]
+        gcbpr:[["Security Safeguards","31"]],
+        note:"Enforcement Rules Article 6 defines deleting as erasing the personal data from the personal data file; the provisions in force do not prescribe a technical standard of irrecoverability. Using a method from which the data cannot be recovered is nevertheless recommended, because data that can be restored remains exposed to the risks this Article guards against.", changes:[["v1.4-EN","Irrecoverable erasure is no longer presented as a statutory requirement; Enforcement Rules Article 6 is cited instead."]]
   }
 ]},
 
@@ -571,6 +608,19 @@ function match(r){
       return true;
 }
 
+/* Version history: collects each row's changes, shown collapsed at the foot of the table */
+function changeTable(){
+  const rows = [];
+  STAGES.forEach(st => st.items.forEach(r => (r.changes||[]).forEach(c => rows.push([c[0], r, c[1]]))));
+  if (!rows.length) return "";
+  const ord = v => -parseFloat(v.replace(/^v/,""));
+  rows.sort((a,b) => ord(a[0]) - ord(b[0]));
+  return `<details class="chg"><summary>Version history (${rows.length} entries — open to see corrections and additions to this table)</summary>
+    <table><thead><tr><th>Version</th><th>Row</th><th>Change</th></tr></thead><tbody>` +
+    rows.map(([v,r,t]) => `<tr><td class="v">${v}</td><td><a href="#${r.id}">${esc(r.src)}</a></td><td>${esc(t)}</td></tr>`).join("") +
+    `</tbody></table><p class="cn">Full release notes are in the README on the GitHub repository.</p></details>`;
+}
+
 function render(){
       let total = 0, html = "", nav = "";
       STAGES.forEach(st => {
@@ -586,23 +636,30 @@ function render(){
           <span class="src">${mark(r.src)}</span>
           <button class="lk noprint" data-id="${r.id}">Copy link</button>
         </div>
-        <p class="law">${mark(r.law)}</p>`;
-              r.rules.forEach(x => html += `<p class="rule">◆ ${mark(x)}</p>`);
+        <p class="law">${mark(r.law)}${r.dirlink ? `<a class="eylink" href="table-02.html#dir-annex1">→ See 02 Sources and Terminology, Annex 1 to the Directions</a>` : ""}</p>`;
+              if (r.rules.length){
+                const op = kw && r.rules.join(" ").toLowerCase().includes(kw.toLowerCase()) ? " open" : "";
+                html += `<details class="rl"${op}><summary>Enforcement Rules provisions (${r.rules.length})</summary><div class="body">` +
+                  r.rules.map(x => `<p class="rule">◆ ${mark(x)}</p>`).join("") + `</div></details>`;
+              }
               html += `<p class="evi"><span class="k">Supporting records:</span> ${mark(r.evi)}</p>`;
               if (r.gcbpr.length){
                 html += `<details class="gc"><summary>Global CBPR Program Requirements</summary><div class="body">` +
                 r.gcbpr.map(g=>`<span class="pr">[${mark(g[0])}]</span>` + g.slice(1).map(id=>mark(qline(id))).join("<br>")).join("") +
           `</div></details>`;
       }
-              if (r.note) html += `<details class="nt"><summary>Editorial note</summary><div class="body">${mark(r.note)}</div></details>`;
+              if (r.note){
+                const op = kw && r.note.toLowerCase().includes(kw.toLowerCase()) ? " open" : "";
+                html += `<details class="nt"${op}><summary>Note</summary><div class="body">${mark(r.note)}</div></details>`;
+              }
               html += `</article>`;
     });
           html += `</section>`;
   });
 
   $("#nav").innerHTML = nav;
-  $("#out").innerHTML = total ? html
-    : `<div class="none">Nothing matches. Adjust the search term or clear the filters.</div>`;
+  $("#out").innerHTML = (total ? html
+    : `<div class="none">Nothing matches. Adjust the search term or clear the filters.</div>`) + changeTable();
   $("#count").innerHTML = `<b>${total}</b> matching / ${STAGES.reduce((a,s)=>a+s.items.length,0)} in total`;
 
       rail(".stage > h2");
@@ -671,6 +728,7 @@ if (location.hash){
       const el = document.querySelector(location.hash);
       if (el) el.scrollIntoView();
 }
+window.addEventListener("beforeprint", () => document.querySelectorAll("details.rl,details.nt").forEach(d => d.open = true));
 </script>
 </body>
 </html>

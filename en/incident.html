@@ -308,13 +308,14 @@ a.lang{flex:0 0 auto;font-family:var(--sans);font-size:12px;letter-spacing:.06em
   padding:4px 11px;line-height:1.5;white-space:nowrap;align-self:center}
 a.lang:hover{border-color:var(--ink);color:var(--ink)}
 @media print{a.lang{display:none}}
+a.eylink{font-size:12.5px;color:#1F3864;margin-left:6px;white-space:nowrap}
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="inner">
-    <div class="langbar"><p class="eyebrow"><a href="index.html">Taiwan PDPA Compliance Toolkit</a> / 05 Path C · v1.3-EN</p><a class="lang" href="../incident.html" title="以繁體中文閱讀本頁" rel="alternate">中文</a></div>
+    <div class="langbar"><p class="eyebrow"><a href="index.html">Taiwan PDPA Compliance Toolkit</a> / 05 Path C · v1.4-EN</p><a class="lang" href="../incident.html" title="以繁體中文閱讀本頁" rel="alternate">中文</a></div>
     <h1>Personal Data Incident — Response Draft Generator</h1>
     <p class="sub">For <b>non-government agencies</b> | Based on the PDPA and its Enforcement Rules currently in force, and on the Executive Yuan Directions (unofficial translation)</p>
   </div>
@@ -369,7 +370,7 @@ a.lang:hover{border-color:var(--ink);color:var(--ink)}
 
     <fieldset>
       <legend><span class="n">06</span>Have the facts of the infringement been clarified?</legend>
-      <p class="hint">The duty to notify data subjects under Article 12 of the PDPA arises once the facts have been clarified.</p>
+      <p class="hint">The duty to notify data subjects under Article 12 of the PDPA arises once the facts have been clarified. This means the facts of the infringement; it does not require your organisation first to confirm that it is at fault.</p>
       <select id="q_known">
         <option value="Not yet">Not yet clarified</option>
         <option value="Partly">Partly clarified</option>
@@ -641,7 +642,7 @@ const BLOCKS = [
     },
     {
         src:"Enforcement Rules Article 12, Paragraph 2, Subparagraph 10 (log files and preservation of evidence)",
-        law:"(One of the measures constituting proper security measures under Article 27, Paragraph 1 of the PDPA.) Keeping records, log files and relevant evidence.",
+        law:"The measures prescribed in the preceding paragraph may include the following and shall be proportionate to the intended purposes of personal data protection: … 10. keeping records, log files and relevant evidence; and …",
         rules:[],
         ey:"Annex 2, node 3.2: once the case is confirmed, the central competent authority may dispatch personnel carrying documentation evidencing the performance of their duties to enter and inspect, and may order the relevant persons to provide supporting materials.",
         evi:"System logs, audit trails, audit plan and audit findings",
@@ -651,7 +652,7 @@ const BLOCKS = [
     },
     {
         src:"Enforcement Rules Article 12, Paragraph 2, Subparagraph 3 (risk assessment and management)",
-        law:"(One of the measures constituting proper security measures under Article 27, Paragraph 1 of the PDPA.) Establishing a mechanism of risk assessment and management of personal data.",
+        law:"The measures prescribed in the preceding paragraph may include the following and shall be proportionate to the intended purposes of personal data protection: … 3. establishing a mechanism of risk assessment and management of personal data; …",
         rules:[],
         ey:"Point 4, Paragraph 4: each central competent authority shall assess the risk that the non-government agencies under its supervision will give rise to security violation cases, and shall give priority to including high-risk agencies among the subjects of its annual administrative inspection.",
         evi:"Risk assessment records; personal data asset inventory",
@@ -667,15 +668,14 @@ const BLOCKS = [
     items:[
     {
         src:"PDPA Article 12 (clarifying the facts and notifying data subjects)",
-        law:"If any personal data is stolen, disclosed, altered, or otherwise infringed upon due to a violation of the PDPA by a non-government agency, the data subject shall be notified via appropriate means after the relevant facts have been clarified.",
+        law:"If any personal data is stolen, disclosed, altered, or otherwise infringed upon due to a violation of the PDPA by a government or non-government agency, the data subject shall be notified via appropriate means after the relevant facts have been clarified.",
         rules:[
-        "Enforcement Rules Article 22: A notification given via \"appropriate means\", as referred to under Article 12 of the PDPA, shall mean a notification that is given in a prompt manner via verbal words, in writing, over the phone, via text messages, email, fax, electronic documents or other means that can effectively make the information known or available to the data subjects. However, if such notification entails disproportionate costs, a government or non-government agency may, taking into consideration the technical feasibility and privacy protection of the data subjects, notify the data subjects through the Internet, the media or other proper and public means.",
-        "Enforcement Rules Article 23: A notification given under Article 12 of the PDPA shall include the facts pertaining to the data breach and the response measures already adopted to address such breach of personal data."
+        "Enforcement Rules Article 22: A notification given via \"appropriate means\", as referred to under Article 12 of the PDPA, shall mean a notification that is given in a prompt manner via verbal words, in writing, over the phone, via text messages, email, fax, electronic documents or other means that can effectively make the information known or available to the data subjects. However, if such notification entails disproportionate costs, a government or non-government agency may, taking into consideration the technical feasibility and privacy protection of the data subjects, notify the data subjects through the Internet, the media or other proper and public means. (Paragraph 1) A notification given under Article 12 of the PDPA shall include the facts pertaining to the data breach and the response measures already adopted to address such breach of personal data. (Paragraph 2)"
       ],
         ey:"Annex 1, Supervision and Notification Record Form: the field \"response measures to be taken\", and the field \"intended timing and method of notifying data subjects pursuant to Article 12 of the PDPA and Article 22 of its Enforcement Rules\".",
         evi:"Content of the notification to data subjects, records of dispatch and statistics on delivery",
         gcbpr:[["Security Safeguards","32","35b"]],
-        act:"This is the only obligation the PDPA currently places on you after an incident, and it runs to the data subjects rather than to any authority. There is no fixed number of days: the duty is to notify promptly once the facts are clarified. The notification must contain both statutory elements — the facts of the infringement, and the response measures already taken. Do not send a vague notice before the facts are clear, but equally do not defer indefinitely on the basis that they are not yet clear.",
+        act:"This is the only obligation the PDPA currently places on you after an incident, and it runs to the data subjects rather than to any authority. There is no fixed number of days: the duty is to notify promptly once the facts are clarified. The notification must contain both statutory elements — the facts of the infringement, and the response measures already taken. \"Clarified\" refers to the facts of the infringement, not to whether your organisation is at fault: the Ministry of Justice has interpreted Article 12 to mean that confirming the agency's own legal liability is not a prerequisite for the duty to notify, and that where verifying the facts takes time, notice should not be withheld until a violation is established (Letter Fa-Lu-Zi No. 10603503230, 5 June 2017, addressed to a government agency).",
         urg:1
     },
     {
@@ -691,6 +691,7 @@ const BLOCKS = [
     {
         src:"Supervision and Notification Record Form: case identification fields",
         law:"(Matters to be entered in Annex 1 to the Directions. A non-government agency must supply the information the authority needs in order to complete the form.)",
+        dirlink:true,
         rules:[R12_2(5)],
         ey:"Annex 1, fields \"name of the non-government agency\" and \"notifying agency\": the subject of the case and the notifying agency, enterable only once jurisdiction is confirmed.\nField \"time of occurrence\": where \"unknown\" is entered, the time at which the non-government agency was ascertained to have become aware of the case shall also be noted (Annex 1, Note 3).\nField \"cause of occurrence and case summary\": where the information is not yet established, \"unknown\" may be entered initially and supplemented in a later notification (Annex 1, Note 1).",
         evi:"Records of processing activities; incident chronology",
@@ -701,6 +702,7 @@ const BLOCKS = [
     {
         src:"Supervision and Notification Record Form: extent of harm",
         law:"(Matters to be entered in Annex 1 to the Directions.)",
+        dirlink:true,
         rules:[],
         ey:"Annex 1, field \"extent of harm\": approximate total number of personal data records affected; the number of general personal data records and the number of Article 6 personal data records, entered separately; whether property loss was caused to data subjects, and if so the amount; and any other harm.",
         evi:"Personal data asset inventory; statistics on the scope of data affected",
@@ -710,7 +712,7 @@ const BLOCKS = [
     },
     {
         src:"Supervision and Notification Record Form: type of occurrence",
-        law:"The forms of infringement identified in Article 12 of the PDPA.",
+        law:"If any personal data is stolen, disclosed, altered, or otherwise infringed upon due to a violation of the PDPA by a government or non-government agency, the data subject shall be notified via appropriate means after the relevant facts have been clarified.",
         rules:["(The Enforcement Rules do not further subdivide the forms of infringement.)"],
         ey:"Annex 1, field \"type of occurrence\" (tick all that apply): theft, disclosure, alteration, damage, loss, other infringement.",
         evi:"Incident investigation records",
@@ -772,7 +774,8 @@ const BLOCKS = [
     },
     {
         src:"PDPA Articles 22(1), 48(2) and 48(3) (re-inspection and successive fines)",
-        law:"... and shall order the non-government agency to rectify the violation within a specified period of time. If the non-government agency fails to rectify the violation in time, a fine ... shall be imposed for each occurrence of the violation. (The authority conducts a re-inspection of a non-government agency that has been ordered to rectify.)",
+        law:"... and shall order the non-government agency to rectify the violation within a specified period of time. If the non-government agency fails to rectify the violation in time, a fine ... shall be imposed for each occurrence of the violation.",
+        note:"The authority conducts a re-inspection of a non-government agency that has been ordered to rectify; see the Directions field below.",
         rules:[R12_2(11)],
         ey:"Annex 1, field \"whether the competent authority has conducted an administrative investigation (including re-inspection)\" (yes / no).\nAnnex 2, node 6: the authority conducts a re-inspection; if it is passed, the case is closed; if not, further fines or dispositions follow.",
         evi:"Records of non-conformities and corrective actions; rectification completion report",
@@ -798,7 +801,8 @@ const BLOCKS = [
     },
     {
         src:"PDPA Article 27, Paragraph 1 (continual improvement)",
-        law:L27_1 + " (Including remediation measures taken after an incident.)",
+        law:L27_1,
+        note:"This row concerns remediation measures taken after an incident.",
         rules:[R12_2(11)],
         ey:"Annex 1, field \"recommended date of release from monitored status\": released from monitored status on ____ / not released. A non-government agency should maintain a corrective action tracker and apply for release once rectification is complete.",
         evi:"Records of non-conformities and corrective actions; application for release from monitored status",
@@ -814,12 +818,29 @@ const BLOCKS = [
     items:[
     {
         src:"PDPA Articles 22 to 26 (scope of the competent authority's powers)",
-        law:"(Under Articles 22 through 26 of the PDPA, the central government authority in charge of the industry concerned takes appropriate supervisory and management measures in respect of a non-government agency.)",
+        law:"Article 22, Paragraph 1: " + L22_1,
+        note:"This row covers the supervisory powers in Articles 22 to 26 (inspection, seizure and copying, objections, penalties and publication of inspection findings); Article 22, Paragraph 1 is quoted here.",
         rules:["(The Enforcement Rules contain no separate provision on inter-agency coordination.)"],
         ey:"Point 2: the Executive Yuan convenes the Liaison Meeting on the Implementation of Personal Data Protection by Administrative Agencies, which coordinates the supervisory notification of security violation cases, determines the agency having jurisdiction where a major and high-profile case is disputed, and coordinates inter-ministerial administrative investigations.\nPoint 11: where jurisdiction is in dispute, the PDPC Preparatory Office shall determine the agency having jurisdiction as soon as possible, and may convene an inter-ministerial coordination meeting.",
         evi:"Documented legal and regulatory requirements; records of correspondence with each authority",
         gcbpr:[["Accountability","39","45","50"]],
         act:"If your activities span several regulated industries, jurisdiction may be disputed. Do not suspend reporting while that is resolved: report to the authority most likely to have jurisdiction, copy the others, and keep the full correspondence, so that no inference of a failure to report can later be drawn.",
+        urg:2
+    }
+  ]
+},
+
+{
+    no:"VII", title:"Civil liability to data subjects", tag:"PDPA Articles 28 to 31",
+    items:[
+    {
+        src:"PDPA Articles 29 to 31, with Article 28, Paragraphs 2 to 6 (damages owed to data subjects)",
+        law:"Article 29: Non-government agencies shall be liable for the damages arising from any injury caused by any unlawful collection, processing or use of personal data, or other infringement on the rights of data subjects due to such non-government agency's violation of the PDPA, unless the non-government agency can prove that such injury is not caused by its willful act or negligence. Paragraphs 2 through 6 of the preceding article apply to the damage claims raised in accordance with the preceding paragraph.\n\nArticle 28, Paragraphs 2 to 6 (applied by Article 29, Paragraph 2): If an injury suffered by the victim is a non-pecuniary damage, he/she may request an appropriate amount of monetary compensation; if the injury suffered by the victim is damage to his/her reputation, the victim may request appropriate corrective measures to restore his/her reputation. Under the circumstances identified in the preceding two paragraphs, if it is difficult or impossible for the victim to prove the monetary value of the actual damage, he/she may ask the court to award the compensation in the amount of not less than NT$500 but not more than NT$20,000 per incident, per person based on the severity of the damage. Where the rights of multiple data subjects have been infringed upon due to the same incident, the total amount of compensation awarded to such data subjects shall not exceed NT$200 million. However, if the interests involved in the incident exceed NT$200 million, the compensation shall be up to the value of such interests. If the total amount of damages for the injuries attributable to the same incident exceeds the amount referred to in the preceding paragraph, the compensation payable to each victim shall not be limited to the lower end of damages, i.e. NT$500, per incident as set forth in paragraph 3 of this Article. The right of claim referred to in paragraph 2 above may not be transferred or inherited. However, this does not apply to the circumstances where monetary compensation has been agreed upon in a contract or a claim therefor has been filed with the court.\n\nArticle 30: The right to claim damage compensation will be extinguished if the right-holder does not exercise such right within the two-year period after he/she becomes aware of his/her damage and the identity of the person(s) liable for the compensation, or the five-year period following the occurrence of the damage.\n\nArticle 31: With regard to matters pertaining to damages, aside from the provisions of the PDPA, the State Compensation Law may be applied to a government agency and the Civil Code may be applied to a non-government agency.",
+        rules:["(The Enforcement Rules contain no separate provision on civil liability.)"],
+        ey:"",
+        evi:"Records evidencing the security measures in place before the incident; the incident chronology; the notification sent to data subjects",
+        gcbpr:[["Accountability","41","43"]],
+        act:"Expect civil claims alongside any administrative action. Article 29 presumes fault, so the burden is on you to prove that adequate security measures were in place before the incident; measures introduced only afterwards are unlikely to show that you took due care at the time. Preserve the records that show what was in place, and when. Claims lapse two years after the claimant knows of the damage and of who is liable, and in any event five years after the damage occurred.",
         urg:2
     }
   ]
@@ -1141,7 +1162,7 @@ function render(){
   }
       if (s.known === "Not yet" || s.known === "Partly"){
         alerts.push(["warn","Clarifying the facts and reporting are parallel tracks",
-      "The duty to notify data subjects under Article 12 of the PDPA depends on the facts having been clarified. Reporting to an authority under a sector regulation generally does not. Annex 1 to the Directions expressly allows the cause and case summary to be entered as \"unknown\" initially and supplemented later. Do not defer a report on the ground that the facts are not yet clear."]);
+      "The duty to notify data subjects under Article 12 of the PDPA depends on the facts of the infringement having been clarified, not on confirming that your organisation is at fault. Reporting to an authority under a sector regulation generally does not. Annex 1 to the Directions expressly allows the cause and case summary to be entered as \"unknown\" initially and supplemented later. Do not defer a report on the ground that the facts are not yet clear."]);
   }
       if (s.types.includes("alteration")){
         alerts.push(["warn","Alteration also triggers the accuracy obligations",
@@ -1159,7 +1180,7 @@ function render(){
           z.items.forEach(it => {
               h += `<div class="item">
         <div class="src"><span class="box"></span><span>${esc(it.src)}</span></div>
-        <p class="law">${nl(it.law)}</p>`;
+        <p class="law">${nl(it.law)}${it.dirlink ? ` <a class="eylink" href="table-02.html#dir-annex1">→ See 02 Sources and Terminology, Annex 1 to the Directions</a>` : ""}</p>`;
               if (it.rules.length) h += it.rules.map(r=>`<p class="rule">◆ ${esc(r)}</p>`).join("");
               if (it.ey) h += `<p class="yp"><span class="k">Executive Yuan Directions (unofficial translation)</span>${nl(it.ey)}</p>`;
               h += `<p class="evi"><span class="k">Supporting records:</span> ${esc(it.evi)}</p>`;
@@ -1208,10 +1229,10 @@ function render(){
     <p><b>Mapping baseline</b> ${VERSIONS.mapping}.</p>
     <p><b>Special laws and sector regulations</b> This draft reproduces neither layer. Statutes that prevail over the PDPA under the proviso to its Article 1, in particular those imposing duties of confidentiality or prohibiting the disclosure of identifying information, may constrain how an incident is contained and how data subjects are notified; a non-exhaustive catalogue is in 02 Sources and Terminology, Part D. Separately, roughly sixty-five security and maintenance regulations issued under Article 27, Paragraph 2 of the PDPA exist, and almost none has an official English translation. Identify both layers for your own sector, obtain the Mandarin text, and fold them in clause by clause, with the result confirmed by a qualified lawyer.</p>
     <p><b>Scope</b> This draft assumes a non-government agency. Incidents at government agencies are handled under Article 18 of the PDPA and the provisions of the Directions applicable to government agencies, and are outside its scope.</p>
-    <p><b>Quotation of provisions</b> Provisions are quoted only to the extent that they apply to non-government agencies; where a provision addresses both, such as Article 12, only the part applicable to non-government agencies is reproduced.</p>
+    <p><b>Quotation of provisions</b> Only provisions that apply to non-government agencies are quoted, and they are quoted verbatim; where a provision also addresses government agencies, the parts that concern government agencies only do not apply.</p>
     <p><b>Nature of the deadlines</b> The 24 hours, 72 hours and investigation periods set by the Directions are obligations of the central government authority in charge of the industry concerned. They run from the moment that authority becomes aware of the case, and are absolute periods that do not pause for weekends or holidays. Your own reporting deadline, if any, comes from the security and maintenance regulation applicable to your industry. The target times in the recommended actions are internal working goals and have no statutory force.</p>
     <p><b>Disclaimer</b> This is a working draft for compliance reference and does not constitute legal advice. Provisions should be checked against the versions in force in the Laws &amp; Regulations Database (law.moj.gov.tw), and the Directions against the version published by the PDPC Preparatory Office. The translation of the Directions used here is unofficial; the Mandarin text governs. Consult a qualified lawyer on any specific matter.</p>
-    <p>Taiwan PDPA Compliance Toolkit (Global CBPR Mapped), English Edition  / Document 05, Path C Author: I Jung (Alfred) Tsai Licence: CC BY-NC-SA 4.0 · v1.3-EN</p>
+    <p>Taiwan PDPA Compliance Toolkit (Global CBPR Mapped), English Edition  / Document 05, Path C Author: I Jung (Alfred) Tsai Licence: CC BY-NC-SA 4.0 · v1.4-EN</p>
   </div>`;
 
       out.innerHTML = h;
