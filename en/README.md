@@ -4,6 +4,8 @@
 
 Version 1.4-EN · Author: I Jung (Alfred) Tsai · Licence: CC BY-NC-SA 4.0
 
+**New in v1.4-EN:** every quotation checked word for word against the official translations in force, and provisions now quoted verbatim; cross-border transfer restrictions and prior-approval rules, and civil liability to data subjects, added; collapsible layout. The previous edition is archived in `ver. 1.3/en/`.
+
 **➜ [Open the toolkit](https://alfred-ij-tsai.github.io/tw-pdpa-gcbpr-toolkit/en/)**　·　[Mandarin edition 繁體中文版](https://alfred-ij-tsai.github.io/tw-pdpa-gcbpr-toolkit/)　·　[Repository](https://github.com/alfred-ij-tsai/tw-pdpa-gcbpr-toolkit)
 
 ---
