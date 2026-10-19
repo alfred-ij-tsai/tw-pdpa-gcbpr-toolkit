@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taiwan PDPA Compliance Toolkit (Global CBPR Mapped) — English Edition</title>
+<meta name="description" content="A compliance toolkit for the Taiwan Personal Data Protection Act, mapped to the Global CBPR System Program Requirements (Chinese Taipei, Annex B). Includes two interactive working-draft generators for data subject access requests and personal data incidents, plus four searchable reference tables.">
+<style>
+:root{
+  --ink:#16233A;--ink-2:#3A4A64;--muted:#6B7789;
+  --rule:#D3DAE3;--rule-soft:#E6EAF0;--field:#EDF1F6;--paper:#FFFFFF;
+  --seal:#A8322D;--seal-soft:#F5E9E8;--amber:#8A5A12;--amber-soft:#FBF2E0;
+  --serif:"Noto Serif","Source Serif 4","Iowan Old Style","Palatino Linotype",Georgia,"Noto Serif TC",serif;
+  --sans:"Noto Sans","Inter","Helvetica Neue",Arial,"Noto Sans TC",sans-serif;
+  --mono:ui-monospace,"SF Mono","Roboto Mono","Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--field);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px 90px}
+
+.hero{background:var(--paper);border-bottom:1px solid var(--rule)}
+.hero .inner{max-width:1080px;margin:0 auto;padding:52px 20px 44px}
+.hero .eyebrow{font-size:12px;letter-spacing:.22em;color:var(--seal);margin:0 0 16px;text-transform:uppercase}
+.hero h1{font-family:var(--serif);font-size:34px;line-height:1.32;font-weight:600;margin:0 0 6px;letter-spacing:.005em}
+@media(max-width:620px){.hero h1{font-size:26px}}
+.hero h1 .en{display:block;font-size:15px;letter-spacing:.03em;color:var(--muted);font-weight:400;margin-top:12px;font-family:var(--sans);line-height:1.6}
+.hero .lede{font-size:16px;color:var(--ink-2);max-width:46em;margin:20px 0 0}
+.hero .by{margin:26px 0 0;font-size:13px;color:var(--muted);border-top:1px solid var(--rule-soft);padding-top:16px}
+.hero .by b{color:var(--ink);font-weight:600}
+.hero .by a{color:var(--muted)}
+
+h2.sec{font-family:var(--serif);font-size:20px;font-weight:600;margin:48px 0 6px;padding-bottom:9px;border-bottom:2px solid var(--ink)}
+h2.sec .n{font-family:var(--mono);font-size:12px;color:var(--seal);margin-right:12px;letter-spacing:.08em}
+p.seclede{font-size:14px;color:var(--muted);margin:0 0 20px}
+
+.paths{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:860px){.paths{grid-template-columns:1fr}}
+.path{background:var(--paper);border:1px solid var(--rule);padding:22px 22px 20px;display:flex;flex-direction:column}
+.path .tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--seal);margin-bottom:10px;text-transform:uppercase}
+.path h3{font-family:var(--serif);font-size:18px;font-weight:600;margin:0 0 8px}
+.path p{font-size:13.5px;color:var(--ink-2);margin:0 0 16px;flex:1}
+.path .go{display:inline-block;font-size:13.5px;padding:9px 15px;border:1px solid var(--ink);background:var(--ink);color:#fff;text-decoration:none;align-self:flex-start}
+.path .go:hover{opacity:.86}
+.path .go.ghost{background:#fff;color:var(--ink)}
+.path .also{font-size:12.5px;color:var(--muted);margin:12px 0 0}
+.path .also a{color:var(--muted)}
+
+.docs{background:var(--paper);border:1px solid var(--rule)}
+.doc{display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:baseline;padding:16px 22px;border-bottom:1px solid var(--rule-soft)}
+.doc:last-child{border-bottom:0}
+@media(max-width:620px){.doc{grid-template-columns:44px 1fr;gap:10px}.doc .act{grid-column:2}}
+.doc .no{font-family:var(--mono);font-size:13px;color:var(--seal)}
+.doc h3{font-family:var(--serif);font-size:16px;font-weight:600;margin:0 0 3px}
+.doc p{font-size:13px;color:var(--muted);margin:0}
+.doc .act{white-space:nowrap}
+.doc .act a{font-size:12.5px;padding:5px 11px;border:1px solid var(--rule);text-decoration:none;color:var(--ink)}
+.doc .act a:hover{border-color:var(--ink)}
+.doc .act .none{font-size:12.5px;color:var(--muted)}
+
+.box{background:var(--paper);border:1px solid var(--rule);padding:24px 26px}
+.box p{margin:0 0 14px;font-size:14.5px;color:var(--ink-2)}
+.box p:last-child{margin:0}
+.box b{color:var(--ink)}
+.pull{border-left:3px solid var(--seal);background:var(--seal-soft);padding:14px 18px;margin:0 0 16px;font-size:14px;line-height:1.85;color:var(--ink-2)}
+.pull b{color:var(--seal)}
+dl.meta{display:grid;grid-template-columns:190px 1fr;gap:0;margin:0;font-size:13.5px;border-top:1px solid var(--rule-soft)}
+@media(max-width:620px){dl.meta{grid-template-columns:1fr}dl.meta dt{padding-bottom:0!important;border-bottom:0!important}}
+dl.meta dt{padding:9px 0;color:var(--muted);border-bottom:1px solid var(--rule-soft);font-size:13px}
+dl.meta dd{padding:9px 0 9px 0;margin:0;border-bottom:1px solid var(--rule-soft)}
+.foot{margin-top:40px;padding-top:20px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--muted);line-height:1.9}
+.foot a{color:var(--muted)}
+
+/* 語言切換（Language switch） */
+.langbar{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.langbar>.eyebrow{flex:1 1 auto;min-width:0}
+a.lang{flex:0 0 auto;font-family:var(--sans);font-size:12px;letter-spacing:.06em;
+  color:var(--muted);text-decoration:none;border:1px solid var(--rule);
+  padding:4px 11px;line-height:1.5;white-space:nowrap;align-self:center}
+a.lang:hover{border-color:var(--ink);color:var(--ink)}
+@media print{a.lang{display:none}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="inner">
+    <div class="langbar"><p class="eyebrow">Compliance reference tool · v1.3-EN · CC BY-NC-SA 4.0</p><a class="lang" href="../" title="以繁體中文閱讀本頁" rel="alternate">中文</a></div>
+    <h1>Taiwan Personal Data Protection Act Compliance Toolkit
+      <span class="en">English Edition · Mapped to the Global CBPR System Program Requirements (Chinese Taipei, Annex B)</span>
+    </h1>
+    <p class="lede">Built around the day-to-day compliance obligations of Taiwan's Personal Data Protection Act, this toolkit covers three working paths — data lifecycle obligations, responding to data subject requests, and personal data incident response — and maps each obligation to the Global CBPR System Program Requirements.</p>
+    <p class="by">Author <b>I Jung (Alfred) Tsai</b> | 
+      <a href="https://www.linkedin.com/in/ijungtsai" target="_blank" rel="noopener">LinkedIn</a> · 
+      <a href="https://www.threads.com/@irongtsay" target="_blank" rel="noopener">Threads</a> · 
+      <a href="https://github.com/alfred-ij-tsai/tw-pdpa-gcbpr-toolkit" target="_blank" rel="noopener">GitHub repository</a></p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <h2 class="sec"><span class="n">01</span>Start from the problem in front of you</h2>
+  <p class="seclede">Three paths for three practical situations. Each produces a printable working draft that you can rewrite into your organisation's own formal documents.</p>
+
+  <div class="paths">
+    <div class="path">
+      <div class="tag">Path A</div>
+      <h3>Day-to-day compliance</h3>
+      <p>Work through the statutory obligations across the seven stages of the personal data lifecycle, with the corresponding Enforcement Rules provisions and the supporting records you should hold.</p>
+      <a class="go ghost" href="table-03.html">Open the lifecycle table</a>
+      <p class="also">Sources, terminology and the sector index: <a href="table-02.html">02 Sources and Terminology</a></p>
+    </div>
+
+    <div class="path">
+      <div class="tag">Path B</div>
+      <h3>Data subject requests</h3>
+      <p>You have received a request to inquire, review, obtain a copy, correct, cease processing or erase. Enter the date received and the type of request; the 15-day and 30-day decision periods are calculated separately, with a point-by-point checklist and recommended actions.</p>
+      <a class="go" href="dsar.html">Open the DSAR draft generator</a>
+      <p class="also">Full obligation table: <a href="table-04.html">04 DSAR Table</a></p>
+    </div>
+
+    <div class="path">
+      <div class="tag">Path C</div>
+      <h3>Personal data incidents</h3>
+      <p>Personal data has been stolen, disclosed, altered, damaged or lost. Enter the time you became aware; the draft sets out the timeline, a checklist, and a prompt you can hand to an AI assistant.</p>
+      <a class="go" href="incident.html">Open the incident draft generator</a>
+      <p class="also">Full obligation table: <a href="table-05.html">05 Incident Table</a></p>
+    </div>
+  </div>
+
+  <h2 class="sec"><span class="n">02</span>The documents</h2>
+  <p class="seclede">Every page is searchable, deep-linkable and printable. Each is a single self-contained HTML file with no build step and no server.</p>
+
+  <div class="docs">
+    <div class="doc">
+      <span class="no">01</span>
+      <div><h3>AI prompts</h3><p>The AI collaboration design underlying all three paths</p></div>
+      <span class="act"><span class="none">Built into the three generators</span></span>
+    </div>
+    <div class="doc">
+      <span class="no">02</span>
+      <div><h3>Sources and Terminology</h3><p>Instruments relied on, a PDPA-to-Global-CBPR terminology map, an unofficial translation of the Executive Yuan Directions, a catalogue of special laws, and an index of sector regulations</p></div>
+      <span class="act"><a href="table-02.html">Open</a></span>
+    </div>
+    <div class="doc">
+      <span class="no">03</span>
+      <div><h3>Personal Data Lifecycle Compliance Table</h3><p>Obligations across seven stages, with Enforcement Rules provisions and supporting records</p></div>
+      <span class="act"><a href="table-03.html">Open</a></span>
+    </div>
+    <div class="doc">
+      <span class="no">04</span>
+      <div><h3>Data Subject Access Request (DSAR) Table</h3><p>Five data subject rights, the 15-day and 30-day decision periods, and the grounds for refusal under the PDPA</p></div>
+      <span class="act"><a href="table-04.html">Open</a></span>
+    </div>
+    <div class="doc">
+      <span class="no">05</span>
+      <div><h3>Personal Data Incident Table</h3><p>The six-stage process under the Executive Yuan Directions, with seventeen mapped obligations</p></div>
+      <span class="act"><a href="table-05.html">Open</a></span>
+    </div>
+  </div>
+
+  <h2 class="sec"><span class="n">03</span>Why map to the Global CBPR System</h2>
+  <div class="box">
+    <p class="pull"><b>Think of it as a privacy passport.</b> Certify once, and that certification is recognised across the member economies, instead of rebuilding the compliance argument for every market.</p>
+    <p>Chinese Taipei is a <b>founding member</b> of the Global CBPR Forum. The National Development Council serves as the coordinating body, and the Institute for Information Industry is the recognised Accountability Agent. For organisations in Taiwan seeking international trust for cross-border data flows, the Global CBPR System is an established route that is already in place.</p>
+    <p>There is also a practical reason for choosing it as the mapping baseline: <b>the Annex B Enforcement Map is a public document</b>. That allows this toolkit to quote its questions in full and to be released under an open licence, so that anyone may use, adapt and redistribute it.</p>
+    <p>The core of this toolkit remains <b>day-to-day compliance with Taiwan's PDPA</b>. The Global CBPR column is a supplementary reference for organisations with cross-border needs or preparing for certification; it does not alter how domestic obligations are assessed.</p>
+  </div>
+
+  <h2 class="sec"><span class="n">04</span>What this edition covers, and what it leaves out</h2>
+  <div class="box">
+    <p>Everything quoted here comes from an instrument with an <b>official English translation</b>, so that each provision can be traced to a government source rather than to a rendering prepared by the author. That principle sets the boundary of what follows.</p>
+    <p><b>Statute-level special laws are catalogued but not reproduced.</b> Article 1 of the PDPA provides that other laws prevail where they provide otherwise, and for non-government agencies those statutes cluster in finance, healthcare, employment, telecommunications, and the protection of victims and vulnerable people. Reproducing two or three while omitting the rest would suggest a coverage this toolkit does not have, so <a href="table-02.html#special">02 Sources and Terminology, Part D</a> instead carries a <b>non-exhaustive</b> catalogue: statute, articles, and a one-line description of the effect, with no statutory text quoted and no links, so that what you read is the version in force on the day you read it. It is a signpost, not an answer.</p>
+    <p><b>Sector-specific regulations are indexed but not reproduced.</b> Under Article 27, Paragraph 2 of the PDPA, the central government authorities in charge of the industries concerned may designate non-government agencies to establish security and maintenance plans for personal data files. None of these regulations has an English text that can be relied on, and quoting unofficial renderings of provisions that carry penalties would be worse than quoting nothing. <a href="table-02.html#sector">Part E</a> therefore indexes them by authority, giving the Mandarin name as a copyable search key alongside an English name for identification only. <b>Treat that index as non-exhaustive.</b> These regulations are numerous, are issued and amended by some twenty separate authorities, and change often enough that any snapshot will drift; confirm against the Laws &amp; Regulations Database rather than relying on the index alone. Paths A and C then let you name your own regulation, optionally, and generate a prompt that folds its Mandarin text into the analysis clause by clause.</p>
+    <p>The one exception at either layer is the <b>Executive Yuan Directions</b>, which govern the incident-handling process in Path C and have no official English translation. Because Path C would be unintelligible without them, an unofficial bilingual translation is provided in <a href="table-02.html">02 Sources and Terminology</a>, clearly marked as such.</p>
+  </div>
+
+  <h2 class="sec"><span class="n">05</span>Version, scope and limitations</h2>
+  <div class="box">
+    <dl class="meta">
+      <dt>Toolkit version</dt>
+      <dd>v1.3-EN (2026). Scope limited to instruments having official English translations. Version history is on the GitHub repository.</dd>
+      <dt>Personal Data Protection Act</dt>
+      <dd>Provisions in force, as translated in the official English version amended 31 May 2023. The amendments promulgated on 11 November 2025 are not yet in force; their enforcement date is to be set by the Executive Yuan. Where those amendments are relevant, they are separately flagged and quoted from the official English version dated 11 November 2025.</dd>
+      <dt>Enforcement Rules</dt>
+      <dd>Official English version, amended 2 March 2016</dd>
+      <dt>Specific purposes and categories</dt>
+      <dd>The specific purpose and the classification of personal information of the Personal Information Protection Act, official English version, amended 1 October 2012. Note that this instrument, and the Global CBPR Annex B Enforcement Map, both use the older rendering "Personal Information Protection Act"; the current official translation of the Act itself uses "Personal Data Protection Act".</dd>
+      <dt>Executive Yuan Directions</dt>
+      <dd>Directions for the Executive Yuan and Its Subordinate Agencies on Liaison Operations for the Implementation of Personal Data Protection (amended 7 January 2025). <b>No official English translation exists</b>; the translation in this toolkit is unofficial.</dd>
+      <dt>Mapping baseline</dt>
+      <dd>Global CBPR System Program Requirements Enforcement Map for Chinese Taipei (Annex B)</dd>
+      <dt>Special laws and sector regulations</dt>
+      <dd>Statutes that prevail over the PDPA under the proviso to its Article 1 are catalogued in 02 Sources and Terminology, Part D; sector-specific regulations made under its Article 27, Paragraph 2 are indexed in Part E. That catalogue is <b>not exhaustive</b>, the effects described in it are the author's summaries rather than quotations, and no statutory text from those laws is reproduced anywhere in this toolkit.</dd>
+      <dt>Who this covers</dt>
+      <dd>Non-government agencies. The security and maintenance obligations of government agencies fall under Article 18 of the PDPA and are further governed by the Freedom of Government Information Act, the Archives Act and the Administrative Procedure Act; they are outside the scope of this toolkit. Provisions are quoted only to the extent that they apply to non-government agencies.</dd>
+      <dt>Calculating periods</dt>
+      <dd>All dates shown in the generated drafts are the raw expiry dates calculated by counting days or hours. They do not account for postponement where the final day falls on a holiday. Confirm the actual final day under Article 48 of the Administrative Procedure Act against the official working calendar for the year in question.</dd>
+    </dl>
+    <p style="margin-top:18px"><b>This toolkit is a compliance reference and does not constitute legal advice.</b>
+ The provisions cited should be checked against the versions in force in the
+      <a href="https://law.moj.gov.tw/ENG/" target="_blank" rel="noopener">Laws &amp; Regulations Database of the Republic of China (Taiwan)</a>.
+ Where the English and Mandarin versions differ, the Mandarin version governs.
+ The generated drafts are working documents; consult a qualified lawyer on any specific matter.</p>
+  </div>
+
+  <p class="foot">
+ Taiwan Personal Data Protection Act Compliance Toolkit (Global CBPR Mapped), English Edition · v1.3-EN · Author: I Jung (Alfred) Tsai · 
+ Released under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International licence</a>.<br>
+ You are free to share and adapt this work, provided you give appropriate credit, do not use it commercially, and distribute your contributions under the same licence.
+  </p>
+</div>
+
+</body>
+</html>

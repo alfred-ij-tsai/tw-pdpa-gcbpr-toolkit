@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02 Sources and Terminology | Taiwan PDPA Compliance Toolkit</title>
+<style>
+:root{
+  --ink:#16233A;--ink-2:#3A4A64;--muted:#6B7789;
+  --rule:#D3DAE3;--rule-soft:#E6EAF0;--field:#EDF1F6;--paper:#FFFFFF;
+  --seal:#A8322D;--seal-soft:#F5E9E8;--amber:#8A5A12;--amber-soft:#FBF2E0;
+  --serif:"Noto Serif","Source Serif 4","Iowan Old Style","Palatino Linotype",Georgia,"Noto Serif TC",serif;
+  --sans:"Noto Sans","Inter","Helvetica Neue",Arial,"Noto Sans TC",sans-serif;
+  --cjk:"Noto Serif TC","Songti TC","Source Han Serif TC","PMingLiU",serif;
+  --mono:ui-monospace,"SF Mono","Roboto Mono","Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--field);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px 80px}
+header.top{border-bottom:1px solid var(--rule);background:var(--paper)}
+header.top .inner{max-width:1240px;margin:0 auto;padding:22px 20px 18px}
+.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--muted);margin:0 0 6px;text-transform:uppercase}
+.eyebrow a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
+h1{font-family:var(--serif);font-size:26px;font-weight:600;margin:0 0 8px;letter-spacing:.005em}
+.sub{margin:0;color:var(--ink-2);font-size:13.5px}
+.usage{max-width:1240px;margin:0 auto;padding:16px 20px 0}
+.usage p{background:var(--paper);border:1px solid var(--rule);border-left:3px solid var(--ink);padding:14px 18px;margin:0;font-size:13px;line-height:1.9;color:var(--ink-2)}
+.usage p b{color:var(--ink)}
+.cols{display:grid;grid-template-columns:280px 1fr;gap:26px;align-items:start;margin-top:26px}
+@media(max-width:940px){.cols{grid-template-columns:1fr}}
+.side{background:var(--paper);border:1px solid var(--rule);padding:18px 18px 22px;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
+@media(max-width:940px){.side{position:static;max-height:none}}
+.side h2{font-family:var(--serif);font-size:15px;font-weight:600;margin:0 0 10px}
+.side h3{font-size:11px;letter-spacing:.12em;color:var(--muted);margin:18px 0 8px;font-weight:400;text-transform:uppercase}
+input[type=search]{width:100%;font-family:var(--sans);font-size:14px;padding:9px 10px;border:1px solid var(--rule);background:#fff;color:var(--ink);border-radius:0;-webkit-appearance:none}
+input[type=search]:focus,button:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.count{font-size:12px;color:var(--muted);margin:8px 0 0;font-family:var(--mono)}
+.count b{color:var(--seal)}
+nav.toc{border-top:1px solid var(--rule-soft)}
+nav.toc a{display:block;padding:8px 0;border-bottom:1px solid var(--rule-soft);font-size:13.5px;text-decoration:none;color:var(--ink)}
+nav.toc a:hover{color:var(--seal)}
+nav.toc a.sub2{padding-left:14px;font-size:12.5px;color:var(--ink-2)}
+.side .reset{margin-top:16px;font-size:12.5px;padding:7px 12px;border:1px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;font-family:var(--sans)}
+main{min-width:0}
+section.blk{background:var(--paper);border:1px solid var(--rule);margin-bottom:22px}
+section.blk>h2{font-family:var(--serif);font-size:18px;font-weight:600;margin:0;padding:18px 26px 15px;border-bottom:2px solid var(--ink);scroll-margin-top:16px}
+section.blk>h2 .n{font-family:var(--mono);font-size:12px;color:var(--seal);margin-right:10px;letter-spacing:.08em}
+.body{padding:18px 26px 24px}
+.body>p{font-size:14px;color:var(--ink-2);margin:0 0 14px}
+.body>p:last-child{margin-bottom:0}
+
+/* sources */
+.src{padding:16px 0;border-bottom:1px solid var(--rule-soft)}
+.src:first-child{padding-top:0}
+.src:last-child{border-bottom:0;padding-bottom:0}
+.src .t{font-family:var(--serif);font-size:15.5px;font-weight:600;display:block;margin-bottom:2px}
+.src .t a{text-decoration:none;border-bottom:1px solid var(--rule)}
+.src .t a:hover{border-bottom-color:var(--ink);color:var(--seal)}
+.src .zh{font-family:var(--cjk);font-size:13.5px;color:var(--muted);margin:0 0 6px}
+.src .m{font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.03em;margin:0 0 7px}
+.src .d{font-size:13.5px;color:var(--ink-2);line-height:1.85;margin:0}
+.src .flag{display:inline-block;font-size:11px;font-family:var(--mono);letter-spacing:.05em;padding:1px 7px;border:1px solid var(--amber);color:var(--amber);background:var(--amber-soft);margin-left:8px;vertical-align:2px}
+
+/* terminology */
+table.tm{width:100%;border-collapse:collapse;font-size:13.5px;margin:0 0 6px}
+table.tm caption{text-align:left;font-family:var(--serif);font-size:14.5px;font-weight:600;padding:16px 0 8px;color:var(--ink)}
+table.tm th{text-align:left;font-size:11.5px;letter-spacing:.08em;color:var(--muted);font-weight:400;text-transform:uppercase;padding:0 12px 6px 0;border-bottom:1px solid var(--rule);width:50%}
+table.tm td{padding:8px 12px 8px 0;border-bottom:1px solid var(--rule-soft);vertical-align:top;line-height:1.7}
+table.tm td:last-child,table.tm th:last-child{padding-right:0}
+table.tm td.none{color:var(--muted);font-style:italic}
+table.tm td .zh{font-family:var(--cjk);color:var(--muted);font-size:12.5px;display:block}
+table.tm tr.gap td{border-bottom:0;height:4px;padding:0}
+
+/* directions */
+.pt{padding:18px 0;border-bottom:1px solid var(--rule-soft);scroll-margin-top:16px}
+.pt:first-child{padding-top:0}
+.pt:last-child{border-bottom:0}
+.pt h3{font-family:var(--serif);font-size:15.5px;font-weight:600;margin:0 0 10px}
+.pt h3 .n{font-family:var(--mono);font-size:11.5px;color:var(--seal);margin-right:10px;letter-spacing:.06em}
+.bi{display:grid;grid-template-columns:1fr 1fr;gap:0 26px}
+@media(max-width:820px){.bi{grid-template-columns:1fr;gap:0}}
+.bi .zh{font-family:var(--cjk);font-size:13.5px;line-height:1.95;color:var(--ink-2);border-left:2px solid var(--rule);padding-left:14px}
+.bi .en{font-size:13.5px;line-height:1.85;color:var(--ink-2);border-left:2px solid var(--seal-soft);padding-left:14px}
+@media(max-width:820px){.bi .en{margin-top:12px}}
+.bi p{margin:0 0 9px}
+.bi p:last-child{margin-bottom:0}
+.bi .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--muted);display:block;margin-bottom:6px;text-transform:uppercase}
+
+.notice{border-left:3px solid var(--amber);background:var(--amber-soft);padding:13px 16px;margin:0 0 18px;font-size:13px;line-height:1.85;color:var(--ink-2)}
+.notice b{color:var(--amber)}
+.nores{padding:40px 26px;text-align:center;color:var(--muted);font-size:14px}
+mark{background:#FCEFA8;color:inherit;padding:0 1px}
+.foot{margin-top:26px;background:#FAFBFC;border:1px solid var(--rule);padding:20px 26px 24px}
+.foot p{margin:0 0 8px;font-size:12px;color:var(--muted);line-height:1.85}
+.foot p:last-child{margin-bottom:0}
+.foot b{color:var(--ink-2)}
+@media print{
+ body{background:#fff;font-size:10pt}
+ header.top,.side,.noprint{display:none!important}
+  .cols{display:block}
+  .wrap{max-width:none;padding:0}
+ section.blk{break-inside:auto;border:0;margin:0 0 12px}
+  .pt,.src{break-inside:avoid}
+ a{text-decoration:none}
+}
+/* Part E */
+.ag{padding:16px 0;border-bottom:1px solid var(--rule-soft)}
+.ag:first-child{padding-top:0}
+.ag:last-child{border-bottom:0;padding-bottom:0}
+.ag h4{font-family:var(--serif);font-size:15px;font-weight:600;margin:0 0 10px}
+.ag h4 .zh{font-family:var(--cjk);font-size:13px;color:var(--muted);font-weight:400;margin-left:10px}
+.ag table.tm{margin-bottom:0}
+.ag .key{font-family:var(--cjk);font-size:13.5px;line-height:1.8;-webkit-user-select:all;user-select:all}
+.ag .noreg{margin:0;font-size:13px;color:var(--muted);font-style:italic}
+
+/* 語言切換（Language switch） */
+.langbar{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.langbar>.eyebrow{flex:1 1 auto;min-width:0}
+a.lang{flex:0 0 auto;font-family:var(--sans);font-size:12px;letter-spacing:.06em;
+  color:var(--muted);text-decoration:none;border:1px solid var(--rule);
+  padding:4px 11px;line-height:1.5;white-space:nowrap;align-self:center}
+a.lang:hover{border-color:var(--ink);color:var(--ink)}
+@media print{a.lang{display:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner">
+    <div class="langbar"><p class="eyebrow"><a href="index.html">Taiwan PDPA Compliance Toolkit</a> / Document 02 · v1.3-EN</p><a class="lang" href="../table-02.html" title="以繁體中文閱讀本頁" rel="alternate">中文</a></div>
+    <h1>Sources and Terminology</h1>
+    <p class="sub">The instruments relied on in this English edition, a terminology map between the PDPA and the Global CBPR System Program Requirements, and an unofficial translation of the Executive Yuan Directions</p>
+  </div>
+</header>
+
+<div class="usage">
+  <p><b>How to use this page</b> This English edition quotes only instruments for which an official English translation exists, so that every provision can be traced to a government source. Sector-specific security and maintenance regulations issued under Article 27, Paragraph 2 of the PDPA are therefore not reproduced here; where they matter,
+  <a href="table-03.html">03 Lifecycle Table</a> and the <a href="incident.html">incident draft generator</a> ask you to supply the text of your own sector regulation.
+ The one exception is the Executive Yuan Directions, translated unofficially in Part C because Path C depends on it.
+ The terminology map in Part B is a reading aid: it shows how the same concept is named in each text, and where a concept exists in one and not the other.
+ Part D is different in kind. It catalogues the statute-level special laws that prevail over the PDPA under the proviso to Article 1, and it is expressly <b>not exhaustive</b>: it signposts a layer of law that this toolkit does not attempt to reproduce, so that you can go and find the part of it that applies to you.</p>
+</div>
+
+<div class="wrap">
+<div class="cols">
+
+  <aside class="side noprint">
+    <h2>Search</h2>
+    <input type="search" id="q" placeholder="Term, article number or keyword" aria-label="Search this page">
+    <p class="count" id="count"></p>
+
+    <h3>Contents</h3>
+    <nav class="toc">
+      <a href="#sources">A Instruments relied on</a>
+      <a href="#terms">B Terminology map</a>
+      <a href="#tm-actors" class="sub2">B1 Actors and roles</a>
+      <a href="#tm-data" class="sub2">B2 The data itself</a>
+      <a href="#tm-acts" class="sub2">B3 Acts performed on data</a>
+      <a href="#tm-principles" class="sub2">B4 Principles and obligations</a>
+      <a href="#tm-rights" class="sub2">B5 Rights of the individual</a>
+      <a href="#directions">C Executive Yuan Directions</a>
+      <a href="#dir-points" class="sub2">C1 Points 1 to 13</a>
+      <a href="#dir-annex1" class="sub2">C2 Annex 1 — Record Form</a>
+      <a href="#dir-annex2" class="sub2">C3 Annex 2 — Flowchart</a>
+      <a href="#special">D Special laws that prevail</a>
+      <a href="#sp-basis" class="sub2">D1 Lawful basis and consent</a>
+      <a href="#sp-rights" class="sub2">D2 How rights are exercised</a>
+      <a href="#sp-secrecy" class="sub2">D3 Confidentiality and non-disclosure</a>
+      <a href="#sector">E Sector-specific regulations</a>
+    </nav>
+
+    <button class="reset" id="reset">Clear search</button>
+  </aside>
+
+  <main id="main">
+
+  <!-- ============ A. SOURCES ============ -->
+  <section class="blk" id="sources">
+    <h2><span class="n">A</span>Instruments relied on</h2>
+    <div class="body">
+      <p>Four instruments have official English translations and are quoted directly throughout this edition. A fifth, the Executive Yuan Directions, does not, and is translated unofficially in Part C.</p>
+      <div id="srcout"></div>
+    </div>
+  </section>
+
+  <!-- ============ B. TERMINOLOGY ============ -->
+  <section class="blk" id="terms">
+    <h2><span class="n">B</span>Terminology map: PDPA and Global CBPR</h2>
+    <div class="body">
+      <div class="notice"><b>Read this before using the map.</b>
+ The two texts do not share a vocabulary. The PDPA's official English translation says <i>personal data</i> and <i>data subject</i>; Annex B says <i>personal information</i> and <i>individual</i>, and never uses <i>data subject</i> at all.
+ Three gaps matter more than the naming. First, <i>processing</i> in Article 2, Subparagraph 4 of the PDPA is a narrow, enumerated list of operations performed to establish or use a personal data file; it is not the broad umbrella term familiar from other regimes.
+ Second, the PDPA has no standalone concept of <i>disclosure</i> — disclosing data to a third party is a form of <i>use</i>. Annex B treats disclosure as a distinct act.
+ Third, Annex B contains no equivalent of the Article 6 categories; the word <i>sensitive</i> does not appear in it.
+ Where a cell reads "no counterpart", that is a substantive finding, not an omission.</div>
+      <div id="tmout"></div>
+    </div>
+  </section>
+
+  <!-- ============ C. DIRECTIONS ============ -->
+  <section class="blk" id="directions">
+    <h2><span class="n">C</span>Executive Yuan Directions — unofficial translation</h2>
+    <div class="body">
+      <div class="notice"><b>This translation is unofficial.</b>
+ No official English translation of the Directions exists. The Laws &amp; Regulations Database publishes English versions of acts and of regulations issued under statutory authority; the Directions are an internal administrative rule and fall outside that scope.
+ This translation was prepared by the author of this toolkit for reference only and has not been reviewed or approved by any competent authority. <b>The Mandarin text governs.</b>
+ It is included because Path C — the incident response draft — is built on the process these Directions establish, and would be unusable without them.</div>
+
+      <p><b>Translation choices worth flagging.</b>
+        「要點」is rendered <i>Directions</i>, following the Executive Yuan's usual English style for instruments of this kind.
+        「個資安維案件」is rendered <i>personal data file security violation case</i>, shortened to <i>security violation case</i>. It is deliberately not rendered as <i>incident</i> or <i>breach</i>, to keep it distinct from the Article 12 concept of an infringement, though the English carries a connotation of established wrongdoing that the Mandarin does not.
+        「中央目的事業主管機關」follows the PDPA's official translation, <i>central government authority in charge of the industry concerned</i>, shortened after first use to <i>central competent authority</i>.
+        「重大矚目」is rendered <i>major and high-profile</i>.
+        「行政檢查」and「行政調查」are kept distinct as <i>administrative inspection</i> (the planned annual exercise under Article 22) and <i>administrative investigation</i> (case-specific).</p>
+
+      <p><b>Promulgation and amendment history.</b>
+ Promulgated by Executive Yuan Letter Yuan-Shou-Fa-Xie-Zi No. 1102001106, 11 August 2021; amended 29 May 2023, 15 August 2023, 28 November 2023, 15 May 2024, and 7 January 2025 (Letter Yuan-Shou-Ge-Zi-Chou-Cha-Zi No. 1140500004).</p>
+
+      <div id="dirout"></div>
+    </div>
+  </section>
+
+  <!-- ============ D. SPECIAL LAWS ============ -->
+  <section class="blk" id="special">
+    <h2><span class="n">D</span>Special laws that prevail over the PDPA</h2>
+    <div class="body">
+      <div class="notice"><b>This list is not exhaustive.</b>
+        It records the <b>statute-level</b> special laws the author has identified as bearing on non-government agencies, and there will be others that are not listed here. Regulations made under an enabling provision of a statute are a separate layer and are not listed here at all.
+        Treat it as a prompt to investigate your own sector, not as a complete answer. If you are subject to a statute that displaces or supplements the PDPA and it does not appear below, the omission means only that it has not yet been catalogued.</div>
+
+      <p><b>Why this matters.</b> Article 1 of the PDPA provides that the collection, processing and use of personal data shall be governed by the Act, <i>except where otherwise provided by other laws</i>. That proviso is the gateway: wherever another statute lays down its own rule on personal data, that rule prevails. For non-government agencies these statutes cluster in finance, healthcare, employment, telecommunications, and the protection of vulnerable people and victims of crime. A first-pass estimate puts the number at somewhere between twenty-five and thirty-five.</p>
+
+      <p><b>How to read the entries.</b> The effect described for each entry is <b>the author's one-line summary, not a quotation</b>, and no statutory text is reproduced in this Part. That is deliberate. Reproducing two or three of these statutes in full while omitting the rest would repeat the very problem this Part exists to solve, and several have no official English translation to reproduce. Read the statute itself before relying on any entry. Where the article number is given, it is the entry point rather than the whole of the relevant text.</p>
+
+      <p><b>Finding the official text.</b> No links are given in this Part, deliberately. Copy the English or Mandarin name of a statute and search for it yourself in the
+        <a href="https://law.moj.gov.tw/ENG/" target="_blank" rel="noopener">Laws &amp; Regulations Database</a>, so that what you read is the version in force on the day you read it rather than the version current when this page was written. Where the English and Mandarin versions differ, the Mandarin version governs.</p>
+
+      <p><b>Three categories, three paths.</b> The grouping is by what the special law <i>does</i> rather than by industry, because each category bears on a different part of this toolkit.
+        D1 changes the lawful basis or the consent requirement, and so bears on <a href="table-03.html">Path A</a>.
+        D2 changes how a data subject right is performed or how long you have, and so bears on <a href="dsar.html">Path B</a>.
+        D3 adds a duty of confidentiality or a prohibition on disclosure, and so bears on Paths A and <a href="incident.html">C</a>.
+        A statute may appear in more than one category where different articles do different things: the Human Subjects Research Act, for instance, appears in D1 for its consent provisions and in D3 for its non-disclosure provisions.</p>
+
+      <p><b>What this catalogue leaves out.</b> This toolkit deals with administrative compliance obligations and the administrative supervision that follows a failure to meet them. Statutes governing criminal procedure are therefore outside its scope, even where they bear heavily on personal data. The Communication Security and Surveillance Act is the clearest example: it regulates the interception of communications and the obtaining of communications records in the course of criminal investigation, and is not catalogued here.</p>
+
+      <div id="spout"></div>
+    </div>
+  </section>
+
+  <!-- ============ E. SECTOR REGULATIONS ============ -->
+  <section class="blk" id="sector">
+    <h2><span class="n">E</span>Sector-specific regulations, by authority</h2>
+    <div class="body">
+      <div class="notice"><b>This Part is an index, not a source.</b>
+        It exists so that you can work out <i>which</i> regulation applies to your organisation. It gives names only. <b>No provision of any regulation listed here is reproduced anywhere in this toolkit</b>, and none of these regulations has an English text you can rely on.<br><b>Treat this index as non-exhaustive.</b> These regulations are numerous, are issued and amended by some twenty separate authorities, and change often enough that any snapshot will drift. Confirm against the Laws &amp; Regulations Database rather than relying on the index alone.</div>
+
+      <p><b>Why you need this.</b> Under Article 27, Paragraph 2 of the PDPA, a central government authority in charge of an industry may designate non-government agencies to establish a security and maintenance plan for personal data files. Many such regulations are in force. Where one applies to you, it will set the recipient, deadline and content of any incident report you must make, and may impose requirements stricter than the PDPA baseline used throughout this toolkit.</p>
+
+      <p><b>How to use it.</b> Find your authority, then find the regulation covering your industry. <b>Copy the Mandarin name</b> and search it in the
+        <a href="https://law.moj.gov.tw/" target="_blank" rel="noopener">Laws &amp; Regulations Database</a>. You do not need to read Mandarin to do this: the Mandarin name is the search key, and the English name beside it is there only so that you can tell which entry is yours. Once you have the Mandarin text, paste it into the prompt generated by <a href="table-03.html">Path A</a> or <a href="incident.html">Path C</a>, which will compare it against the baseline clause by clause.</p>
+
+      <p><b>The English names are for identification only.</b> Most are the English names published by the government and are reproduced verbatim; the remainder were rendered by the author. Neither may be cited as a source, and the Mandarin text governs in every case.
+        The published English names are not consistent with one another: the same term 個人資料檔案 appears as both <i>Personal Information Files</i> and <i>Personal Data Files</i>, and 安全維護計畫 appears as <i>Security Maintenance Plan</i>, <i>Security Protection Plan</i>, <i>Plan of Security Measures</i> and <i>Security Assurance Plan</i>. They are reproduced as published rather than harmonised, because that is the wording you will encounter when you search.</p>
+
+      <div id="seout"></div>
+    </div>
+  </section>
+
+  </main>
+</div>
+
+<div class="foot">
+  <p><b>Versions relied on</b> Personal Data Protection Act: official English translation, amended 31 May 2023 (provisions in force). The amendments of 11 November 2025 are not yet in force; their enforcement date is to be set by the Executive Yuan. Enforcement Rules: official English translation, amended 2 March 2016.</p>
+  <p><b>Statute-level special laws</b> Part D is a non-exhaustive catalogue compiled by the author. The effects described there are the author's summaries and not quotations, and no statutory text from those laws is reproduced anywhere in this toolkit. Identify the statutes applicable to your own sector independently, and read them in the original.</p>
+  <p><b>Mapping baseline</b> Global CBPR System Program Requirements Enforcement Map for Chinese Taipei (Annex B).</p>
+  <p><b>Terminology inconsistency in the source texts</b> Both the specific purposes and classification instrument and the Global CBPR Annex B Enforcement Map refer to the statute as the "Personal Information Protection Act", an earlier rendering. The current official translation of the Act uses "Personal Data Protection Act". Titles are reproduced here as they appear in the source.</p>
+  <p><b>Sector-specific regulations</b> Regulations issued by central competent authorities under Article 27, Paragraph 2 of the PDPA are outside the scope of this English edition, as they have no official English translations. The Mandarin edition of this toolkit contains a full inventory of some sixty-five such regulations across thirty authorities.</p>
+  <p><b>Disclaimer</b> This page is a compliance reference and does not constitute legal advice. Provisions should be checked against the versions in force in the Laws &amp; Regulations Database (law.moj.gov.tw). Where the English and Mandarin versions differ, the Mandarin version governs. Consult a qualified lawyer on any specific matter.</p>
+  <p>Taiwan PDPA Compliance Toolkit (Global CBPR Mapped), English Edition ／ Document 02 Author: I Jung (Alfred) Tsai Licence: CC BY-NC-SA 4.0 · v1.3-EN</p>
+</div>
+</div>
+
+<script>
+/* ============================================================
+Edit the data below to change the content of this page.
+   ============================================================ */
+
+const SOURCES = [
+  {
+    t:"Personal Data Protection Act",
+    zh:"個人資料保護法",
+    url:"https://law.moj.gov.tw/ENG/LawClass/LawAll.aspx?pcode=I0050021",
+    meta:"Official English translation · Amended 31 May 2023 (in force) · Further amended 11 November 2025 (not yet in force)",
+    d:"The primary statute. Quoted from the official English version of the provisions currently in force, matching the baseline used in the Mandarin edition v1.3. Where the amendments promulgated on 11 November 2025 are relevant, they are flagged separately and quoted from the official English version of that amendment. Those amendments introduce, among other things, a reporting obligation to the competent authority under Article 12, Paragraph 2, and delete Article 27; their enforcement date is to be set by the Executive Yuan."
+  },
+  {
+    t:"Enforcement Rules of the Personal Data Protection Act",
+    zh:"個人資料保護法施行細則",
+    url:"https://law.moj.gov.tw/ENG/LawClass/LawAll.aspx?pcode=I0050022",
+    meta:"Official English translation · Amended 2 March 2016",
+    d:"Gives operative content to the Act's general terms. Article 12, Paragraph 2 in particular enumerates the eleven measures that constitute proper security measures, and supplies the structure for much of the lifecycle table."
+  },
+  {
+    t:"The specific purpose and the classification of personal information of the Personal Information Protection Act",
+    zh:"個人資料保護法之特定目的及個人資料之類別",
+    url:"https://mojlaw.moj.gov.tw/ENG/LawContentE.aspx?LSID=fl010631",
+    meta:"Official English translation · Amended 1 October 2012",
+    d:"The 182 specific purposes and the classification codes for categories of personal data, jointly issued by the Ministry of Justice and the central government authorities in charge of the industries concerned. Published on the Ministry of Justice's own regulations retrieval system rather than the main Laws & Regulations Database. The title is reproduced as it appears in the official translation, which uses the older rendering \"Personal Information Protection Act\" and the term \"personal information\" throughout."
+  },
+  {
+    t:"Directions for the Executive Yuan and Its Subordinate Agencies on Liaison Operations for the Implementation of Personal Data Protection",
+    zh:"行政院及所屬各機關落實個人資料保護聯繫作業要點",
+    url:"https://ws.pdpc.gov.tw/FS01/FilePath/3/relfile/24/42/99f11f16-c129-4335-a87e-4af52269a02b.pdf",
+    meta:"No official English translation · Amended 7 January 2025 · Link is to the Mandarin announced version",
+    flag:"UNOFFICIAL",
+    d:"Establishes the process by which security violation cases are escalated, investigated and closed. Translated unofficially in Part C of this page. The link opens the Mandarin announced version published by the Preparatory Office of the Personal Data Protection Commission."
+  }
+];
+
+const TERMS = [
+  { id:"tm-actors", cap:"B1 Actors and roles", rows:[
+    ["data subject <span class='zh'>當事人</span>", "individual"],
+    ["non-government agency <span class='zh'>非公務機關</span>", "Applicant Organization; personal information controller"],
+    ["government agency <span class='zh'>公務機關</span>", null],
+    ["a person commissioned to collect, process or use personal data, deemed to be acting on behalf of the commissioning agency (Art. 4) <span class='zh'>受託者</span>", "personal information processor; agent; contractor; service provider"],
+    ["data collector <span class='zh'>蒐集者</span>", "personal information controller"],
+    ["Personal Data Protection Commission (PDPC), the competent authority <span class='zh'>主管機關</span>", "privacy enforcement authority"],
+    ["central government authority in charge of the industry concerned <span class='zh'>中央目的事業主管機關</span>", null],
+    [null, "Accountability Agent"]
+  ]},
+  { id:"tm-data", cap:"B2 The data itself", rows:[
+    ["personal data <span class='zh'>個人資料</span>", "personal information"],
+    ["personal data file <span class='zh'>個人資料檔案</span>", null],
+    ["Article 6 personal data ('sensitive data') <span class='zh'>第 6 條第 1 項所定特種個人資料</span>", null],
+    ["specific purposes and categories of personal data (Art. 53) <span class='zh'>特定目的及個人資料類別</span>", "categories or specific sources of personal information collected"]
+  ]},
+  { id:"tm-acts", cap:"B3 Acts performed on data", rows:[
+    ["collection <span class='zh'>蒐集</span>", "collection"],
+    ["processing — recording, inputting, storing, compiling/editing, correcting, duplicating, retrieving, deleting, outputting, connecting or internally transferring, for the purpose of establishing or using a personal data file (Art. 2(4)) <span class='zh'>處理</span>", "no single counterpart; the enumerated operations are addressed under Use and Security Safeguards"],
+    ["use — using personal data by any method other than processing (Art. 2(5)) <span class='zh'>利用</span>", "use"],
+    ["no standalone concept; disclosing data to a third party is a form of use <span class='zh'>（無獨立概念，涵蓋於利用）</span>", "disclosure; third-party sharing"],
+    ["cross-border transfer — cross-border processing or use (Art. 2(6)) <span class='zh'>國際傳輸</span>", "transfer (used of transfers to processors, not of cross-border movement)"],
+    ["erase <span class='zh'>刪除</span>", "deletion (as a remedy within Access and Correction)"],
+    ["cease processing or using <span class='zh'>停止處理或利用</span>", null]
+  ]},
+  { id:"tm-principles", cap:"B4 Principles and obligations", rows:[
+    ["the obligation to inform (Arts. 8 and 9) <span class='zh'>告知義務</span>", "Notice; privacy statement"],
+    ["circumstances in which the obligation to inform may be waived (Arts. 8(2) and 9(2)) <span class='zh'>免為告知之情形</span>", "Qualifications"],
+    ["shall not exceed the necessary scope of specific purposes, and shall have legitimate and reasonable connections with the purposes of collection (Art. 5) <span class='zh'>比例原則</span>", "Collection Limitation"],
+    ["specific purpose <span class='zh'>特定目的</span>", "purpose(s) for which personal information is collected"],
+    ["use for another purpose (Arts. 16 and 20(1)) <span class='zh'>特定目的外之利用</span>", "Uses of Personal Information"],
+    ["consent — a declaration of agreement given after being informed (Art. 7(1)) <span class='zh'>同意</span>", "Choice; consent of the individual"],
+    ["a separate declaration of agreement, for use beyond the original purpose (Art. 7(2)) <span class='zh'>單獨同意</span>", "express consent"],
+    ["presumed consent where the data subject does not object and affirmatively provides the data (Art. 7(3)) <span class='zh'>推定同意</span>", null],
+    ["cessation of marketing on the data subject's objection (Art. 20(2)) <span class='zh'>行銷拒絕權</span>", null],
+    ["shall ensure the accuracy of personal data and correct or supplement it (Art. 11(1)) <span class='zh'>維護正確性義務</span>", "Integrity of Personal Information; up to date, accurate and complete"],
+    ["proper security measures (Art. 27(1)) <span class='zh'>適當之安全措施</span>", "Security Safeguards"],
+    ["notification to the data subject after an infringement (Art. 12) <span class='zh'>事故通知當事人</span>", null],
+    ["no reporting obligation to the competent authority under the provisions in force <span class='zh'>現行法無向主管機關通報義務</span>", null],
+    ["supervision of a commissioned party (Art. 4; Enforcement Rules Art. 8) <span class='zh'>委外監督義務</span>", "Accountability, Q46 to Q49"],
+    ["no single corresponding provision <span class='zh'>（無單一對應條文）</span>", "Accountability"],
+    ["security and maintenance plan for personal data files (Art. 27(2)) <span class='zh'>個人資料檔案安全維護計畫</span>", null],
+    ["Personal Data Protection Officer, government agencies only (Art. 18, as amended 11 November 2025, not yet in force) <span class='zh'>個人資料保護長</span>", "designated employee responsible for the organization's privacy program (Q40)"]
+  ]},
+  { id:"tm-rights", cap:"B5 Rights of the individual", rows:[
+    ["the right to make an inquiry of and to review personal data (Art. 3(1); Art. 10) <span class='zh'>查詢或請求閱覽</span>", "Access and Correction, Q36 and Q37"],
+    ["the right to request a copy (Art. 3(2); Art. 10) <span class='zh'>請求製給複製本</span>", "Access and Correction, Q37"],
+    ["the right to supplement or correct (Art. 3(3); Art. 11(1)) <span class='zh'>請求補充或更正</span>", "correction, addition (Q38)"],
+    ["the right to demand cessation of collection, processing or use (Art. 3(4); Art. 11(2) to (4)) <span class='zh'>請求停止蒐集、處理或利用</span>", "Choice, Q15 and Q16 (as a choice mechanism, not as a request right)"],
+    ["the right to erase (Art. 3(5); Art. 11(3) and (4)) <span class='zh'>請求刪除</span>", "deletion where appropriate (Q38)"],
+    ["fifteen days for requests under Art. 10, thirty days for requests under Art. 11, each extendable once (Art. 13) <span class='zh'>准駁期限</span>", "within a reasonable time frame"],
+    ["a fee covering necessary costs, for inquiry, review and copies only (Art. 14) <span class='zh'>必要成本費用</span>", "Q37e, whether a fee is charged and whether it is reasonable"],
+    ["rights may not be waived in advance or limited by contract (Art. 3) <span class='zh'>不得預先拋棄或以特約限制</span>", null]
+  ]}
+];
+
+const DIRECTIONS = [
+  { n:"Point 1", t:"Purpose",
+    zh:"行政院（以下簡稱本院）為防止非公務機關違反個人資料檔案安全維護義務（以下簡稱個資安維案件），加強所屬中央目的事業主管機關（以下簡稱中央目的事業主管機關）對非公務機關個人資料保護之監管，以落實非公務機關個人資料檔案之安全維護，特訂定本要點。",
+    en:"These Directions are enacted by the Executive Yuan (hereinafter the \"Yuan\") in order to prevent non-government agencies from violating their obligations to maintain the security of personal data files (such violations being hereinafter referred to as \"security violation cases\"), to strengthen the supervision of personal data protection in non-government agencies by the central government authorities in charge of the industries concerned (hereinafter the \"central competent authorities\"), and thereby to give effect to the security maintenance of personal data files held by non-government agencies."
+  },
+  { n:"Point 2", t:"The Liaison Meeting; definition of a major and high-profile case",
+    zh:"本院得召開行政機關落實個人資料保護執行聯繫會議（以下簡稱聯繫會議），執行下列任務：\n（一）研議中央目的事業主管機關依個人資料保護法（以下簡稱個資法）第二十七條第三項所定個人資料檔案安全維護計畫或業務終止後個人資料處理方法之標準等相關事項之辦法（以下簡稱安全維護辦法）應予規定之相關事項。\n（二）統籌個資安維案件之監督通報。\n（三）就重大矚目之個資安維案件管轄權爭議，確認管轄機關，及該案件行政調查之協調。\n（四）其他個人資料侵害案件之跨部會協調聯繫事務。\n本要點所定重大矚目之個資安維案件，其範圍如下：\n（一）本院、立法院或監察院關注之個資安維案件。\n（二）經媒體顯著披露之個資安維案件，例如經平面媒體全國性版面報導、電子媒體專題討論。",
+    en:"The Yuan may convene the Liaison Meeting on the Implementation of Personal Data Protection by Administrative Agencies (hereinafter the \"Liaison Meeting\") to perform the following tasks:\n1. To deliberate on the matters that shall be prescribed in the regulations governing the standards for personal data file security maintenance plans and for the methods of handling personal data after the termination of business operations, which the central competent authorities are to enact pursuant to Article 27, Paragraph 3 of the Personal Data Protection Act (hereinafter the \"PDPA\"); such regulations are hereinafter referred to as the \"Security Maintenance Regulations\".\n2. To coordinate the supervisory notification of security violation cases.\n3. To determine the agency having jurisdiction over major and high-profile security violation cases where jurisdiction is in dispute, and to coordinate the administrative investigation of such cases.\n4. To handle other inter-ministerial coordination and liaison matters concerning personal data infringement cases.\n\nFor the purposes of these Directions, major and high-profile security violation cases comprise the following:\n1. Security violation cases that have attracted the attention of the Yuan, the Legislative Yuan or the Control Yuan.\n2. Security violation cases that have received prominent media coverage, such as coverage in the national pages of print media or feature discussion in electronic media."
+  },
+  { n:"Point 3", t:"Composition and staffing of the Liaison Meeting",
+    zh:"聯繫會議由本院院長指派政務委員一人擔任召集人；協同召集人一人至三人，由本院資訊長及本院院長指派之政務委員擔任。\n聯繫會議由召集人主持；協同召集人視議題參與，並為協同主持人。召集人因故未能出席時，由召集人指定協同召集人一人代理之。\n聯繫會議得視個資安維案件或其他個人資料侵害案件議題之情形，不定期召開，並得視議題需要，邀請中央行政機關、直轄市、縣（市）政府等相關機關代表或專家、學者出席。\n聯繫會議之幕僚作業，由個人資料保護委員會籌備處（以下簡稱個資會籌備處）辦理。",
+    en:"The convener of the Liaison Meeting shall be a Minister without Portfolio designated by the Premier. There shall be one to three co-conveners, who shall be the Chief Information Officer of the Yuan and Ministers without Portfolio designated by the Premier.\n\nThe Liaison Meeting shall be chaired by the convener. Co-conveners shall participate according to the subject matter under discussion and shall serve as co-chairs. Where the convener is unable to attend, the convener shall designate one co-convener to act on the convener's behalf.\n\nThe Liaison Meeting may be convened from time to time as circumstances relating to security violation cases or other personal data infringement cases require, and may, as the subject matter requires, invite representatives of central administrative agencies, special municipality governments and county (city) governments, or experts and scholars, to attend.\n\nStaff support for the Liaison Meeting shall be provided by the Preparatory Office of the Personal Data Protection Commission (hereinafter the \"PDPC Preparatory Office\")."
+  },
+  { n:"Point 4", t:"Annual administrative inspection plans and inspection teams",
+    zh:"中央目的事業主管機關每年應擬定依個資法第二十二條第一項規定辦理之行政檢查計畫並立即執行之。\n前項行政檢查計畫應於每年一月底前送個資會籌備處彙整，再提聯繫會議報告。\n中央目的事業主管機關應組成個資行政檢查小組，辦理第一項之年度行政檢查，及因應、處理個資安維案件；其成員得包括具有法律、資訊專業之機關資深人員及外部專家。\n中央目的事業主管機關應評估所管非公務機關發生個資安維案件之風險，將其中具有高風險者優先列入第一項之年度行政檢查對象。\n前項所定高風險者，得參考第六點各款情形及發生個資安維案件之次數等因素綜合考量。",
+    en:"Each central competent authority shall, on an annual basis, formulate an administrative inspection plan to be carried out pursuant to Article 22, Paragraph 1 of the PDPA, and shall implement it without delay.\n\nThe administrative inspection plan referred to in the preceding paragraph shall be submitted to the PDPC Preparatory Office by the end of January each year for consolidation, and shall then be reported to the Liaison Meeting.\n\nEach central competent authority shall establish a personal data administrative inspection team to conduct the annual administrative inspection referred to in Paragraph 1 and to respond to and handle security violation cases. The team may include senior officials of the authority with legal or information technology expertise, as well as external experts.\n\nEach central competent authority shall assess the risk that the non-government agencies under its supervision will give rise to security violation cases, and shall give priority to including high-risk agencies among the subjects of the annual administrative inspection referred to in Paragraph 1.\n\nIn determining whether an agency is high-risk under the preceding paragraph, the authority may take into account, on an overall basis, the circumstances listed in the subparagraphs of Point 6, the number of security violation cases that have occurred, and other relevant factors."
+  },
+  { n:"Point 5", t:"Minimum content of the Security Maintenance Regulations",
+    zh:"安全維護辦法應至少就下列事項予以規定：\n（一）中央目的事業主管機關就所主管之非公務機關使用資通訊系統蒐集、處理或利用個人資料，而有下列情形之一者，應加強管理：\n 1.保有消費者交易、使用商品或接受服務等過程之一般或特種個人資料，且符合中央目的事業主管機關所定應加強管理之條件。\n 2.前目以外經中央目的事業主管機關認定應加強管理。\n（二）就前款應加強管理者之規定，應至少包括下列資料安全管理措施：\n 1.使用者身分確認及保護機制。\n 2.個人資料顯示之隱碼機制。\n 3.網際網路傳輸之安全加密機制。\n 4.個人資料檔案與資料庫之存取控制及保護監控措施。\n 5.防止外部網路入侵對策。\n 6.非法或異常使用行為之監控及因應機制。\n（三）非公務機關發生個資安維案件時，依安全維護辦法應通報之對象、時點、應通報事項、後續行政調查等事項；其通報地方目的事業主管機關者，並應副知中央目的事業主管機關。\n中央目的事業主管機關訂定或修正發布安全維護辦法，應函知個資會籌備處。",
+    en:"The Security Maintenance Regulations shall, at a minimum, prescribe the following matters:\n\n1. That the central competent authority shall impose enhanced management on the non-government agencies under its supervision which collect, process or use personal data by means of information and communication systems, where any of the following applies:\n (a) The agency holds general personal data or Article 6 personal data arising in the course of consumer transactions, the use of goods, or the receipt of services, and meets the conditions for enhanced management prescribed by the central competent authority.\n (b) The agency, other than as provided in item (a), has been determined by the central competent authority to require enhanced management.\n\n2. That the provisions on enhanced management under the preceding subparagraph shall include, at a minimum, the following data security management measures:\n (a) Mechanisms for user identity verification and protection.\n (b) Masking mechanisms for the display of personal data.\n (c) Secure encryption mechanisms for transmission over the Internet.\n (d) Access control, protection and monitoring measures for personal data files and databases.\n (e) Countermeasures against external network intrusion.\n (f) Mechanisms for monitoring and responding to unlawful or anomalous use.\n\n3. That, where a security violation case occurs at a non-government agency, the Regulations shall prescribe the recipient of the notification, the time by which notification must be made, the matters to be notified, the subsequent administrative investigation and related matters; where notification is made to the local competent authority for the industry concerned, a copy shall also be sent to the central competent authority.\n\nWhere a central competent authority enacts or amends and promulgates Security Maintenance Regulations, it shall notify the PDPC Preparatory Office by official letter."
+  },
+  { n:"Point 6", t:"Periodic review of whether Security Maintenance Regulations are needed",
+    zh:"中央目的事業主管機關應就尚未訂定安全維護辦法之非公務機關，綜合考量下列情形，定期檢討訂定該辦法之必要性；其應訂定安全維護辦法者，並應於該辦法就前點第一項所定事項予以規定：\n（一）非公務機關之規模、特性。\n（二）保有個人資料之數量或性質。\n（三）與民眾日常生活關係密切程度。\n（四）個資安維案件衝擊層面廣泛程度。\n（五）個資安維案件將造成當事人身心危害、社會地位受損或衍生財務危機等重大影響。\n（六）個人資料存取環境。\n（七）個人資料傳輸之工具及方法。\n（八）國際傳輸之頻率。",
+    en:"Each central competent authority shall periodically review, taking the following circumstances into account on an overall basis, whether it is necessary to enact Security Maintenance Regulations for those non-government agencies for which no such Regulations have yet been enacted; where such Regulations are to be enacted, they shall prescribe the matters set out in Paragraph 1 of the preceding Point:\n1. The scale and characteristics of the non-government agency.\n2. The volume or nature of the personal data held.\n3. The degree to which the agency is closely connected with the daily life of the public.\n4. The breadth of the impact that a security violation case would have.\n5. Whether a security violation case would cause significant harm to the data subject, such as physical or psychological harm, damage to social standing, or consequent financial crisis.\n6. The environment in which the personal data is accessed.\n7. The tools and methods used to transmit the personal data.\n8. The frequency of international transmission."
+  },
+  { n:"Point 7", t:"Ordinary cases — 72-hour notification and three-month investigation",
+    zh:"中央目的事業主管機關接獲非公務機關通報或副知，或非因通報或副知而自行知悉個資安維案件，經確認屬該機關管轄後，應於接獲通報、副知或知悉時起七十二小時內，填列監督通報紀錄表（如附件一），通報個資會籌備處。但個資安維案件屬重大矚目者，依第八點規定辦理。\n中央目的事業主管機關就前項本文之個資安維案件，應於接獲通報、副知或知悉時起三個月內調查完成並結案；必要時，得經資通安全長或其授權人員同意後，延期三個月，並即時通報個資會籌備處。該案件之後續行政措施及處置情形，應按季通報個資會籌備處。",
+    en:"Where a central competent authority receives a notification or a copy of a notification from a non-government agency, or otherwise becomes aware of a security violation case other than through such notification or copy, it shall, after confirming that the case falls within its jurisdiction, complete the Supervision and Notification Record Form (Annex 1) and notify the PDPC Preparatory Office within seventy-two hours of receiving the notification or copy, or of becoming aware of the case. Where the security violation case is major and high-profile, Point 8 shall apply instead.\n\nFor security violation cases falling under the main text of the preceding paragraph, the central competent authority shall complete its investigation and close the case within three months of receiving the notification or copy, or of becoming aware of the case. Where necessary, the period may be extended by three months with the consent of the Chief Information Security Officer or a person authorised by the Chief Information Security Officer, and the PDPC Preparatory Office shall be notified immediately of any such extension. Subsequent administrative measures and the disposition of the case shall be reported to the PDPC Preparatory Office on a quarterly basis."
+  },
+  { n:"Point 8", t:"Major and high-profile cases — 24-hour notification, 3-day and 10-day investigation",
+    zh:"前點第一項但書之個資安維案件屬重大矚目者，中央目的事業主管機關經確認屬該機關管轄後，應於接獲通報、副知或知悉時起二十四小時內，填列前點第一項本文所定監督通報紀錄表，通報個資會籌備處及數位發展部。\n中央目的事業主管機關針對前項重大矚目之個資安維案件及依前點第一項本文規定通報後改列為重大矚目案件者，應於接獲通報、副知或知悉時起三日內進行行政調查，十日內完成調查報告，報告完成後應送個資會籌備處及數位發展部；必要時個資會籌備處得報請本院指定之政務委員，原則於二週內召開會議，聽取行政調查辦理情形。\n中央目的事業主管機關得偕同數位發展部辦理前項之行政調查。\n中央目的事業主管機關應就重大矚目之個資安維案件後續行政措施及處置情形，即時通報個資會籌備處及數位發展部。",
+    en:"Where a security violation case falls within the proviso to Paragraph 1 of the preceding Point because it is major and high-profile, the central competent authority shall, after confirming that the case falls within its jurisdiction, complete the Supervision and Notification Record Form referred to in the main text of Paragraph 1 of the preceding Point and notify the PDPC Preparatory Office and the Ministry of Digital Affairs within twenty-four hours of receiving the notification or copy, or of becoming aware of the case.\n\nFor major and high-profile security violation cases under the preceding paragraph, and for cases initially notified under the main text of Paragraph 1 of the preceding Point that are subsequently reclassified as major and high-profile, the central competent authority shall commence an administrative investigation within three days, and complete an investigation report within ten days, of receiving the notification or copy or of becoming aware of the case; upon completion, the report shall be submitted to the PDPC Preparatory Office and the Ministry of Digital Affairs. Where necessary, the PDPC Preparatory Office may request the Minister without Portfolio designated by the Yuan to convene a meeting, in principle within two weeks, to receive a briefing on the conduct of the administrative investigation.\n\nThe central competent authority may conduct the administrative investigation referred to in the preceding paragraph jointly with the Ministry of Digital Affairs.\n\nThe central competent authority shall immediately notify the PDPC Preparatory Office and the Ministry of Digital Affairs of subsequent administrative measures and the disposition of major and high-profile security violation cases."
+  },
+  { n:"Point 9", t:"Supervisory measures, investigative assistance, fines and dispositions",
+    zh:"中央目的事業主管機關得依個資法第二十二條至第二十六條規定，對該非公務機關為適當之監督管理措施。\n中央目的事業主管機關就個資安維案件辦理行政調查，得於必要時請求警察機關或法務部調查局提供協助。\n中央目的事業主管機關就個資安維案件，經查明違反個資法之規定者，應視具體調查結果，依個資法第四十七條至第五十條規定辦理；並得依情節輕重及個資安維案件造成之影響，依個資法第二十五條規定，為下列處分：\n（一）禁止蒐集、處理或利用個人資料。\n（二）命令刪除經處理之個人資料檔案。\n（三）沒入或命銷燬違法蒐集之個人資料。\n（四）公布非公務機關之違法情形，及其姓名或名稱與負責人。\n中央目的事業主管機關對於非公務機關有個資法第四十八條第二項或第三項情形者，應處罰鍰，並令其限期改正，屆期未改正者，按次處罰。",
+    en:"The central competent authority may take appropriate supervisory and management measures against the non-government agency pursuant to Articles 22 through 26 of the PDPA.\n\nIn conducting an administrative investigation into a security violation case, the central competent authority may, where necessary, request assistance from police agencies or from the Investigation Bureau of the Ministry of Justice.\n\nWhere, in respect of a security violation case, a violation of the PDPA is established upon investigation, the central competent authority shall proceed in accordance with Articles 47 through 50 of the PDPA in the light of the specific findings, and may, having regard to the gravity of the circumstances and the impact caused by the security violation case, impose the following dispositions pursuant to Article 25 of the PDPA:\n1. Prohibiting the collection, processing or use of personal data.\n2. Ordering the deletion of the processed personal data file.\n3. Confiscating, or ordering the destruction of, personal data collected unlawfully.\n4. Publishing the non-government agency's violation, together with its name and the name of its responsible person.\n\nWhere a non-government agency falls within Article 48, Paragraph 2 or Paragraph 3 of the PDPA, the central competent authority shall impose an administrative fine and order rectification within a specified period; where rectification is not made within that period, the fine shall be imposed for each successive instance."
+  },
+  { n:"Point 10", t:"Investigation procedure follows Annex 2",
+    zh:"中央目的事業主管機關對個資安維案件之行政調查流程，除重大矚目之個資安維案件依第十一點規定確認管轄機關者外，其餘行政調查程序，依附件二流程圖辦理。",
+    en:"The administrative investigation procedure of a central competent authority in respect of a security violation case shall follow the flowchart in Annex 2, except where the agency having jurisdiction over a major and high-profile security violation case is determined in accordance with Point 11."
+  },
+  { n:"Point 11", t:"Disputes over jurisdiction",
+    zh:"個資會籌備處對於重大矚目之個資安維案件管轄權爭議，應儘速認定管轄機關，並得視需要召開跨部會協調會議。\n前項被認定管轄機關如有異議，應於認定管轄文到三日內，敘明具體理由送個資會籌備處，提請聯繫會議確認管轄機關。\n聯繫會議應邀集相關機關確認前項管轄機關，必要時得邀請專家、學者出席。\n經聯繫會議確認為管轄機關之中央目的事業主管機關，應於個資會籌備處指定時間內，依第八點第一項規定填列監督通報紀錄表。",
+    en:"Where jurisdiction over a major and high-profile security violation case is in dispute, the PDPC Preparatory Office shall determine the agency having jurisdiction as soon as possible, and may convene an inter-ministerial coordination meeting as required.\n\nWhere the agency so determined objects, it shall, within three days of receipt of the document determining jurisdiction, submit its specific grounds to the PDPC Preparatory Office and request that the Liaison Meeting confirm the agency having jurisdiction.\n\nThe Liaison Meeting shall convene the relevant agencies to confirm the agency having jurisdiction under the preceding paragraph, and may where necessary invite experts and scholars to attend.\n\nA central competent authority confirmed by the Liaison Meeting as the agency having jurisdiction shall complete the Supervision and Notification Record Form in accordance with Point 8, Paragraph 1, within the time specified by the PDPC Preparatory Office."
+  },
+  { n:"Point 12", t:"Refusal of administrative assistance; coordination by the Liaison Meeting",
+    zh:"中央目的事業主管機關對重大矚目之個資安維案件辦理行政調查前，已依行政程序法第十九條規定向其他機關請求行政協助遭拒絕者，於規劃跨部會任務分工後，函送個資會籌備處，提請聯繫會議進行協調。\n就前項行政調查之協調，聯繫會議應邀集相關機關討論，經請求協助機關與被請求機關說明後，評估有提供行政協助之必要者，被請求機關即應配合執行。",
+    en:"Where, before conducting an administrative investigation into a major and high-profile security violation case, a central competent authority has requested administrative assistance from another agency pursuant to Article 19 of the Administrative Procedure Act and that request has been refused, the authority shall, after planning the inter-ministerial division of tasks, transmit the matter by official letter to the PDPC Preparatory Office and request that the Liaison Meeting undertake coordination.\n\nIn coordinating the administrative investigation under the preceding paragraph, the Liaison Meeting shall convene the relevant agencies for discussion. After the requesting agency and the requested agency have presented their positions, if the Liaison Meeting assesses that the provision of administrative assistance is necessary, the requested agency shall comply and carry it out."
+  },
+  { n:"Point 13", t:"Intelligence sharing",
+    zh:"數位發展部資通安全署、內政部警政署及法務部調查局，應適時向個資會籌備處分享個資安維案件情報。\n個資會籌備處接獲前項情報後，應通知中央目的事業主管機關為必要之處理。",
+    en:"The Administration for Cyber Security of the Ministry of Digital Affairs, the National Police Agency of the Ministry of the Interior, and the Investigation Bureau of the Ministry of Justice shall share intelligence on security violation cases with the PDPC Preparatory Office in a timely manner.\n\nUpon receiving such intelligence, the PDPC Preparatory Office shall notify the relevant central competent authority so that it may take the necessary action."
+  }
+];
+
+/* ---- Part D: statute-level special laws (non-exhaustive) ----
+   Each row: [English name, Mandarin name, articles, effect (editor's summary), url or ""]  */
+const SPECIAL_LAWS = [
+  { id:"sp-basis", cap:"D1 Laws that change the lawful basis or the consent requirement", path:"Bears on Path A (table-03)", rows:[
+    ["Insurance Act","保險法","Art. 177-1","Insurance enterprises, agents, brokers and surveyors, and certain related bodies, may collect, process or use data on medical records, healthcare and physical examinations with the written consent of the data subject. Paragraph 2 authorises regulations on the manner of that written consent and the scope of business covered. This displaces the ordinary Article 6 analysis for the whole insurance sector."],
+    ["Human Biobank Management Act","人體生物資料庫管理條例","Art. 20","Governs the permitted use of the specimens, derivatives and associated data and information held in a biobank, and the conditions on which they may be used."],
+    ["Human Subjects Research Act","人體研究法","Arts. 12 to 15","Governs informed consent in human subjects research: the matters of which a subject must be informed, consent given by or on behalf of a person lacking capacity, and the circumstances in which the ordinary consent requirement is modified."],
+    ["Employment Service Act","就業服務法","Art. 5, Para. 2, Subpara. 2","An employer may not require a job applicant or employee to provide privacy-related information that is not required for the job. The categories are defined in Article 1-1 of the Enforcement Rules."],
+    ["Money Laundering Control Act","洗錢防制法","Arts. 7 to 11","Customer due diligence, retention of transaction records, and the reporting of large-value and suspicious transactions. These supply the \"expressly required by law\" basis under Article 19, Paragraph 1, Subparagraph 1 of the PDPA."],
+    ["Financial Holding Company Act","金融控股公司法","Arts. 42, 43","Permits and limits the sharing and cross-marketing use of customer data between subsidiaries of a financial holding company."],
+    ["Counter-Terrorism Financing Act","資恐防制法","Art. 7","Prohibits making funds or property available to a designated person or entity and requires the related reporting, which entails screening and processing customer data."]
+  ]},
+  { id:"sp-rights", cap:"D2 Laws that change how a data subject right is performed", path:"Bears on Path B (table-04, dsar)", rows:[
+    ["Medical Care Act","醫療法","Arts. 68, 71","Article 71: a medical care institution shall provide a copy of the patient's medical records on request, and shall not delay or refuse without cause; no fixed period is set and no ground of refusal is provided, and the fee is borne by the patient. Article 68: an amended entry must be signed or sealed and dated at the point of amendment, and struck through with a line rather than erased, which constrains how the PDPA right of correction may be performed."],
+    ["National Health Insurance Act","全民健康保險法","Arts. 79, 80","Governs enquiries about, and the provision of, insurance data. Mostly engages government agencies, but relevant to contracted medical care institutions."]
+  ]},
+  { id:"sp-secrecy", cap:"D3 Laws that add a duty of confidentiality or prohibit disclosure", path:"Bears on Paths A and C (table-03, table-05, incident)", rows:[
+    ["The Banking Act of the Republic of China","銀行法","Art. 48, Para. 2","A bank shall keep confidential a customer's deposit, loan and remittance data, subject to enumerated exceptions."],
+    ["Physicians Act","醫師法","Art. 23","A physician may not disclose information about a patient obtained in the course of practice."],
+    ["Nurses Act","護理人員法","Art. 28","Equivalent duty of confidentiality for nursing personnel."],
+    ["HIV Infection Control and Patient Rights Protection Act","人類免疫缺乏病毒傳染防治及感染者權益保障條例","Art. 14","Prohibits the disclosure of information identifying a person as infected, save in the circumstances provided."],
+    ["Communicable Disease Control Act","傳染病防治法","Arts. 10, 11","Prohibits the disclosure of information identifying a patient or a person under surveillance, and restricts discrimination on that basis."],
+    ["Human Subjects Research Act","人體研究法","Arts. 20, 21","Duty of non-disclosure in respect of the personal data of research subjects and other confidential information obtained in the course of human subjects research."],
+    ["The Protection of Children and Youths Welfare and Rights Act","兒童及少年福利與權益保障法","Art. 69","Prohibits the reporting or publication of information identifying a child or youth in the circumstances listed."],
+    ["Sexual Assault Crime Prevention Act","性侵害犯罪防治法","Arts. 13, 15, 16","Restricts the reporting, disclosure and dissemination of information by which a victim may be identified."],
+    ["Domestic Violence Prevention Act","家庭暴力防治法","Arts. 50-1, 50-2, 58-2","Restricts the reporting and recording of information by which a victim, or a victim's minor child, may be identified, and restricts related disclosure."],
+    ["Act to Implement the Prevention of Child and Youth Sexual Exploitation","兒童及少年性剝削防制條例","Art. 14","Prohibits the disclosure or publication of information identifying a victim."],
+    ["Juvenile Delinquency Act","少年事件處理法","Art. 83","Prohibits the publication of information identifying a juvenile who is the subject of proceedings."],
+    ["Occupational Safety and Health Act","職業安全衛生法","Arts. 20, 21","Governs the retention of employee health examination records and the handling of employee health data."],
+    ["Mental Health Act","精神衛生法","Arts. 39, 51","Restricts the disclosure of information by which a patient may be identified, and restricts the manner in which cases may be reported."],
+    ["Long-term Care Services Act","長期照顧服務法","Art. 43","Duty of confidentiality in respect of information about service users obtained in the course of providing long-term care services."],
+    ["Telecommunications Management Act","電信管理法","Arts. 9, 13; Art. 17, Para. 2, Subpara. 7; Art. 90","Governs the confidentiality of communications and of subscriber data held by telecommunications enterprises, the related conditions of compliance, and the penalties for breach."],
+    ["Human Trafficking Prevention Act","人口販運防制法","Art. 20","Restricts the reporting and recording of information by which a victim may be identified."]
+  ]}
+];
+
+const SECTOR_REGS = [
+  { en:"Ministry of Economic Affairs", zh:"經濟部", regs:[
+    ["電業與公用天然氣事業及加油站業個人資料檔案安全維護管理辦法","Regulations Governing Personal Information File Security Maintenance and Administration of the Electricity Enterprise and Natural Gas Industry Administration"],
+    ["製造業及技術服務業個人資料檔案安全維護管理辦法","Regulations Governing Personal Information File Security Maintenance Plan for Manufacturing Industries and Technical Service Industries"],
+    ["零售業個人資料檔案安全維護管理辦法","Regulations Governing the Security Maintenance of Personal Data Files for Retail Business"],
+    ["自來水事業個人資料檔案安全維護計畫標準辦法","Regulations Governing the Water Supply Enterprises' Plan of Security Measures for Personal Information Files"],
+    ["著作權集體管理團體個人資料檔案安全維護管理辦法","Regulations for the Security and the Maintenance of Personal Information Files in Copyright Collective Management Organizations"]
+  ]},
+  { en:"Ministry of Finance", zh:"財政部", regs:[
+    ["報關業個人資料檔案安全維護管理辦法","Regulations Governing Personal Data Files Security and Maintenance for Customs Brokers"],
+    ["保稅倉庫及物流中心個人資料檔案安全維護管理辦法","Regulations Governing Personal Data Files Security and Maintenance for Bonded Warehouses and Logistics Centers"],
+    ["記帳士與記帳及報稅代理人個人資料檔案安全維護管理辦法","Regulations for the Security and the Maintenance of Personal Information Files for Certified Public Bookkeepers and Bookkeeping and Tax Return Filing Agents"],
+    ["菸酒事業個人資料檔案安全維護管理辦法","Regulations Governing Personal Information File Security Maintenance and Administration of Alcohol and Tobacco Industry"],
+    ["公益彩券發行機構個人資料檔案安全維護管理辦法","Regulations Governing Security Measures of Personal Information File for Public Welfare Lottery Issue Agency"]
+  ]},
+  { en:"Ministry of Transportation and Communications", zh:"交通部", regs:[
+    ["汽車運輸業與計程車客運服務業個人資料檔案安全維護計畫及處理辦法","Regulations for the Security Protection Plans and Processing Procedures of Personal Information Files in Automobile Transportation Operators and Taxi Passenger Transport Operators"],
+    ["民用航空事業個人資料檔案安全維護計畫及處理辦法","Regulations Governing Personal Information File Security Maintenance Plan and Processing Method for the Civil Air Transport Enterprise"],
+    ["船舶運送業個人資料檔案安全維護管理辦法","Regulations Governing the Security and Maintenance of Personal Data Files for the Vessel Carrier"],
+    ["交通部指定觀光產業類非公務機關個人資料檔案安全維護計畫及處理辦法","Regulations Regarding the Security Protection Plan for the Processing of Personal Information Files in Tourism Industry-Related Non-government Agencies Designated by the Ministry of Transportation and Communications"],
+    ["停車場經營業個人資料檔案安全維護計畫及處理辦法","Regulations for the Security Protection Plans for and Processing of Personal Information Files in Parking Facility Operation"],
+    ["交通部指定氣象產業類非公務機關個人資料檔案安全維護計畫及處理辦法","Regulations Regarding the Security Protection Plan for the Processing of Personal Information Files in Weather Industry-Related Non-government Agencies Designated by the Ministry of Transportation and Communications"],
+    ["郵政業個人資料檔案安全維護管理辦法","Regulations for the Security Protection Plans and Processing Procedures of Personal Information Files in Postal Operators"]
+  ]},
+  { en:"Ministry of Digital Affairs", zh:"數位發展部", regs:[
+    ["數位經濟相關產業個人資料檔案安全維護管理辦法","Regulations Regarding the Security Protection Plan for the Processing of Personal Information Files in Digital Economy Industry-Related Non-government Agencies Designated by the Ministry of Digital Affairs"],
+    ["電信事業個人資料檔案安全維護計畫實施辦法","Regulations Governing the Implementation of Personal Data File Security and Maintenance Plans for Telecommunications Enterprises"]
+  ]},
+  { en:"Ministry of Culture", zh:"文化部", regs:[
+    ["電影事業個人資料檔案安全維護計畫及處理辦法","Regulations Governing Personal Information File Security Maintenance Plan and Processing Method for the Film Industry"]
+  ]},
+  { en:"Ministry of Agriculture", zh:"農業部", regs:[
+    ["農藥販賣業個人資料檔案安全維護管理辦法","Regulations Governing Personal Information File Security Maintenance and Administration for Agro-Pesticide Dealers"],
+    ["農業金融業個人資料檔案安全維護管理辦法","Regulations Governing the Security and Maintenance of Personal Data Files for the Agricultural Finance Industry"]
+  ]},
+  { en:"Ministry of Health and Welfare", zh:"衛生福利部", regs:[
+    ["醫院個人資料檔案安全維護計畫實施辦法","Regulations Governing the Hospital's Plan of Security Maintenance for Personal Information Files"],
+    ["精神復健機構個人資料檔案安全維護計畫實施辦法","Regulations on Mental Rehabilitation Agency for Maintaining the Security of Personal Information Files"],
+    ["護理機構個人資料檔案安全維護計畫實施辦法","Regulations on Nursing Institutions for Maintaining the Security of Personal Information Files"],
+    ["私立長期照顧服務機構個人資料檔案安全維護計畫實施辦法","Regulations Governing the Implementation of Personal Data File Security and Maintenance Plans for Private Long-Term Care Service Institutions"],
+    ["社會福利機構個人資料檔案安全維護計畫實施辦法","Regulations Governing the Implementation of Maintaining the Security of Personal Information Files of Social Welfare Institutions"],
+    ["社會福利財團法人個人資料檔案安全維護計畫實施辦法","Regulations for the Security and the Maintenance of Personal Information Files in Social Welfare Foundations"],
+    ["西藥批發零售業個人資料檔案安全維護計畫實施辦法","Regulations for the Security and the Maintenance of Personal Information Files in Wholesaling and Retailing Western Pharmaceuticals"],
+    ["中藥批發零售業個人資料檔案安全維護計畫實施辦法","Regulations for the Security and the Maintenance of Personal Information Files in Wholesaling and Retailing Chinese Medicinal Materials and Pharmaceuticals"],
+    ["化粧品批發零售業個人資料檔案安全維護計畫實施辦法","Implementation Regulations Governing Personal Information File Security Maintenance Plans in Wholesaling and Retailing Cosmetics"],
+    ["醫療器材批發零售業個人資料檔案安全維護計畫實施辦法","Implementation Regulations Governing Personal Information File Security Maintenance Plans in Wholesaling and Retailing Medical Devices"],
+    ["非輻射電子醫療器材設備製造業個人資料檔案安全維護計畫實施辦法","Regulations Governing the Implementation of Personal Information File Security Maintenance Plans for the Manufacture of Non-irradiation and Electromedical Equipment"],
+    ["食品業個人資料檔案安全維護計畫實施辦法","Regulations for the Security and the Maintenance of Personal Information Files in Food Businesses"]
+  ]},
+  { en:"Ministry of the Interior", zh:"內政部", regs:[
+    ["內政部指定交友服務業個人資料檔案安全維護管理辦法","Regulations for the Security Maintenance and Management of Personal Data Files in the Dating Service Industry Designated by the Ministry of the Interior"],
+    ["內政部指定營建類非公務機關個人資料檔案安全維護管理辦法","Regulations Governing Personal Data File Security Maintenance and Management for Construction Non-governmental Agencies Designated by Ministry of the Interior"],
+    ["內政部指定政黨及全國性民政財團法人個人資料檔案安全維護管理辦法","Regulations Governing Personal Information File Security Maintenance Plan and Processing Method for Political Parties and National Foundations of Civil Affairs Designated by Ministry of the Interior"],
+    ["內政部指定祭祀團體個人資料檔案安全維護管理辦法","Regulations Governing the Security and Maintenance of Personal Data Files for Ancestral Worship Organizations Designated by the Ministry of the Interior"],
+    ["內政部指定宗教團體個人資料檔案安全維護管理辦法","Regulations Governing the Security and Maintenance of Personal Data Files for Religious Organizations Designated by the Ministry of the Interior"],
+    ["內政部指定地政類非公務機關個人資料檔案安全維護管理辦法","Regulations Governing Personal Information File Security Maintenance and Administration for Land Administration-related Non-governmental Agencies Designated by Ministry of the Interior"],
+    ["內政部指定合作及人民團體類非公務機關個人資料檔案安全維護管理辦法","Regulations for the Security and Maintenance of Personal Information Files in Cooperative & Civil Associations-related Non-government Agencies Designated by Ministry of the Interior"],
+    ["內政部指定殯葬服務業個人資料檔案安全維護管理辦法","Regulations Governing Personal Information File Security Maintenance and Administration for the Mortuary Service Designated by Ministry of the Interior"],
+    ["內政部指定移民業務機構個人資料檔案安全維護管理辦法","Regulations Governing Personal Information File Security Maintenance and Administration for Immigration Business Organizations Designated by Ministry of the Interior"],
+    ["內政部指定警政類非公務機關個人資料檔案安全維護管理辦法","Regulations for the Security and Maintenance of Personal Information Files in Police-related Non-governmental Agencies Designated by Ministry of the Interior"]
+  ]},
+  { en:"Ministry of Labor", zh:"勞動部", regs:[
+    ["私立職業訓練機構個人資料檔案安全維護計畫及處理辦法","Regulations on Security and Maintenance Plan of Personal Data for Private Vocational Training Organizations"],
+    ["人力供應業個人資料檔案安全維護計畫及處理辦法","Regulations Governing Personal Information File Security Maintenance Plan and Processing Method for the Human Resources Provision Industry"],
+    ["人力仲介業個人資料檔案安全維護計畫及處理辦法","Regulations Governing Personal Information File Security Maintenance Plan and Processing Method for the Human Resources Recruitment Industry"]
+  ]},
+  { en:"Ministry of Education", zh:"教育部", regs:[
+    ["短期補習班個人資料檔案安全維護計畫實施辦法","Implementation Regulations Governing Personal Information File Security Maintenance Plans of Short-term Tutorial Centers"],
+    ["私立兒童課後照顧服務中心個人資料檔案安全維護計畫實施辦法","Implementation Regulations Governing Personal Information File Security Maintenance Plans in Private After-school Childcare Centers"],
+    ["私立高級中等以下學校及幼兒園個人資料檔案安全維護計畫實施辦法","Regulations Governing the Implementation of Personal Data File Security and Maintenance Plans for Private Schools at the Senior High School Level or Below and Preschools"],
+    ["私立專科以上學校及私立學術研究機構個人資料檔案安全維護計畫實施辦法","Regulations Governing the Implementation of Personal Data File Security and Maintenance Plans for Private Junior Colleges and Above and Private Academic Research Institutions"],
+    ["海外臺灣學校及大陸地區臺商學校個人資料檔案安全維護計畫實施辦法","Implementation Regulations Governing Personal Information File Security Maintenance Planning in Overseas Taiwan Schools and in Schools for the Children of Businesspeople from Taiwan in the Mainland Area"]
+  ]},
+  { en:"Financial Supervisory Commission", zh:"金融監督管理委員會", regs:[
+    ["金融監督管理委員會指定非公務機關個人資料檔案安全維護辦法","Regulations Governing Security Measures of the Personal Information File for Non-government Agencies Designated by Financial Supervisory Commission"]
+  ]},
+  { en:"Mainland Affairs Council", zh:"大陸委員會", regs:[
+    ["大陸委員會指定非公務機關個人資料檔案安全維護辦法","Regulations for the Security and Maintenance of Personal Data Files of Non-governmental Agencies Designated by the Mainland Affairs Council"]
+  ]},
+  { en:"Overseas Community Affairs Council", zh:"僑務委員會", regs:[
+    ["僑務委員會指定特定非公務機關個人資料檔案安全維護辦法","Regulations for the Security and the Maintenance of Personal Information Files for Specific Non-government Agencies Designated by Overseas Community Affairs Council"]
+  ]},
+  { en:"Nuclear Safety Commission", zh:"核能安全委員會", regs:[
+    ["游離輻射設備製造業個人資料檔案安全維護管理辦法","Regulations Governing Personal Information File Security Maintenance and Administration for Ionizing Radiation Equipment Manufacturing Enterprise"]
+  ]},
+  { en:"Public Construction Commission", zh:"行政院公共工程委員會", regs:[
+    ["工程技術顧問業個人資料檔案安全維護計畫及處理辦法","Regulations Governing the Security Assurance Plan and Processing Method for Personal Data of the Engineering Consulting Industry"]
+  ]},
+  { en:"Central Bank of the Republic of China (Taiwan)", zh:"中央銀行", regs:[
+    ["票據交換所個人資料檔案安全維護計畫標準辦法","Regulations Governing the Clearinghouse's Plan of Security Measures for Personal Information Files"]
+  ]},
+  { en:"Fair Trade Commission", zh:"公平交易委員會", regs:[
+    ["多層次傳銷業訂定個人資料檔案安全維護計畫及業務終止後個人資料處理方法作業辦法","Regulations Governing the Formulation by Multi-Level Marketing Enterprises of Personal Data File Security and Maintenance Plans and Methods of Handling Personal Data Following Business Termination"]
+  ]},
+  { en:"National Communications Commission", zh:"國家通訊傳播委員會", regs:[
+    ["國家通訊傳播委員會指定非公務機關個人資料檔案安全維護辦法","Regulations for the Security and Maintenance of Personal Information Files in Non-government Agencies Designated by National Communications Commission"]
+  ]},
+  { en:"Ministry of Sports", zh:"運動部", regs:[
+    ["運動彩券業個人資料檔案安全維護計畫實施辦法","Regulations Governing Implementation of the Plan for the Security and the Maintenance of Personal Information Files in Sports Lottery Industries"]
+  ]},
+  { en:"Ministry of Justice", zh:"法務部", regs:[] },
+  { en:"Ministry of Foreign Affairs", zh:"外交部", regs:[] },
+  { en:"Ministry of National Defense", zh:"國防部", regs:[] },
+  { en:"Ministry of Environment", zh:"環境部", regs:[] },
+  { en:"Veterans Affairs Council", zh:"國軍退除役官兵輔導委員會", regs:[] },
+  { en:"National Science and Technology Council", zh:"國家科學及技術委員會", regs:[] },
+  { en:"Hakka Affairs Council", zh:"客家委員會", regs:[] },
+  { en:"Council of Indigenous Peoples", zh:"原住民族委員會", regs:[] },
+  { en:"Judicial Yuan", zh:"司法院", regs:[] }
+];
+
+const ANNEX1 = {
+  partA:[
+    ["非公務機關名稱","Name of the non-government agency"],
+    ["通報機關（註 2）","Notifying agency (Note 2)"],
+    ["首次通報時間：　年　月　日　時　分","Time of first notification: ____ (yyyy/mm/dd hh:mm)"],
+    ["中央目的事業主管機關承辦人（註 2）／職稱／電話／Email","Case officer of the central competent authority (Note 2) / Title / Telephone / Email"],
+    ["案件發生時間（註 3）","Time of occurrence (Note 3)"],
+    ["案件發生種類：□竊取 □洩漏 □竄改 □毀損 □滅失 □其他侵害事故","Type of occurrence: □ Theft □ Disclosure □ Alteration □ Damage □ Loss □ Other infringement"],
+    ["發生原因及案件摘要","Cause of occurrence and case summary"],
+    ["損害狀況：個資侵害之總筆數（大約）　筆；□一般個資　筆；□特種個資　筆","Extent of harm: approximate total number of personal data records affected: ____; □ general personal data: ____ records; □ Article 6 personal data: ____ records"],
+    ["是否造成個資當事人財產損害：□是，財損金額　□否 □其他損害情形，說明：","Whether property loss was caused to data subjects: □ Yes — amount of loss: ____ □ No □ Other harm — specify: ____"],
+    ["擬採取之因應措施","Response measures to be taken"],
+    ["依個人資料保護法第 12 條及同法施行細則第 22 條，擬採通知當事人之時間及方式","Intended timing and method of notifying data subjects pursuant to Article 12 of the PDPA and Article 22 of its Enforcement Rules"],
+    ["個資安維案件種類：□屬重大矚目之個資安維案件 □屬一般個資安維案件","Category of the security violation case: □ Major and high-profile □ Ordinary"],
+    ["警政署來函：　年　月　日　字　號函","Letter from the National Police Agency: dated ____, ref. no. ____"],
+    ["非公務機關自行通報：日期　年　月　日","Self-notification by the non-government agency: date ____"],
+    ["其他，請敘明：","Other — please specify: ____"],
+    ["若屬一般個資安維案件，是否於接獲通報、副知或自行知悉個資安維案件時起 72 小時內通報：□是 □否，說明：","For an ordinary security violation case, whether notification was made within 72 hours of receiving the notification or copy, or of becoming aware of the case: □ Yes □ No — explain: ____"],
+    ["若屬重大矚目之個資安維案件，是否於接獲通報、副知或自行知悉個資安維案件時起 24 小時內通報：□是 □否，說明：","For a major and high-profile security violation case, whether notification was made within 24 hours of receiving the notification or copy, or of becoming aware of the case: □ Yes □ No — explain: ____"]
+  ],
+  partB:[
+    ["若首次通報為一般個資安維案件，是否改列為重大矚目之個資安維案件：□是，說明： □否，說明：","Where the case was first notified as ordinary, whether it has been reclassified as major and high-profile: □ Yes — explain: ____ □ No — explain: ____"],
+    ["主管機關是否有進行行政調查（含複查）：□是，說明： □否，說明：","Whether the competent authority has conducted an administrative investigation (including re-inspection): □ Yes — explain: ____ □ No — explain: ____"],
+    ["一般個資安維案件之行政調查是否依期限完成（註 5）","Whether the administrative investigation of an ordinary security violation case was completed within the prescribed period (Note 5)"],
+    ["□於接獲通報、副知或知悉發生個資安維案件時起 3 個月內完成；□已裁罰，同時命　年　月　日前完成改正；□經調查判斷未違反個資法，無須裁罰","□ Completed within 3 months of receiving the notification or copy, or of becoming aware of the case; □ A fine has been imposed, together with an order to rectify by ____; □ The investigation concluded that there was no violation of the PDPA, and no fine is required"],
+    ["□未於接獲通報、副知或知悉個資安維案件時起 3 個月內完成，經資通安全長或其授權人員同意，延期 3 個月。請說明（簡要說明延期理由）：","□ Not completed within 3 months of receiving the notification or copy, or of becoming aware of the case; extended by 3 months with the consent of the Chief Information Security Officer or a person authorised by the Chief Information Security Officer. Please state briefly the reason for the extension: ____"],
+    ["□未於前開期限內完成行政調查。請說明（簡要說明理由）：","□ The administrative investigation was not completed within the above period. Please state briefly the reason: ____"],
+    ["主管機關就個資安維案件判斷是否違反個資法：□是，說明： □否，說明：","The competent authority's determination as to whether the PDPA was violated: □ Yes — explain: ____ □ No — explain: ____"],
+    ["主管機關就個資安維案件之後續處置","Subsequent disposition of the case by the competent authority"],
+    ["建議解除列管時間：□解除列管，時間　年　月　日 □不解除列管","Recommended date of release from monitored status: □ Released from monitored status on ____ □ Not released"]
+  ],
+  notes:[
+    ["註 1","該欄各項資訊係源自非公務機關之個資安維案件通報內容，各欄位資訊若尚未明確，得先填寫「不明」，並得於後續處置作業之通報更新補充。","The information in this Part is derived from the non-government agency's notification of the security violation case. Where the information for any field is not yet established, \"unknown\" may be entered initially and updated or supplemented in a later notification made in the course of subsequent disposition."],
+    ["註 2","倘接續通報時通報機關或承辦人異動，請自行增列填寫異動後之機關或人員資料。","Where the notifying agency or case officer changes between successive notifications, the details of the new agency or officer shall be added."],
+    ["註 3","案件發生時間如填寫「不明」者，請接續註明查知該非公務機關知悉個資安維案件之時間。","Where \"unknown\" is entered as the time of occurrence, the time at which the non-government agency was ascertained to have become aware of the security violation case shall be noted in addition."],
+    ["註 4","首次通報時，不需先填寫後續行政措施及處置作業之欄位。","Part B need not be completed at the time of the first notification."],
+    ["註 5","行政調查期限經資通安全長或其授權人員同意延期 3 個月，應即時通報個資會籌備處。","Where the period for the administrative investigation is extended by three months with the consent of the Chief Information Security Officer or a person authorised by the Chief Information Security Officer, the PDPC Preparatory Office shall be notified immediately."]
+  ]
+};
+
+const ANNEX2 = [
+  ["1","公務機關、直轄市、縣（市）政府或警察機關發現或知悉有業者疑似個資安維案件，通知（報）中央目的事業主管機關","A government agency, special municipality government, county (city) government or police agency discovers or becomes aware of a suspected security violation case involving a business operator and notifies (reports to) the central competent authority"],
+  ["Note 1","依據「個人資料保護法非公務機關之中央目的事業主管機關－行業標準分類表」通知（報）業者所屬中央目的事業主管機關","Notification (report) is made to the central competent authority for the operator's industry in accordance with the \"Standard Industrial Classification Table of Central Competent Authorities for Non-Government Agencies under the Personal Data Protection Act\""],
+  ["Note 2","收受通知（報）機關認有管轄疑義者，由原通知（報）機關徵詢個人資料保護委員會籌備處意見認定管轄機關；被認定機關有異議應於 10 日內函報行政院指定","Where the receiving agency considers jurisdiction to be in doubt, the original notifying (reporting) agency shall seek the opinion of the PDPC Preparatory Office to determine the agency having jurisdiction; an agency so determined that objects shall report to the Executive Yuan by official letter within 10 days for designation"],
+  ["2","判斷案件種類：一般個資安維案件／重大矚目個資安維案件","Classify the case: ordinary security violation case / major and high-profile security violation case"],
+  ["3.1","接獲通報、副知或自行知悉時起 72 小時內通報個資會籌備處","Notify the PDPC Preparatory Office within 72 hours of receiving the notification or copy, or of becoming aware of the case"],
+  ["3.2","中央目的事業主管機關辦理行政調查：得派員攜帶執行職務證明文件，進入檢查，並得命相關人員為必要之說明、配合措施或提供相關證明資料","The central competent authority conducts the administrative investigation: it may dispatch personnel carrying documentation evidencing the performance of their duties to enter and inspect, and may order the relevant persons to provide necessary explanations, cooperative measures or supporting materials"],
+  ["4.1","接獲通報、副知或自行知悉時起 24 小時內通報個資會籌備處及數位發展部","Notify the PDPC Preparatory Office and the Ministry of Digital Affairs within 24 hours of receiving the notification or copy, or of becoming aware of the case"],
+  ["4.2","中央目的事業主管機關 3 日內辦理行政調查（權限同 3.2）","The central competent authority commences the administrative investigation within 3 days (same powers as 3.2)"],
+  ["4.3","中央目的事業主管機關 10 日內完成調查報告","The central competent authority completes the investigation report within 10 days"],
+  ["4.4","必要時報請行政院指定之政務委員原則 2 週內召開會議，聽取行政調查辦理情形","Where necessary, request the Minister without Portfolio designated by the Executive Yuan to convene a meeting, in principle within 2 weeks, to receive a briefing on the conduct of the investigation"],
+  ["5","違反個資法判斷","Determination of whether the PDPA has been violated"],
+  ["5.1","行政裁罰（個資法第 47 條、第 48 條第 2 項、第 3 項、第 50 條）","Administrative fine (PDPA Articles 47, 48(2), 48(3) and 50)"],
+  ["5.2.1","限期改正（個資法第 48 條第 1 項、第 50 條）","Order to rectify within a specified period (PDPA Articles 48(1) and 50)"],
+  ["5.2.2","行政裁罰並限期改正","Administrative fine together with an order to rectify within a specified period"],
+  ["5.3","行政裁罰（個資法第 49 條、第 50 條）","Administrative fine (PDPA Articles 49 and 50)"],
+  ["5.4","相關行政處分（個資法第 25 條）","Related administrative dispositions (PDPA Article 25)"],
+  ["6","中央目的事業主管機關辦理行政調查複查，是否通過複查；通過則結案","The central competent authority conducts a re-inspection; if the re-inspection is passed, the case is closed"]
+];
+
+/* ============================================================
+Rendering logic — no need to edit below this line.
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let kw = "";
+
+function mark(t, allowHtml){
+      const base = allowHtml ? String(t) : esc(t);
+      if (!kw) return base;
+      const k = kw.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+      return base.replace(new RegExp("(?![^<]*>)"+k,"gi"), m=>`<mark>${m}</mark>`);
+}
+const hit = t => !kw || String(t).toLowerCase().includes(kw.toLowerCase());
+const para = (s, allowHtml) => String(s).split("\n").map(x => `<p>${mark(x, allowHtml)}</p>`).join("");
+
+function render(){
+      let n = 0;
+
+  /* --- sources --- */
+      const srcs = SOURCES.filter(o => hit(o.t+o.zh+o.meta+o.d));
+      n += srcs.length;
+  $("#srcout").innerHTML = srcs.length ? srcs.map(o => `
+    <div class="src">
+      <span class="t"><a href="${o.url}" target="_blank" rel="noopener">${mark(o.t)}</a>${o.flag?`<span class="flag">${o.flag}</span>`:""}</span>
+      <p class="zh">${mark(o.zh)}</p>
+      <p class="m">${mark(o.meta)}</p>
+      <p class="d">${mark(o.d)}</p>
+    </div>`).join("") : `<div class="nores">No matching instrument.</div>`;
+
+  /* --- terminology --- */
+      let tm = "";
+      TERMS.forEach(g => {
+          const rows = g.rows.filter(([a,b]) => hit((a||"")+" "+(b||"")));
+          n += rows.length;
+          if (!rows.length) return;
+          tm += `<table class="tm" id="${g.id}"><caption>${g.cap}</caption>
+      <thead><tr><th>PDPA, official English translation</th><th>Global CBPR Annex B</th></tr></thead><tbody>` +
+          rows.map(([a,b]) => `<tr>
+        <td${a?"":' class="none"'}>${a ? mark(a, true) : "no counterpart"}</td>
+        <td${b?"":' class="none"'}>${b ? mark(b, true) : "no counterpart"}</td>
+      </tr>`).join("") + `</tbody></table>`;
+  });
+  $("#tmout").innerHTML = tm || `<div class="nores">No matching term.</div>`;
+
+  /* --- directions --- */
+      let d = `<div id="dir-points"></div>`;
+      const pts = DIRECTIONS.filter(o => hit(o.n+o.t+o.zh+o.en));
+      n += pts.length;
+      d = pts.map(o => `
+    <div class="pt">
+      <h3><span class="n">${mark(o.n)}</span>${mark(o.t)}</h3>
+      <div class="bi">
+        <div class="zh"><span class="lbl">Mandarin, authoritative</span>${para(o.zh)}</div>
+        <div class="en"><span class="lbl">English, unofficial</span>${para(o.en)}</div>
+      </div>
+    </div>`).join("");
+
+  /* Annex 1 */
+      const a1a = ANNEX1.partA.filter(([a,b]) => hit(a+b));
+      const a1b = ANNEX1.partB.filter(([a,b]) => hit(a+b));
+      const a1n = ANNEX1.notes.filter(([a,b,c]) => hit(a+b+c));
+      n += a1a.length + a1b.length + a1n.length;
+      if (a1a.length || a1b.length || a1n.length){
+        d += `<div class="pt" id="dir-annex1"><h3><span class="n">Annex 1</span>Supervision and Notification Record Form <span style="font-family:var(--cjk);font-weight:400;color:var(--muted);font-size:13px">附件一、監督通報紀錄表</span></h3>`;
+        if (a1a.length){
+          d += `<table class="tm"><caption>Part A Notification (Note 1) <span style="font-family:var(--cjk);font-weight:400;font-size:12.5px;color:var(--muted)">甲、通報作業</span></caption>
+        <thead><tr><th>Field, Mandarin</th><th>Field, English (unofficial)</th></tr></thead><tbody>` +
+          a1a.map(([a,b]) => `<tr><td><span class="zh" style="font-size:13px">${mark(a)}</span></td><td>${mark(b)}</td></tr>`).join("") + `</tbody></table>`;
+    }
+        if (a1b.length){
+          d += `<table class="tm"><caption>Part B Subsequent Administrative Measures and Disposition (Note 4) <span style="font-family:var(--cjk);font-weight:400;font-size:12.5px;color:var(--muted)">乙、後續行政措施及處置作業</span></caption>
+        <thead><tr><th>Field, Mandarin</th><th>Field, English (unofficial)</th></tr></thead><tbody>` +
+          a1b.map(([a,b]) => `<tr><td><span class="zh" style="font-size:13px">${mark(a)}</span></td><td>${mark(b)}</td></tr>`).join("") + `</tbody></table>`;
+    }
+        if (a1n.length){
+          d += `<table class="tm"><caption>Notes <span style="font-family:var(--cjk);font-weight:400;font-size:12.5px;color:var(--muted)">附註</span></caption>
+        <thead><tr><th>Mandarin</th><th>English (unofficial)</th></tr></thead><tbody>` +
+          a1n.map(([k,a,b]) => `<tr><td><span class="zh" style="font-size:13px"><b>${mark(k)}</b> ${mark(a)}</span></td><td>${mark(b)}</td></tr>`).join("") + `</tbody></table>`;
+    }
+        d += `</div>`;
+  }
+
+  /* Annex 2 */
+      const a2 = ANNEX2.filter(([k,a,b]) => hit(k+a+b));
+      n += a2.length;
+      if (a2.length){
+        d += `<div class="pt" id="dir-annex2"><h3><span class="n">Annex 2</span>Flowchart: administrative investigation of security violation cases <span style="font-family:var(--cjk);font-weight:400;color:var(--muted);font-size:13px">附件二、行政調查流程圖</span></h3>
+      <table class="tm"><thead><tr><th>Node and Mandarin text</th><th>English (unofficial)</th></tr></thead><tbody>` +
+        a2.map(([k,a,b]) => `<tr><td><span class="zh" style="font-size:13px"><b style="font-family:var(--mono);color:var(--seal)">${mark(k)}</b> ${mark(a)}</span></td><td>${mark(b)}</td></tr>`).join("") +
+      `</tbody></table></div>`;
+  }
+
+  $("#dirout").innerHTML = d || `<div class="nores">No matching provision.</div>`;
+
+  /* --- special laws --- */
+  let sp = "";
+  SPECIAL_LAWS.forEach(g => {
+    const rows = g.rows.filter(([a,b,c,e]) => hit(a+" "+b+" "+c+" "+e));
+    n += rows.length;
+    if (!rows.length) return;
+    sp += `<table class="tm" id="${g.id}"><caption>${g.cap}<span style="display:block;font-family:var(--sans);font-weight:400;font-size:12px;color:var(--muted);margin-top:3px">${g.path}</span></caption>
+      <thead><tr><th style="width:38%">Statute and articles</th><th>Effect (editor's summary, not a quotation)</th></tr></thead><tbody>` +
+      rows.map(([a,b,c,e]) => `<tr>
+        <td>${mark(a)}
+            <span class="zh">${mark(b)}</span>
+            <span class="zh" style="font-family:var(--mono);color:var(--seal);font-size:11.5px">${mark(c)}</span></td>
+        <td>${mark(e)}</td>
+      </tr>`).join("") + `</tbody></table>`;
+  });
+  $("#spout").innerHTML = sp || `<div class="nores">No matching statute.</div>`;
+
+  /* --- sector regulations --- */
+  let se = "";
+  SECTOR_REGS.forEach(a => {
+    const rows = a.regs.filter(([z,e]) => hit(a.en+" "+a.zh+" "+z+" "+e));
+    const agHit = hit(a.en+" "+a.zh);
+    if (!rows.length && !agHit) return;
+    n += rows.length || (agHit && !a.regs.length ? 1 : 0);
+    se += `<div class="ag"><h4>${mark(a.en)}<span class="zh">${mark(a.zh)}</span></h4>`;
+    if (!a.regs.length){
+      se += `<p class="noreg">No regulation issued.</p>`;
+    } else {
+      se += `<table class="tm"><thead><tr><th style="width:46%">Mandarin name — copy this to search</th><th>English name, for identification only</th></tr></thead><tbody>` +
+        (rows.length ? rows : a.regs).map(([z,e]) => `<tr>
+          <td><span class="key">${mark(z)}</span></td><td>${mark(e)}</td></tr>`).join("") +
+        `</tbody></table>`;
+    }
+    se += `</div>`;
+  });
+  $("#seout").innerHTML = se || `<div class="nores">No matching authority or regulation.</div>`;
+
+  $("#count").innerHTML = kw
+    ? `<b>${n}</b> matching entries`
+    : `${SOURCES.length} instruments · ${TERMS.reduce((a,g)=>a+g.rows.length,0)} term pairs · ${DIRECTIONS.length} points · ${SPECIAL_LAWS.reduce((a,g)=>a+g.rows.length,0)} special-law entries · ${SECTOR_REGS.reduce((a,g)=>a+g.regs.length,0)} sector regulations`;
+}
+
+$("#q").addEventListener("input", e => { kw = e.target.value.trim(); render(); });
+$("#reset").addEventListener("click", ()=>{ kw = ""; $("#q").value = ""; render(); });
+
+render();
+if (location.hash){
+      const el = document.querySelector(location.hash);
+      if (el) el.scrollIntoView();
+}
+</script>
+</body>
+</html>
