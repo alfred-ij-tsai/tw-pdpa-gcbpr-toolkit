@@ -309,6 +309,8 @@ a.lang{flex:0 0 auto;font-family:var(--sans);font-size:12px;letter-spacing:.06em
 a.lang:hover{border-color:var(--ink);color:var(--ink)}
 @media print{a.lang{display:none}}
 a.eylink{font-size:12.5px;color:#1F3864;margin-left:6px;white-space:nowrap}
+/* v1.4：收合標籤深藍 */
+details.gc summary{color:#1F3864!important;font-weight:600;border-bottom-color:#1F3864!important}
 </style>
 </head>
 <body>
@@ -713,7 +715,7 @@ const BLOCKS = [
     {
         src:"Supervision and Notification Record Form: type of occurrence",
         law:"If any personal data is stolen, disclosed, altered, or otherwise infringed upon due to a violation of the PDPA by a government or non-government agency, the data subject shall be notified via appropriate means after the relevant facts have been clarified.",
-        rules:["(The Enforcement Rules do not further subdivide the forms of infringement.)"],
+        rules:[],
         ey:"Annex 1, field \"type of occurrence\" (tick all that apply): theft, disclosure, alteration, damage, loss, other infringement.",
         evi:"Incident investigation records",
         gcbpr:[["Security Safeguards","32"]],
@@ -755,7 +757,7 @@ const BLOCKS = [
     {
         src:"PDPA Articles 47, 48(2), 48(3) and 50 (fines and orders to rectify)",
         law:"Article 48, Paragraph 2: If a non-government agency violates paragraph 1 of Article 27 or fails to establish a security and maintenance plan for the protection of personal data files or rules on disposing of personal data following a business termination under paragraph 2 of Article 27, the central government authority in charge of the industry concerned or the special municipality, county (city) government concerned shall impose a fine of not less than NT$20,000 but not more than NT$2,000,000 on the non-government agency, and shall order the non-government agency to rectify the violation within a specified period of time. If the non-government agency fails to rectify the violation in time, a fine of not less than NT$150,000 but not more than NT$15,000,000 shall be imposed for each occurrence of the violation.\n\nArticle 48, Paragraph 3: If a non-government agency violates paragraph 1 of Article 27, or fails to establish a security and maintenance plan for the protection of personal data files or rules on disposing of personal data following a business termination under paragraph 2 of Article 27, which is of a serious violation, the central government authority in charge of the industry concerned or the special municipality, county (city) government concerned shall impose a fine not less than NT$150,000 but not more than NT$15,000,000 on the non-government agency to rectify the violation within a specified period of time; if the non-government agency fails to rectify the violation in time, a fine shall be imposed for each occurrence of the violation.\n\nArticle 50: The representative, manager, or any other authorized representative of a non-government agency shall be fined the same amount imposed on the non-government agency for a violation of any of the preceding three articles, unless said person proves that he/she has exercised due care to prevent such violation.",
-        rules:["(The Enforcement Rules contain no separate provision on the penalty procedure.)"],
+        rules:[],
         ey:"Point 9: where a violation of the PDPA is established upon investigation, the central competent authority shall proceed in accordance with Articles 47 through 50 of the PDPA in the light of the specific findings.\nAnnex 1, field \"the competent authority's determination as to whether the PDPA was violated\" (yes / no).\nAnnex 2: once a violation is found, the process branches into an administrative fine, an order to rectify, or both (nodes 5.1, 5.2.1 and 5.2.2).",
         evi:"Records of non-conformities and corrective actions; written statement of position",
         gcbpr:[["Accountability","39","41","43"]],
@@ -765,7 +767,7 @@ const BLOCKS = [
     {
         src:"PDPA Article 25, Paragraph 1 (corrective measures other than fines)",
         law:"In the event that a non-government agency has violated the PDPA, the central government authority in charge of the industry concerned or the special municipality, county (city) government concerned may impose fines on the non-government agency in accordance with the PDPA and may also enforce the following corrective measures: 1. prohibit the collection, processing or use of the personal data; 2. order the erasure of the processed personal data and personal data files; 3. confiscate or order the destruction of the unlawfully collected personal data; and/or 4. disclose to the public the violation of the non-government agency, the name of the non-government agency and its responsible person/representative.",
-        rules:["(The Enforcement Rules contain no separate provision on Article 25 measures.)"],
+        rules:[],
         ey:"Point 9, Paragraph 3: (1) prohibiting the collection, processing or use of personal data; (2) ordering the deletion of the processed personal data file; (3) confiscating or ordering the destruction of personal data collected unlawfully; (4) publishing the violation together with the agency's name and the name of its responsible person.\nAnnex 1, field \"subsequent disposition of the case by the competent authority\".",
         evi:"Data retention and secure disposal policy; records of measures carried out",
         gcbpr:[["Security Safeguards","31","32"]],
@@ -820,7 +822,7 @@ const BLOCKS = [
         src:"PDPA Articles 22 to 26 (scope of the competent authority's powers)",
         law:"Article 22, Paragraph 1: " + L22_1,
         note:"This row covers the supervisory powers in Articles 22 to 26 (inspection, seizure and copying, objections, penalties and publication of inspection findings); Article 22, Paragraph 1 is quoted here.",
-        rules:["(The Enforcement Rules contain no separate provision on inter-agency coordination.)"],
+        rules:[],
         ey:"Point 2: the Executive Yuan convenes the Liaison Meeting on the Implementation of Personal Data Protection by Administrative Agencies, which coordinates the supervisory notification of security violation cases, determines the agency having jurisdiction where a major and high-profile case is disputed, and coordinates inter-ministerial administrative investigations.\nPoint 11: where jurisdiction is in dispute, the PDPC Preparatory Office shall determine the agency having jurisdiction as soon as possible, and may convene an inter-ministerial coordination meeting.",
         evi:"Documented legal and regulatory requirements; records of correspondence with each authority",
         gcbpr:[["Accountability","39","45","50"]],
@@ -836,7 +838,7 @@ const BLOCKS = [
     {
         src:"PDPA Articles 29 to 31, with Article 28, Paragraphs 2 to 6 (damages owed to data subjects)",
         law:"Article 29: Non-government agencies shall be liable for the damages arising from any injury caused by any unlawful collection, processing or use of personal data, or other infringement on the rights of data subjects due to such non-government agency's violation of the PDPA, unless the non-government agency can prove that such injury is not caused by its willful act or negligence. Paragraphs 2 through 6 of the preceding article apply to the damage claims raised in accordance with the preceding paragraph.\n\nArticle 28, Paragraphs 2 to 6 (applied by Article 29, Paragraph 2): If an injury suffered by the victim is a non-pecuniary damage, he/she may request an appropriate amount of monetary compensation; if the injury suffered by the victim is damage to his/her reputation, the victim may request appropriate corrective measures to restore his/her reputation. Under the circumstances identified in the preceding two paragraphs, if it is difficult or impossible for the victim to prove the monetary value of the actual damage, he/she may ask the court to award the compensation in the amount of not less than NT$500 but not more than NT$20,000 per incident, per person based on the severity of the damage. Where the rights of multiple data subjects have been infringed upon due to the same incident, the total amount of compensation awarded to such data subjects shall not exceed NT$200 million. However, if the interests involved in the incident exceed NT$200 million, the compensation shall be up to the value of such interests. If the total amount of damages for the injuries attributable to the same incident exceeds the amount referred to in the preceding paragraph, the compensation payable to each victim shall not be limited to the lower end of damages, i.e. NT$500, per incident as set forth in paragraph 3 of this Article. The right of claim referred to in paragraph 2 above may not be transferred or inherited. However, this does not apply to the circumstances where monetary compensation has been agreed upon in a contract or a claim therefor has been filed with the court.\n\nArticle 30: The right to claim damage compensation will be extinguished if the right-holder does not exercise such right within the two-year period after he/she becomes aware of his/her damage and the identity of the person(s) liable for the compensation, or the five-year period following the occurrence of the damage.\n\nArticle 31: With regard to matters pertaining to damages, aside from the provisions of the PDPA, the State Compensation Law may be applied to a government agency and the Civil Code may be applied to a non-government agency.",
-        rules:["(The Enforcement Rules contain no separate provision on civil liability.)"],
+        rules:[],
         ey:"",
         evi:"Records evidencing the security measures in place before the incident; the incident chronology; the notification sent to data subjects",
         gcbpr:[["Accountability","41","43"]],

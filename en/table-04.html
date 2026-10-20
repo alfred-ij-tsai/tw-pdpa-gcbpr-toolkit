@@ -226,7 +226,7 @@ details.disc>p{margin-top:0!important}
   <p><b>Versions relied on</b> Personal Data Protection Act: official English translation of the provisions in force, amended 31 May 2023. Enforcement Rules: official English translation, amended 2 March 2016.</p>
   <p><b>Special laws</b> This table sets out the PDPA baseline only. Statutes that prevail over the PDPA under the proviso to its Article 1 are not reproduced here; see the non-exhaustive catalogue in 02 Sources and Terminology, Part D, and the index of sector-specific regulations in Part E, and satisfy yourself independently as to which apply to your sector.</p>
   <p><b>Mapping baseline</b> Global CBPR System Program Requirements Enforcement Map for Chinese Taipei (Annex B).</p>
-  <p><b>Decision periods</b> Article 13, Paragraph 1: a request under Article 10 must be granted or refused within fifteen days, extendable once by no more than fifteen days, with written notice of the reason to the requester. Article 13, Paragraph 2: a request under Article 11 must be granted or refused within thirty days, extendable once by no more than thirty days, on the same terms. Periods run from the day after receipt; where the final day falls on a holiday it is postponed under Article 48, Paragraph 4 of the Administrative Procedure Act.</p>
+  <p><b>Decision periods</b> Article 13, Paragraph 1: a request under Article 10 must be granted or refused within fifteen days, extendable once by no more than fifteen days, with written notice of the reason to the requester. Article 13, Paragraph 2: a request under Article 11 must be granted or refused within thirty days, extendable once by no more than thirty days, on the same terms. Periods run from the day after receipt; where the final day is a Sunday, a commemoration day or another rest day, the next day after the rest day is substituted under Article 122 of the Civil Code.</p>
   <p><b>Grounds for refusal</b> The three grounds in the proviso to Article 10 apply only to requests to inquire, review or obtain a copy — Article 3, Subparagraphs 1 and 2. Refusal of a request to supplement, correct, cease or erase must be assessed under the main text and provisos of Article 11, not under Article 10. Every refusal should state its reasons in writing and be retained on file.</p>
   <p><b>Scope</b> This table assumes a non-government agency. The obligations of government agencies fall under Article 18 of the PDPA and are outside its scope.</p>
   <p><b>Disclaimer</b> This table is a compliance reference and does not constitute legal advice. Provisions should be checked against the versions in force in the Laws &amp; Regulations Database (law.moj.gov.tw). Where the English and Mandarin versions differ, the Mandarin version governs. Consult a qualified lawyer on any specific matter.</p>
@@ -433,10 +433,12 @@ const STAGES = [
         id:"copy-01",
         src:"PDPA Article 27, Paragraph 1 (security in producing and delivering a copy)",
         law:L27_1,
-        rules:[R12_2(5) + " (Applied here to the security controls over producing and delivering the copy.)"],
+        rules:[R12_2(5)],
         evi:"Records of processing activities",
-        gcbpr:[["Access and Correction","37","37c","37d"]]
-  },
+        gcbpr:[["Access and Correction","37","37c","37d"]],
+        note:"Enforcement Rules Article 12, Paragraph 2, Subparagraph 5 is applied here to the security controls over producing and delivering the copy.",
+        changes:[["v1.4-EN","Editorial gloss removed from the Enforcement Rules field and moved to the note."]]
+      },
   {
         id:"copy-02",
         src:"Secure transmission (a specific application of PDPA Article 27, Paragraph 1)",
@@ -515,10 +517,12 @@ const STAGES = [
         id:"stop-04",
         src:"PDPA Article 27, Paragraph 1 (technical implementation of a cessation instruction)",
         law:L27_1,
-        rules:[R12_2(5) + " (Applied here to the technical implementation of a cessation instruction and the associated system configuration procedure.)"],
+        rules:[R12_2(5)],
         evi:"Access control policy; records of system configuration changes",
-        gcbpr:[["Security Safeguards","27","30a","30b"]]
-  }
+        gcbpr:[["Security Safeguards","27","30a","30b"]],
+        note:"Enforcement Rules Article 12, Paragraph 2, Subparagraph 5 is applied here to the technical implementation of a cessation instruction and the associated system configuration procedure.",
+        changes:[["v1.4-EN","Editorial gloss removed from the Enforcement Rules field and moved to the note."]]
+      }
 ]},
 
 { no:"VI", name:"Erasure", key:"delete", items:[

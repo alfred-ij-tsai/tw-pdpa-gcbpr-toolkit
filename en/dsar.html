@@ -288,6 +288,8 @@ a.lang{flex:0 0 auto;font-family:var(--sans);font-size:12px;letter-spacing:.06em
   padding:4px 11px;line-height:1.5;white-space:nowrap;align-self:center}
 a.lang:hover{border-color:var(--ink);color:var(--ink)}
 @media print{a.lang{display:none}}
+/* v1.4：收合標籤深藍 */
+details.gc summary{color:#1F3864!important;font-weight:600;border-bottom-color:#1F3864!important}
 </style>
 </head>
 <body>
@@ -587,7 +589,7 @@ const BLOCKS = [
     {
         src:"PDPA Article 27, Paragraph 1 (security in producing and delivering a copy)",
         law:L27_1,
-        rules:[R12_2(5) + " (Applied here to the security controls over producing and delivering the copy.)"],
+        rules:[R12_2(5)],
         evi:"Records of processing activities",
         gcbpr:[["Access and Correction","37","37c","37d"]],
         act:"Check that the copy excludes other people's personal data and any trade secrets. Redact where necessary and record the reason for each redaction.",
@@ -680,7 +682,7 @@ const BLOCKS = [
     {
         src:"PDPA Article 27, Paragraph 1 (technical implementation of a cessation instruction)",
         law:L27_1,
-        rules:[R12_2(5) + " (Applied here to the technical implementation of a cessation instruction and the associated system configuration procedure.)"],
+        rules:[R12_2(5)],
         evi:"Access control policy; records of system configuration changes",
         gcbpr:[["Security Safeguards","27","30a","30b"]],
         act:"Set the suppression flag in each system and confirm that it has taken effect downstream in marketing, customer service and analytics. Retain the configuration change records.",
@@ -868,9 +870,9 @@ function render(){
 
       h += `<div class="stamp">
     <b>Postponement is not accounted for.</b> The dates above are the raw expiry dates obtained by counting days.
-      Where the final day falls on a weekend, a public holiday or another non-working day, it is postponed to the next working day
-      under Article 48, Paragraph 4 of the Administrative Procedure Act. Designated make-up working days may also affect the calculation.
-      Confirm the actual final day against the official working calendar for the year in question.
+      Under Article 122 of the Civil Code, where a declaration of intent or a performance is due on a certain date or within a certain period,
+      and that date or the final day of the period is a Sunday, a commemoration day or another rest day, the next day after the rest day is substituted.
+      Confirm whether a given day is a rest day against the official working calendar for the year in question.
   </div>`;
       h += `</section>`;
 
@@ -1018,7 +1020,7 @@ function render(){
     <p><b>Mapping baseline</b> ${VERSIONS.mapping}.</p>
     <p><b>Scope</b> This draft assumes a non-government agency. Government agencies are subject to Article 18 of the PDPA and to Article 14 of the Freedom of Government Information Act, the Archives Act, Article 46 of the Administrative Procedure Act and other special provisions, which are outside its scope.</p>
     <p><b>Special laws and sector regulations</b> Two layers sit above this draft and are not reproduced in it. First, statutes that prevail over the PDPA under the proviso to its Article 1: the Medical Care Act, for instance, requires a copy of a patient&rsquo;s medical records to be provided without undue delay, setting no fixed period and no ground of refusal, and requires an amended entry to be struck through with a line rather than erased. A non-exhaustive catalogue is in 02 Sources and Terminology, Part D. Second, sector-specific regulations issued under Article 27, Paragraph 2 of the PDPA, which have no English text that can be relied on; they are indexed by authority, non-exhaustively, in Part E. Identify both layers for your own sector and read them alongside this draft.</p>
-    <p><b>Calculating periods</b> All dates are raw expiry dates obtained by counting days. They do not account for postponement where the final day falls on a holiday, nor for the time required for service. Confirm the actual final day under Article 48 of the Administrative Procedure Act against the official working calendar for the year in question.</p>
+    <p><b>Calculating periods</b> All dates are raw expiry dates obtained by counting days. They do not account for postponement where the final day falls on a holiday, nor for the time required for service. Confirm the actual final day under Article 122 of the Civil Code against the official working calendar for the year in question.</p>
     <p><b>Disclaimer</b> This is a working draft for compliance reference and does not constitute legal advice. Provisions should be checked against the versions in force in the Laws &amp; Regulations Database (law.moj.gov.tw). Where the English and Mandarin versions differ, the Mandarin version governs. Consult a qualified lawyer on any specific matter.</p>
     <p>Taiwan PDPA Compliance Toolkit (Global CBPR Mapped), English Edition  / Document 04, Path B Author: I Jung (Alfred) Tsai Licence: CC BY-NC-SA 4.0 · v1.4-EN</p>
   </div>`;
